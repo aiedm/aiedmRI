@@ -12,4 +12,5 @@ public interface IParty {
 	void addPartyRole(PartyRole partyRole);
 	String getPartyType();
 	void setPartyType(String partyType);
+	void setPartyType2(String partyType);
 }
