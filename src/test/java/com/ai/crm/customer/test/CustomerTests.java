@@ -42,8 +42,8 @@ public class CustomerTests{
 	@Transactional
 	public void custmoerShouldNotBeNull() {
 		//assertEquals(1,customerRepository.saveIndividualCustomer(indiCustomer).getId());
-		indiCustomer.getIndividual().setFirstName("IT 长弓");
-		PartyNameChanged partyNameChanged=new PartyNameChanged(this,"IT 长弓","张");
+		indiCustomer.getIndividual().setFirstName("IT zhang");
+		PartyNameChanged partyNameChanged=new PartyNameChanged(this,"IT zhang","zhang");
 		eventPublisher.publishEvent(partyNameChanged);
 		
 		/**

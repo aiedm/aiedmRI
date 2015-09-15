@@ -1,0 +1,50 @@
+{
+	"directSubmitOrder":false,
+	"offerOrders":[
+		{
+			"productOrders":[
+				{
+					"businessInteractionSpecificationId":1,
+					"productSpecificationId":1,
+					"productOrderCharacteristics":[
+						{
+							
+						}
+					],
+					
+				},
+				{
+					"productOrderId":4,
+					"toBeProduct":null,
+					"productOrderState":1,
+					"businessInteractionSpecificationId":0,
+					"productOrderCharacteristics":null
+				}
+			],
+		"toBeOfferInstance":null,
+		"offerOrderState":1,
+		"businessInteractionSpecificationId":0,
+		"oldOfferInstanceId":0,
+		"offerOrderCharacteristics":null
+		},
+		{
+			"offerOrderId":5,
+			"productOrders":[
+				{
+					"productOrderId":6,
+					"toBeProduct":null,
+					"productOrderState":1,
+					"businessInteractionSpecificationId":0,
+					"productOrderCharacteristics":null
+				}
+			],
+			"toBeOfferInstance":null,
+			"offerOrderState":1,
+			"businessInteractionSpecificationId":0,
+			"oldOfferInstanceId":0,
+			"offerOrderCharacteristics":null
+		}
+	],
+	"productOrders":[],
+	"orderState":1
+}

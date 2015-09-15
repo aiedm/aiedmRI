@@ -5,7 +5,7 @@ import java.util.Set;
 
 import com.ai.crm.product.domain.model.interfaces.IOfferInstance;
 import com.ai.crm.product.domain.model.interfaces.IPricePlanInstance;
-import com.ai.crm.product.domain.model.interfaces.IPricePlanInstanceCharacteristic;
+import com.ai.crm.product.domain.model.interfaces.IPricePlanInstanceCharacteristicValue;
 import com.ai.crm.product.domain.model.interfaces.IProduct;
 
 public class PricePlanInstance implements IPricePlanInstance {
@@ -29,13 +29,13 @@ public class PricePlanInstance implements IPricePlanInstance {
 	}
 
 	@Override
-	public Set<IPricePlanInstanceCharacteristic> getCharacteristics() {
+	public Set<IPricePlanInstanceCharacteristicValue> getCharacteristics() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void addCharacteristic(IPricePlanInstanceCharacteristic pricePlanInstanceCharacteristic) {
+	public void addCharacteristic(IPricePlanInstanceCharacteristicValue pricePlanInstanceCharacteristic) {
 		// TODO Auto-generated method stub
 
 	}

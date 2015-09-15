@@ -5,8 +5,8 @@ import java.util.Set;
 public interface IPricePlanInstance {
 	long getPricePlanInstanceId();
 	void setPricePlanInstanceId(long pricePlanInstanceId);
-	Set<IPricePlanInstanceCharacteristic> getCharacteristics();
-	void addCharacteristic(IPricePlanInstanceCharacteristic pricePlanInstanceCharacteristic);
+	Set<IPricePlanInstanceCharacteristicValue> getCharacteristics();
+	void addCharacteristic(IPricePlanInstanceCharacteristicValue pricePlanInstanceCharacteristic);
 	IOfferInstance getOfferInstance();
 	void setOfferInstance(IOfferInstance offerInstance);
 	Set<IProduct> getAssignedTo();

@@ -1,5 +1,6 @@
 package com.ai.crm.customerorder.domain.model.impl;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.stereotype.Component;
@@ -7,15 +8,21 @@ import org.springframework.stereotype.Component;
 import com.ai.crm.common.businessinteraction.domain.model.impl.BusinessInteractionItem;
 import com.ai.crm.customerorder.domain.model.interfaces.ICustomerOrder;
 import com.ai.crm.customerorder.domain.model.interfaces.IOfferOrder;
+import com.ai.crm.customerorder.domain.model.interfaces.IOrderPrice;
 import com.ai.crm.customerorder.domain.model.interfaces.IProductOrder;
-import com.ai.crm.customerorder.domain.model.interfaces.IProductOrderCharacteristic;
+import com.ai.crm.customerorder.domain.model.interfaces.IProductOrderCharacteristicValue;
 import com.ai.crm.customerorder.domain.model.interfaces.IToBeProduct;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 @Component
 public class ProductOrder extends BusinessInteractionItem implements IProductOrder {
+	@JsonIgnore
 	private IOfferOrder offerOrder;
 	private long productOrderId;
+	@JsonIgnore
 	private ICustomerOrder customerOrder;
 	private IToBeProduct toBeProduct;
+	private long productSpecificationId;
+	private Set<IOrderPrice> prices=new HashSet<IOrderPrice>();
 	private ProductOrder() {
 		// TODO Auto-generated constructor stub
 	}
@@ -45,14 +52,14 @@ public class ProductOrder extends BusinessInteractionItem implements IProductOrd
 	}
 
 	@Override
-	public Set<IProductOrderCharacteristic> getProductOrderCharacteristics() {
+	public Set<IProductOrderCharacteristicValue> getProductOrderCharacteristics() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void addProductOrderCharacteristic(
-			IProductOrderCharacteristic productOrderCharacteristic) {
+			IProductOrderCharacteristicValue productOrderCharacteristic) {
 		// TODO Auto-generated method stub
 	}
 
@@ -98,5 +105,31 @@ public class ProductOrder extends BusinessInteractionItem implements IProductOrd
 	@Override
 	public void setToBeProduct(IToBeProduct toBeProduct) {
 		this.toBeProduct=toBeProduct;
+	}
+
+	@Override
+	public long getProductSpecificationId() {
+		// TODO Auto-generated method stub
+		return this.productSpecificationId;
+	}
+
+	@Override
+	public void setProductSpecificationId(long productSpecificationId) {
+		this.productSpecificationId=productSpecificationId;
+	}
+
+	@Override
+	public Set<IOrderPrice> getPrices() {
+		return this.prices;
+	}
+
+	@Override
+	public void addPrice(IOrderPrice orderPrice) {
+		if(null!=orderPrice){
+			prices.add(orderPrice);
+			if (null==orderPrice.getOfferOrder()){
+				orderPrice.setProductOrder(this);
+			}
+		}
 	}
 }

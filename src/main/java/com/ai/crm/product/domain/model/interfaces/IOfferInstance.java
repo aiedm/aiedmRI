@@ -25,8 +25,8 @@ public interface IOfferInstance {
 	void addProduct(IProduct product);
 	Set<IPricePlanInstance> getPricePlanInstances();
 	void addPricePlanInstance(IPricePlanInstance pricePlanInstance);
-	Set<IOfferInstanceCharacteristic> getCharacteristics();
-	void addCharacteristic(IOfferInstanceCharacteristic offerInstanceCharacteristic);
+	Set<IOfferInstanceCharacteristicValue> getCharacteristics();
+	void addCharacteristic(IOfferInstanceCharacteristicValue offerInstanceCharacteristic);
 	long getCustomerId();
 	void setCustomerId(long customerId);
 	long getProductOfferingId();

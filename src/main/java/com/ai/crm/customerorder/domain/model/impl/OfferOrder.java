@@ -9,16 +9,19 @@ import com.ai.crm.common.businessinteraction.domain.model.impl.BusinessInteracti
 import com.ai.crm.common.businessinteraction.domain.model.interfaces.IBusinessInteraction;
 import com.ai.crm.customerorder.domain.model.interfaces.ICustomerOrder;
 import com.ai.crm.customerorder.domain.model.interfaces.IOfferOrder;
-import com.ai.crm.customerorder.domain.model.interfaces.IOfferOrderCharacteristic;
+import com.ai.crm.customerorder.domain.model.interfaces.IOfferOrderCharacteristicValue;
+import com.ai.crm.customerorder.domain.model.interfaces.IOrderPrice;
 import com.ai.crm.customerorder.domain.model.interfaces.IProductOrder;
 import com.ai.crm.customerorder.domain.model.interfaces.IToBeOfferInstance;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 @Component
 public class OfferOrder extends BusinessInteractionItem implements IOfferOrder {
 	private long offerOrderId;
+	@JsonIgnore
 	private ICustomerOrder customerOrder;
 	private Set<IProductOrder> productOrders=new HashSet<IProductOrder>();
 	private IToBeOfferInstance toBeOfferInstance;
-	
+	private Set<IOrderPrice> prices=new HashSet<IOrderPrice>();
 	private OfferOrder() {
 		
 	}
@@ -50,13 +53,13 @@ public class OfferOrder extends BusinessInteractionItem implements IOfferOrder {
 	}
 
 	@Override
-	public Set<IOfferOrderCharacteristic> getOfferOrderCharacteristics() {
+	public Set<IOfferOrderCharacteristicValue> getOfferOrderCharacteristics() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void addOfferOrderCharacteristic(IOfferOrderCharacteristic offerOrderCharacteristic) {
+	public void addOfferOrderCharacteristic(IOfferOrderCharacteristicValue offerOrderCharacteristic) {
 		// TODO Auto-generated method stub
 	}
 
@@ -101,6 +104,22 @@ public class OfferOrder extends BusinessInteractionItem implements IOfferOrder {
 	@Override
 	public void setToBeOfferInstance(IToBeOfferInstance toBeOfferInstance) {
 		this.toBeOfferInstance=toBeOfferInstance;
+	}
+
+	@Override
+	public Set<IOrderPrice> getPrices() {
+		return this.prices;
+	}
+
+	@Override
+	public void addPrice(IOrderPrice orderPrice) {
+		if(null!=orderPrice){
+			prices.add(orderPrice);
+			if (null==orderPrice.getOfferOrder()){
+				orderPrice.setOfferOrder(this);
+			}
+		}
+		
 	}
 
 }

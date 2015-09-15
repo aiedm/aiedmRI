@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.ai.crm.product.domain.model.interfaces.IOfferInstance;
-import com.ai.crm.product.domain.model.interfaces.IOfferInstanceCharacteristic;
+import com.ai.crm.product.domain.model.interfaces.IOfferInstanceCharacteristicValue;
 import com.ai.crm.product.domain.model.interfaces.IPricePlanInstance;
 import com.ai.crm.product.domain.model.interfaces.IProduct;
 
@@ -63,13 +63,13 @@ public class OfferInstance implements IOfferInstance {
 	}
 
 	@Override
-	public Set<IOfferInstanceCharacteristic> getCharacteristics() {
+	public Set<IOfferInstanceCharacteristicValue> getCharacteristics() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void addCharacteristic(IOfferInstanceCharacteristic offerInstanceCharacteristic) {
+	public void addCharacteristic(IOfferInstanceCharacteristicValue offerInstanceCharacteristic) {
 		// TODO Auto-generated method stub
 
 	}

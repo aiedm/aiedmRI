@@ -30,11 +30,15 @@ public interface IProductOrder extends IBusinessInteractionItem{
 	void setOfferOrder(IOfferOrder offerOrder);
 	long getProductOrderId();
 	void setProductOrderId(long productOrderId);
-	Set<IProductOrderCharacteristic> getProductOrderCharacteristics();
-	void addProductOrderCharacteristic(IProductOrderCharacteristic productOrderCharacteristic);
+	Set<IProductOrderCharacteristicValue> getProductOrderCharacteristics();
+	void addProductOrderCharacteristic(IProductOrderCharacteristicValue productOrderCharacteristic);
 	long getBusinessInteractionSpecificationId();
 	int getProductOrderState();
 	void setProductOrderState(int productOrderState);	
 	IToBeProduct getToBeProduct();
 	void setToBeProduct(IToBeProduct toBeProduct);
+	long getProductSpecificationId();
+	void setProductSpecificationId(long productSpecificationId);
+	Set<IOrderPrice> getPrices();
+	void addPrice(IOrderPrice orderPrice);	
 }

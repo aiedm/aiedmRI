@@ -29,12 +29,14 @@ public interface IOfferOrder extends IBusinessInteractionItem{
 	void setOfferOrderId(long offerOrderId);
 	Set<IProductOrder> getProductOrders();
 	void addProductOrder(IProductOrder productOrder);
-	Set<IOfferOrderCharacteristic> getOfferOrderCharacteristics();
-	void addOfferOrderCharacteristic(IOfferOrderCharacteristic offerOrderCharacteristic);
+	Set<IOfferOrderCharacteristicValue> getOfferOrderCharacteristics();
+	void addOfferOrderCharacteristic(IOfferOrderCharacteristicValue offerOrderCharacteristic);
 	long getBusinessInteractionSpecificationId();
 	long getOldOfferInstanceId();
 	int getOfferOrderState();
 	void setOfferOrderState(int offerOrderState);	
 	IToBeOfferInstance getToBeOfferInstance();
 	void setToBeOfferInstance(IToBeOfferInstance toBeOfferInstance);
+	Set<IOrderPrice> getPrices();
+	void addPrice(IOrderPrice orderPrice);
 }
