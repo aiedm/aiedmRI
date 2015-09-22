@@ -49,6 +49,9 @@ public class CreateCustomerOrder implements ICreateCustomerOrder {
 			eventPublisher.publishEvent(event);
 		}
 		for (IProductOrder productOrder:productOrders) {
+			if(null==productOrder.getOfferOrder()){
+				productOrder.setOfferOrder(offerOrder);
+			}
 			CreateNewProductOrderRequested event=new CreateNewProductOrderRequested(this);
 			event.setProductOrder(productOrder);
 			eventPublisher.publishEvent(event);
