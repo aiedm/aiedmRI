@@ -6,6 +6,8 @@ import java.io.File;
 
 import javax.transaction.Transactional;
 
+import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +21,9 @@ import com.ai.crm.common.characteristic.domain.model.impl.CharacteristicValue;
 import com.ai.crm.common.characteristic.domain.model.interfaces.ICharacteristic;
 import com.ai.crm.common.characteristic.domain.model.interfaces.ICharacteristicValue;
 import com.ai.crm.config.DevelopmentProfileConfig;
+import com.ai.crm.customerorder.application.service.api.web.OrderDeserializer;
 import com.ai.crm.customerorder.domain.event.CreateOrderRequested;
+import com.ai.crm.customerorder.domain.model.impl.CustomerOrder;
 import com.ai.crm.customerorder.domain.model.impl.OfferOrder;
 import com.ai.crm.customerorder.domain.model.impl.ProductOrder;
 import com.ai.crm.customerorder.domain.model.interfaces.ICustomerOrder;
@@ -29,10 +33,13 @@ import com.ai.crm.customerorder.domain.model.interfaces.IOrderPriceCharacteristi
 import com.ai.crm.customerorder.domain.model.interfaces.IProductOrder;
 import com.ai.crm.customerorder.domain.model.interfaces.IProductOrderCharacteristicValue;
 import com.ai.flyingshuttle.base.service.interfaces.IEventPublisher;
+import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectReader;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes=DevelopmentProfileConfig.class)
+@ContextConfiguration(locations={"classpath:spring/root-context.xml","classpath:spring/appServlet/servlet-context.xml"})
 @WebAppConfiguration
 @ActiveProfiles("dev")
 public class CustomerOrderTests {
@@ -55,8 +62,23 @@ public class CustomerOrderTests {
 	@Autowired
 	private IEventPublisher eventPublisher;
 	
+	
+	private ObjectMapper mapper = new ObjectMapper();
+	private OrderDeserializer orderDeserializer;
+	@Before
+	public void prepare(){
+		orderDeserializer=new OrderDeserializer();
+		orderDeserializer.registerOrderItem("ICustomerOrder", CustomerOrder.class);
+		orderDeserializer.registerOrderItem("IOfferOrder", OfferOrder.class);
+		orderDeserializer.registerOrderItem("IProductOrder", ProductOrder.class);
+		SimpleModule orderModule = new SimpleModule("OrderModule");
+		orderModule.addDeserializer(ICustomerOrder.class, orderDeserializer);
+		mapper.registerModule(orderModule);
+	}
+	
 	@Test
 	@Transactional
+	//@Ignore
 	public void createCustomerOrder() throws Exception{
 		productOrder.setProductOrderId(3);
 		productOrder.setProductOrderState(IProductOrder.ProductOrderState.INITIATED.getValue());
@@ -92,25 +114,28 @@ public class CustomerOrderTests {
 		customerOrder.setOrderState(ICustomerOrder.CustomerOrderState.INITIATED.getValue());
 		customerOrder.setCustomerOrderCode("201509080001");
 		customerOrder.addOfferOrder(offerOrder);
-		offerOrder.addProductOrder(productOrder2);
 		IOfferOrder offerOrder2=new OfferOrder(customerOrder);
 		offerOrder2.setOfferOrderId(5);
 		offerOrder2.setOfferOrderState(IOfferOrder.OfferOrderState.INITIATED.getValue());
-		IProductOrder productOrder3=new ProductOrder(offerOrder);
+		IProductOrder productOrder3=new ProductOrder(offerOrder2);
 		productOrder3.setProductOrderId(6);
 		productOrder3.setProductOrderState(IProductOrder.ProductOrderState.INITIATED.getValue());
-		offerOrder2.addProductOrder(productOrder3);
 		customerOrder.addOfferOrder(offerOrder2);
 		CreateOrderRequested event=new CreateOrderRequested(this);
 		event.setCustomerOrder(customerOrder);
 		eventPublisher.publishEvent(event);
 		assertEquals(IProductOrder.ProductOrderState.CREATED.getValue(),productOrder.getProductOrderState());
-		assertEquals(IProductOrder.ProductOrderState.CREATED.getValue(),productOrder2.getProductOrderState());
-		
-		ObjectMapper mapper = new ObjectMapper();
+		assertEquals(IProductOrder.ProductOrderState.CREATED.getValue(),productOrder2.getProductOrderState());		
 		String jsonString=mapper.writeValueAsString(customerOrder);
-		mapper.writeValue(new File("D:\\workspace\\springTest\\aiedmRI\\src\\test\\resource\\order.json"), customerOrder);
+		mapper.writeValue(new File("D:\\workspace\\springTest\\aiedmRI\\src\\test\\resource\\order.json"), (ICustomerOrder)customerOrder);
 		System.out.println(jsonString);
+	}
+	
+	@Test
+	@Ignore
+	public void getCustomerFromJson() throws Exception{
+		ICustomerOrder object=mapper.readValue(new File("D:\\workspace\\springTest\\aiedmRI\\src\\test\\resource\\order.json"), ICustomerOrder.class);
+		System.out.println(object.getCustomerOrderCode());
 	}
 	
 }

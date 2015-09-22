@@ -6,14 +6,15 @@ import java.util.Set;
 import org.springframework.stereotype.Component;
 
 import com.ai.crm.common.businessinteraction.domain.model.impl.BusinessInteractionItem;
-import com.ai.crm.common.businessinteraction.domain.model.interfaces.IBusinessInteraction;
 import com.ai.crm.customerorder.domain.model.interfaces.ICustomerOrder;
 import com.ai.crm.customerorder.domain.model.interfaces.IOfferOrder;
 import com.ai.crm.customerorder.domain.model.interfaces.IOfferOrderCharacteristicValue;
 import com.ai.crm.customerorder.domain.model.interfaces.IOrderPrice;
 import com.ai.crm.customerorder.domain.model.interfaces.IProductOrder;
 import com.ai.crm.customerorder.domain.model.interfaces.IToBeOfferInstance;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Component
 public class OfferOrder extends BusinessInteractionItem implements IOfferOrder {
 	private long offerOrderId;
@@ -22,13 +23,14 @@ public class OfferOrder extends BusinessInteractionItem implements IOfferOrder {
 	private Set<IProductOrder> productOrders=new HashSet<IProductOrder>();
 	private IToBeOfferInstance toBeOfferInstance;
 	private Set<IOrderPrice> prices=new HashSet<IOrderPrice>();
-	private OfferOrder() {
+	protected OfferOrder() {
 		
 	}
 	
 	public OfferOrder(ICustomerOrder customerOrder) {
 		super(customerOrder);
 		this.setCustomerOrder(customerOrder);
+		customerOrder.addOfferOrder(this);
 	}	
 
 	@Override
@@ -65,7 +67,7 @@ public class OfferOrder extends BusinessInteractionItem implements IOfferOrder {
 
 	@Override
 	public long getBusinessInteractionSpecificationId() {
-		// TODO Auto-generated method stub
+		//TODO
 		return 0;
 	}
 

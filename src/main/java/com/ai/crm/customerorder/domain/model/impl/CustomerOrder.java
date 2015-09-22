@@ -9,6 +9,8 @@ import com.ai.crm.common.businessinteraction.domain.model.impl.BusinessInteracti
 import com.ai.crm.customerorder.domain.model.interfaces.ICustomerOrder;
 import com.ai.crm.customerorder.domain.model.interfaces.IOfferOrder;
 import com.ai.crm.customerorder.domain.model.interfaces.IProductOrder;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 @Component
 public class CustomerOrder extends BusinessInteraction implements ICustomerOrder {
 	private long customerOrderId;
@@ -50,15 +52,20 @@ public class CustomerOrder extends BusinessInteraction implements ICustomerOrder
 	public void addOfferOrder(IOfferOrder offerOrder) {
 		if (null!=offerOrder){
 			offerOrders.add(offerOrder);
-			offerOrder.setCustomerOrder(this);
+			if(null==offerOrder.getCustomerOrder()){
+				offerOrder.setCustomerOrder(this);
+			}			
 		}
 	}
 
 	@Override
-	public void addProductOffer(IProductOrder productOrder) {
+	public void addProductOrder(IProductOrder productOrder) {
 		if (null!=productOrder){
 			productOrders.add(productOrder);
-			productOrder.setCustomerOrder(this);
+			if(null==productOrder.getCustomerOrder()){
+				productOrder.setCustomerOrder(this);
+			}
+			
 		}
 	}
 

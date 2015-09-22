@@ -17,12 +17,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class ProductOrder extends BusinessInteractionItem implements IProductOrder {
 	@JsonIgnore
 	private IOfferOrder offerOrder;
+	
 	private long productOrderId;
+	
 	@JsonIgnore
 	private ICustomerOrder customerOrder;
+	
 	private IToBeProduct toBeProduct;
 	private long productSpecificationId;
 	private Set<IOrderPrice> prices=new HashSet<IOrderPrice>();
+	private Set<IProductOrderCharacteristicValue> characteristicValues=new HashSet<IProductOrderCharacteristicValue>();
 	private ProductOrder() {
 		// TODO Auto-generated constructor stub
 	}
@@ -30,10 +34,12 @@ public class ProductOrder extends BusinessInteractionItem implements IProductOrd
 	public ProductOrder(ICustomerOrder customerOrder) {
 		super(customerOrder);
 		this.setCustomerOrder(customerOrder);
+		customerOrder.addProductOrder(this);
 	}	
 	
 	public ProductOrder(IOfferOrder offerOrder) {
 		this.setOfferOrder(offerOrder);
+		offerOrder.addProductOrder(this);
 	}	
 
 	@Override
@@ -53,19 +59,22 @@ public class ProductOrder extends BusinessInteractionItem implements IProductOrd
 
 	@Override
 	public Set<IProductOrderCharacteristicValue> getProductOrderCharacteristics() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.characteristicValues;
 	}
 
 	@Override
-	public void addProductOrderCharacteristic(
-			IProductOrderCharacteristicValue productOrderCharacteristic) {
-		// TODO Auto-generated method stub
+	public void addProductOrderCharacteristic(IProductOrderCharacteristicValue productOrderCharacteristic) {
+		if (null!=productOrderCharacteristic){
+			characteristicValues.add(productOrderCharacteristic);
+			if (null==productOrderCharacteristic.getProductOrder()){
+				productOrderCharacteristic.setProductOrder(this);
+			}
+		}
 	}
 
 	@Override
 	public long getBusinessInteractionSpecificationId() {
-		// TODO Auto-generated method stub
+		//TODO
 		return 0;
 	}
 
@@ -109,7 +118,6 @@ public class ProductOrder extends BusinessInteractionItem implements IProductOrd
 
 	@Override
 	public long getProductSpecificationId() {
-		// TODO Auto-generated method stub
 		return this.productSpecificationId;
 	}
 

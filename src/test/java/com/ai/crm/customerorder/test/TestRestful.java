@@ -8,36 +8,76 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
+import java.io.File;
+import java.io.FileInputStream;
+
+import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.context.WebApplicationContext;
 
-import com.ai.crm.config.RootConfig;
-import com.ai.crm.config.WebConfig;
-import com.ai.crm.customerorder.application.service.api.JsonRequestOrderTranslater;
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"/spring/root-context.xml","/spring/appServlet/servlet-context.xml"}) 
+@ContextConfiguration(locations={"classpath:spring/root-context.xml","classpath:spring/appServlet/servlet-context.xml"})
 @WebAppConfiguration
-public class TestRestful {
+public class TestRestful {	
+	@Autowired
+    private WebApplicationContext webApplicationContext;
+	
+	String order="";
+	MockMvc mockMvc = null;
+	
+	@Before
+	public void prepare() throws Exception{
+		File file = new File("D:\\workspace\\springTest\\aiedmRI\\src\\test\\resource\\order.json");
+		FileInputStream in=new FileInputStream(file);
+		int size=in.available();
+        byte[] buffer=new byte[size];
+        in.read(buffer);
+        in.close();
+        order=new String(buffer);
+		mockMvc = webAppContextSetup(webApplicationContext).build();        
+	}
 
 	@Test
+	@Ignore
 	public void testGetJsonFromOrder() throws Exception{
-		JsonRequestOrderTranslater controller=new JsonRequestOrderTranslater(); 
-		 MockMvc mockMvc = standaloneSetup(controller).build();
-		 mockMvc.perform(get("/order")
-				 .accept(MediaType.APPLICATION_JSON))
+		 mockMvc.perform(
+				 get("/order/queryOrder")
+				 .accept(MediaType.APPLICATION_JSON)
+				 )
 				 .andExpect(status().isOk())
 				 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-				 //.andDo(print())
 				 .andExpect(jsonPath("$.customerOrderCode").value("20120012"))
 				 ;			
 	}
+	
+
+	@Test
+	//@Ignore
+	public void testPutJsonOrder() throws Exception{
+		mockMvc.perform(
+				 post("/order/newOrder")
+				 .content(order.getBytes())
+				 .contentType(MediaType.APPLICATION_JSON)
+				 .accept(MediaType.APPLICATION_JSON)
+				 )
+				 .andExpect(status().isOk())
+				 //.andExpect(content().contentType(MediaType.APPLICATION_JSON))
+				 .andExpect(jsonPath("$.customerOrderCode").value("20150917"))
+				 ;			
+	}	
+
 
 }

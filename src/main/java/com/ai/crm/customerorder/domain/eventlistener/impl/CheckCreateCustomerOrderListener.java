@@ -22,19 +22,19 @@ public class CheckCreateCustomerOrderListener implements ICheckCreateCustomerOrd
 	private ICheckCreateCustomerOrder checkCreateCustomerOrder;
 
 	@EventListener
-	public void onCreateOrderRequestedEvent(CreateOrderRequested event) {
+	public void onCreateOrderRequestedEvent(CreateOrderRequested event)  throws Exception{
 		checkCreateCustomerOrder.checkCreateNewOrderCustomerAvalibity((ICustomerOrder)event.getCustomerOrder());
 		
 	}
 
 	@EventListener
-	public void onCreateNewOfferOrderRequestedEvent(CreateNewOfferOrderRequested event) {
+	public void onCreateNewOfferOrderRequestedEvent(CreateNewOfferOrderRequested event)  throws Exception{
 		checkCreateCustomerOrder.checkCreateNewOfferOrderAvalibity((IOfferOrder)event.getOfferOrder());
 
 	}
 
 	@EventListener
-	public void onCreateNewProductOrderRequestedEvent(CreateNewProductOrderRequested event) {
+	public void onCreateNewProductOrderRequestedEvent(CreateNewProductOrderRequested event)  throws Exception{
 		// TODO Auto-generated method stub
 		checkCreateCustomerOrder.checkCreateNewProductOrderAvalibity((IProductOrder)event.getProductOrder());
 	}

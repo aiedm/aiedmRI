@@ -10,6 +10,7 @@ import com.ai.crm.customerorder.domain.model.interfaces.IOrderPrice;
 import com.ai.crm.customerorder.domain.model.interfaces.IOrderPriceCharacteristicValue;
 import com.ai.crm.customerorder.domain.model.interfaces.IProductOrder;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Component
 public class OrderPrice implements IOrderPrice {
 	private long pricePlanId;

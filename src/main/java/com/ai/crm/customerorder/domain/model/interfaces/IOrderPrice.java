@@ -2,6 +2,17 @@ package com.ai.crm.customerorder.domain.model.interfaces;
 
 import java.util.Set;
 
+import com.ai.crm.customerorder.domain.model.impl.OrderPrice;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+@JsonTypeInfo(
+	    use = JsonTypeInfo.Id.NAME,
+	    include = JsonTypeInfo.As.PROPERTY,
+	    property = "type")
+	@JsonSubTypes({
+	    @Type(value = OrderPrice.class, name = "PricetOrder")
+	    })
 public interface IOrderPrice {
 	enum PriceState {
 		UNPAID(0),

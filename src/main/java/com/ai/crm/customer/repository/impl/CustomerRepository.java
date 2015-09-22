@@ -16,6 +16,12 @@ import com.ai.crm.customer.repository.interfaces.ICustomerRepository;
 public class CustomerRepository implements ICustomerRepository {
 	//@Autowired
 	SessionFactory sessionFactory;
+	
+	public CustomerRepository() {
+		
+	}
+
+	
 	public CustomerRepository(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}

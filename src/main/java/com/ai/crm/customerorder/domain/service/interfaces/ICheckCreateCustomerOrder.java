@@ -6,7 +6,7 @@ import com.ai.crm.customerorder.domain.model.interfaces.IProductOrder;
 import com.ai.flyingshuttle.base.service.impl.CheckResult;
 
 public interface ICheckCreateCustomerOrder {
-	CheckResult checkCreateNewOrderCustomerAvalibity(ICustomerOrder customerOrder);
-	CheckResult checkCreateNewOfferOrderAvalibity(IOfferOrder offerOrder);
-	CheckResult checkCreateNewProductOrderAvalibity(IProductOrder productOrder);
+	CheckResult checkCreateNewOrderCustomerAvalibity(ICustomerOrder customerOrder) throws Exception;
+	CheckResult checkCreateNewOfferOrderAvalibity(IOfferOrder offerOrder) throws Exception;
+	CheckResult checkCreateNewProductOrderAvalibity(IProductOrder productOrder) throws Exception;
 }

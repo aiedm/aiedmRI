@@ -14,6 +14,10 @@ import com.ai.crm.common.party.repository.interfaces.IPartyRepository;
 public class PartyRepository implements IPartyRepository {
 	//@Autowired
 	SessionFactory sessionFactory;
+	public PartyRepository(){
+		
+	}
+	
 	public PartyRepository(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}

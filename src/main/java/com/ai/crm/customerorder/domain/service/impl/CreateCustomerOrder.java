@@ -25,22 +25,27 @@ public class CreateCustomerOrder implements ICreateCustomerOrder {
 	}
 	@Autowired
 	private IEventPublisher eventPublisher;
-	public void createCustomerOrder(ICustomerOrder customerOrder) {
+	public void createCustomerOrder(ICustomerOrder customerOrder)  throws Exception{
 		customerOrder.setOrderState(ICustomerOrder.CustomerOrderState.CREATED.getValue());
 		CustomerOrderCreated event=new CustomerOrderCreated(this);
 		event.setCustomerOrder(customerOrder);
 		eventPublisher.publishEvent(event);
 	}
 
-	public void createNewOfferOrder(IOfferOrder offerOrder) {
+	public void createNewOfferOrder(IOfferOrder offerOrder)  throws Exception{
 		offerOrder.setOfferOrderState(IOfferOrder.OfferOrderState.CREATED.getValue());
 		NewOfferOrderCreated event=new NewOfferOrderCreated(this);
 		event.setOfferOrder(offerOrder);
 		eventPublisher.publishEvent(event);
 	}
 	
-	public void startCreateProductOrdersOfOfferOrder(IOfferOrder offerOrder){
+	public void startCreateProductOrdersOfOfferOrder(IOfferOrder offerOrder)  throws Exception{
 		Set<IProductOrder> productOrders=offerOrder.getProductOrders();
+		if (productOrders.size()==0){
+			CreateOfferOrderFinished event=new CreateOfferOrderFinished(this);
+			event.setOfferOrder(offerOrder);
+			eventPublisher.publishEvent(event);
+		}
 		for (IProductOrder productOrder:productOrders) {
 			CreateNewProductOrderRequested event=new CreateNewProductOrderRequested(this);
 			event.setProductOrder(productOrder);
@@ -48,42 +53,42 @@ public class CreateCustomerOrder implements ICreateCustomerOrder {
 		}
 	}
 
-	public void createNewProductOrder(IProductOrder productOrder) {
+	public void createNewProductOrder(IProductOrder productOrder)  throws Exception{
 		productOrder.setProductOrderState(IProductOrder.ProductOrderState.CREATED.getValue());
 		NewProductOrderCreated event=new NewProductOrderCreated(this);
 		event.setProductOrder(productOrder);
 		eventPublisher.publishEvent(event);
 	}
 	
-	public void distributeOrderLineCreate(ICustomerOrder customerOrder){
+	public void distributeOrderLineCreate(ICustomerOrder customerOrder)  throws Exception{
 		//OfferOrderLine
 		Set<IOfferOrder> offerOrders=customerOrder.getOfferOrders();
 		for (IOfferOrder offerOrder:offerOrders) {
 			long biSpecId=offerOrder.getBusinessInteractionSpecificationId();
 			//TODO replace with real newConnectionID
-			if(biSpecId==0){
+			//if(biSpecId==0){
 				CreateNewOfferOrderRequested event=new CreateNewOfferOrderRequested(this);
 				event.setOfferOrder(offerOrder);
 				eventPublisher.publishEvent(event);
-			}else if (biSpecId==11){
+			//}else if (biSpecId==11){
 				
-			}
+			//}
 		}
 		Set<IProductOrder> productOrders=customerOrder.getProductOrders();
 		for (IProductOrder productOrder:productOrders) {
 			long biSpecId=productOrder.getBusinessInteractionSpecificationId();
 			//TODO replace with real newConnectionID
-			if(biSpecId==0){
+			//if(biSpecId==0){
 				CreateNewProductOrderRequested event=new CreateNewProductOrderRequested(this);
 				event.setProductOrder(productOrder);
 				eventPublisher.publishEvent(event);
-			}else if (biSpecId==11){
+			//}else if (biSpecId==11){
 				
-			}
+			//}
 		}		
 	}
 	
-	public boolean isCustomerOrderCreateFinishedOfLastOfferOrder(IOfferOrder offerOrder){
+	public boolean isCustomerOrderCreateFinishedOfLastOfferOrder(IOfferOrder offerOrder)  throws Exception{
 		boolean isCustomerOrderCreateFinished=true;
 		//if this offerOrder is the Last OrderLine of Finished
 		ICustomerOrder customerOrder=offerOrder.getCustomerOrder();
@@ -112,7 +117,7 @@ public class CreateCustomerOrder implements ICreateCustomerOrder {
 		return isCustomerOrderCreateFinished;
 	}
 	
-	public boolean isCustomerOrderCreateFinishedOfLastProductOrder(IProductOrder productOrder){
+	public boolean isCustomerOrderCreateFinishedOfLastProductOrder(IProductOrder productOrder)  throws Exception{
 		boolean isCustomerOrderCreateFinished=true;
 		//if this productOrder is the Last OrderLine of Finished
 		ICustomerOrder customerOrder=productOrder.getCustomerOrder();
@@ -141,7 +146,7 @@ public class CreateCustomerOrder implements ICreateCustomerOrder {
 		return isCustomerOrderCreateFinished;
 	}
 	
-	public boolean isOfferOrderCreateFinishedOfLastProductOrder(IProductOrder productOrder){
+	public boolean isOfferOrderCreateFinishedOfLastProductOrder(IProductOrder productOrder)  throws Exception{
 		boolean isOfferOrderCreateFinished=true;
 		//if this productOrder is the Last OrderLine of Finished
 		Set<IProductOrder> productOrders=productOrder.getOfferOrder().getProductOrders();
@@ -160,7 +165,7 @@ public class CreateCustomerOrder implements ICreateCustomerOrder {
 		return isOfferOrderCreateFinished;
 	}	
 	
-	public boolean isSubmitOrder(ICustomerOrder customerOrder){
+	public boolean isSubmitOrder(ICustomerOrder customerOrder)  throws Exception{
 		boolean isSubmitOrder=true;
 		if (customerOrder.isDirectSubmitOrder()){
 			SubmitOrderRequested event=new SubmitOrderRequested(this);

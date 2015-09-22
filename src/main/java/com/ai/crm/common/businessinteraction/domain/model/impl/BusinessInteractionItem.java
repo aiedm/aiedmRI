@@ -10,7 +10,7 @@ public abstract class BusinessInteractionItem implements IBusinessInteractionIte
 	private int biiState;
 	@JsonIgnore
 	private IBusinessInteraction businessInteraction;
-
+	
 	public BusinessInteractionItem() {
 		// TODO Auto-generated constructor stub
 	}

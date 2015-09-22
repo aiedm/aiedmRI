@@ -26,7 +26,7 @@ public class CheckCreateCustomerOrder implements ICheckCreateCustomerOrder {
 	@Autowired
 	private IEventPublisher eventPublisher;
 	
-	public CheckResult checkCreateNewOrderCustomerAvalibity(ICustomerOrder customerOrder) {
+	public CheckResult checkCreateNewOrderCustomerAvalibity(ICustomerOrder customerOrder)  throws Exception{
 		CheckResult checkResult=new CheckResult();
 		if (checkResult.isError()){
 			CreateOrderCustomerAvalibityCheckFailRejected event=new CreateOrderCustomerAvalibityCheckFailRejected(this);
@@ -44,7 +44,7 @@ public class CheckCreateCustomerOrder implements ICheckCreateCustomerOrder {
 		return checkResult;
 	}
 
-	public CheckResult checkCreateNewOfferOrderAvalibity(IOfferOrder offerOrder) {
+	public CheckResult checkCreateNewOfferOrderAvalibity(IOfferOrder offerOrder)  throws Exception{
 		CheckResult checkResult=new CheckResult();
 		if (checkResult.isError()){
 			CreateNewOfferOrderCheckFailRejected event=new CreateNewOfferOrderCheckFailRejected(this);
@@ -62,7 +62,7 @@ public class CheckCreateCustomerOrder implements ICheckCreateCustomerOrder {
 		return checkResult;
 	}
 
-	public CheckResult checkCreateNewProductOrderAvalibity(IProductOrder productOrder) {
+	public CheckResult checkCreateNewProductOrderAvalibity(IProductOrder productOrder)  throws Exception{
 		CheckResult checkResult=new CheckResult();
 		if (checkResult.isError()){
 			CreateNewProductOrderCheckFailRejected event=new CreateNewProductOrderCheckFailRejected(this);

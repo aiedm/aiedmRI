@@ -6,7 +6,7 @@ public class BaseEvent extends ApplicationEvent {
 
 	public BaseEvent(Object source) {
 		super(source);
-		System.out.println("EVENT triggered:"+this+",triggered by:"+this);
+		System.out.println("EVENT triggered:"+this);
 	}
 
 }

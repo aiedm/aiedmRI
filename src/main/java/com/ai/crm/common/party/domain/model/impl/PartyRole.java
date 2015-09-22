@@ -13,11 +13,13 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.ai.crm.common.party.domain.model.interfaces.IParty;
 import com.ai.crm.common.party.domain.model.interfaces.IPartyRole;
 @Entity
+@Table(name="CB_PARTY_ROLE")
 @Inheritance (strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="partyRoleType",discriminatorType=DiscriminatorType.STRING)
 public abstract class PartyRole implements IPartyRole {
@@ -47,7 +49,7 @@ public abstract class PartyRole implements IPartyRole {
 	}
 	
 	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
-    @JoinColumn(name="PARTY_ID")//加入一列作为外键
+    @JoinColumn(name="PARTY_ID")
 	private Party party;	
 	
 	public PartyRole(IParty party){

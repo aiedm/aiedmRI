@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class ProductOrderCharacteristicValue implements IProductOrderCharacteristicValue {
 	@JsonIgnore
 	private IProductOrder productOrder;
+	
 	private ICharacteristicValue value;
 	public ProductOrderCharacteristicValue() {
 		// TODO Auto-generated constructor stub

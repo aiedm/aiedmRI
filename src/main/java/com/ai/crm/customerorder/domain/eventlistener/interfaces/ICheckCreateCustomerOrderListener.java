@@ -5,7 +5,7 @@ import com.ai.crm.customerorder.domain.event.CreateNewProductOrderRequested;
 import com.ai.crm.customerorder.domain.event.CreateOrderRequested;
 
 public interface ICheckCreateCustomerOrderListener {
-	void onCreateOrderRequestedEvent(CreateOrderRequested event);
-	void onCreateNewOfferOrderRequestedEvent(CreateNewOfferOrderRequested event);
-	void onCreateNewProductOrderRequestedEvent(CreateNewProductOrderRequested event);
+	void onCreateOrderRequestedEvent(CreateOrderRequested event) throws Exception;
+	void onCreateNewOfferOrderRequestedEvent(CreateNewOfferOrderRequested event) throws Exception;
+	void onCreateNewProductOrderRequestedEvent(CreateNewProductOrderRequested event) throws Exception;
 }

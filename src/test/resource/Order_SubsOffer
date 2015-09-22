@@ -2,6 +2,24 @@
 	"directSubmitOrder":false,
 	"offerOrders":[
 		{
+			"prices":[
+				{
+					"pricePlanId":1,
+					"priceValue":10000,
+					"payState":0,
+					"discountReason":null,
+					"priceCharacterValues":
+					[
+						{
+							"characteristicValue":
+							{
+									"id":1001,
+									"value":"50%"
+							}
+						}
+					]
+				}
+			]		
 			"productOrders":[
 				{
 					"businessInteractionSpecificationId":1,

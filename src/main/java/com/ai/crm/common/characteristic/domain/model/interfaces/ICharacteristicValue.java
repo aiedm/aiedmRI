@@ -2,6 +2,17 @@ package com.ai.crm.common.characteristic.domain.model.interfaces;
 
 import org.springframework.stereotype.Component;
 
+import com.ai.crm.common.characteristic.domain.model.impl.CharacteristicValue;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
+@JsonTypeInfo(
+	    use = JsonTypeInfo.Id.NAME,
+	    include = JsonTypeInfo.As.PROPERTY,
+	    property = "type")
+@JsonSubTypes({
+    @Type(value = CharacteristicValue.class, name = "CharacteristicValue"),
+})
 @Component
 public interface ICharacteristicValue {
 	ICharacteristic getCharacteristic();

@@ -10,12 +10,12 @@ import com.ai.crm.customerorder.domain.event.NewOfferOrderCreated;
 import com.ai.crm.customerorder.domain.event.NewProductOrderCreated;
 
 public interface ICreateCustomerOrderListener {
-	void onCreateOrderCustomerAvalibityCheckPassedEvent(CreateOrderCustomerAvalibityCheckPassed event);
-	void onCreateNewOfferOrderCheckPassedEvent(CreateNewOfferOrderCheckPassed event);
-	void onCreateNewProductOrderCheckPassedEvent(CreateNewProductOrderCheckPassed event);
-	void onCustomerOrderCreatedEvent(CustomerOrderCreated event);
-	void onCreatedOfferOrderFinishedEvent(CreateOfferOrderFinished event);
-	void onCreatedCustomerOrderFinishedEvent(CreateCustomerOrderFinished event);
-	void onNewProductOrderCreated(NewProductOrderCreated event);
-	void onNewOfferOrderCreated(NewOfferOrderCreated event);
+	void onCreateOrderCustomerAvalibityCheckPassedEvent(CreateOrderCustomerAvalibityCheckPassed event)  throws Exception;
+	void onCreateNewOfferOrderCheckPassedEvent(CreateNewOfferOrderCheckPassed event) throws Exception;
+	void onCreateNewProductOrderCheckPassedEvent(CreateNewProductOrderCheckPassed event) throws Exception;
+	void onCustomerOrderCreatedEvent(CustomerOrderCreated event) throws Exception;
+	void onCreatedOfferOrderFinishedEvent(CreateOfferOrderFinished event) throws Exception;
+	void onCreatedCustomerOrderFinishedEvent(CreateCustomerOrderFinished event) throws Exception;
+	void onNewProductOrderCreated(NewProductOrderCreated event) throws Exception;
+	void onNewOfferOrderCreated(NewOfferOrderCreated event) throws Exception;
 }

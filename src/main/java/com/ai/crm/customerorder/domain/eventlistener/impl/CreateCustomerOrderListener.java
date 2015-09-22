@@ -25,53 +25,53 @@ public class CreateCustomerOrderListener implements ICreateCustomerOrderListener
 	@Autowired
 	private ICreateCustomerOrder createCustomerOrder;
 	@EventListener
-	public void onCreateOrderCustomerAvalibityCheckPassedEvent(CreateOrderCustomerAvalibityCheckPassed event) {
+	public void onCreateOrderCustomerAvalibityCheckPassedEvent(CreateOrderCustomerAvalibityCheckPassed event)  throws Exception{
 		createCustomerOrder.createCustomerOrder((ICustomerOrder)event.getCustomerOrder());
 		
 	}
 
 	@EventListener
-	public void onCreateNewOfferOrderCheckPassedEvent(CreateNewOfferOrderCheckPassed event) {
+	public void onCreateNewOfferOrderCheckPassedEvent(CreateNewOfferOrderCheckPassed event)  throws Exception{
 		createCustomerOrder.createNewOfferOrder((IOfferOrder)event.getOfferOrder());
 	}
 
 	@EventListener
-	public void onCreateNewProductOrderCheckPassedEvent(CreateNewProductOrderCheckPassed event) {
+	public void onCreateNewProductOrderCheckPassedEvent(CreateNewProductOrderCheckPassed event)  throws Exception{
 		createCustomerOrder.createNewProductOrder((IProductOrder)event.getProductOrder());
 
 	}
 
 	@EventListener
-	public void onCustomerOrderCreatedEvent(CustomerOrderCreated event) {
+	public void onCustomerOrderCreatedEvent(CustomerOrderCreated event)  throws Exception{
 		createCustomerOrder.distributeOrderLineCreate((ICustomerOrder)event.getCustomerOrder());
 
 	}
 
 	@EventListener
-	public void onCreatedOfferOrderFinishedEvent(CreateOfferOrderFinished event) {
+	public void onCreatedOfferOrderFinishedEvent(CreateOfferOrderFinished event)  throws Exception{
 		IOfferOrder offerOrder=(IOfferOrder)event.getOfferOrder();
 		createCustomerOrder.isCustomerOrderCreateFinishedOfLastOfferOrder(offerOrder);	
 	}
 
 	@EventListener
-	public void onCreatedCustomerOrderFinishedEvent(CreateCustomerOrderFinished event) {
+	public void onCreatedCustomerOrderFinishedEvent(CreateCustomerOrderFinished event)  throws Exception{
 		ICustomerOrder customerOrder=(ICustomerOrder)event.getCustomerOrder();
 		createCustomerOrder.isSubmitOrder(customerOrder);
 
 	}
 	
 	@EventListener
-	public void onNewOfferOrderCreated(NewOfferOrderCreated event){
+	public void onNewOfferOrderCreated(NewOfferOrderCreated event)  throws Exception{
 		IOfferOrder offerOrder=(IOfferOrder)event.getOfferOrder();
 		createCustomerOrder.startCreateProductOrdersOfOfferOrder(offerOrder);
 	}	
 	
 	@EventListener
-	public void onNewProductOrderCreated(NewProductOrderCreated event){
+	public void onNewProductOrderCreated(NewProductOrderCreated event)  throws Exception{
 		IProductOrder productOrder=(IProductOrder)event.getProductOrder();
 		if (null!=productOrder.getOfferOrder()){
 			createCustomerOrder.isOfferOrderCreateFinishedOfLastProductOrder(productOrder);
-		}else{
+		}else if (null!=productOrder.getCustomerOrder()){
 			createCustomerOrder.isCustomerOrderCreateFinishedOfLastProductOrder(productOrder);
 		}
 	}
