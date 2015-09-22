@@ -25,6 +25,8 @@ public class CreateCustomerOrder implements ICreateCustomerOrder {
 	}
 	@Autowired
 	private IEventPublisher eventPublisher;
+	
+	
 	public void createCustomerOrder(ICustomerOrder customerOrder)  throws Exception{
 		customerOrder.setOrderState(ICustomerOrder.CustomerOrderState.CREATED.getValue());
 		CustomerOrderCreated event=new CustomerOrderCreated(this);
@@ -64,6 +66,9 @@ public class CreateCustomerOrder implements ICreateCustomerOrder {
 		//OfferOrderLine
 		Set<IOfferOrder> offerOrders=customerOrder.getOfferOrders();
 		for (IOfferOrder offerOrder:offerOrders) {
+			if(null==offerOrder.getCustomerOrder()){
+				offerOrder.setCustomerOrder(customerOrder);
+			}
 			long biSpecId=offerOrder.getBusinessInteractionSpecificationId();
 			//TODO replace with real newConnectionID
 			//if(biSpecId==0){
@@ -76,6 +81,9 @@ public class CreateCustomerOrder implements ICreateCustomerOrder {
 		}
 		Set<IProductOrder> productOrders=customerOrder.getProductOrders();
 		for (IProductOrder productOrder:productOrders) {
+			if(null==productOrder.getCustomerOrder()){
+				productOrder.setCustomerOrder(customerOrder);
+			}
 			long biSpecId=productOrder.getBusinessInteractionSpecificationId();
 			//TODO replace with real newConnectionID
 			//if(biSpecId==0){

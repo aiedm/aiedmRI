@@ -18,6 +18,7 @@ public class OrderPrice implements IOrderPrice {
 	private int payState;
 	private String discountReason;
 	private long pricePlanInstanceId;
+	private long roleId;
 	Set<IOrderPriceCharacteristicValue> priceCharacteristicValues=new HashSet<IOrderPriceCharacteristicValue>();
 	@JsonIgnore
 	private IProductOrder productOrder;
@@ -114,6 +115,16 @@ public class OrderPrice implements IOrderPrice {
 			}
 		}
 		
+	}
+
+	@Override
+	public long getRoleId() {
+		return this.roleId;
+	}
+
+	@Override
+	public void setRoleId(long roleId) {
+		this.roleId=roleId;
 	}
 
 }

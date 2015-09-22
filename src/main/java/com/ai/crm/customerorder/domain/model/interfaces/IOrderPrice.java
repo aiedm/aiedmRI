@@ -44,4 +44,6 @@ public interface IOrderPrice {
 	void setOfferOrder(IOfferOrder offerOrder);
 	Set<IOrderPriceCharacteristicValue> getPriceCharacterValues();
 	void addPriceCharacterValue(IOrderPriceCharacteristicValue priceCharacteristicValue);
+	long getRoleId();
+	void setRoleId(long roleId);
 }

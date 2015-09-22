@@ -27,15 +27,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class CustomerOrderController  {
 	@Autowired
 	private IEventPublisher eventPublisher;
-	@Autowired
-	private ICustomerOrder customerOrder;
 	public CustomerOrderController() {
 		// TODO Auto-generated constructor stub
 	}
 	
 	@RequestMapping(value="/newOrder",method=RequestMethod.POST,consumes="application/json")
 	public ICustomerOrder putOrder(@RequestBody ICustomerOrder requestedCustomerOrder) throws Exception{
-		customerOrder.setCustomerOrderCode("111");
 		requestedCustomerOrder.setCustomerOrderId(917);
 		requestedCustomerOrder.setCustomerOrderCode("20150917");
 		CreateOrderRequested event=new CreateOrderRequested(this);

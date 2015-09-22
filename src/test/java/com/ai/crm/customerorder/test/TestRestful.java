@@ -40,7 +40,7 @@ public class TestRestful {
 	
 	@Before
 	public void prepare() throws Exception{
-		File file = new File("D:\\workspace\\springTest\\aiedmRI\\src\\test\\resource\\order.json");
+		File file = new File("D:\\workspace\\springTest\\aiedmRI\\src\\test\\resource\\Order_SubsOffer.json");
 		FileInputStream in=new FileInputStream(file);
 		int size=in.available();
         byte[] buffer=new byte[size];
