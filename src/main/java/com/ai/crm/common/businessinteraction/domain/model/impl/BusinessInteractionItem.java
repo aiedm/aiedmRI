@@ -2,16 +2,17 @@ package com.ai.crm.common.businessinteraction.domain.model.impl;
 
 import com.ai.crm.common.businessinteraction.domain.model.interfaces.IBusinessInteraction;
 import com.ai.crm.common.businessinteraction.domain.model.interfaces.IBusinessInteractionItem;
+import com.ai.crm.common.rootentity.impl.RootEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public abstract class BusinessInteractionItem implements IBusinessInteractionItem {
+public abstract class BusinessInteractionItem extends RootEntity implements IBusinessInteractionItem {
 	@JsonIgnore
 	private long businessInteractionItemId;
 	private int biiState;
 	@JsonIgnore
 	private IBusinessInteraction businessInteraction;
 	
-	public BusinessInteractionItem() {
+	public BusinessInteractionItem(){
 		// TODO Auto-generated constructor stub
 	}
 	

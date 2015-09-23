@@ -5,9 +5,10 @@ import java.util.Set;
 
 import com.ai.crm.common.businessinteraction.domain.model.interfaces.IBusinessInteraction;
 import com.ai.crm.common.businessinteraction.domain.model.interfaces.IBusinessInteractionItem;
+import com.ai.crm.common.rootentity.impl.RootEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public abstract class BusinessInteraction implements IBusinessInteraction {
+public abstract class BusinessInteraction extends RootEntity implements IBusinessInteraction {
 	@JsonIgnore
 	private long businessInteractionId;
 	private int biState;

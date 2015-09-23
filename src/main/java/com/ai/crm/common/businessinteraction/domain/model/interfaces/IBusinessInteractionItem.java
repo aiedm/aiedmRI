@@ -1,6 +1,8 @@
 package com.ai.crm.common.businessinteraction.domain.model.interfaces;
 
-public interface IBusinessInteractionItem {
+import com.ai.crm.common.rootentity.interfaces.IRootEntity;
+
+public interface IBusinessInteractionItem  extends IRootEntity {
 	long getBusinessInteractionItemId();
 	void setBusinessInteraciotnItemId(long biiId);
 	IBusinessInteraction getBusinessInteraction();
