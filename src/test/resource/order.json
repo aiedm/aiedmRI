@@ -1,1 +1,36 @@
-{"type":"CustomerOrder","customerOrderId":1,"customerOrderCode":"201509080001","directSubmitOrder":false,"offerOrders":[{"type":"OfferOrder","offerOrderId":5,"productOrders":[{"type":"ProductOrder","productOrderId":6,"toBeProduct":null,"productSpecificationId":0,"prices":[],"productOrderState":1,"productOrderCharacteristics":[],"businessInteractionSpecificationId":0}],"toBeOfferInstance":null,"prices":[],"offerOrderState":1,"offerOrderCharacteristics":null,"oldOfferInstanceId":0,"businessInteractionSpecificationId":0},{"type":"OfferOrder","offerOrderId":2,"productOrders":[{"type":"ProductOrder","productOrderId":4,"toBeProduct":null,"productSpecificationId":0,"prices":[],"productOrderState":1,"productOrderCharacteristics":[],"businessInteractionSpecificationId":0},{"type":"ProductOrder","productOrderId":3,"toBeProduct":null,"productSpecificationId":0,"prices":[{"type":"PricetOrder","pricePlanId":1,"priceValue":10000,"payState":0,"discountReason":null,"pricePlanInstanceId":0,"priceCharacterValues":[{"type":"OrderPriceCharacteristicValue","characteristicValue":{"type":"CharacteristicValue","id":1001,"value":"50%","displayValue":null,"valueFrom":0,"valueTo":0,"rangeInterval":0,"default":false}}]}],"productOrderState":1,"productOrderCharacteristics":[{"type":"ProductOrderCharacteristicValue","characteristicValue":{"type":"CharacteristicValue","id":1102,"value":"Red","displayValue":null,"valueFrom":0,"valueTo":0,"rangeInterval":0,"default":false}}],"businessInteractionSpecificationId":0}],"toBeOfferInstance":null,"prices":[{"type":"PricetOrder","pricePlanId":1,"priceValue":10000,"payState":0,"discountReason":null,"pricePlanInstanceId":0,"priceCharacterValues":[{"type":"OrderPriceCharacteristicValue","characteristicValue":{"type":"CharacteristicValue","id":1001,"value":"50%","displayValue":null,"valueFrom":0,"valueTo":0,"rangeInterval":0,"default":false}}]}],"offerOrderState":1,"offerOrderCharacteristics":null,"oldOfferInstanceId":0,"businessInteractionSpecificationId":0}],"productOrders":[],"orderState":1}
+{"type":"CustomerOrder","version":null,"createOperatorId":0,"validPeriod":null,"createTime":null,"customerOrderId":1,
+"customerOrderCode":"201509080001","directSubmitOrder":false,
+"offerOrders":[{"type":"OfferOrder","version":null,
+"createOperatorId":0,"validPeriod":null,"createTime":null,"offerOrderId":2,"productOrders":[{"type":"ProductOrder","version":null,"createOperatorId":0,"validPeriod":null,"createTime":null,"productOrderId":3,"toBeProduct":null,"productSpecificationId":0,"prices":[
+{"type":"PricetOrder","version":null,"createOperatorId":0,"validPeriod":null,"createTime":null,"pricePlanId":1,"priceValue":10000,"payState":0,"discountReason":null,"pricePlanInstanceId":0,"roleId":0,
+"priceCharacters":[
+{
+	"characteristicInstanceValues":[
+		{
+			"type":"CharacteristicInstanceValue",
+			"id":100005,
+			"value":"Red",
+			"characteristicSpecValue":
+			{
+				"type":"CharacteristicValue",
+				"id":1102,
+				"value":"Red",
+			},
+		},
+		{
+				"type":"CharacteristicInstanceValue",
+				"id":100004,
+				"value":"50%",
+				"characteristicSpecValue":
+				{
+					"type":"CharacteristicValue",
+					"id":1001,
+					"value":"50%"
+				}
+			}
+		]
+		}
+		]
+		}
+		],
+		"productOrderState":1,"businessInteractionSpecificationId":0,"productOrderCharacteristics":[{"version":null,"createOperatorId":0,"validPeriod":null,"createTime":null,"characteristic":null,"characteristicInstanceValues":[{"type":"CharacteristicInstanceValue","version":null,"createOperatorId":0,"validPeriod":null,"createTime":null,"id":100005,"value":"Red","characteristicSpecValue":{"type":"CharacteristicValue","version":null,"createOperatorId":0,"validPeriod":null,"createTime":null,"id":1102,"value":"Red","displayValue":null,"valueFrom":0,"valueTo":0,"rangeInterval":0,"default":false,"deleted":false},"deleted":false},{"type":"CharacteristicInstanceValue","version":null,"createOperatorId":0,"validPeriod":null,"createTime":null,"id":100004,"value":"50%","characteristicSpecValue":{"type":"CharacteristicValue","version":null,"createOperatorId":0,"validPeriod":null,"createTime":null,"id":1001,"value":"50%","displayValue":null,"valueFrom":0,"valueTo":0,"rangeInterval":0,"default":false,"deleted":false},"deleted":false}],"deleted":false}],"deleted":false},{"type":"ProductOrder","version":null,"createOperatorId":0,"validPeriod":null,"createTime":null,"productOrderId":4,"toBeProduct":null,"productSpecificationId":0,"prices":[],"productOrderState":1,"businessInteractionSpecificationId":0,"productOrderCharacteristics":[],"deleted":false}],"toBeOfferInstance":null,"prices":[{"type":"PricetOrder","version":null,"createOperatorId":0,"validPeriod":null,"createTime":null,"pricePlanId":1,"priceValue":10000,"payState":0,"discountReason":null,"pricePlanInstanceId":0,"roleId":0,"priceCharacters":[{"version":null,"createOperatorId":0,"validPeriod":null,"createTime":null,"characteristic":null,"characteristicInstanceValues":[{"type":"CharacteristicInstanceValue","version":null,"createOperatorId":0,"validPeriod":null,"createTime":null,"id":100005,"value":"Red","characteristicSpecValue":{"type":"CharacteristicValue","version":null,"createOperatorId":0,"validPeriod":null,"createTime":null,"id":1102,"value":"Red","displayValue":null,"valueFrom":0,"valueTo":0,"rangeInterval":0,"default":false,"deleted":false},"deleted":false},{"type":"CharacteristicInstanceValue","version":null,"createOperatorId":0,"validPeriod":null,"createTime":null,"id":100004,"value":"50%","characteristicSpecValue":{"type":"CharacteristicValue","version":null,"createOperatorId":0,"validPeriod":null,"createTime":null,"id":1001,"value":"50%","displayValue":null,"valueFrom":0,"valueTo":0,"rangeInterval":0,"default":false,"deleted":false},"deleted":false}],"deleted":false}],"deleted":false}],"offerOrderState":1,"businessInteractionSpecificationId":0,"offerOrderCharacteristics":[],"oldOfferInstanceId":0,"deleted":false},{"type":"OfferOrder","version":null,"createOperatorId":0,"validPeriod":null,"createTime":null,"offerOrderId":5,"productOrders":[{"type":"ProductOrder","version":null,"createOperatorId":0,"validPeriod":null,"createTime":null,"productOrderId":6,"toBeProduct":null,"productSpecificationId":0,"prices":[],"productOrderState":1,"businessInteractionSpecificationId":0,"productOrderCharacteristics":[],"deleted":false}],"toBeOfferInstance":null,"prices":[],"offerOrderState":1,"businessInteractionSpecificationId":0,"offerOrderCharacteristics":[],"oldOfferInstanceId":0,"deleted":false}],"productOrders":[],"orderState":1,"deleted":false}

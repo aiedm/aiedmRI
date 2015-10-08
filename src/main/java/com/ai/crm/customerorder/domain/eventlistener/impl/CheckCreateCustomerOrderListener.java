@@ -9,8 +9,8 @@ import com.ai.crm.customerorder.domain.event.CreateNewProductOrderRequested;
 import com.ai.crm.customerorder.domain.event.CreateOrderRequested;
 import com.ai.crm.customerorder.domain.eventlistener.interfaces.ICheckCreateCustomerOrderListener;
 import com.ai.crm.customerorder.domain.model.interfaces.ICustomerOrder;
-import com.ai.crm.customerorder.domain.model.interfaces.IOfferOrder;
-import com.ai.crm.customerorder.domain.model.interfaces.IProductOrder;
+import com.ai.crm.customerorder.domain.model.interfaces.IOfferOrderItem;
+import com.ai.crm.customerorder.domain.model.interfaces.IProductOrderItem;
 import com.ai.crm.customerorder.domain.service.interfaces.ICheckCreateCustomerOrder;
 @Component
 public class CheckCreateCustomerOrderListener implements ICheckCreateCustomerOrderListener {
@@ -29,14 +29,14 @@ public class CheckCreateCustomerOrderListener implements ICheckCreateCustomerOrd
 
 	@EventListener
 	public void onCreateNewOfferOrderRequestedEvent(CreateNewOfferOrderRequested event)  throws Exception{
-		checkCreateCustomerOrder.checkCreateNewOfferOrderAvalibity((IOfferOrder)event.getOfferOrder());
+		checkCreateCustomerOrder.checkCreateNewOfferOrderAvalibity((IOfferOrderItem)event.getOfferOrder());
 
 	}
 
 	@EventListener
 	public void onCreateNewProductOrderRequestedEvent(CreateNewProductOrderRequested event)  throws Exception{
 		// TODO Auto-generated method stub
-		checkCreateCustomerOrder.checkCreateNewProductOrderAvalibity((IProductOrder)event.getProductOrder());
+		checkCreateCustomerOrder.checkCreateNewProductOrderAvalibity((IProductOrderItem)event.getProductOrder());
 	}
 
 }

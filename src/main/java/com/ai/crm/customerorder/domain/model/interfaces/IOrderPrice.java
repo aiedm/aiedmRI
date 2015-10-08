@@ -2,6 +2,8 @@ package com.ai.crm.customerorder.domain.model.interfaces;
 
 import java.util.Set;
 
+import com.ai.crm.common.rootentity.interfaces.IInstanceEntity;
+import com.ai.crm.common.rootentity.interfaces.IInstanceEntityCharacteristic;
 import com.ai.crm.customerorder.domain.model.impl.OrderPrice;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
@@ -13,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 	@JsonSubTypes({
 	    @Type(value = OrderPrice.class, name = "PricetOrder")
 	    })
-public interface IOrderPrice {
+public interface IOrderPrice extends IInstanceEntity{
 	enum PriceState {
 		UNPAID(0),
 		PAID(1);
@@ -38,12 +40,12 @@ public interface IOrderPrice {
 	void setDiscountReason(String discountReason);
 	long getPricePlanInstanceId();
 	void setPricePlanbInstanceId(long pricePlanInstanceId);
-	IProductOrder getProductOrder();
-	void setProductOrder(IProductOrder productOrder);
-	IOfferOrder getOfferOrder();
-	void setOfferOrder(IOfferOrder offerOrder);
-	Set<IOrderPriceCharacteristicValue> getPriceCharacterValues();
-	void addPriceCharacterValue(IOrderPriceCharacteristicValue priceCharacteristicValue);
+	IProductOrderItem getProductOrder();
+	void setProductOrder(IProductOrderItem productOrder);
+	IOfferOrderItem getOfferOrder();
+	void setOfferOrder(IOfferOrderItem offerOrder);
+	Set<IInstanceEntityCharacteristic> getPriceCharacters();
+	void addPriceCharacter(IInstanceEntityCharacteristic priceCharacteristic);
 	long getRoleId();
 	void setRoleId(long roleId);
 }

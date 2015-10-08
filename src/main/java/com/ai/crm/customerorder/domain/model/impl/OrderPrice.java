@@ -5,25 +5,31 @@ import java.util.Set;
 
 import org.springframework.stereotype.Component;
 
-import com.ai.crm.customerorder.domain.model.interfaces.IOfferOrder;
+import com.ai.crm.common.rootentity.impl.InstanceEntity;
+import com.ai.crm.common.rootentity.interfaces.IInstanceEntityCharacteristic;
+import com.ai.crm.customerorder.domain.model.interfaces.IOfferOrderItem;
 import com.ai.crm.customerorder.domain.model.interfaces.IOrderPrice;
-import com.ai.crm.customerorder.domain.model.interfaces.IOrderPriceCharacteristicValue;
-import com.ai.crm.customerorder.domain.model.interfaces.IProductOrder;
+import com.ai.crm.customerorder.domain.model.interfaces.IProductOrderItem;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Component
-public class OrderPrice implements IOrderPrice {
+public class OrderPrice extends InstanceEntity implements IOrderPrice {
 	private long pricePlanId;
 	private long priceValue;
 	private int payState;
 	private String discountReason;
 	private long pricePlanInstanceId;
 	private long roleId;
-	Set<IOrderPriceCharacteristicValue> priceCharacteristicValues=new HashSet<IOrderPriceCharacteristicValue>();
 	@JsonIgnore
-	private IProductOrder productOrder;
+	private IProductOrderItem productOrder;
 	@JsonIgnore
-	private IOfferOrder offerOrder;
+	private IOfferOrderItem offerOrder;
+	
+	@Override
+	public boolean hasCharacteristic() {
+		return true;
+	}
+	
 	@Override
 	public long getPricePlanId() {
 		return this.pricePlanId;
@@ -81,40 +87,33 @@ public class OrderPrice implements IOrderPrice {
 	}
 
 	@Override
-	public IProductOrder getProductOrder() {
+	public IProductOrderItem getProductOrder() {
 		return this.productOrder;
 	}
 
 	@Override
-	public void setProductOrder(IProductOrder productOrder) {
+	public void setProductOrder(IProductOrderItem productOrder) {
 		this.productOrder=productOrder;
 	}
 
 	@Override
-	public IOfferOrder getOfferOrder() {
+	public IOfferOrderItem getOfferOrder() {
 		return this.offerOrder;
 	}
 
 	@Override
-	public void setOfferOrder(IOfferOrder offerOrder) {
+	public void setOfferOrder(IOfferOrderItem offerOrder) {
 		this.offerOrder= offerOrder;
 	}
 
 	@Override
-	public Set<IOrderPriceCharacteristicValue> getPriceCharacterValues() {
-		// TODO Auto-generated method stub
-		return this.priceCharacteristicValues;
+	public Set<IInstanceEntityCharacteristic> getPriceCharacters() {
+		return this.getCharacteristics();
 	}
 
 	@Override
-	public void addPriceCharacterValue(IOrderPriceCharacteristicValue priceCharacteristicValue) {
-		if (null!=priceCharacteristicValue){
-			priceCharacteristicValues.add(priceCharacteristicValue);
-			if (null==priceCharacteristicValue.getOrderPrice()){
-				priceCharacteristicValue.setOrderPrice(this);
-			}
-		}
-		
+	public void addPriceCharacter(IInstanceEntityCharacteristic priceCharacteristic) {
+		this.addCharacteristic(priceCharacteristic);		
 	}
 
 	@Override

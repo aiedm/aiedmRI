@@ -13,6 +13,6 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 	    @Type(value = ToBeOfferInstance.class, name = "ToBeOfferInstance"),
 	    })
 public interface IToBeOfferInstance extends IOfferInstance {
-	IOfferOrder getOfferOrder();
-	void setOfferOrder(IOfferOrder offerOrder);
+	IOfferOrderItem getOfferOrder();
+	void setOfferOrder(IOfferOrderItem offerOrder);
 }

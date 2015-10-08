@@ -1,6 +1,6 @@
 package com.ai.crm.customerorder.domain.model.impl;
 
-import com.ai.crm.customerorder.domain.model.interfaces.IOfferOrder;
+import com.ai.crm.customerorder.domain.model.interfaces.IOfferOrderItem;
 import com.ai.crm.customerorder.domain.model.interfaces.IToBeOfferInstance;
 import com.ai.crm.product.domain.model.impl.OfferInstance;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -13,13 +13,13 @@ public class ToBeOfferInstance extends OfferInstance implements IToBeOfferInstan
 
 	@Override
 	@JsonIgnore
-	public IOfferOrder getOfferOrder() {
+	public IOfferOrderItem getOfferOrder() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void setOfferOrder(IOfferOrder offerOrder) {
+	public void setOfferOrder(IOfferOrderItem offerOrder) {
 		// TODO Auto-generated method stub
 
 	}

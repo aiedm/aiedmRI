@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ai.crm.customerorder.domain.event.CreateOrderRequested;
 import com.ai.crm.customerorder.domain.model.impl.CustomerOrder;
-import com.ai.crm.customerorder.domain.model.impl.OfferOrder;
-import com.ai.crm.customerorder.domain.model.impl.ProductOrder;
+import com.ai.crm.customerorder.domain.model.impl.OfferOrderItem;
+import com.ai.crm.customerorder.domain.model.impl.ProductOrderItem;
 import com.ai.crm.customerorder.domain.model.interfaces.ICustomerOrder;
-import com.ai.crm.customerorder.domain.model.interfaces.IOfferOrder;
-import com.ai.crm.customerorder.domain.model.interfaces.IProductOrder;
+import com.ai.crm.customerorder.domain.model.interfaces.IOfferOrderItem;
+import com.ai.crm.customerorder.domain.model.interfaces.IProductOrderItem;
 import com.ai.flyingshuttle.base.service.impl.SpringEventPublisher;
 import com.ai.flyingshuttle.base.service.interfaces.IEventPublisher;
 import com.fasterxml.jackson.databind.ObjectMapper;

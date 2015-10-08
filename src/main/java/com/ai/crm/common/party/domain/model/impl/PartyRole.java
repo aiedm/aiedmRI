@@ -18,14 +18,20 @@ import javax.persistence.Transient;
 
 import com.ai.crm.common.party.domain.model.interfaces.IParty;
 import com.ai.crm.common.party.domain.model.interfaces.IPartyRole;
-import com.ai.crm.common.rootentity.impl.RootEntity;
+import com.ai.crm.common.rootentity.impl.InstanceEntity;
 @Entity
 @Table(name="CB_PARTY_ROLE")
 @Inheritance (strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="partyRoleType",discriminatorType=DiscriminatorType.STRING)
-public abstract class PartyRole extends RootEntity implements IPartyRole {
+public abstract class PartyRole extends InstanceEntity implements IPartyRole {
 	
 	public PartyRole(){}
+
+	@Override
+	public boolean hasCharacteristic() {
+		return true;
+	}
+	
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

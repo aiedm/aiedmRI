@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 
 import com.ai.crm.common.businessinteraction.domain.model.impl.BusinessInteraction;
 import com.ai.crm.customerorder.domain.model.interfaces.ICustomerOrder;
-import com.ai.crm.customerorder.domain.model.interfaces.IOfferOrder;
-import com.ai.crm.customerorder.domain.model.interfaces.IProductOrder;
+import com.ai.crm.customerorder.domain.model.interfaces.IOfferOrderItem;
+import com.ai.crm.customerorder.domain.model.interfaces.IProductOrderItem;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 @Component
@@ -16,8 +16,8 @@ public class CustomerOrder extends BusinessInteraction implements ICustomerOrder
 	private long customerOrderId;
 	private String customerOrderCode;
 	private boolean directSubmitOrder;
-	private Set<IOfferOrder> offerOrders=new HashSet<IOfferOrder>();
-	private Set<IProductOrder> productOrders=new HashSet<IProductOrder>();
+	private Set<IOfferOrderItem> offerOrders=new HashSet<IOfferOrderItem>();
+	private Set<IProductOrderItem> productOrders=new HashSet<IProductOrderItem>();
 	
 	public CustomerOrder() {
 		// TODO Auto-generated constructor stub
@@ -39,17 +39,17 @@ public class CustomerOrder extends BusinessInteraction implements ICustomerOrder
 	}
 
 	@Override
-	public Set<IProductOrder> getProductOrders() {
+	public Set<IProductOrderItem> getProductOrders() {
 		return productOrders;
 	}
 
 	@Override
-	public Set<IOfferOrder> getOfferOrders() {
+	public Set<IOfferOrderItem> getOfferOrders() {
 		return offerOrders;
 	}
 
 	@Override
-	public void addOfferOrder(IOfferOrder offerOrder) {
+	public void addOfferOrder(IOfferOrderItem offerOrder) {
 		if (null!=offerOrder){
 			offerOrders.add(offerOrder);
 			if(null==offerOrder.getCustomerOrder()){
@@ -59,7 +59,7 @@ public class CustomerOrder extends BusinessInteraction implements ICustomerOrder
 	}
 
 	@Override
-	public void addProductOrder(IProductOrder productOrder) {
+	public void addProductOrder(IProductOrderItem productOrder) {
 		if (null!=productOrder){
 			productOrders.add(productOrder);
 			if(null==productOrder.getCustomerOrder()){

@@ -14,8 +14,8 @@ import com.ai.crm.customerorder.domain.event.NewOfferOrderCreated;
 import com.ai.crm.customerorder.domain.event.NewProductOrderCreated;
 import com.ai.crm.customerorder.domain.event.SubmitOrderRequested;
 import com.ai.crm.customerorder.domain.model.interfaces.ICustomerOrder;
-import com.ai.crm.customerorder.domain.model.interfaces.IOfferOrder;
-import com.ai.crm.customerorder.domain.model.interfaces.IProductOrder;
+import com.ai.crm.customerorder.domain.model.interfaces.IOfferOrderItem;
+import com.ai.crm.customerorder.domain.model.interfaces.IProductOrderItem;
 import com.ai.crm.customerorder.domain.service.interfaces.ICreateCustomerOrder;
 import com.ai.flyingshuttle.base.service.interfaces.IEventPublisher;
 @Component
@@ -34,21 +34,21 @@ public class CreateCustomerOrder implements ICreateCustomerOrder {
 		eventPublisher.publishEvent(event);
 	}
 
-	public void createNewOfferOrder(IOfferOrder offerOrder)  throws Exception{
-		offerOrder.setOfferOrderState(IOfferOrder.OfferOrderState.CREATED.getValue());
+	public void createNewOfferOrder(IOfferOrderItem offerOrder)  throws Exception{
+		offerOrder.setOfferOrderState(IOfferOrderItem.OfferOrderState.CREATED.getValue());
 		NewOfferOrderCreated event=new NewOfferOrderCreated(this);
 		event.setOfferOrder(offerOrder);
 		eventPublisher.publishEvent(event);
 	}
 	
-	public void startCreateProductOrdersOfOfferOrder(IOfferOrder offerOrder)  throws Exception{
-		Set<IProductOrder> productOrders=offerOrder.getProductOrders();
+	public void startCreateProductOrdersOfOfferOrder(IOfferOrderItem offerOrder)  throws Exception{
+		Set<IProductOrderItem> productOrders=offerOrder.getProductOrders();
 		if (productOrders.size()==0){
 			CreateOfferOrderFinished event=new CreateOfferOrderFinished(this);
 			event.setOfferOrder(offerOrder);
 			eventPublisher.publishEvent(event);
 		}
-		for (IProductOrder productOrder:productOrders) {
+		for (IProductOrderItem productOrder:productOrders) {
 			if(null==productOrder.getOfferOrder()){
 				productOrder.setOfferOrder(offerOrder);
 			}
@@ -58,8 +58,8 @@ public class CreateCustomerOrder implements ICreateCustomerOrder {
 		}
 	}
 
-	public void createNewProductOrder(IProductOrder productOrder)  throws Exception{
-		productOrder.setProductOrderState(IProductOrder.ProductOrderState.CREATED.getValue());
+	public void createNewProductOrder(IProductOrderItem productOrder)  throws Exception{
+		productOrder.setProductOrderState(IProductOrderItem.ProductOrderState.CREATED.getValue());
 		NewProductOrderCreated event=new NewProductOrderCreated(this);
 		event.setProductOrder(productOrder);
 		eventPublisher.publishEvent(event);
@@ -67,8 +67,8 @@ public class CreateCustomerOrder implements ICreateCustomerOrder {
 	
 	public void distributeOrderLineCreate(ICustomerOrder customerOrder)  throws Exception{
 		//OfferOrderLine
-		Set<IOfferOrder> offerOrders=customerOrder.getOfferOrders();
-		for (IOfferOrder offerOrder:offerOrders) {
+		Set<IOfferOrderItem> offerOrders=customerOrder.getOfferOrders();
+		for (IOfferOrderItem offerOrder:offerOrders) {
 			if(null==offerOrder.getCustomerOrder()){
 				offerOrder.setCustomerOrder(customerOrder);
 			}
@@ -82,8 +82,8 @@ public class CreateCustomerOrder implements ICreateCustomerOrder {
 				
 			//}
 		}
-		Set<IProductOrder> productOrders=customerOrder.getProductOrders();
-		for (IProductOrder productOrder:productOrders) {
+		Set<IProductOrderItem> productOrders=customerOrder.getProductOrders();
+		for (IProductOrderItem productOrder:productOrders) {
 			if(null==productOrder.getCustomerOrder()){
 				productOrder.setCustomerOrder(customerOrder);
 			}
@@ -99,21 +99,21 @@ public class CreateCustomerOrder implements ICreateCustomerOrder {
 		}		
 	}
 	
-	public boolean isCustomerOrderCreateFinishedOfLastOfferOrder(IOfferOrder offerOrder)  throws Exception{
+	public boolean isCustomerOrderCreateFinishedOfLastOfferOrder(IOfferOrderItem offerOrder)  throws Exception{
 		boolean isCustomerOrderCreateFinished=true;
 		//if this offerOrder is the Last OrderLine of Finished
 		ICustomerOrder customerOrder=offerOrder.getCustomerOrder();
-		Set<IOfferOrder> offerOrders=customerOrder.getOfferOrders();
-		for (IOfferOrder aOfferOrder:offerOrders) {
-			if(IOfferOrder.OfferOrderState.INITIATED.getValue() == aOfferOrder.getOfferOrderState()){
+		Set<IOfferOrderItem> offerOrders=customerOrder.getOfferOrders();
+		for (IOfferOrderItem aOfferOrder:offerOrders) {
+			if(IOfferOrderItem.OfferOrderState.INITIATED.getValue() == aOfferOrder.getOfferOrderState()){
 				isCustomerOrderCreateFinished=false;
 				break;
 			}
 		}
 		if(isCustomerOrderCreateFinished){
-			Set<IProductOrder> productOrders=customerOrder.getProductOrders();
-			for (IProductOrder aProductOrder:productOrders) {
-				if(IProductOrder.ProductOrderState.INITIATED.getValue() == aProductOrder.getProductOrderState()){
+			Set<IProductOrderItem> productOrders=customerOrder.getProductOrders();
+			for (IProductOrderItem aProductOrder:productOrders) {
+				if(IProductOrderItem.ProductOrderState.INITIATED.getValue() == aProductOrder.getProductOrderState()){
 					isCustomerOrderCreateFinished=false;
 					break;
 				}
@@ -128,21 +128,21 @@ public class CreateCustomerOrder implements ICreateCustomerOrder {
 		return isCustomerOrderCreateFinished;
 	}
 	
-	public boolean isCustomerOrderCreateFinishedOfLastProductOrder(IProductOrder productOrder)  throws Exception{
+	public boolean isCustomerOrderCreateFinishedOfLastProductOrder(IProductOrderItem productOrder)  throws Exception{
 		boolean isCustomerOrderCreateFinished=true;
 		//if this productOrder is the Last OrderLine of Finished
 		ICustomerOrder customerOrder=productOrder.getCustomerOrder();
-		Set<IProductOrder> productOrders=customerOrder.getProductOrders();
-		for (IProductOrder aProductOrder:productOrders) {
-			if(IProductOrder.ProductOrderState.INITIATED.getValue() == aProductOrder.getProductOrderState()){
+		Set<IProductOrderItem> productOrders=customerOrder.getProductOrders();
+		for (IProductOrderItem aProductOrder:productOrders) {
+			if(IProductOrderItem.ProductOrderState.INITIATED.getValue() == aProductOrder.getProductOrderState()){
 				isCustomerOrderCreateFinished=false;
 				break;
 			}
 		}
 		if(isCustomerOrderCreateFinished){
-			Set<IOfferOrder> offerOrders=customerOrder.getOfferOrders();
-			for (IOfferOrder aOfferOrder:offerOrders) {
-				if(IOfferOrder.OfferOrderState.INITIATED.getValue() == aOfferOrder.getOfferOrderState()){
+			Set<IOfferOrderItem> offerOrders=customerOrder.getOfferOrders();
+			for (IOfferOrderItem aOfferOrder:offerOrders) {
+				if(IOfferOrderItem.OfferOrderState.INITIATED.getValue() == aOfferOrder.getOfferOrderState()){
 					isCustomerOrderCreateFinished=false;
 					break;
 				}
@@ -157,18 +157,18 @@ public class CreateCustomerOrder implements ICreateCustomerOrder {
 		return isCustomerOrderCreateFinished;
 	}
 	
-	public boolean isOfferOrderCreateFinishedOfLastProductOrder(IProductOrder productOrder)  throws Exception{
+	public boolean isOfferOrderCreateFinishedOfLastProductOrder(IProductOrderItem productOrder)  throws Exception{
 		boolean isOfferOrderCreateFinished=true;
 		//if this productOrder is the Last OrderLine of Finished
-		Set<IProductOrder> productOrders=productOrder.getOfferOrder().getProductOrders();
-		for (IProductOrder aProductOrder:productOrders) {
-			if(IProductOrder.ProductOrderState.INITIATED.getValue() == aProductOrder.getProductOrderState()){
+		Set<IProductOrderItem> productOrders=productOrder.getOfferOrder().getProductOrders();
+		for (IProductOrderItem aProductOrder:productOrders) {
+			if(IProductOrderItem.ProductOrderState.INITIATED.getValue() == aProductOrder.getProductOrderState()){
 				isOfferOrderCreateFinished=false;
 				break;
 			}
 		}
 		if(isOfferOrderCreateFinished){
-			productOrder.getOfferOrder().setOfferOrderState(IOfferOrder.OfferOrderState.CREATED.getValue());
+			productOrder.getOfferOrder().setOfferOrderState(IOfferOrderItem.OfferOrderState.CREATED.getValue());
 			CreateOfferOrderFinished event=new CreateOfferOrderFinished(this);
 			event.setOfferOrder(productOrder.getOfferOrder());
 			eventPublisher.publishEvent(event);

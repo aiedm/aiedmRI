@@ -13,8 +13,8 @@ import com.ai.crm.customerorder.domain.event.CreateOrderCustomerAvalibityCheckFa
 import com.ai.crm.customerorder.domain.event.CreateOrderCustomerAvalibityCheckFailRejected;
 import com.ai.crm.customerorder.domain.event.CreateOrderCustomerAvalibityCheckPassed;
 import com.ai.crm.customerorder.domain.model.interfaces.ICustomerOrder;
-import com.ai.crm.customerorder.domain.model.interfaces.IOfferOrder;
-import com.ai.crm.customerorder.domain.model.interfaces.IProductOrder;
+import com.ai.crm.customerorder.domain.model.interfaces.IOfferOrderItem;
+import com.ai.crm.customerorder.domain.model.interfaces.IProductOrderItem;
 import com.ai.crm.customerorder.domain.service.interfaces.ICheckCreateCustomerOrder;
 import com.ai.flyingshuttle.base.service.impl.CheckResult;
 import com.ai.flyingshuttle.base.service.interfaces.IEventPublisher;
@@ -44,7 +44,7 @@ public class CheckCreateCustomerOrder implements ICheckCreateCustomerOrder {
 		return checkResult;
 	}
 
-	public CheckResult checkCreateNewOfferOrderAvalibity(IOfferOrder offerOrder)  throws Exception{
+	public CheckResult checkCreateNewOfferOrderAvalibity(IOfferOrderItem offerOrder)  throws Exception{
 		CheckResult checkResult=new CheckResult();
 		if (checkResult.isError()){
 			CreateNewOfferOrderCheckFailRejected event=new CreateNewOfferOrderCheckFailRejected(this);
@@ -62,7 +62,7 @@ public class CheckCreateCustomerOrder implements ICheckCreateCustomerOrder {
 		return checkResult;
 	}
 
-	public CheckResult checkCreateNewProductOrderAvalibity(IProductOrder productOrder)  throws Exception{
+	public CheckResult checkCreateNewProductOrderAvalibity(IProductOrderItem productOrder)  throws Exception{
 		CheckResult checkResult=new CheckResult();
 		if (checkResult.isError()){
 			CreateNewProductOrderCheckFailRejected event=new CreateNewProductOrderCheckFailRejected(this);

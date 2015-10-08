@@ -1,16 +1,16 @@
 package com.ai.crm.customerorder.domain.event;
 
-import com.ai.crm.customerorder.domain.model.interfaces.IOfferOrder;
+import com.ai.crm.customerorder.domain.model.interfaces.IOfferOrderItem;
 import com.ai.flyingshuttle.base.BaseEvent;
 
 public class NewOfferOrderCreated extends BaseEvent {
-	private IOfferOrder offerOrder;
+	private IOfferOrderItem offerOrder;
 
-	public IOfferOrder getOfferOrder() {
+	public IOfferOrderItem getOfferOrder() {
 		return offerOrder;
 	}
 
-	public void setOfferOrder(IOfferOrder offerOrder) {
+	public void setOfferOrder(IOfferOrderItem offerOrder) {
 		this.offerOrder = offerOrder;
 	}
 	public NewOfferOrderCreated(Object source) {

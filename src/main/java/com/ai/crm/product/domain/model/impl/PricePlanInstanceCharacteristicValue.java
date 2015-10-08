@@ -1,6 +1,6 @@
 package com.ai.crm.product.domain.model.impl;
 
-import com.ai.crm.common.characteristic.domain.model.interfaces.ICharacteristicValue;
+import com.ai.crm.common.rootentity.interfaces.ICharacteristicSpecValue;
 import com.ai.crm.product.domain.model.interfaces.IPricePlanInstanceCharacteristicValue;
 
 public class PricePlanInstanceCharacteristicValue implements IPricePlanInstanceCharacteristicValue {
@@ -10,13 +10,13 @@ public class PricePlanInstanceCharacteristicValue implements IPricePlanInstanceC
 	}
 
 	@Override
-	public ICharacteristicValue getCharacteristicValue() {
+	public ICharacteristicSpecValue getCharacteristicValue() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void setCharacteristicValue(ICharacteristicValue value) {
+	public void setCharacteristicValue(ICharacteristicSpecValue value) {
 		// TODO Auto-generated method stub
 		
 	}

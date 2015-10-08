@@ -15,12 +15,18 @@ import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 
 import com.ai.crm.common.party.domain.model.interfaces.IParty;
+import com.ai.crm.common.rootentity.impl.InstanceEntity;
 import com.ai.crm.common.rootentity.impl.RootEntity;
 @Entity
 @Inheritance (strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="partyType",discriminatorType=DiscriminatorType.STRING)
-public abstract class Party extends RootEntity implements IParty {
+public abstract class Party extends InstanceEntity implements IParty {
 	public Party(){}
+	
+	@Override
+	public boolean hasCharacteristic() {
+		return true;
+	}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

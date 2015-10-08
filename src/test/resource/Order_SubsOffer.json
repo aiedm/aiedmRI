@@ -12,7 +12,7 @@
 					"priceValue":10000,
 					"payState":0,
 					"discountReason":null,
-					"priceCharacterValues":[
+					"priceCharacters":[
 						{
 							"type":"OrderPriceCharacteristicValue",
 							"characteristicValue":

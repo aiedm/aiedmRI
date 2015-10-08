@@ -1,8 +1,8 @@
 package com.ai.crm.product.domain.model.interfaces;
 
-import com.ai.crm.common.characteristic.domain.model.interfaces.ICharacteristicValue;
+import com.ai.crm.common.rootentity.interfaces.ICharacteristicSpecValue;
 
 public interface IProductCharacteristicValue {
-	ICharacteristicValue getCharacteristicValue();
-	void setCharacteristicValue(ICharacteristicValue value);
+	ICharacteristicSpecValue getCharacteristicValue();
+	void setCharacteristicValue(ICharacteristicSpecValue value);
 }

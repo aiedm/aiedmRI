@@ -41,10 +41,10 @@ public interface ICustomerOrder extends IBusinessInteraction{
 	void setCustomerOrderId(long customerOrderId);
 	String getCustomerOrderCode();
 	void setCustomerOrderCode(String customerOrderCode);
-	Set<IProductOrder> getProductOrders();
-	void addOfferOrder(IOfferOrder offerOrder);
-	void addProductOrder(IProductOrder productOrder);
-	Set<IOfferOrder> getOfferOrders();
+	Set<IProductOrderItem> getProductOrders();
+	void addOfferOrder(IOfferOrderItem offerOrder);
+	void addProductOrder(IProductOrderItem productOrder);
+	Set<IOfferOrderItem> getOfferOrders();
 	int getOrderState();
 	void setOrderState(int orderState);
 }
