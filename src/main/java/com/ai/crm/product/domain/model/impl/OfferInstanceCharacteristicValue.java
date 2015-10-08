@@ -1,6 +1,6 @@
 package com.ai.crm.product.domain.model.impl;
 
-import com.ai.crm.common.rootentity.interfaces.ICharacteristicSpecValue;
+import com.ai.common.rootentity.interfaces.ICharacteristicSpecValue;
 import com.ai.crm.product.domain.model.interfaces.IOfferInstanceCharacteristicValue;
 
 public class OfferInstanceCharacteristicValue implements IOfferInstanceCharacteristicValue {

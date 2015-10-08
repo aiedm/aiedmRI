@@ -3,9 +3,9 @@ package com.ai.crm.common.businessinteraction.domain.model.impl;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.ai.common.rootentity.impl.InstanceEntity;
 import com.ai.crm.common.businessinteraction.domain.model.interfaces.IBusinessInteraction;
 import com.ai.crm.common.businessinteraction.domain.model.interfaces.IBusinessInteractionItem;
-import com.ai.crm.common.rootentity.impl.InstanceEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public abstract class BusinessInteraction extends InstanceEntity implements IBusinessInteraction {

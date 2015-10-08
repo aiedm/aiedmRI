@@ -2,8 +2,8 @@ package com.ai.crm.customerorder.domain.model.interfaces;
 
 import java.util.Set;
 
-import com.ai.crm.common.rootentity.interfaces.IInstanceEntity;
-import com.ai.crm.common.rootentity.interfaces.IInstanceEntityCharacteristic;
+import com.ai.common.rootentity.interfaces.IInstanceEntity;
+import com.ai.common.rootentity.interfaces.IInstanceEntityCharacteristic;
 import com.ai.crm.customerorder.domain.model.impl.OrderPrice;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 	    include = JsonTypeInfo.As.PROPERTY,
 	    property = "type")
 	@JsonSubTypes({
-	    @Type(value = OrderPrice.class, name = "PricetOrder")
+	    @Type(value = OrderPrice.class, name = "PriceOrder")
 	    })
 public interface IOrderPrice extends IInstanceEntity{
 	enum PriceState {

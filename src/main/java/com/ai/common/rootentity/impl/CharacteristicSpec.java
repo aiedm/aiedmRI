@@ -1,11 +1,11 @@
-package com.ai.crm.common.rootentity.impl;
+package com.ai.common.rootentity.impl;
 
 import java.util.Set;
 
 import org.springframework.stereotype.Component;
 
-import com.ai.crm.common.rootentity.interfaces.ICharacteristicSpec;
-import com.ai.crm.common.rootentity.interfaces.ICharacteristicSpecValue;
+import com.ai.common.rootentity.interfaces.ICharacteristicSpec;
+import com.ai.common.rootentity.interfaces.ICharacteristicSpecValue;
 @Component
 public class CharacteristicSpec extends RootEntity implements ICharacteristicSpec {
 	private long id;

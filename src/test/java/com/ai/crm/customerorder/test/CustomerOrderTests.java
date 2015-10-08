@@ -16,13 +16,14 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.ai.crm.common.rootentity.impl.CharacteristicInstanceValue;
-import com.ai.crm.common.rootentity.impl.CharacteristicSpec;
-import com.ai.crm.common.rootentity.impl.CharacteristicSpecValue;
-import com.ai.crm.common.rootentity.interfaces.ICharacteristicInstanceValue;
-import com.ai.crm.common.rootentity.interfaces.ICharacteristicSpec;
-import com.ai.crm.common.rootentity.interfaces.ICharacteristicSpecValue;
-import com.ai.crm.common.rootentity.interfaces.IInstanceEntityCharacteristic;
+import com.ai.common.rootentity.impl.CharacteristicInstanceValue;
+import com.ai.common.rootentity.impl.CharacteristicSpec;
+import com.ai.common.rootentity.impl.CharacteristicSpecValue;
+import com.ai.common.rootentity.impl.InstanceEntityCharacteristic;
+import com.ai.common.rootentity.interfaces.ICharacteristicInstanceValue;
+import com.ai.common.rootentity.interfaces.ICharacteristicSpec;
+import com.ai.common.rootentity.interfaces.ICharacteristicSpecValue;
+import com.ai.common.rootentity.interfaces.IInstanceEntityCharacteristic;
 import com.ai.crm.config.DevelopmentProfileConfig;
 import com.ai.crm.customerorder.domain.event.CreateOrderRequested;
 import com.ai.crm.customerorder.domain.model.impl.CustomerOrder;
@@ -79,6 +80,8 @@ public class CustomerOrderTests {
 		offerOrder.addProductOrder(productOrder);
 		orderPrice.setPricePlanId(1);
 		orderPrice.setPriceValue(10000);
+		characteristicValue.setId(1101);
+		characteristicValue.setValue("50%");
 		characteristicSpec.addValue(characteristicValue);
 		characteristicSpec.setId(100);
 		characteristicInstanceValue.setId(100004);
@@ -88,18 +91,18 @@ public class CustomerOrderTests {
 		orderPrice.addPriceCharacter(OfferOrderPriceCharacter);
 		offerOrder.addPrice(orderPrice);
 		productOrder.addPrice(orderPrice);
+		
 		ICharacteristicSpecValue characteristicValue2=new CharacteristicSpecValue();
 		characteristicValue2.setId(1102);
 		characteristicValue2.setValue("Red");	
 		ICharacteristicSpec characteristic2=new CharacteristicSpec();
 		characteristic2.addValue(characteristicValue2);
 		characteristic2.setId(110);
-		characteristic2.setName("Color");	
-		characteristic2.setCode("COLOR");
 		
 		ICharacteristicInstanceValue characteristicInstanceValue2=new CharacteristicInstanceValue(productOrderCharacteristic,characteristicValue2);
 		characteristicInstanceValue2.setId(100005);
 		characteristicInstanceValue2.setValue("Red");
+		productOrderCharacteristic=new InstanceEntityCharacteristic();
 		productOrderCharacteristic.addCharacteristicInstanceValue(characteristicInstanceValue2);
 		productOrder.addProductOrderCharacteristic(productOrderCharacteristic);
 		IProductOrderItem productOrder2=new ProductOrderItem(offerOrder);

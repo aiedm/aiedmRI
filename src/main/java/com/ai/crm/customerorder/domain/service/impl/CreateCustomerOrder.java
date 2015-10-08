@@ -60,6 +60,8 @@ public class CreateCustomerOrder implements ICreateCustomerOrder {
 
 	public void createNewProductOrder(IProductOrderItem productOrder)  throws Exception{
 		productOrder.setProductOrderState(IProductOrderItem.ProductOrderState.CREATED.getValue());
+		//deal with subscriber
+		
 		NewProductOrderCreated event=new NewProductOrderCreated(this);
 		event.setProductOrder(productOrder);
 		eventPublisher.publishEvent(event);
@@ -72,30 +74,36 @@ public class CreateCustomerOrder implements ICreateCustomerOrder {
 			if(null==offerOrder.getCustomerOrder()){
 				offerOrder.setCustomerOrder(customerOrder);
 			}
-			long biSpecId=offerOrder.getBusinessInteractionSpecificationId();
+			long biiSpecId=offerOrder.getBusinessInteractionItemSpecId();
 			//TODO replace with real newConnectionID
-			//if(biSpecId==0){
+			if(biiSpecId==1001){
 				CreateNewOfferOrderRequested event=new CreateNewOfferOrderRequested(this);
 				event.setOfferOrder(offerOrder);
 				eventPublisher.publishEvent(event);
-			//}else if (biSpecId==11){
-				
-			//}
+			}else if (biiSpecId==1002){
+				//unsubscriber
+			}else if (biiSpecId==1003){
+				//modify 
+			}else if (biiSpecId==1004){
+				//replace 
+			}
 		}
 		Set<IProductOrderItem> productOrders=customerOrder.getProductOrders();
 		for (IProductOrderItem productOrder:productOrders) {
 			if(null==productOrder.getCustomerOrder()){
 				productOrder.setCustomerOrder(customerOrder);
 			}
-			long biSpecId=productOrder.getBusinessInteractionSpecificationId();
+			long biiSpecId=productOrder.getBusinessInteractionItemSpecId();
 			//TODO replace with real newConnectionID
-			//if(biSpecId==0){
+			if(biiSpecId==2001){
 				CreateNewProductOrderRequested event=new CreateNewProductOrderRequested(this);
 				event.setProductOrder(productOrder);
 				eventPublisher.publishEvent(event);
-			//}else if (biSpecId==11){
-				
-			//}
+			}else if (biiSpecId==2002){
+				//unsubscriber
+			}else if (biiSpecId==2003){
+				//modify
+			}
 		}		
 	}
 	

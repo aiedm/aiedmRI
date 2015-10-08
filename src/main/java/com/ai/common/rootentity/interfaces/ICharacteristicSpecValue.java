@@ -1,6 +1,6 @@
-package com.ai.crm.common.rootentity.interfaces;
+package com.ai.common.rootentity.interfaces;
 
-import com.ai.crm.common.rootentity.impl.CharacteristicSpecValue;
+import com.ai.common.rootentity.impl.CharacteristicSpecValue;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 	    include = JsonTypeInfo.As.PROPERTY,
 	    property = "type")
 @JsonSubTypes({
-    @Type(value = CharacteristicSpecValue.class, name = "CharacteristicValue"),
+    @Type(value = CharacteristicSpecValue.class, name = "CharacteristicSpecValue"),
 })
 public interface ICharacteristicSpecValue  extends IRootEntity{
 	ICharacteristicSpec getCharacteristic();

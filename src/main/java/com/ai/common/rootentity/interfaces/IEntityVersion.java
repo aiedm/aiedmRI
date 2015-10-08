@@ -1,4 +1,4 @@
-package com.ai.crm.common.rootentity.interfaces;
+package com.ai.common.rootentity.interfaces;
 
 import java.sql.Timestamp;
 

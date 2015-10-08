@@ -1,12 +1,12 @@
-package com.ai.crm.common.rootentity.impl;
+package com.ai.common.rootentity.impl;
 
 import java.sql.Timestamp;
 
 import org.springframework.stereotype.Component;
 
+import com.ai.common.rootentity.interfaces.IEntityVersion;
+import com.ai.common.rootentity.interfaces.IRootEntity;
 import com.ai.crm.common.basetype.interfaces.ITimePeriod;
-import com.ai.crm.common.rootentity.interfaces.IEntityVersion;
-import com.ai.crm.common.rootentity.interfaces.IRootEntity;
 @Component
 public class RootEntity implements IRootEntity {
 	private IEntityVersion version;

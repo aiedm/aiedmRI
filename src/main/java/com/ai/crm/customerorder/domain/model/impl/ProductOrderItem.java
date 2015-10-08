@@ -5,8 +5,8 @@ import java.util.Set;
 
 import org.springframework.stereotype.Component;
 
+import com.ai.common.rootentity.interfaces.IInstanceEntityCharacteristic;
 import com.ai.crm.common.businessinteraction.domain.model.impl.BusinessInteractionItem;
-import com.ai.crm.common.rootentity.interfaces.IInstanceEntityCharacteristic;
 import com.ai.crm.customerorder.domain.model.interfaces.ICustomerOrder;
 import com.ai.crm.customerorder.domain.model.interfaces.IOfferOrderItem;
 import com.ai.crm.customerorder.domain.model.interfaces.IOrderPrice;

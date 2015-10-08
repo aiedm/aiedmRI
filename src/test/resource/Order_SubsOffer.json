@@ -2,56 +2,66 @@
 	"type":"CustomerOrder",
 	"directSubmitOrder":false,
 	"offerOrders":[
+	{
+		"type":"OfferOrder",
+		"prices":[
 		{
-			"type":"OfferOrder",
+			"type":"PriceOrder",
+			"pricePlanId":1,
+			"priceValue":10000,
+			"priceCharacters":[
+			{
+				"type":"InstanceEntityCharacteristic",
+				"characteristicInstanceValues":[
+				{
+					"type":"CharacteristicInstanceValue",
+					"id":100004,
+					"value":"50%",
+					"characteristicSpecValue":{
+						"type":"CharacteristicSpecValue",
+						"id":1101,
+						"value":"50%"
+					}
+				}
+				]
+			}
+			]
+		}
+		],		
+		"productOrders":[
+		{
+			"type":"ProductOrder",				
+			"businessInteractionSpecificationId":1,
+			"productSpecificationId":1,
 			"prices":[
 				{
-					"type":"PricetOrder",			
+					"type":"PriceOrder",			
 					"pricePlanId":1,
-					"roleId":0,
-					"priceValue":10000,
-					"payState":0,
-					"discountReason":null,
-					"priceCharacters":[
-						{
-							"type":"OrderPriceCharacteristicValue",
-							"characteristicValue":
-							{
-									"type":"CharacteristicValue",
-									"id":1001,
-									"value":"50%"
-							}
-						}
-					]
+					"roleId":0
 				}
-			],		
-			"productOrders":[
+			],					
+			"productOrderCharacteristics":[
+			{
+				"type":"InstanceEntityCharacteristic",
+				"characteristicInstanceValues":[
 				{
-					"type":"ProductOrder",				
-					"businessInteractionSpecificationId":1,
-					"productSpecificationId":1,
-					"prices":[
-						{
-							"type":"PricetOrder",			
-							"pricePlanId":1,
-							"roleId":0
-						}
-					],					
-					"productOrderCharacteristics":[
-						{
-							"type":"ProductOrderCharacteristicValue",
-							"characteristicValue":
-							{
-								"type":"CharacteristicValue",
-								"id":1102,
-								"value":"Red"
-							}
-						}
-					],					
-					"businessInteractionSpecificationId":0
-				}				
-			],
-			"businessInteractionSpecificationId":0
-		}
+					"type":"CharacteristicInstanceValue",
+					"id":100005,
+					"value":"Red",
+					"characteristicSpecValue":
+					{
+						"type":"CharacteristicSpecValue",
+						"id":1102,
+						"value":"Red"
+					}
+				}
+				]
+			}
+			],					
+			"businessInteractionSpecificationId":2001
+		}				
+		],
+		"businessInteractionSpecificationId":1001
+	}
 	]
 }

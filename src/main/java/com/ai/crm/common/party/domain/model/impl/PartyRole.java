@@ -16,9 +16,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.ai.common.rootentity.impl.InstanceEntity;
 import com.ai.crm.common.party.domain.model.interfaces.IParty;
 import com.ai.crm.common.party.domain.model.interfaces.IPartyRole;
-import com.ai.crm.common.rootentity.impl.InstanceEntity;
 @Entity
 @Table(name="CB_PARTY_ROLE")
 @Inheritance (strategy = InheritanceType.SINGLE_TABLE)

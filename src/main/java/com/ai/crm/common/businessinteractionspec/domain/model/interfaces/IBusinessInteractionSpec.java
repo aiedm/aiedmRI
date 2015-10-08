@@ -2,7 +2,7 @@ package com.ai.crm.common.businessinteractionspec.domain.model.interfaces;
 
 import java.util.Set;
 
-import com.ai.crm.common.rootentity.interfaces.ISpecificationEntity;
+import com.ai.common.rootentity.interfaces.ISpecificationEntity;
 
 public interface IBusinessInteractionSpec extends ISpecificationEntity{
 	long getBusinessInteractionSpecId();

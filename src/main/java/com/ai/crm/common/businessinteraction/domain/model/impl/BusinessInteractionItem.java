@@ -1,13 +1,15 @@
 package com.ai.crm.common.businessinteraction.domain.model.impl;
 
+import com.ai.common.rootentity.impl.InstanceEntity;
 import com.ai.crm.common.businessinteraction.domain.model.interfaces.IBusinessInteraction;
 import com.ai.crm.common.businessinteraction.domain.model.interfaces.IBusinessInteractionItem;
-import com.ai.crm.common.rootentity.impl.InstanceEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public abstract class BusinessInteractionItem extends InstanceEntity implements IBusinessInteractionItem {
 	@JsonIgnore
 	private long businessInteractionItemId;
+	
+	private long businessInteractionItemSpecId;
 	private int biiState;
 	@JsonIgnore
 	private IBusinessInteraction businessInteraction;
@@ -34,6 +36,17 @@ public abstract class BusinessInteractionItem extends InstanceEntity implements 
 	public void setBusinessInteraciotnItemId(long biiId) {
 		this.businessInteractionItemId=biiId;
 	}
+	
+	@Override
+	public long getBusinessInteractionItemSpecId() {
+		return businessInteractionItemSpecId;
+	}
+
+	@Override
+	public void setBusinessInteractionItemSpecId(long biiSpecId) {	
+		this.businessInteractionItemSpecId=biiSpecId;
+	}
+	
 
 	protected int getBiiState() {
 		return biiState;

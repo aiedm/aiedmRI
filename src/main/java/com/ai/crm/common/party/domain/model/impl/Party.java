@@ -14,9 +14,9 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 
+import com.ai.common.rootentity.impl.InstanceEntity;
+import com.ai.common.rootentity.impl.RootEntity;
 import com.ai.crm.common.party.domain.model.interfaces.IParty;
-import com.ai.crm.common.rootentity.impl.InstanceEntity;
-import com.ai.crm.common.rootentity.impl.RootEntity;
 @Entity
 @Inheritance (strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="partyType",discriminatorType=DiscriminatorType.STRING)

@@ -1,9 +1,9 @@
-package com.ai.crm.common.rootentity.impl;
+package com.ai.common.rootentity.impl;
 
 import org.springframework.stereotype.Component;
 
-import com.ai.crm.common.rootentity.interfaces.ICharacteristicSpec;
-import com.ai.crm.common.rootentity.interfaces.ICharacteristicSpecValue;
+import com.ai.common.rootentity.interfaces.ICharacteristicSpec;
+import com.ai.common.rootentity.interfaces.ICharacteristicSpecValue;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 @Component
 public class CharacteristicSpecValue extends RootEntity implements ICharacteristicSpecValue {
