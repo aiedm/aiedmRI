@@ -13,7 +13,6 @@ public class CreateCustomerOrderFinished extends BaseEvent {
 	}
 	public CreateCustomerOrderFinished(Object source) {
 		super(source);
-		// TODO Auto-generated constructor stub
 	}
 
 }
