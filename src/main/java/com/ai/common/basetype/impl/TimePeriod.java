@@ -1,8 +1,8 @@
-package com.ai.crm.common.basetype.impl;
+package com.ai.common.basetype.impl;
 
 import java.sql.Timestamp;
 
-import com.ai.crm.common.basetype.interfaces.ITimePeriod;
+import com.ai.common.basetype.interfaces.ITimePeriod;
 
 public class TimePeriod implements ITimePeriod {
 	private Timestamp beginTime;

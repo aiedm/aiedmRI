@@ -1,6 +1,6 @@
-package com.ai.crm.common.basetype.impl;
+package com.ai.common.basetype.impl;
 
-import com.ai.crm.common.basetype.interfaces.IRate;
+import com.ai.common.basetype.interfaces.IRate;
 
 public class Rate implements IRate {
 	private long numerator;

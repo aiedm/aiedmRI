@@ -1,6 +1,6 @@
-package com.ai.crm.common.basetype.impl;
+package com.ai.common.basetype.impl;
 
-import com.ai.crm.common.basetype.interfaces.IQuantity;
+import com.ai.common.basetype.interfaces.IQuantity;
 
 public class Quantity implements IQuantity {
 	private long amount;

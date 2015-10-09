@@ -1,6 +1,6 @@
-package com.ai.crm.common.basetype.impl;
+package com.ai.common.basetype.impl;
 
-import com.ai.crm.common.basetype.interfaces.IMoney;
+import com.ai.common.basetype.interfaces.IMoney;
 
 public class Money implements IMoney {
 	private long amount;

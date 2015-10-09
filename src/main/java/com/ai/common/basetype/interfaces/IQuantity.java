@@ -1,4 +1,4 @@
-package com.ai.crm.common.basetype.interfaces;
+package com.ai.common.basetype.interfaces;
 
 public interface IQuantity {
 	long getAmount();

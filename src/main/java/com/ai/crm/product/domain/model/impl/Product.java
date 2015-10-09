@@ -16,6 +16,7 @@ public class Product implements IProduct {
 	private Set<IOfferInstance> participantOfferInstancess=new HashSet<IOfferInstance>();
 	private Set<IPricePlanInstance> assignedPrices=new HashSet<IPricePlanInstance>();
 	private long productSpecificationId;
+	private String serialNumber;
 
 	public Product() {
 		// TODO Auto-generated constructor stub
@@ -109,6 +110,16 @@ public class Product implements IProduct {
 	@Override
 	public void setProductSpecificationId(long productSpecificationId) {
 		this.productSpecificationId=productSpecificationId;
+	}
+
+	@Override
+	public String getSerialNumber() {
+		return this.serialNumber;
+	}
+
+	@Override
+	public void setSerialNumber(String serialNumber) {
+		this.serialNumber=serialNumber;
 	}
 
 }

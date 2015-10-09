@@ -4,9 +4,9 @@ import java.sql.Timestamp;
 
 import org.springframework.stereotype.Component;
 
+import com.ai.common.basetype.interfaces.ITimePeriod;
 import com.ai.common.rootentity.interfaces.IEntityVersion;
 import com.ai.common.rootentity.interfaces.IRootEntity;
-import com.ai.crm.common.basetype.interfaces.ITimePeriod;
 @Component
 public class RootEntity implements IRootEntity {
 	private IEntityVersion version;

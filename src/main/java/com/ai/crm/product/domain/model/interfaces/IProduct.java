@@ -36,4 +36,6 @@ public interface IProduct {
 	void setUserId(long userId);
 	long getProductSpecificationId();
 	void setProductSpecificationId(long productSpecificationId);
+	String getSerialNumber();
+	void setSerialNumber(String serialNumber);
 }
