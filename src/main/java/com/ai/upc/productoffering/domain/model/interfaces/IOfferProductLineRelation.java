@@ -1,4 +1,4 @@
-package com.ai.upc.productoffering.domain.model.interaces;
+package com.ai.upc.productoffering.domain.model.interfaces;
 
 import com.ai.common.basetype.interfaces.IQuantity;
 import com.ai.common.basetype.interfaces.IQuantityRange;

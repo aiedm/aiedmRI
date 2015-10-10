@@ -1,8 +1,9 @@
-package com.ai.upc.productoffering.domain.model.interaces;
+package com.ai.upc.productoffering.domain.model.interfaces;
 
 import java.util.Set;
 
 import com.ai.common.rootentity.domain.model.interfaces.ISpecificationEntity;
+import com.ai.common.rootentity.domain.model.interfaces.ISubscribedEvent;
 
 public interface IProductOffering extends ISpecificationEntity {
 	long getOfferId();
@@ -10,7 +11,5 @@ public interface IProductOffering extends ISpecificationEntity {
 	Set<IOfferRole> getRoles();
 	void addRole(IOfferRole newRole);
 	Set<IOfferPriceTarget> getOfferPriceTargets();
-	void addOfferPriceTarget(IOfferPriceTarget offerPriceTarget);
-	Set<IOfferSubscribedEvent> getSubscribedEvent();
-	void addSubscribedEvent(IOfferSubscribedEvent offerSubscribedEvent);
+	void addOfferPriceTarget(IOfferPriceTarget offerPriceTarget);		
 }

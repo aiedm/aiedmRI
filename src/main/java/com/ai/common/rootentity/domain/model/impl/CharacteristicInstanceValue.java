@@ -54,12 +54,12 @@ public class CharacteristicInstanceValue extends RootEntity implements ICharacte
 	}
 
 	@Override
-	public String getValue() {
+	public String getInputedValue() {
 		return this.value;
 	}
 
 	@Override
-	public void setValue(String value) {
+	public void setInputedValue(String value) {
 		this.value=value;
 	}
 

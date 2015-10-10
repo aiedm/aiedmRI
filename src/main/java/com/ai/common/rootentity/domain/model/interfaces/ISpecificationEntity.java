@@ -9,4 +9,6 @@ public interface ISpecificationEntity extends IRootEntity {
 	void setName(String name);
 	String getCode();
 	void setCode(String code);
+	Set<ISubscribedEvent> getSubscribedEvents();
+	void addSubscribedEvent(ISubscribedEvent event);		
 }

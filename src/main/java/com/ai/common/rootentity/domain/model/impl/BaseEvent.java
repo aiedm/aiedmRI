@@ -1,4 +1,4 @@
-package com.ai.common.rootentity.domain.model.interfaces;
+package com.ai.common.rootentity.domain.model.impl;
 
 import org.springframework.context.ApplicationEvent;
 

@@ -19,6 +19,6 @@ public interface ICharacteristicInstanceValue extends IRootEntity{
 	void setCharacteristicValue(ICharacteristicSpecValue characteristicValue);
 	long getId();
 	void setId(long id);
-	String getValue();
-	void setValue(String value);
+	String getInputedValue();
+	void setInputedValue(String value);
 }

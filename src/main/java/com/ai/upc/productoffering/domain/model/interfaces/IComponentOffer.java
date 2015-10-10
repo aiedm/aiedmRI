@@ -1,4 +1,4 @@
-package com.ai.upc.productoffering.domain.model.interaces;
+package com.ai.upc.productoffering.domain.model.interfaces;
 
 import java.util.Set;
 

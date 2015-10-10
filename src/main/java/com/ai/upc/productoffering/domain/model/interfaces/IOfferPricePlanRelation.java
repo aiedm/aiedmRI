@@ -1,4 +1,4 @@
-package com.ai.upc.productoffering.domain.model.interaces;
+package com.ai.upc.productoffering.domain.model.interfaces;
 
 import com.ai.common.rootentity.domain.model.interfaces.ISpecificationEntity;
 import com.ai.upc.priceplan.domain.model.interfaces.IPricePlan;

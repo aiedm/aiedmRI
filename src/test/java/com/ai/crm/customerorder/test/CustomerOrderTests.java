@@ -85,7 +85,7 @@ public class CustomerOrderTests {
 		characteristicSpec.addValue(characteristicValue);
 		characteristicSpec.setId(100);
 		characteristicInstanceValue.setId(100004);
-		characteristicInstanceValue.setValue("50%");		
+		characteristicInstanceValue.setInputedValue("50%");		
 		characteristicInstanceValue.setCharacteristicValue(characteristicValue);
 		OfferOrderPriceCharacter.addCharacteristicInstanceValue(characteristicInstanceValue);
 		orderPrice.addPriceCharacter(OfferOrderPriceCharacter);
@@ -101,7 +101,7 @@ public class CustomerOrderTests {
 		
 		ICharacteristicInstanceValue characteristicInstanceValue2=new CharacteristicInstanceValue(productOrderCharacteristic,characteristicValue2);
 		characteristicInstanceValue2.setId(100005);
-		characteristicInstanceValue2.setValue("Red");
+		characteristicInstanceValue2.setInputedValue("Red");
 		productOrderCharacteristic=new InstanceEntityCharacteristic();
 		productOrderCharacteristic.addCharacteristicInstanceValue(characteristicInstanceValue2);
 		productOrder.addProductOrderCharacteristic(productOrderCharacteristic);
