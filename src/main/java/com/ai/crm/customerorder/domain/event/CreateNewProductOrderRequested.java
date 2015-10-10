@@ -1,7 +1,7 @@
 package com.ai.crm.customerorder.domain.event;
 
+import com.ai.common.rootentity.domain.model.interfaces.BaseEvent;
 import com.ai.crm.customerorder.domain.model.interfaces.IProductOrderItem;
-import com.ai.flyingshuttle.base.BaseEvent;
 
 public class CreateNewProductOrderRequested extends BaseEvent {
 

@@ -2,7 +2,7 @@ package com.ai.upc.productoffering.domain.model.interaces;
 
 import com.ai.common.basetype.interfaces.IQuantity;
 import com.ai.common.basetype.interfaces.IQuantityRange;
-import com.ai.common.rootentity.interfaces.ISpecificationEntity;
+import com.ai.common.rootentity.domain.model.interfaces.ISpecificationEntity;
 
 public interface IBundleOfferOption extends ISpecificationEntity {
 	IBundleOffer getParentOffer();

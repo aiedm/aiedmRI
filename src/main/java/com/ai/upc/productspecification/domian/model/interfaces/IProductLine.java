@@ -2,7 +2,7 @@ package com.ai.upc.productspecification.domian.model.interfaces;
 
 import java.util.Set;
 
-import com.ai.common.rootentity.interfaces.ISpecificationEntity;
+import com.ai.common.rootentity.domain.model.interfaces.ISpecificationEntity;
 
 public interface IProductLine extends ISpecificationEntity {
 	long getProductLineId();

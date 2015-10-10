@@ -11,6 +11,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.ai.common.rootentity.domain.service.interfaces.IEventPublisher;
 import com.ai.crm.common.party.domain.event.PartyNameChanged;
 import com.ai.crm.common.party.domain.model.interfaces.IDepartment;
 import com.ai.crm.common.party.domain.model.interfaces.ILegalOrganization;
@@ -19,7 +20,6 @@ import com.ai.crm.config.DevelopmentProfileConfig;
 import com.ai.crm.customer.domain.model.interfaces.IIndividualCustomer;
 import com.ai.crm.customer.domain.model.interfaces.ILegalCustomer;
 import com.ai.crm.customer.repository.interfaces.ICustomerRepository;
-import com.ai.flyingshuttle.base.service.interfaces.IEventPublisher;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes=DevelopmentProfileConfig.class)

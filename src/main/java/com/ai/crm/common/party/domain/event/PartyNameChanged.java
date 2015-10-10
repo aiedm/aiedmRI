@@ -2,7 +2,7 @@ package com.ai.crm.common.party.domain.event;
 
 import org.springframework.context.ApplicationEvent;
 
-import com.ai.flyingshuttle.base.BaseEvent;
+import com.ai.common.rootentity.domain.model.interfaces.BaseEvent;
 
 public class PartyNameChanged extends BaseEvent{
 	private String newFirstname;

@@ -1,6 +1,6 @@
 package com.ai.crm.common.party.domain.model.interfaces;
 
-import com.ai.common.rootentity.interfaces.IInstanceEntity;
+import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntity;
 
 public interface IPartyRole extends IInstanceEntity{
 	long getId();

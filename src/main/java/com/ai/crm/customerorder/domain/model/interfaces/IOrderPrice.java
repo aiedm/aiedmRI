@@ -2,8 +2,8 @@ package com.ai.crm.customerorder.domain.model.interfaces;
 
 import java.util.Set;
 
-import com.ai.common.rootentity.interfaces.IInstanceEntity;
-import com.ai.common.rootentity.interfaces.IInstanceEntityCharacteristic;
+import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntity;
+import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntityCharacteristic;
 import com.ai.crm.customerorder.domain.model.impl.OrderPrice;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;

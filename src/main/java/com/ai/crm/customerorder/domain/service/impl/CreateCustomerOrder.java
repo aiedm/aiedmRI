@@ -5,6 +5,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.ai.common.rootentity.domain.service.interfaces.IEventPublisher;
 import com.ai.crm.customerorder.domain.event.CreateCustomerOrderFinished;
 import com.ai.crm.customerorder.domain.event.CreateNewOfferOrderRequested;
 import com.ai.crm.customerorder.domain.event.CreateNewProductOrderRequested;
@@ -17,7 +18,6 @@ import com.ai.crm.customerorder.domain.model.interfaces.ICustomerOrder;
 import com.ai.crm.customerorder.domain.model.interfaces.IOfferOrderItem;
 import com.ai.crm.customerorder.domain.model.interfaces.IProductOrderItem;
 import com.ai.crm.customerorder.domain.service.interfaces.ICreateCustomerOrder;
-import com.ai.flyingshuttle.base.service.interfaces.IEventPublisher;
 @Component
 public class CreateCustomerOrder implements ICreateCustomerOrder {
 	public CreateCustomerOrder(){

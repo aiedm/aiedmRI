@@ -2,7 +2,7 @@ package com.ai.upc.productoffering.domain.model.interaces;
 
 import java.util.Set;
 
-import com.ai.common.rootentity.interfaces.ISpecificationEntity;
+import com.ai.common.rootentity.domain.model.interfaces.ISpecificationEntity;
 
 public interface IProductOffering extends ISpecificationEntity {
 	long getOfferId();

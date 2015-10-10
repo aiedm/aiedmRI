@@ -17,6 +17,8 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.ai.common.rootentity.domain.service.impl.SpringEventPublisher;
+import com.ai.common.rootentity.domain.service.interfaces.IEventPublisher;
 import com.ai.crm.common.party.domain.model.impl.Department;
 import com.ai.crm.common.party.domain.model.impl.Individual;
 import com.ai.crm.common.party.domain.model.impl.LegalOrganization;
@@ -32,8 +34,6 @@ import com.ai.crm.customer.domain.model.interfaces.IIndividualCustomer;
 import com.ai.crm.customer.domain.model.interfaces.ILegalCustomer;
 import com.ai.crm.customer.repository.impl.CustomerRepository;
 import com.ai.crm.customer.repository.interfaces.ICustomerRepository;
-import com.ai.flyingshuttle.base.service.impl.SpringEventPublisher;
-import com.ai.flyingshuttle.base.service.interfaces.IEventPublisher;
 
 @Configuration
 @EnableTransactionManagement

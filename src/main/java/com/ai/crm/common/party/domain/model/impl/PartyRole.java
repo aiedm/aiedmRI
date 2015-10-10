@@ -16,7 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import com.ai.common.rootentity.impl.InstanceEntity;
+import com.ai.common.rootentity.domain.model.impl.InstanceEntity;
 import com.ai.crm.common.party.domain.model.interfaces.IParty;
 import com.ai.crm.common.party.domain.model.interfaces.IPartyRole;
 @Entity

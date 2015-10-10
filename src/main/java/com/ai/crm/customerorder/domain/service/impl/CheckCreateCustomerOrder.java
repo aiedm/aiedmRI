@@ -3,6 +3,8 @@ package com.ai.crm.customerorder.domain.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.ai.common.rootentity.domain.model.impl.CheckResult;
+import com.ai.common.rootentity.domain.service.interfaces.IEventPublisher;
 import com.ai.crm.customerorder.domain.event.CreateNewOfferOrderCheckFailInformed;
 import com.ai.crm.customerorder.domain.event.CreateNewOfferOrderCheckFailRejected;
 import com.ai.crm.customerorder.domain.event.CreateNewOfferOrderCheckPassed;
@@ -16,8 +18,6 @@ import com.ai.crm.customerorder.domain.model.interfaces.ICustomerOrder;
 import com.ai.crm.customerorder.domain.model.interfaces.IOfferOrderItem;
 import com.ai.crm.customerorder.domain.model.interfaces.IProductOrderItem;
 import com.ai.crm.customerorder.domain.service.interfaces.ICheckCreateCustomerOrder;
-import com.ai.flyingshuttle.base.service.impl.CheckResult;
-import com.ai.flyingshuttle.base.service.interfaces.IEventPublisher;
 @Component
 public class CheckCreateCustomerOrder implements ICheckCreateCustomerOrder {
 	public CheckCreateCustomerOrder(){

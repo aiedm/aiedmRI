@@ -1,6 +1,6 @@
 package com.ai.crm.product.domain.model.impl;
 
-import com.ai.common.rootentity.interfaces.ICharacteristicSpecValue;
+import com.ai.common.rootentity.domain.model.interfaces.ICharacteristicSpecValue;
 import com.ai.crm.product.domain.model.interfaces.IPricePlanInstanceCharacteristicValue;
 
 public class PricePlanInstanceCharacteristicValue implements IPricePlanInstanceCharacteristicValue {

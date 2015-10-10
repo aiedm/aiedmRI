@@ -1,6 +1,6 @@
 package com.ai.crm.common.businessinteraction.domain.model.impl;
 
-import com.ai.common.rootentity.impl.InstanceEntity;
+import com.ai.common.rootentity.domain.model.impl.InstanceEntity;
 import com.ai.crm.common.businessinteraction.domain.model.interfaces.IBusinessInteraction;
 import com.ai.crm.common.businessinteraction.domain.model.interfaces.IBusinessInteractionItem;
 import com.fasterxml.jackson.annotation.JsonIgnore;

@@ -3,7 +3,7 @@ package com.ai.crm.common.businessinteractionspec.domain.model.impl;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.ai.common.rootentity.impl.SpecificationEntity;
+import com.ai.common.rootentity.domain.model.impl.SpecificationEntity;
 import com.ai.crm.common.businessinteractionspec.domain.model.interfaces.IBusinessInteractionItemSpec;
 import com.ai.crm.common.businessinteractionspec.domain.model.interfaces.IBusinessInteractionSpec;
 
