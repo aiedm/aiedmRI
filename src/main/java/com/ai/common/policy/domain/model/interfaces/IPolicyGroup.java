@@ -1,5 +1,8 @@
 package com.ai.common.policy.domain.model.interfaces;
 
-public interface IPolicyGroup extends IPolicySet {
+import java.util.Set;
 
+public interface IPolicyGroup extends IPolicySet {
+	Set<IPolicySet> getPolicySets();
+	void addPolicySet(IPolicySet policySet);
 }
