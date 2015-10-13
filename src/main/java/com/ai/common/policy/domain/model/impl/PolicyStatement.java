@@ -89,9 +89,7 @@ public class PolicyStatement extends InstanceEntity implements IPolicyStatement 
 	@Override
 	public String toPolicyString() {
 		StringBuffer sb=new StringBuffer();
-		sb.append(this.getVariable().toPolicyString()).append(" ")
-			.append(this.getOperator().toPolicyString()).append(" ")
-			.append(this.getValue().toPolicyString());
+		sb.append(this.getOperator().toPolicyString(this.getVariable().toPolicyString(),this.getValue().toPolicyString()));
 		return sb.toString();
 	}
 

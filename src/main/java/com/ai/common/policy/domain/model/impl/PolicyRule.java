@@ -6,7 +6,7 @@ import com.ai.common.policy.domain.model.interfaces.IPolicyFunction;
 import com.ai.common.policy.domain.model.interfaces.IPolicyRule;
 
 public class PolicyRule extends PolicySet implements IPolicyRule {
-
+	private boolean isElseAction;
 	public PolicyRule() {
 		// TODO Auto-generated constructor stub
 	}
@@ -37,23 +37,25 @@ public class PolicyRule extends PolicySet implements IPolicyRule {
 
 	@Override
 	public boolean isElseAction() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean hasCharacteristic() {
-		// TODO Auto-generated method stub
-		return false;
+		return this.isElseAction;
 	}
 
 	@Override
 	public String toPolicyString() {
 		StringBuffer bf=new StringBuffer();
-		IPolicyCondition condition=this.getCondition();
-		
-		// TODO Auto-generated method stub
-		return null;
+		if (this.isElseAction()){
+			bf.append(this.getAction().toPolicyString()).append(";\n");
+		}else{
+			bf.append("if ").append(this.getCondition().toPolicyString()).append("{\n")
+			.append("    ").append(this.getAction().toPolicyString()).append(";\n")
+			.append("}\n");			
+		}		
+		return bf.toString();
+	}
+
+	@Override
+	public void setElseAction(boolean isElseAction) {
+		this.isElseAction=isElseAction;		
 	}
 
 }

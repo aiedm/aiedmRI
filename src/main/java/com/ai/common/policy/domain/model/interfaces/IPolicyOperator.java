@@ -5,5 +5,5 @@ import com.ai.common.rootentity.domain.model.interfaces.ISpecificationEntity;
 public interface IPolicyOperator extends ISpecificationEntity {
 	long getId();
 	void setId(long id);
-	String toPolicyString();
+	String toPolicyString(String a,String b);
 }

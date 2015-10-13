@@ -29,6 +29,6 @@ public class PolicyAtomicCondition extends PolicyCondition implements IPolicyAto
 
 	@Override
 	public String toPolicyString() {
-		return this.getStatement().toPolicyString();
+		return "("+this.getStatement().toPolicyString()+")";
 	}
 }

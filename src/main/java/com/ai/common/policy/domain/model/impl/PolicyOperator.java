@@ -4,26 +4,26 @@ import com.ai.common.policy.domain.model.interfaces.IPolicyOperator;
 import com.ai.common.rootentity.domain.model.impl.SpecificationEntity;
 
 public class PolicyOperator extends SpecificationEntity implements IPolicyOperator {
+	private long id;
 
 	public PolicyOperator() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public long getId() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.id;
 	}
 
 	@Override
 	public void setId(long id) {
-		// TODO Auto-generated method stub
-
+		this.id=id;
 	}
 
 	@Override
-	public String toPolicyString() {
-		return this.getCode();
+	public String toPolicyString(String a,String b) {
+		StringBuffer sb=new StringBuffer();
+		sb.append(a).append(this.getCode()).append(b);
+		return sb.toString();
 	}
 
 }

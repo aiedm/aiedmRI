@@ -25,19 +25,29 @@ public class PolicyGroup extends PolicySet implements IPolicyGroup {
 	}
 
 	@Override
-	public boolean hasCharacteristic() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	public String toPolicyString() {
 		StringBuffer bf=new StringBuffer();
 		Set<IPolicySet> childrens=this.getPolicySets();
-		for (IPolicySet iPolicySet : childrens) {
-			bf.append(iPolicySet.toPolicyString());
+		if (childrens.size()>0) {
+			bf.append("boolean matched=false;\n");
+			for (IPolicySet iPolicySet : childrens) {
+				if(iPolicySet instanceof IPolicyRule){
+					if (((IPolicyRule)iPolicySet).isElseAction()){
+						bf.append("if (matched==false) {\n")
+						.append("    ").append(iPolicySet.toPolicyString()).append(";\n")
+						.append("}\n");
+					}else{
+						bf.append("if (matched==false) {\n")
+						.append(" ").append("matched=true\n;")
+						.append(" }\n")
+						.append(iPolicySet.toPolicyString());
+					}
+				}else{
+					bf.append(iPolicySet.toPolicyString());
+				}
+			}			
 		}
-		return null;
+		return bf.toString();
 	}
 
 }
