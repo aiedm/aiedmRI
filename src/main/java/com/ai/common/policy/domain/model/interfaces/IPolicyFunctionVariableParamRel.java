@@ -2,7 +2,7 @@ package com.ai.common.policy.domain.model.interfaces;
 
 import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntity;
 
-public interface IPolicyFunctionVariableParam extends IInstanceEntity {
+public interface IPolicyFunctionVariableParamRel extends IInstanceEntity {
 	IPolicyFunctionVariable getFunctionVariable();
 	void setFunctionVariable(IPolicyFunctionVariable variable);
 	IPolicyFunctionParameter getParameter();
