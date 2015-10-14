@@ -3,7 +3,7 @@ package com.ai.common.policy.domain.model.impl;
 import com.ai.common.policy.domain.model.interfaces.IPolicyOperator;
 import com.ai.common.rootentity.domain.model.impl.SpecificationEntity;
 
-public class PolicyOperator extends SpecificationEntity implements IPolicyOperator {
+public abstract class PolicyOperator extends SpecificationEntity implements IPolicyOperator {
 	private long id;
 
 	public PolicyOperator() {

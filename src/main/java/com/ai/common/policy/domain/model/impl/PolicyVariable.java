@@ -1,6 +1,5 @@
 package com.ai.common.policy.domain.model.impl;
 
-import com.ai.common.policy.domain.model.interfaces.IPolicyValue;
 import com.ai.common.policy.domain.model.interfaces.IPolicyVariable;
 import com.ai.common.rootentity.domain.model.impl.InstanceEntity;
 import com.ai.common.rootentity.domain.model.interfaces.ICharacteristicSpec;
@@ -9,8 +8,9 @@ public class PolicyVariable extends InstanceEntity implements IPolicyVariable {
 	private long id;
 	private String name;
 	private String code;
+	private String type;
+	private ICharacteristicSpec characteristicSpec;
 	public PolicyVariable() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -45,43 +45,26 @@ public class PolicyVariable extends InstanceEntity implements IPolicyVariable {
 
 	@Override
 	public Object getVariableType() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.type;
 	}
 
 	@Override
 	public void setVariableType(String type) {
-		// TODO Auto-generated method stub
-
+		this.type=type;
 	}
 
 	@Override
 	public ICharacteristicSpec getEnumCharacteristic() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.characteristicSpec;
 	}
 
 	@Override
 	public void setEnumCharacteristic(ICharacteristicSpec characteristicSpec) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public IPolicyValue getInitialValue() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setIniatialValue(IPolicyValue value) {
-		// TODO Auto-generated method stub
-
+		this.characteristicSpec=characteristicSpec;
 	}
 
 	@Override
 	public boolean hasCharacteristic() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

@@ -10,4 +10,5 @@ public interface IPolicyAction extends IInstanceEntity {
 	String getCode();
 	void setCode(String code);	
 	String toPolicyString();
+	
 }

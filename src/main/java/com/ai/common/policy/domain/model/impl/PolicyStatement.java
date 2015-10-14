@@ -6,12 +6,13 @@ import com.ai.common.policy.domain.model.interfaces.IPolicyValue;
 import com.ai.common.policy.domain.model.interfaces.IPolicyVariable;
 import com.ai.common.rootentity.domain.model.impl.InstanceEntity;
 
-public class PolicyStatement extends InstanceEntity implements IPolicyStatement {
+public abstract class PolicyStatement extends InstanceEntity implements IPolicyStatement {
 	private long id;
 	private String name;
 	private String code;
+	private IPolicyVariable varible;
+	private IPolicyValue value;
 	public PolicyStatement() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	@Override
@@ -46,43 +47,32 @@ public class PolicyStatement extends InstanceEntity implements IPolicyStatement 
 
 	@Override
 	public IPolicyVariable getVariable() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.varible;
 	}
 
 	@Override
 	public void setVariable(IPolicyVariable varible) {
-		// TODO Auto-generated method stub
-
+		this.varible=varible;
 	}
 
 	@Override
-	public IPolicyOperator getOperator() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public abstract IPolicyOperator getOperator();
 
 	@Override
-	public void setOperator(IPolicyOperator Operator) {
-		// TODO Auto-generated method stub
-
-	}
+	public abstract void setOperator(IPolicyOperator operator);
 
 	@Override
 	public IPolicyValue getValue() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.value;
 	}
 
 	@Override
 	public void setValue(IPolicyValue value) {
-		// TODO Auto-generated method stub
-
+		this.value=value;
 	}
 
 	@Override
 	public boolean hasCharacteristic() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

@@ -6,7 +6,6 @@ import com.ai.common.policy.domain.model.interfaces.IPolicyVariableValue;
 public class PolicyVariableValue extends PolicyValue implements IPolicyVariableValue {
 	private IPolicyVariable variable;
 	public PolicyVariableValue() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

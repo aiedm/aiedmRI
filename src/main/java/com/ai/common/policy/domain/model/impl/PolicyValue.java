@@ -18,7 +18,6 @@ public class PolicyValue extends InstanceEntity implements IPolicyValue {
 	}
 
 	public PolicyValue() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -53,13 +52,11 @@ public class PolicyValue extends InstanceEntity implements IPolicyValue {
 
 	@Override
 	public boolean hasCharacteristic() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 	
 	@Override
 	public String getValue() {
-		// TODO Auto-generated method stub
 		return this.value;
 	}
 

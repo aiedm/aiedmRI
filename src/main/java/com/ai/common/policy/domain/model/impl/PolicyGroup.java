@@ -1,5 +1,6 @@
 package com.ai.common.policy.domain.model.impl;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import com.ai.common.policy.domain.model.interfaces.IPolicyGroup;
@@ -7,21 +8,21 @@ import com.ai.common.policy.domain.model.interfaces.IPolicyRule;
 import com.ai.common.policy.domain.model.interfaces.IPolicySet;
 
 public class PolicyGroup extends PolicySet implements IPolicyGroup {
+	private Set<IPolicySet> policySets=new HashSet<IPolicySet>();
 
 	public PolicyGroup() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public Set<IPolicySet> getPolicySets() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.policySets;
 	}
 
 	@Override
 	public void addPolicySet(IPolicySet policySet) {
-		// TODO Auto-generated method stub
-
+		if (null!=policySet){
+			policySets.add(policySet);
+		}
 	}
 
 	@Override

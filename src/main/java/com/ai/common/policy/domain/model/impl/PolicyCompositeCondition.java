@@ -5,12 +5,10 @@ import java.util.Set;
 
 import com.ai.common.policy.domain.model.interfaces.IPolicyCompositeCondition;
 import com.ai.common.policy.domain.model.interfaces.IPolicyCompositeConditionOption;
-import com.ai.common.policy.domain.model.interfaces.IPolicyCondition;
 
 public class PolicyCompositeCondition extends PolicyCondition implements IPolicyCompositeCondition {
 	private Set<IPolicyCompositeConditionOption> children=new HashSet<IPolicyCompositeConditionOption>();
 	public PolicyCompositeCondition() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

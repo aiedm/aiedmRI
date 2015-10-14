@@ -7,57 +7,51 @@ import com.ai.common.policy.domain.model.interfaces.IPolicyVariable;
 import com.ai.common.rootentity.domain.model.impl.InstanceEntity;
 
 public class PolicyFunctionVariableParamRel extends InstanceEntity implements IPolicyFunctionVariableParamRel {
-
+	private IPolicyFunctionVariable variable;
+	private IPolicyFunctionParameter param;
+	private IPolicyVariable variableValue;
+	private String value;
 	public PolicyFunctionVariableParamRel() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public IPolicyFunctionVariable getFunctionVariable() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.variable;
 	}
 
 	@Override
 	public void setFunctionVariable(IPolicyFunctionVariable variable) {
-		// TODO Auto-generated method stub
-
+		this.variable=variable;
 	}
 
 	@Override
 	public IPolicyFunctionParameter getParameter() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.param;
 	}
 
 	@Override
 	public void setParameter(IPolicyFunctionParameter param) {
-		// TODO Auto-generated method stub
-
+		this.param=param;
 	}
 
 	@Override
 	public IPolicyVariable getVaraibleValueRef() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.variableValue;
 	}
 
 	@Override
-	public void setVaraibleValueRef(IPolicyVariable ariableValue) {
-		// TODO Auto-generated method stub
-
+	public void setVaraibleValueRef(IPolicyVariable variableValue) {
+		this.variableValue=variableValue;
 	}
 
 	@Override
-	public Object getValue() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getValue() {
+		return this.value;
 	}
 
 	@Override
-	public void setValue(Object value) {
-		// TODO Auto-generated method stub
-
+	public void setValue(String value) {
+		this.value=value;
 	}
 
 	@Override

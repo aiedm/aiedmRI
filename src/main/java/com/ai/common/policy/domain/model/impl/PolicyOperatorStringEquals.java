@@ -5,7 +5,6 @@ import com.ai.common.policy.domain.model.interfaces.IPolicyOperatorStringEquals;
 public class PolicyOperatorStringEquals extends PolicyOperator implements IPolicyOperatorStringEquals {
 
 	public PolicyOperatorStringEquals() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	@Override

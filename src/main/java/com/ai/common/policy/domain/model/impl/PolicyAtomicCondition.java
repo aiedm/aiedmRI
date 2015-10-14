@@ -1,29 +1,25 @@
 package com.ai.common.policy.domain.model.impl;
 
 import com.ai.common.policy.domain.model.interfaces.IPolicyAtomicCondition;
-import com.ai.common.policy.domain.model.interfaces.IPolicyStatement;
+import com.ai.common.policy.domain.model.interfaces.IPolicyConditionStatement;
 
 public class PolicyAtomicCondition extends PolicyCondition implements IPolicyAtomicCondition {
-
+	private IPolicyConditionStatement statement;
 	public PolicyAtomicCondition() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	public IPolicyStatement getStatement() {
-		// TODO Auto-generated method stub
-		return null;
+	public IPolicyConditionStatement getStatement() {
+		return this.statement;
 	}
 
 	@Override
-	public void setStatement(IPolicyStatement statement) {
-		// TODO Auto-generated method stub
-
+	public void setStatement(IPolicyConditionStatement statement) {
+		this.statement=statement;
 	}
 
 	@Override
 	public boolean hasCharacteristic() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

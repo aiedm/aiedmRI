@@ -8,7 +8,6 @@ public abstract class PolicySet extends InstanceEntity implements IPolicySet {
 	private String name;
 	private String code;
 	public PolicySet() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

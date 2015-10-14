@@ -1,94 +1,71 @@
 package com.ai.common.policy.domain.model.impl;
 
-import java.util.Set;
-
 import com.ai.common.policy.domain.model.interfaces.IPolicyFunction;
 import com.ai.common.policy.domain.model.interfaces.IPolicyFunctionParameter;
 import com.ai.common.rootentity.domain.model.impl.InstanceEntity;
-import com.ai.common.rootentity.domain.model.interfaces.ICharacteristicSpec;
-import com.ai.common.rootentity.domain.model.interfaces.ISubscribedEvent;
 
 public class PolicyFunctionParameter extends InstanceEntity implements IPolicyFunctionParameter {
-
+	private long id;
+	private String name;
+	private String code;
+	private IPolicyFunction function;
+	private String paramType;
+	
 	public PolicyFunctionParameter() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	public Set<ICharacteristicSpec> getCharacteristSpecs() {
-		// TODO Auto-generated method stub
-		return null;
+	public long getId() {
+		return this.id;
 	}
 
 	@Override
-	public void addCharacteristSpec(ICharacteristicSpec characteristicSpec) {
-		// TODO Auto-generated method stub
-
+	public void setId(long id) {
+		this.id=id;
 	}
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.name;
 	}
 
 	@Override
 	public void setName(String name) {
-		// TODO Auto-generated method stub
-
+		this.name=name;
 	}
 
 	@Override
 	public String getCode() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.code;
 	}
 
 	@Override
 	public void setCode(String code) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public Set<ISubscribedEvent> getSubscribedEvents() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void addSubscribedEvent(ISubscribedEvent event) {
-		// TODO Auto-generated method stub
-
+		this.code=code;
 	}
 
 	@Override
 	public IPolicyFunction getFunction() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.function;
 	}
 
 	@Override
 	public void setFunction(IPolicyFunction function) {
-		// TODO Auto-generated method stub
-
+		this.function=function;
 	}
 
 	@Override
-	public Object getParameterType() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getParameterType() {
+		return this.paramType;
 	}
 
 	@Override
-	public void setarameterType(Object param) {
-		// TODO Auto-generated method stub
-
+	public void setarameterType(String paramType) {
+		this.paramType=paramType;
 	}
 
 	@Override
 	public boolean hasCharacteristic() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

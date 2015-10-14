@@ -1,38 +1,39 @@
 package com.ai.common.policy.domain.model.impl;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import com.ai.common.policy.domain.model.interfaces.IPolicyEnumValue;
 import com.ai.common.rootentity.domain.model.interfaces.ICharacteristicSpecValue;
 
 public class PolicyEnumValue extends PolicyValue implements IPolicyEnumValue {
-
+	private Set<ICharacteristicSpecValue> enumValues=new HashSet<ICharacteristicSpecValue>();
+	private ICharacteristicSpecValue enumValue;
 	public PolicyEnumValue() {
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public Set<ICharacteristicSpecValue> getEnumValues() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.enumValues;
 	}
 
 	@Override
 	public void addEnumValue(ICharacteristicSpecValue value) {
-		// TODO Auto-generated method stub
+		if(null!=value){
+			enumValues.add(value);
+		}
 
 	}
 
 	@Override
 	public ICharacteristicSpecValue getEnumValue() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.enumValue;
 	}
 
 	@Override
-	public void setEnumValue(ICharacteristicSpecValue value) {
-		// TODO Auto-generated method stub
-
+	public void setEnumValue(ICharacteristicSpecValue enumValue) {
+		this.enumValue=enumValue;
 	}
 
 	@Override

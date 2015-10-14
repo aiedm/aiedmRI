@@ -11,9 +11,9 @@ public interface IPolicyStatement extends IInstanceEntity {
 	void setCode(String code);	
 	IPolicyVariable getVariable();
 	void setVariable(IPolicyVariable varible);
-	IPolicyOperator getOperator();
-	void setOperator(IPolicyOperator Operator);
 	IPolicyValue getValue();
 	void setValue(IPolicyValue value);
 	String toPolicyString();
+	abstract IPolicyOperator getOperator();
+	abstract void setOperator(IPolicyOperator Operator);	
 }

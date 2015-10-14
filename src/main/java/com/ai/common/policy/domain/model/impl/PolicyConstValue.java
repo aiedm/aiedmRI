@@ -3,9 +3,7 @@ package com.ai.common.policy.domain.model.impl;
 import com.ai.common.policy.domain.model.interfaces.IPolicyConstValue;
 
 public class PolicyConstValue extends PolicyValue implements IPolicyConstValue {
-	private String value;
 	public PolicyConstValue() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
