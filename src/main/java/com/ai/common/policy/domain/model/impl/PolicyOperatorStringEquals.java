@@ -8,7 +8,7 @@ public class PolicyOperatorStringEquals extends PolicyOperator implements IPolic
 	}
 	
 	@Override
-	public String toPolicyString(String a,String b) {
+	public String toBodyString(String a,String b) {
 		StringBuffer sb=new StringBuffer();
 		sb.append(a)
 			.append(".")

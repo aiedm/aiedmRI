@@ -44,6 +44,6 @@ public abstract class PolicyAction extends InstanceEntity implements IPolicyActi
 	}
 
 	@Override
-	public abstract String toPolicyString();
+	public abstract String toBodyString();
 
 }

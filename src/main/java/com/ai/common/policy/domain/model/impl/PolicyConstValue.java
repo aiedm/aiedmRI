@@ -7,7 +7,7 @@ public class PolicyConstValue extends PolicyValue implements IPolicyConstValue {
 	}
 
 	@Override
-	public String toPolicyString() {
+	public String toBodyString() {
 		StringBuffer sb=new StringBuffer();
 		String value=this.getValue();
 		if (null!=value){

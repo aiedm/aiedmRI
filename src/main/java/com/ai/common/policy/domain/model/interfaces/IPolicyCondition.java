@@ -9,5 +9,5 @@ public interface IPolicyCondition extends IInstanceEntity {
 	void setName(String name);
 	String getCode();
 	void setCode(String code);	
-	String toPolicyString();
+	String toBodyString();
 }

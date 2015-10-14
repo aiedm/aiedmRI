@@ -9,8 +9,8 @@ public class PolicyAtomicAction extends PolicyAction implements IPolicyAtomicAct
 	}
 
 	@Override
-	public String toPolicyString() {
-		return this.getStatement().toPolicyString()+"\n";
+	public String toBodyString() {
+		return this.getStatement().toBodyString()+"\n";
 	}
 
 	@Override

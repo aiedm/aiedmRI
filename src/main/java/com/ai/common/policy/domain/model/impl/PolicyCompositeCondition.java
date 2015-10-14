@@ -28,12 +28,12 @@ public class PolicyCompositeCondition extends PolicyCondition implements IPolicy
 	}
 
 	@Override
-	public String toPolicyString() {
+	public String toBodyString() {
 		StringBuffer sb=new StringBuffer();
 		Set<IPolicyCompositeConditionOption> children=this.getChildren();
 		for (IPolicyCompositeConditionOption iPolicyCompositeConditionOption : children) {
 			sb.append("(");
-			sb.append(iPolicyCompositeConditionOption.getChildCondition().toPolicyString());
+			sb.append(iPolicyCompositeConditionOption.getChildCondition().toBodyString());
 			sb.append(")");
 			if(iPolicyCompositeConditionOption.isOr()){
 				sb.append(" or ");

@@ -12,10 +12,10 @@ public class PolicyCompositeAction extends PolicyAction implements IPolicyCompos
 	}
 
 	@Override
-	public String toPolicyString() {
+	public String toBodyString() {
 		StringBuffer sb=new StringBuffer();
 		for (IPolicyAction iPolicyAction : children) {
-			sb.append(iPolicyAction.toPolicyString());
+			sb.append(iPolicyAction.toBodyString());
 		}
 		return sb.toString();
 	}

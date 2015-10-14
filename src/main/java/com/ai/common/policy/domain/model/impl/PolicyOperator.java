@@ -20,7 +20,7 @@ public abstract class PolicyOperator extends SpecificationEntity implements IPol
 	}
 
 	@Override
-	public String toPolicyString(String a,String b) {
+	public String toBodyString(String a,String b) {
 		StringBuffer sb=new StringBuffer();
 		sb.append(a).append(this.getCode()).append(b);
 		return sb.toString();

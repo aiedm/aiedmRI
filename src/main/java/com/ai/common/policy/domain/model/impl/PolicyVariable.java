@@ -69,7 +69,7 @@ public class PolicyVariable extends InstanceEntity implements IPolicyVariable {
 	}
 
 	@Override
-	public String toPolicyString(){
+	public String toBodyString(){
 		return this.getCode();
 	}
 

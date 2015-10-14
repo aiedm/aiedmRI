@@ -8,7 +8,7 @@ public class PolicyOperatorNot extends PolicyOperator implements IPolicyOperator
 	}
 
 	@Override
-	public String toPolicyString(String a,String b) {
+	public String toBodyString(String a,String b) {
 		StringBuffer sb=new StringBuffer();
 		sb.append(this.getCode()).append(a);
 		return sb.toString();

@@ -7,5 +7,7 @@ public interface IPolicyRule extends IPolicySet {
 	void getAction(IPolicyAction action);
 	boolean isElseAction();
 	void setElseAction(boolean isElseAction);
+	String toBodyString();
 	String toPolicyString();
+	void addInputParameter(IPolicySetInputParameter param);
 }

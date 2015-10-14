@@ -1,15 +1,20 @@
 package com.ai.common.policy.domain.model.impl;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import com.ai.common.policy.domain.model.interfaces.IPolicyAction;
 import com.ai.common.policy.domain.model.interfaces.IPolicyCondition;
 import com.ai.common.policy.domain.model.interfaces.IPolicyRule;
+import com.ai.common.policy.domain.model.interfaces.IPolicySetInputParameter;
 
 public class PolicyRule extends PolicySet implements IPolicyRule {
 	private boolean isElseAction;
 	private IPolicyCondition condition;
 	private IPolicyAction action;
+	private Set<IPolicySetInputParameter> inputParameters=new HashSet<IPolicySetInputParameter>();
+
 	public PolicyRule() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -38,13 +43,13 @@ public class PolicyRule extends PolicySet implements IPolicyRule {
 	}
 
 	@Override
-	public String toPolicyString() {
+	public String toBodyString() {
 		StringBuffer bf=new StringBuffer();
 		if (this.isElseAction()){
-			bf.append(this.getAction().toPolicyString()).append(";\n");
+			bf.append(this.getAction().toBodyString()).append(";\n");
 		}else{
-			bf.append("if ").append(this.getCondition().toPolicyString()).append("{\n")
-			.append("    ").append(this.getAction().toPolicyString()).append(";\n")
+			bf.append("if ").append(this.getCondition().toBodyString()).append("{\n")
+			.append("    ").append(this.getAction().toBodyString()).append(";\n")
 			.append("}\n");			
 		}		
 		return bf.toString();
@@ -53,6 +58,19 @@ public class PolicyRule extends PolicySet implements IPolicyRule {
 	@Override
 	public void setElseAction(boolean isElseAction) {
 		this.isElseAction=isElseAction;		
+	}
+	
+	@Override
+	public void addInputParameter(IPolicySetInputParameter param) {
+		if(null!=param){
+			inputParameters.add(param);
+		}
+	}	
+
+
+	@Override
+	public Set<IPolicySetInputParameter> getInputParameters() {
+		return this.inputParameters;
 	}
 
 }

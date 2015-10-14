@@ -13,7 +13,7 @@ public interface IPolicyStatement extends IInstanceEntity {
 	void setVariable(IPolicyVariable varible);
 	IPolicyValue getValue();
 	void setValue(IPolicyValue value);
-	String toPolicyString();
+	String toBodyString();
 	abstract IPolicyOperator getOperator();
 	abstract void setOperator(IPolicyOperator Operator);	
 }

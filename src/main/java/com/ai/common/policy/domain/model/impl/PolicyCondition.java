@@ -43,5 +43,5 @@ public abstract class PolicyCondition extends InstanceEntity implements IPolicyC
 		this.code=code;
 	}
 	
-	public abstract String toPolicyString();	
+	public abstract String toBodyString();	
 }

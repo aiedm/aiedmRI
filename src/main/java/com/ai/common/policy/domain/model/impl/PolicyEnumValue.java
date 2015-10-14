@@ -42,7 +42,7 @@ public class PolicyEnumValue extends PolicyValue implements IPolicyEnumValue {
 	}
 
 	@Override
-	public String toPolicyString() {
+	public String toBodyString() {
 		StringBuffer sb=new StringBuffer();
 		
 		if (this.getEnumValues().size()>0){
