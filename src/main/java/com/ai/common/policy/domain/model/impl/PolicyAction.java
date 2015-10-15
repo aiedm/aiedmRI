@@ -1,6 +1,9 @@
 package com.ai.common.policy.domain.model.impl;
 
+import java.util.Set;
+
 import com.ai.common.policy.domain.model.interfaces.IPolicyAction;
+import com.ai.common.policy.domain.model.interfaces.IPolicyVariable;
 import com.ai.common.rootentity.domain.model.impl.InstanceEntity;
 
 public abstract class PolicyAction extends InstanceEntity implements IPolicyAction {
@@ -45,5 +48,8 @@ public abstract class PolicyAction extends InstanceEntity implements IPolicyActi
 
 	@Override
 	public abstract String toBodyString();
+	
+	@Override
+	public abstract Set<IPolicyVariable> getVariables();
 
 }

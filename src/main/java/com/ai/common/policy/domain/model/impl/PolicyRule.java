@@ -1,15 +1,20 @@
 package com.ai.common.policy.domain.model.impl;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import com.ai.common.policy.domain.model.interfaces.IPolicyAction;
 import com.ai.common.policy.domain.model.interfaces.IPolicyCondition;
 import com.ai.common.policy.domain.model.interfaces.IPolicyRule;
+import com.ai.common.policy.domain.model.interfaces.IPolicySet;
 import com.ai.common.policy.domain.model.interfaces.IPolicySetInputParameter;
+import com.ai.common.policy.domain.model.interfaces.IPolicyVariable;
 
 public class PolicyRule extends PolicySet implements IPolicyRule {
-	private boolean isElseAction;
 	private IPolicyCondition condition;
 	private IPolicyAction action;
 	private Set<IPolicySetInputParameter> inputParameters=new HashSet<IPolicySetInputParameter>();
@@ -33,31 +38,20 @@ public class PolicyRule extends PolicySet implements IPolicyRule {
 	}
 
 	@Override
-	public void getAction(IPolicyAction action) {
+	public void setAction(IPolicyAction action) {
 		this.action=action;
-	}
-
-	@Override
-	public boolean isElseAction() {
-		return this.isElseAction;
 	}
 
 	@Override
 	public String toBodyString() {
 		StringBuffer bf=new StringBuffer();
-		if (this.isElseAction()){
-			bf.append(this.getAction().toBodyString()).append(";\n");
-		}else{
-			bf.append("if ").append(this.getCondition().toBodyString()).append("{\n")
-			.append("    ").append(this.getAction().toBodyString()).append(";\n")
-			.append("}\n");			
-		}		
+		bf.append("if ").append(this.getCondition().toBodyString()).append("{\n")
+		.append(this.getAction().toBodyString())
+		.append("            ").append("if (matched==false) {\n")
+		.append("            ").append("   ").append("matched=true;\n")
+		.append("            ").append("}\n")
+		.append("        }\n");	
 		return bf.toString();
-	}
-
-	@Override
-	public void setElseAction(boolean isElseAction) {
-		this.isElseAction=isElseAction;		
 	}
 	
 	@Override
@@ -71,6 +65,41 @@ public class PolicyRule extends PolicySet implements IPolicyRule {
 	@Override
 	public Set<IPolicySetInputParameter> getInputParameters() {
 		return this.inputParameters;
+	}
+
+	@Override
+	public String getVariableDeclareString() {
+		StringBuffer sb=new StringBuffer();
+		Set<IPolicyVariable> variables=new HashSet<IPolicyVariable>();
+		IPolicyCondition condition=this.getCondition();
+		if (null!=condition){
+			variables.addAll(condition.getVariables());
+		}
+		IPolicyAction action=this.getAction();
+		if(null!=action){
+			variables.addAll(action.getVariables());
+		}
+		IPolicyAction elseAction=this.getElseAction();
+		if(null!=elseAction){
+			variables.addAll(elseAction.getVariables());		
+		}
+		Map<String , IPolicyVariable>  map=new HashMap<String, IPolicyVariable>();
+		for (IPolicyVariable iPolicyVariable : variables) {
+			String code=iPolicyVariable.getCode();
+			if (!map.containsKey(code)){
+				map.put(code, iPolicyVariable);
+			}
+		}
+		for(Entry<String, IPolicyVariable> entry : map.entrySet()){
+			String code = entry.getKey();
+			IPolicyVariable variable = entry.getValue();
+			sb.append("        ").append(variable.getVariableType()).append(" ").append(code);
+			if(null!=variable.getInitialValue()){
+				sb.append(variable.getInitialValue());
+			}
+			sb.append(";\n");
+		}
+		return sb.toString();
 	}
 
 }

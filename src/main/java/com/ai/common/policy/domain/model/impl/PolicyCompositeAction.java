@@ -5,6 +5,7 @@ import java.util.Set;
 
 import com.ai.common.policy.domain.model.interfaces.IPolicyAction;
 import com.ai.common.policy.domain.model.interfaces.IPolicyCompositeAction;
+import com.ai.common.policy.domain.model.interfaces.IPolicyVariable;
 
 public class PolicyCompositeAction extends PolicyAction implements IPolicyCompositeAction {
 	Set<IPolicyAction> children=new HashSet<IPolicyAction>();
@@ -15,7 +16,7 @@ public class PolicyCompositeAction extends PolicyAction implements IPolicyCompos
 	public String toBodyString() {
 		StringBuffer sb=new StringBuffer();
 		for (IPolicyAction iPolicyAction : children) {
-			sb.append(iPolicyAction.toBodyString());
+			sb.append("            ").append(iPolicyAction.toBodyString());
 		}
 		return sb.toString();
 	}
@@ -30,6 +31,15 @@ public class PolicyCompositeAction extends PolicyAction implements IPolicyCompos
 		if (null!=child){
 			this.children.add(child);			
 		}		
+	}
+
+	@Override
+	public Set<IPolicyVariable> getVariables() {
+		Set<IPolicyVariable> variables=new HashSet<IPolicyVariable>();
+		for (IPolicyAction iPolicyAction : children) {
+			variables.addAll(iPolicyAction.getVariables());
+		}
+		return variables;
 	}
 
 }

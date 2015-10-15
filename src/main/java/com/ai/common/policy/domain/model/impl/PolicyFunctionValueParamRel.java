@@ -1,27 +1,27 @@
 package com.ai.common.policy.domain.model.impl;
 
 import com.ai.common.policy.domain.model.interfaces.IPolicyFunctionParameter;
-import com.ai.common.policy.domain.model.interfaces.IPolicyFunctionVariable;
-import com.ai.common.policy.domain.model.interfaces.IPolicyFunctionVariableParamRel;
+import com.ai.common.policy.domain.model.interfaces.IPolicyFunctionValue;
+import com.ai.common.policy.domain.model.interfaces.IPolicyFunctionValueParamRel;
 import com.ai.common.policy.domain.model.interfaces.IPolicyVariable;
 import com.ai.common.rootentity.domain.model.impl.InstanceEntity;
 
-public class PolicyFunctionVariableParamRel extends InstanceEntity implements IPolicyFunctionVariableParamRel {
-	private IPolicyFunctionVariable variable;
+public class PolicyFunctionValueParamRel extends InstanceEntity implements IPolicyFunctionValueParamRel {
+	private IPolicyFunctionValue functionValue;
 	private IPolicyFunctionParameter param;
 	private IPolicyVariable variableValue;
 	private String value;
-	public PolicyFunctionVariableParamRel() {
+	public PolicyFunctionValueParamRel() {
 	}
 
 	@Override
-	public IPolicyFunctionVariable getFunctionVariable() {
-		return this.variable;
+	public IPolicyFunctionValue getFunctionValue() {
+		return this.functionValue;
 	}
 
 	@Override
-	public void setFunctionVariable(IPolicyFunctionVariable variable) {
-		this.variable=variable;
+	public void setFunctionValue(IPolicyFunctionValue functionValue) {
+		this.functionValue=functionValue;
 	}
 
 	@Override

@@ -5,4 +5,7 @@ import java.util.Set;
 public interface IPolicyCompositeCondition extends IPolicyCondition {
 	Set<IPolicyCompositeConditionOption> getChildren();
 	void addChild(IPolicyCompositeConditionOption child);
+	boolean isOr();
+	void setOr();
+	void setAnd();	
 }

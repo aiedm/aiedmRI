@@ -1,6 +1,9 @@
 package com.ai.common.policy.domain.model.impl;
 
+import java.util.Set;
+
 import com.ai.common.policy.domain.model.interfaces.IPolicyCondition;
+import com.ai.common.policy.domain.model.interfaces.IPolicyVariable;
 import com.ai.common.rootentity.domain.model.impl.InstanceEntity;
 
 public abstract class PolicyCondition extends InstanceEntity implements IPolicyCondition {
@@ -43,5 +46,9 @@ public abstract class PolicyCondition extends InstanceEntity implements IPolicyC
 		this.code=code;
 	}
 	
+	@Override
 	public abstract String toBodyString();	
+	
+	@Override
+	public abstract Set<IPolicyVariable> getVariables();
 }

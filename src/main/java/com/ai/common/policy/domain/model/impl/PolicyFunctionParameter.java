@@ -60,7 +60,7 @@ public class PolicyFunctionParameter extends InstanceEntity implements IPolicyFu
 	}
 
 	@Override
-	public void setarameterType(String paramType) {
+	public void setParameterType(String paramType) {
 		this.paramType=paramType;
 	}
 

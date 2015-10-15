@@ -13,4 +13,6 @@ public interface IPolicyFunction extends IInstanceEntity {
 	void setCode(String code);	
 	Set<IPolicyFunctionParameter> getParameters();
 	void addParameter(IPolicyFunctionParameter param);
+	String returnType();
+	void setReturnType(String type);
 } 

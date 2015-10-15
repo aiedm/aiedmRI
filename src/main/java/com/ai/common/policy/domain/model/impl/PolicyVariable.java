@@ -1,5 +1,6 @@
 package com.ai.common.policy.domain.model.impl;
 
+import com.ai.common.policy.domain.model.interfaces.IPolicyValue;
 import com.ai.common.policy.domain.model.interfaces.IPolicyVariable;
 import com.ai.common.rootentity.domain.model.impl.InstanceEntity;
 import com.ai.common.rootentity.domain.model.interfaces.ICharacteristicSpec;
@@ -10,6 +11,7 @@ public class PolicyVariable extends InstanceEntity implements IPolicyVariable {
 	private String code;
 	private String type;
 	private ICharacteristicSpec characteristicSpec;
+	private IPolicyValue initialValue;
 	public PolicyVariable() {
 	}
 
@@ -71,6 +73,16 @@ public class PolicyVariable extends InstanceEntity implements IPolicyVariable {
 	@Override
 	public String toBodyString(){
 		return this.getCode();
+	}
+
+	@Override
+	public IPolicyValue getInitialValue() {
+		return this.initialValue;
+	}
+
+	@Override
+	public void setInitialValue(IPolicyValue value) {
+		this.initialValue=value;
 	}
 
 }

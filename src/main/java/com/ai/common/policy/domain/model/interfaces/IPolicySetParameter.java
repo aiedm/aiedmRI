@@ -5,12 +5,8 @@ import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntity;
 public interface IPolicySetParameter extends IInstanceEntity {
 	long getId();
 	void setId(long id);
-	String getName();
-	void setName(String name);
-	String getCode();
-	void setCode(String code);	
+	IPolicyVariable getVariable();
+	void setVariable(IPolicyVariable variable);	
 	IPolicySet getPolicySet();
 	void setPolicySet(IPolicySet policySet);
-	String getParameterType();
-	void setarameterType(String paramType);
 }

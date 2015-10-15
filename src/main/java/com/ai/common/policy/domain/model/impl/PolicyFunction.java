@@ -11,9 +11,9 @@ public class PolicyFunction extends InstanceEntity implements IPolicyFunction {
 	private long id;
 	private String name;
 	private String code;
+	private String returnType;
 	Set<IPolicyFunctionParameter> parameters=new HashSet<IPolicyFunctionParameter>();
 	public PolicyFunction() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -60,8 +60,17 @@ public class PolicyFunction extends InstanceEntity implements IPolicyFunction {
 
 	@Override
 	public boolean hasCharacteristic() {
-		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public String returnType() {
+		return this.returnType;
+	}
+
+	@Override
+	public void setReturnType(String type) {
+		this.returnType=type;
 	}
 
 }

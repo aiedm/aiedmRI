@@ -16,4 +16,7 @@ public interface IPolicySet extends IInstanceEntity {
 	IPolicySetOutputParameter getOutputParameter();
 	void setOutputParameter(IPolicySetOutputParameter param);
 	String toPolicyString();
+	String getVariableDeclareString();
+	void setElseAction(IPolicyAction elseAction);
+	IPolicyAction getElseAction();	
 }

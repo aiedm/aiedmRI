@@ -3,6 +3,7 @@ package com.ai.common.policy.domain.model.impl;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.ai.common.policy.domain.model.interfaces.IPolicyAction;
 import com.ai.common.policy.domain.model.interfaces.IPolicyGroup;
 import com.ai.common.policy.domain.model.interfaces.IPolicyRule;
 import com.ai.common.policy.domain.model.interfaces.IPolicySet;
@@ -31,23 +32,9 @@ public class PolicyGroup extends PolicySet implements IPolicyGroup {
 	public String toBodyString() {
 		StringBuffer bf=new StringBuffer();
 		Set<IPolicySet> childrens=this.getPolicySets();
-		if (childrens.size()>0) {
-			bf.append("boolean matched=false;\n");
+		if (childrens.size()>0) {			
 			for (IPolicySet iPolicySet : childrens) {
-				if(iPolicySet instanceof IPolicyRule){
-					if (((IPolicyRule)iPolicySet).isElseAction()){
-						bf.append("if (matched==false) {\n")
-						.append("    ").append(iPolicySet.toBodyString()).append(";\n")
-						.append("}\n");
-					}else{
-						bf.append("if (matched==false) {\n")
-						.append(" ").append("matched=true\n;")
-						.append(" }\n")
-						.append(iPolicySet.toBodyString());
-					}
-				}else{
-					bf.append(iPolicySet.toBodyString());
-				}
+				bf.append(iPolicySet.toBodyString());
 			}			
 		}
 		return bf.toString();
@@ -60,6 +47,16 @@ public class PolicyGroup extends PolicySet implements IPolicyGroup {
 			this.inputParameters.addAll(iPolicySet.getInputParameters());
 		}
 		return this.inputParameters;
+	}
+
+	@Override
+	public String getVariableDeclareString() {
+		StringBuffer sb=new StringBuffer();
+		Set<IPolicySet> children=this.getPolicySets();
+		for (IPolicySet iPolicySet : children) {
+			sb.append(iPolicySet.getVariableDeclareString());
+		}		
+		return sb.toString();
 	}
 
 }

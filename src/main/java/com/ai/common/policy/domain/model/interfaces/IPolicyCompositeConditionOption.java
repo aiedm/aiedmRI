@@ -7,7 +7,4 @@ public interface IPolicyCompositeConditionOption extends IInstanceEntity {
 	void setParentCondition(IPolicyCompositeCondition parent);
 	IPolicyCondition getChildCondition();
 	void setChildCondition(IPolicyCondition child);
-	boolean isOr();
-	void setOr();
-	void setAnd();
 }
