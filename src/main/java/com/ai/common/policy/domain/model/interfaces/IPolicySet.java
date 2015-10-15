@@ -1,5 +1,6 @@
 package com.ai.common.policy.domain.model.interfaces;
 
+import java.util.Map;
 import java.util.Set;
 
 import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntity;
@@ -19,4 +20,6 @@ public interface IPolicySet extends IInstanceEntity {
 	String getVariableDeclareString();
 	void setElseAction(IPolicyAction elseAction);
 	IPolicyAction getElseAction();	
+	void disableElseAction();
+	Map<String,IPolicyVariable> getVariableMap();
 }

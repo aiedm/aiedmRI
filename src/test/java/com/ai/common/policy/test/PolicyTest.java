@@ -22,6 +22,7 @@ import com.ai.common.policy.domain.model.impl.PolicyFunction;
 import com.ai.common.policy.domain.model.impl.PolicyFunctionParameter;
 import com.ai.common.policy.domain.model.impl.PolicyFunctionValue;
 import com.ai.common.policy.domain.model.impl.PolicyFunctionValueParamRel;
+import com.ai.common.policy.domain.model.impl.PolicyGroup;
 import com.ai.common.policy.domain.model.impl.PolicyRule;
 import com.ai.common.policy.domain.model.impl.PolicySetInputParameter;
 import com.ai.common.policy.domain.model.impl.PolicySetOutputParameter;
@@ -39,6 +40,7 @@ import com.ai.common.policy.domain.model.interfaces.IPolicyFunction;
 import com.ai.common.policy.domain.model.interfaces.IPolicyFunctionParameter;
 import com.ai.common.policy.domain.model.interfaces.IPolicyFunctionValue;
 import com.ai.common.policy.domain.model.interfaces.IPolicyFunctionValueParamRel;
+import com.ai.common.policy.domain.model.interfaces.IPolicyGroup;
 import com.ai.common.policy.domain.model.interfaces.IPolicyOperator;
 import com.ai.common.policy.domain.model.interfaces.IPolicyRule;
 import com.ai.common.policy.domain.model.interfaces.IPolicySetInputParameter;
@@ -70,6 +72,10 @@ public class PolicyTest {
 		
 		IPolicyRule rule1=new PolicyRule();
 		rule1.setCode("TestRule");
+		IPolicyGroup groupRule=new PolicyGroup();
+		groupRule.addPolicySet(rule1);		
+		groupRule.setCode("TestGroup");
+		
 		IPolicyVariable var1=new PolicyVariable();
 		var1.setCode("a");
 		var1.setVariableType("Integer");
@@ -81,10 +87,11 @@ public class PolicyTest {
 		var3.setVariableType("Integer");
 		IPolicyVariable var4=new PolicyVariable();
 		var4.setCode("returnValue");
-		var4.setVariableType("Boolean");		
+		var4.setVariableType("Boolean");
+		var4.setInitialValue("false");
 		IPolicyConstValue value1=new PolicyConstValue();
 		value1.setType("Integer");
-		value1.setValue("100");
+		value1.setValue("100*10");
 		IPolicyFunctionValue value2=new PolicyFunctionValue();
 		value2.setType("Integer");
 		//value2.setValue("tested:a>100");
@@ -165,8 +172,8 @@ public class PolicyTest {
 		action5.setStatement(statement5);	
 		rule1.setElseAction(action5);
 		IPolicySetOutputParameter param=new PolicySetOutputParameter();
-		param.setVariable(var2);
-		rule1.setOutputParameter(param);
+		param.setVariable(var4);
+		groupRule.setOutputParameter(param);
 		IPolicySetInputParameter param2=new PolicySetInputParameter();
 		param2.setVariable(var1);
 		rule1.addInputParameter(param2);
@@ -174,18 +181,24 @@ public class PolicyTest {
 		param3.setVariable(var3);
 		rule1.addInputParameter(param3);	
 		
+		IPolicyRule rule2=new PolicyRule();
+		rule2.setCondition(condition1);
+		rule2.setAction(action3);
+		rule2.setElseAction(action3);
+		groupRule.setElseAction(action1);
+		groupRule.addPolicySet(rule2);
 		
-		
-		String ss=rule1.toPolicyString();
+		String ss=groupRule.toPolicyString();
 		System.out.println(ss);
 		
 		IPolicyExecute serv1=new GroovyPolicyExecute();
 		Map<String, Object> context=new HashMap<>();
-		context.put("a", 400);
+		context.put("a", 200);
 		context.put("b", 200);
 		context.put("c", 500);
-		Integer resu=(Integer)serv1.execute(rule1, context);
-		assertEquals(resu,new Integer(900));
+		Boolean resu=(Boolean)serv1.execute(groupRule, context);
+		//assertEquals(resu,new Integer(900));
+		assertEquals(resu,false);
 	}
 
 }

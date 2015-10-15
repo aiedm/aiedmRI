@@ -11,7 +11,7 @@ public class PolicyVariable extends InstanceEntity implements IPolicyVariable {
 	private String code;
 	private String type;
 	private ICharacteristicSpec characteristicSpec;
-	private IPolicyValue initialValue;
+	private String initialValue;
 	public PolicyVariable() {
 	}
 
@@ -76,12 +76,12 @@ public class PolicyVariable extends InstanceEntity implements IPolicyVariable {
 	}
 
 	@Override
-	public IPolicyValue getInitialValue() {
+	public String getInitialValue() {
 		return this.initialValue;
 	}
 
 	@Override
-	public void setInitialValue(IPolicyValue value) {
+	public void setInitialValue(String value) {
 		this.initialValue=value;
 	}
 

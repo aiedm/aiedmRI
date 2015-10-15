@@ -35,7 +35,6 @@ public class PolicyCompositeCondition extends PolicyCondition implements IPolicy
 		StringBuffer sb=new StringBuffer();
 		Set<IPolicyCompositeConditionOption> children=this.getChildren();
 		if(children.size()>0){
-			sb.append("(");
 			for (IPolicyCompositeConditionOption iPolicyCompositeConditionOption : children) {
 				sb.append("(");
 				sb.append(iPolicyCompositeConditionOption.getChildCondition().toBodyString());
@@ -53,7 +52,6 @@ public class PolicyCompositeCondition extends PolicyCondition implements IPolicy
 			if(lastIdx>0){
 				sb.delete(lastIdx, sb.length());
 			}
-			sb.append(")");
 		}
 		
 		return sb.toString();

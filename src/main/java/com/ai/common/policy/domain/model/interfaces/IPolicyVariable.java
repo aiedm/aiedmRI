@@ -15,6 +15,6 @@ public interface IPolicyVariable extends IInstanceEntity {
 	ICharacteristicSpec getEnumCharacteristic();
 	void setEnumCharacteristic(ICharacteristicSpec characteristicSpec);	
 	String toBodyString();
-	IPolicyValue getInitialValue();
-	void setInitialValue(IPolicyValue value);
+	String getInitialValue();
+	void setInitialValue(String value);
 }

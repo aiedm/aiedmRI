@@ -45,7 +45,7 @@ public class PolicyRule extends PolicySet implements IPolicyRule {
 	@Override
 	public String toBodyString() {
 		StringBuffer bf=new StringBuffer();
-		bf.append("if ").append(this.getCondition().toBodyString()).append("{\n")
+		bf.append("        ").append("if (").append(this.getCondition().toBodyString()).append("){\n")
 		.append(this.getAction().toBodyString())
 		.append("            ").append("if (matched==false) {\n")
 		.append("            ").append("   ").append("matched=true;\n")
@@ -66,10 +66,9 @@ public class PolicyRule extends PolicySet implements IPolicyRule {
 	public Set<IPolicySetInputParameter> getInputParameters() {
 		return this.inputParameters;
 	}
-
+	
 	@Override
-	public String getVariableDeclareString() {
-		StringBuffer sb=new StringBuffer();
+	public Map<String,IPolicyVariable> getVariableMap(){
 		Set<IPolicyVariable> variables=new HashSet<IPolicyVariable>();
 		IPolicyCondition condition=this.getCondition();
 		if (null!=condition){
@@ -90,16 +89,7 @@ public class PolicyRule extends PolicySet implements IPolicyRule {
 				map.put(code, iPolicyVariable);
 			}
 		}
-		for(Entry<String, IPolicyVariable> entry : map.entrySet()){
-			String code = entry.getKey();
-			IPolicyVariable variable = entry.getValue();
-			sb.append("        ").append(variable.getVariableType()).append(" ").append(code);
-			if(null!=variable.getInitialValue()){
-				sb.append(variable.getInitialValue());
-			}
-			sb.append(";\n");
-		}
-		return sb.toString();
+		return map;
 	}
 
 }

@@ -1,11 +1,14 @@
 package com.ai.common.policy.domain.model.impl;
 
+import java.util.Map;
 import java.util.Set;
+import java.util.Map.Entry;
 
 import com.ai.common.policy.domain.model.interfaces.IPolicyAction;
 import com.ai.common.policy.domain.model.interfaces.IPolicySet;
 import com.ai.common.policy.domain.model.interfaces.IPolicySetInputParameter;
 import com.ai.common.policy.domain.model.interfaces.IPolicySetOutputParameter;
+import com.ai.common.policy.domain.model.interfaces.IPolicyVariable;
 import com.ai.common.rootentity.domain.model.impl.InstanceEntity;
 
 public abstract class PolicySet extends InstanceEntity implements IPolicySet {
@@ -14,6 +17,7 @@ public abstract class PolicySet extends InstanceEntity implements IPolicySet {
 	private String code;
 	private IPolicySetOutputParameter outputParam;	
 	private IPolicyAction elseAction;
+	boolean isEnableElseAction=true;
 	
 	public PolicySet() {
 	}
@@ -77,10 +81,31 @@ public abstract class PolicySet extends InstanceEntity implements IPolicySet {
 	}
 	
 	@Override
+	public void disableElseAction(){
+		this.isEnableElseAction=false;
+	}
+	
+	@Override
 	public abstract String toBodyString();
 	
 	@Override
-	public abstract String getVariableDeclareString();
+	public String getVariableDeclareString() {
+		StringBuffer sb=new StringBuffer();
+		Map<String , IPolicyVariable> map=this.getVariableMap();
+		for(Entry<String, IPolicyVariable> entry : map.entrySet()){
+			String code = entry.getKey();
+			IPolicyVariable variable = entry.getValue();
+			sb.append("        ").append(variable.getVariableType()).append(" ").append(code);
+			if(null!=variable.getInitialValue()){
+				sb.append(" = ").append(variable.getInitialValue());
+			}
+			sb.append(";\n");
+		}
+		return sb.toString();
+	}
+	
+	@Override
+	public abstract Map<String,IPolicyVariable> getVariableMap();
 	
 	@Override
 	public String toPolicyString() {
@@ -122,8 +147,8 @@ public abstract class PolicySet extends InstanceEntity implements IPolicySet {
 		method.append(" ").append("executePolicy(").append("Map<String, Object> context").append(") throws Exception {\n")
 		.append(this.getVariableDeclareString())
 		.append(methodDeclare.toString())
-		.append("        ").append(this.toBodyString());
-		if (null!=this.getElseAction()){
+		.append(this.toBodyString());
+		if (null!=this.getElseAction()&&this.isEnableElseAction){
 			method.append("        ").append("if (matched==false) {\n")
 			.append("        ").append("    ").append(this.getElseAction().toBodyString())
 			.append("        ").append("}\n");
@@ -136,6 +161,7 @@ public abstract class PolicySet extends InstanceEntity implements IPolicySet {
 		.append(constructor.toString())
 		.append(method.toString())
 		.append(classEnd);
+		
 		return classBody.toString();
 	}
 
