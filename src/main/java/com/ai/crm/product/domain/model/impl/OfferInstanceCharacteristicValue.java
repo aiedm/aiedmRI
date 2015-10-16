@@ -1,9 +1,10 @@
 package com.ai.crm.product.domain.model.impl;
 
+import com.ai.common.rootentity.domain.model.impl.InstanceEntity;
 import com.ai.common.rootentity.domain.model.interfaces.ICharacteristicSpecValue;
 import com.ai.crm.product.domain.model.interfaces.IOfferInstanceCharacteristicValue;
 
-public class OfferInstanceCharacteristicValue implements IOfferInstanceCharacteristicValue {
+public class OfferInstanceCharacteristicValue extends InstanceEntity implements IOfferInstanceCharacteristicValue {
 
 	public OfferInstanceCharacteristicValue() {
 		// TODO Auto-generated constructor stub
@@ -19,6 +20,11 @@ public class OfferInstanceCharacteristicValue implements IOfferInstanceCharacter
 	public void setCharacteristicValue(ICharacteristicSpecValue value) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public boolean hasCharacteristic() {
+		return false;
 	}
 
 }

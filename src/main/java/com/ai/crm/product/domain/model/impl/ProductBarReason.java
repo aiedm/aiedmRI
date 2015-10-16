@@ -1,9 +1,10 @@
 package com.ai.crm.product.domain.model.impl;
 
+import com.ai.common.rootentity.domain.model.impl.InstanceEntity;
 import com.ai.crm.product.domain.model.interfaces.IProduct;
 import com.ai.crm.product.domain.model.interfaces.IProductBarReason;
 
-public class ProductBarReason implements IProductBarReason {
+public class ProductBarReason extends InstanceEntity implements IProductBarReason {
 
 	public ProductBarReason() {
 		// TODO Auto-generated constructor stub
@@ -31,6 +32,11 @@ public class ProductBarReason implements IProductBarReason {
 	public void setProduct(IProduct product) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public boolean hasCharacteristic() {
+		return false;
 	}
 
 }

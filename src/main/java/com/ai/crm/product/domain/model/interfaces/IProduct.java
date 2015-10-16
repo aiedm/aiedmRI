@@ -2,7 +2,9 @@ package com.ai.crm.product.domain.model.interfaces;
 
 import java.util.Set;
 
-public interface IProduct {
+import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntity;
+
+public interface IProduct extends IInstanceEntity{
 	enum ProductState {
 		INITIATED(0),
 		PREACTIVE(1),

@@ -2,11 +2,11 @@ package com.ai.crm.product.domain.model.interfaces;
 
 import java.util.Set;
 
-public interface IPricePlanInstance {
+import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntity;
+
+public interface IPricePlanInstance extends IInstanceEntity{
 	long getPricePlanInstanceId();
 	void setPricePlanInstanceId(long pricePlanInstanceId);
-	Set<IPricePlanInstanceCharacteristicValue> getCharacteristics();
-	void addCharacteristic(IPricePlanInstanceCharacteristicValue pricePlanInstanceCharacteristic);
 	IOfferInstance getOfferInstance();
 	void setOfferInstance(IOfferInstance offerInstance);
 	Set<IProduct> getAssignedTo();

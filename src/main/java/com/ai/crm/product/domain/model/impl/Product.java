@@ -3,12 +3,13 @@ package com.ai.crm.product.domain.model.impl;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.ai.common.rootentity.domain.model.impl.InstanceEntity;
 import com.ai.crm.product.domain.model.interfaces.IOfferInstance;
 import com.ai.crm.product.domain.model.interfaces.IPricePlanInstance;
 import com.ai.crm.product.domain.model.interfaces.IProduct;
 import com.ai.crm.product.domain.model.interfaces.IProductBarReason;
 
-public class Product implements IProduct {
+public class Product extends InstanceEntity implements IProduct {
 	private long productId;
 	private long customerId;
 	private long userId;
@@ -120,6 +121,11 @@ public class Product implements IProduct {
 	@Override
 	public void setSerialNumber(String serialNumber) {
 		this.serialNumber=serialNumber;
+	}
+
+	@Override
+	public boolean hasCharacteristic() {
+		return true;
 	}
 
 }

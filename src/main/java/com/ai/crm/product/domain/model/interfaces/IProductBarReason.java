@@ -1,6 +1,8 @@
 package com.ai.crm.product.domain.model.interfaces;
 
-public interface IProductBarReason {
+import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntity;
+
+public interface IProductBarReason extends IInstanceEntity{
 	enum BarCode {
 		APPLIED_ONE_WAY_BAR(1),
 		APPLIED_TWO_WAY_BAR(2),

@@ -2,7 +2,9 @@ package com.ai.crm.product.domain.model.interfaces;
 
 import java.util.Set;
 
-public interface IOfferInstance {
+import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntity;
+
+public interface IOfferInstance extends IInstanceEntity{
 	enum OfferInstanceState {
 		INITIATED(0),
 		ACTIVE(1),
@@ -25,8 +27,6 @@ public interface IOfferInstance {
 	void addProduct(IProduct product);
 	Set<IPricePlanInstance> getPricePlanInstances();
 	void addPricePlanInstance(IPricePlanInstance pricePlanInstance);
-	Set<IOfferInstanceCharacteristicValue> getCharacteristics();
-	void addCharacteristic(IOfferInstanceCharacteristicValue offerInstanceCharacteristic);
 	long getCustomerId();
 	void setCustomerId(long customerId);
 	long getProductOfferingId();

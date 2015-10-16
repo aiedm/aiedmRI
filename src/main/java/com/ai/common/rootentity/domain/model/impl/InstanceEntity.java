@@ -13,11 +13,11 @@ public abstract class InstanceEntity extends RootEntity implements IInstanceEnti
 	
 	public abstract boolean hasCharacteristic();
 	
-	protected Set<IInstanceEntityCharacteristic> getCharacteristics() {
+	public Set<IInstanceEntityCharacteristic> getCharacteristics() {
 		return this.instanceEntityCharacteristics;
 	}
 
-	protected void addCharacteristic(IInstanceEntityCharacteristic instanceEntityCharacteristic) {
+	public void addCharacteristic(IInstanceEntityCharacteristic instanceEntityCharacteristic) {
 		this.instanceEntityCharacteristics.add(instanceEntityCharacteristic);
 		if (null==instanceEntityCharacteristic.getOwnerInstance()){
 			instanceEntityCharacteristic.setOwnerInstance(this);

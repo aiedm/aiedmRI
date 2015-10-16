@@ -9,7 +9,7 @@ import com.ai.common.rootentity.domain.model.impl.InstanceEntity;
 public class PolicyFunctionValueParamRel extends InstanceEntity implements IPolicyFunctionValueParamRel {
 	private IPolicyFunctionValue functionValue;
 	private IPolicyFunctionParameter param;
-	private IPolicyVariable variableValue;
+	private IPolicyVariable variable;
 	private String value;
 	public PolicyFunctionValueParamRel() {
 	}
@@ -36,12 +36,12 @@ public class PolicyFunctionValueParamRel extends InstanceEntity implements IPoli
 
 	@Override
 	public IPolicyVariable getVaraibleValueRef() {
-		return this.variableValue;
+		return this.variable;
 	}
 
 	@Override
 	public void setVaraibleValueRef(IPolicyVariable variableValue) {
-		this.variableValue=variableValue;
+		this.variable=variableValue;
 	}
 
 	@Override

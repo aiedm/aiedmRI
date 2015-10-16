@@ -66,7 +66,7 @@ public class PolicyFunctionValue extends PolicyValue implements IPolicyFunctionV
 	
 	@Override
 	public String getValue() {
-		return null;
+		return this.toBodyString();
 	}
 
 	@Override

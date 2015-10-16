@@ -2,6 +2,7 @@ package com.ai.common.policy.test;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -23,9 +24,11 @@ import com.ai.common.policy.domain.model.impl.PolicyFunctionParameter;
 import com.ai.common.policy.domain.model.impl.PolicyFunctionValue;
 import com.ai.common.policy.domain.model.impl.PolicyFunctionValueParamRel;
 import com.ai.common.policy.domain.model.impl.PolicyGroup;
+import com.ai.common.policy.domain.model.impl.PolicyOperatorStringEquals;
 import com.ai.common.policy.domain.model.impl.PolicyRule;
 import com.ai.common.policy.domain.model.impl.PolicySetInputParameter;
 import com.ai.common.policy.domain.model.impl.PolicySetOutputParameter;
+import com.ai.common.policy.domain.model.impl.PolicyValue;
 import com.ai.common.policy.domain.model.impl.PolicyVariable;
 import com.ai.common.policy.domain.model.impl.PolicyVariableValue;
 import com.ai.common.policy.domain.model.interfaces.IPolicyActionStatement;
@@ -42,13 +45,17 @@ import com.ai.common.policy.domain.model.interfaces.IPolicyFunctionValue;
 import com.ai.common.policy.domain.model.interfaces.IPolicyFunctionValueParamRel;
 import com.ai.common.policy.domain.model.interfaces.IPolicyGroup;
 import com.ai.common.policy.domain.model.interfaces.IPolicyOperator;
+import com.ai.common.policy.domain.model.interfaces.IPolicyOperatorStringEquals;
 import com.ai.common.policy.domain.model.interfaces.IPolicyRule;
 import com.ai.common.policy.domain.model.interfaces.IPolicySetInputParameter;
 import com.ai.common.policy.domain.model.interfaces.IPolicySetOutputParameter;
+import com.ai.common.policy.domain.model.interfaces.IPolicyStatement;
+import com.ai.common.policy.domain.model.interfaces.IPolicyValue;
 import com.ai.common.policy.domain.model.interfaces.IPolicyVariable;
 import com.ai.common.policy.domain.model.interfaces.IPolicyVariableValue;
 import com.ai.common.policy.domain.service.impl.GroovyPolicyExecute;
 import com.ai.common.policy.domain.service.interfaces.IPolicyExecute;
+import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntityCharacteristic;
 
 public class PolicyTest {
 	
@@ -87,7 +94,7 @@ public class PolicyTest {
 		var3.setVariableType("Integer");
 		IPolicyVariable var4=new PolicyVariable();
 		var4.setCode("returnValue");
-		var4.setVariableType("Boolean");
+		var4.setVariableType("boolean");
 		var4.setInitialValue("false");
 		IPolicyConstValue value1=new PolicyConstValue();
 		value1.setType("Integer");
@@ -113,10 +120,10 @@ public class PolicyTest {
 		value3.setType("Integer");
 		value3.setValue("200");
 		IPolicyConstValue value4=new PolicyConstValue();
-		value4.setType("Boolean");
+		value4.setType("boolean");
 		value4.setValue("true");
 		IPolicyConstValue value5=new PolicyConstValue();
-		value5.setType("Boolean");
+		value5.setType("boolean");
 		value5.setValue("false");		
 		IPolicyOperator opertor1=new PolicyConditionOperator();
 		opertor1.setCode(">");
@@ -200,5 +207,82 @@ public class PolicyTest {
 		//assertEquals(resu,new Integer(900));
 		assertEquals(resu,false);
 	}
+	
+	
+	private void  prepareProductPriceRule() throws Exception{
+		IPolicyFunction function=new PolicyFunction();
+		function.setCode("com.ai.common.rootentity.domain.service.impl.CharacteristicUtil.getInstEntityCharValueByCharCode");
+		IPolicyFunctionParameter funcParam1=new PolicyFunctionParameter();
+		funcParam1.setFunction(function);
+		funcParam1.setParameterType("Set<IInstanceEntityCharacteristic>");
+		function.addParameter(funcParam1);
+		IPolicyFunctionParameter funcParam2=new PolicyFunctionParameter();
+		funcParam2.setFunction(function);
+		funcParam2.setParameterType("String");
+		function.addParameter(funcParam2);
+		IPolicyFunctionParameter funcParam3=new PolicyFunctionParameter();
+		funcParam2.setFunction(function);
+		funcParam2.setParameterType("int");
+		function.addParameter(funcParam3);
+		
+		//inputed param var def
+		IPolicyVariable productInstance=new PolicyVariable();
+		productInstance.setCode("productInstance");
+		productInstance.setVariableType("com.ai.crm.customerorder.domain.model.interfaces.IToBeProduct");
+		
+		IPolicyVariable characterCode=new PolicyVariable();
+		characterCode.setCode("characterCode");
+		characterCode.setVariableType("String");
+		
+		IPolicyVariable characterValueIdx=new PolicyVariable();
+		characterValueIdx.setCode("characterValueIdx");
+		characterValueIdx.setVariableType("int");
+		
+		IPolicyFunctionValue value1=new PolicyFunctionValue();
+		value1.setFunction(function);
+		IPolicyFunctionValueParamRel paramRel=new PolicyFunctionValueParamRel();
+		paramRel.setFunctionValue(value1);
+		paramRel.setParameter(funcParam1);
+		paramRel.setValue("productInstance.getCharacteristics()");
+		value1.addParam(paramRel);
+		IPolicyFunctionValueParamRel paramRel2=new PolicyFunctionValueParamRel();
+		paramRel2.setFunctionValue(value1);
+		paramRel2.setParameter(funcParam1);
+		paramRel2.setValue("characterCode");
+		value1.addParam(paramRel2);		
+		IPolicyFunctionValueParamRel paramRel3=new PolicyFunctionValueParamRel();
+		paramRel3.setFunctionValue(value1);
+		paramRel3.setParameter(funcParam1);
+		paramRel3.setValue("characterValueIdx");
+		value1.addParam(paramRel3);		
+		
+		//getColorValue
+		IPolicyVariable charVar4=new PolicyVariable();
+		charVar4.setCode("characterValue");
+		charVar4.setVariableType("String");
+		charVar4.setInitialValue(value1.getValue());
+		
+		
+		//expected Red Color value
+		IPolicyValue expectedCharValue=new PolicyValue();
+		expectedCharValue.setCode("Red Color");
+		expectedCharValue.setValue("Red");
+		
+		IPolicyOperatorStringEquals stringEqualsOperator=new PolicyOperatorStringEquals();
+		
+		//Expectedstatement
+		IPolicyConditionStatement conditionStatement=new PolicyConditionStatement();
+		conditionStatement.setVariable(charVar4);
+		conditionStatement.setValue(expectedCharValue);
+		conditionStatement.setOperator(stringEqualsOperator);
+		
+		//condition
+		IPolicyAtomicCondition condition=new PolicyAtomicCondition();
+		condition.setStatement(conditionStatement);
+		
+		//action,set up the price to be selected
+		
+	}
+	
 
 }
