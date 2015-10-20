@@ -7,18 +7,18 @@ import com.ai.common.rootentity.domain.model.interfaces.ICharacteristicSpecValue
 import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntityCharacteristic;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 @Component
-public class CharacteristicInstanceValue extends RootEntity implements ICharacteristicInstanceValue {
+public class InstanceEntityCharacterValue extends RootEntity implements ICharacteristicInstanceValue {
 	@JsonIgnore
 	private IInstanceEntityCharacteristic instanceEntityCharacteristic;
 	private ICharacteristicSpecValue characteristicValue;
 	private long id;
 	private String value;
 	
-	public CharacteristicInstanceValue(){
+	public InstanceEntityCharacterValue(){
 		
 	}
 			
-	public CharacteristicInstanceValue(IInstanceEntityCharacteristic instanceEntityCharacteristic, ICharacteristicSpecValue characteristicValue){
+	public InstanceEntityCharacterValue(IInstanceEntityCharacteristic instanceEntityCharacteristic, ICharacteristicSpecValue characteristicValue){
 		this.setInstanceEntityCharacteristic(instanceEntityCharacteristic);
 		this.setCharacteristicValue(characteristicValue);
 	}

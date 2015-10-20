@@ -3,11 +3,13 @@ package com.ai.crm.product.domain.model.impl;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.springframework.stereotype.Component;
+
 import com.ai.common.rootentity.domain.model.impl.SpecificationInstanceEntity;
 import com.ai.crm.product.domain.model.interfaces.IOfferInstance;
 import com.ai.crm.product.domain.model.interfaces.IPricePlanInstance;
 import com.ai.crm.product.domain.model.interfaces.IProduct;
-
+@Component
 public class OfferInstance extends SpecificationInstanceEntity implements IOfferInstance {
 	private long offerInstanceId;
 	private Set<IProduct> products=new HashSet<IProduct>();

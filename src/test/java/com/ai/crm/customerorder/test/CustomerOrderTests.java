@@ -16,7 +16,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.ai.common.rootentity.domain.model.impl.CharacteristicInstanceValue;
+import com.ai.common.rootentity.domain.model.impl.InstanceEntityCharacterValue;
 import com.ai.common.rootentity.domain.model.impl.CharacteristicSpec;
 import com.ai.common.rootentity.domain.model.impl.CharacteristicSpecValue;
 import com.ai.common.rootentity.domain.model.impl.InstanceEntityCharacteristic;
@@ -36,6 +36,7 @@ import com.ai.crm.customerorder.domain.model.interfaces.IToBeOfferInstance;
 import com.ai.crm.customerorder.domain.model.interfaces.IToBePricePlanInstance;
 import com.ai.crm.customerorder.domain.model.interfaces.IProductOrderItem;
 import com.ai.crm.customerorder.domain.model.interfaces.IToBeProduct;
+import com.ai.crm.product.domain.model.interfaces.IProductPriceRel;
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
@@ -59,7 +60,9 @@ public class CustomerOrderTests {
 	@Autowired
 	private IToBeOfferInstance toBeOfferInstance;
 	@Autowired
-	private IToBeProduct toBeProduct;
+	private IToBeProduct toBeProduct;	
+	@Autowired
+	private IProductPriceRel productPriceRel;
 	
 	@Autowired
 	private ICharacteristicInstanceValue characteristicInstanceValue;
@@ -81,7 +84,8 @@ public class CustomerOrderTests {
 	public void createCustomerOrder() throws Exception{
 		toBeProduct.setProductSpecificationId(101);
 		toBeProduct.setProductOrder(productOrder);
-		toBeProduct.assignPrice(toBePrice);
+		productPriceRel.setProduct(toBeProduct);
+		toBeProduct.assignPrice(productPriceRel);
 		productOrder.setProductOrderId(3);
 		productOrder.setProductOrderState(IProductOrderItem.ProductOrderState.INITIATED.getValue());
 		productOrder.setToBeProduct(toBeProduct);
@@ -96,6 +100,7 @@ public class CustomerOrderTests {
 		toBeOfferInstance.addPricePlanInstance(toBePrice);
 		toBePrice.setPricePlanId(1);
 		toBePrice.setPriceValue(10000);
+		productPriceRel.setPricePlanInstance(toBePrice);
 		characteristicValue.setId(1101);
 		characteristicValue.setValue("50%");
 		characteristicSpec.addValue(characteristicValue);
@@ -113,7 +118,7 @@ public class CustomerOrderTests {
 		characteristic2.addValue(characteristicValue2);
 		characteristic2.setId(110);
 		
-		ICharacteristicInstanceValue characteristicInstanceValue2=new CharacteristicInstanceValue(productOrderCharacteristic,characteristicValue2);
+		ICharacteristicInstanceValue characteristicInstanceValue2=new InstanceEntityCharacterValue(productOrderCharacteristic,characteristicValue2);
 		characteristicInstanceValue2.setId(100005);
 		characteristicInstanceValue2.setInputedValue("Red");
 		productOrderCharacteristic=new InstanceEntityCharacteristic();

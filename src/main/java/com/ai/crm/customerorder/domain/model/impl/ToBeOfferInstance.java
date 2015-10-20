@@ -8,22 +8,19 @@ import com.ai.crm.product.domain.model.impl.OfferInstance;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 @Component
 public class ToBeOfferInstance extends OfferInstance implements IToBeOfferInstance {
-	
+	@JsonIgnore
+	private IOfferOrderItem offerOrder;
 	public ToBeOfferInstance() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	@JsonIgnore
 	public IOfferOrderItem getOfferOrder() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.offerOrder;
 	}
 
 	@Override
 	public void setOfferOrder(IOfferOrderItem offerOrder) {
-		// TODO Auto-generated method stub
-
+		this.offerOrder=offerOrder;
 	}
 
 }

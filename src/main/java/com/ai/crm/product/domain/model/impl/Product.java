@@ -3,19 +3,21 @@ package com.ai.crm.product.domain.model.impl;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.springframework.stereotype.Component;
+
 import com.ai.common.rootentity.domain.model.impl.SpecificationInstanceEntity;
 import com.ai.crm.product.domain.model.interfaces.IOfferInstance;
-import com.ai.crm.product.domain.model.interfaces.IPricePlanInstance;
 import com.ai.crm.product.domain.model.interfaces.IProduct;
 import com.ai.crm.product.domain.model.interfaces.IProductBarReason;
-
+import com.ai.crm.product.domain.model.interfaces.IProductPriceRel;
+@Component
 public class Product extends SpecificationInstanceEntity implements IProduct {
 	private long productId;
 	private long customerId;
 	private long userId;
 	private Set<IProductBarReason> barReasons=new HashSet<IProductBarReason>();
 	private Set<IOfferInstance> participantOfferInstances=new HashSet<IOfferInstance>();
-	private Set<IPricePlanInstance> assignedPrices=new HashSet<IPricePlanInstance>();
+	private Set<IProductPriceRel> assignedPrices=new HashSet<IProductPriceRel>();
 	private long productSpecificationId;
 	private String serialNumber;
 
@@ -67,17 +69,16 @@ public class Product extends SpecificationInstanceEntity implements IProduct {
 	}
 
 	@Override
-	public Set<IPricePlanInstance> getAssignedPrices() {
+	public Set<IProductPriceRel> getAssignedPrices() {
 		return assignedPrices;
 	}
 
 	@Override
-	public void assignPrice(IPricePlanInstance pricePlanInstance) {
-		if (null!=pricePlanInstance){
-			assignedPrices.add(pricePlanInstance);
-			Set<IProduct> assignedTo=pricePlanInstance.getAssignedTo();
-			if (!assignedTo.contains(this)){
-				pricePlanInstance.assignTo(this);
+	public void assignPrice(IProductPriceRel productPriceRel) {
+		if (null!=productPriceRel){
+			assignedPrices.add(productPriceRel);
+			if (null==productPriceRel.getProduct()){
+				productPriceRel.setProduct(this);
 			}
 		}
 

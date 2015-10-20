@@ -24,9 +24,7 @@ public class ProductOrderItem extends BusinessInteractionItem implements IProduc
 	
 	private IToBeProduct toBeProduct;
 	private long productSpecificationId;
-	private Set<IToBePricePlanInstance> prices=new HashSet<IToBePricePlanInstance>();
 	private ProductOrderItem() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	public ProductOrderItem(ICustomerOrder customerOrder) {

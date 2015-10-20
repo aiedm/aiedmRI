@@ -3,7 +3,17 @@ package com.ai.crm.product.domain.model.interfaces;
 import java.util.Set;
 
 import com.ai.common.rootentity.domain.model.interfaces.ISpecificationInstanceEntity;
-
+import com.ai.crm.product.domain.model.impl.OfferInstance;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+@JsonTypeInfo(
+	    use = JsonTypeInfo.Id.NAME,
+	    include = JsonTypeInfo.As.PROPERTY,
+	    property = "type")
+	@JsonSubTypes({
+		@Type(value = OfferInstance.class, name = "OfferInstance")
+	    })
 public interface IOfferInstance extends ISpecificationInstanceEntity{
 	enum OfferInstanceState {
 		INITIATED(0),

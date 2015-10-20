@@ -3,16 +3,20 @@ package com.ai.crm.product.domain.model.impl;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.springframework.stereotype.Component;
+
 import com.ai.common.rootentity.domain.model.impl.SpecificationInstanceEntity;
 import com.ai.crm.customerorder.domain.model.interfaces.IToBePricePlanInstance;
 import com.ai.crm.product.domain.model.interfaces.IOfferInstance;
 import com.ai.crm.product.domain.model.interfaces.IPricePlanInstance;
-import com.ai.crm.product.domain.model.interfaces.IProduct;
-
+import com.ai.crm.product.domain.model.interfaces.IProductPriceRel;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+@Component
 public class PricePlanInstance extends SpecificationInstanceEntity implements IPricePlanInstance {
 	private long pricePlanInstanceId;
+	@JsonIgnore
 	private IOfferInstance offerInstance;
-	private Set<IProduct> assignedTo=new HashSet<IProduct>();
+	private Set<IProductPriceRel> assignedTo=new HashSet<IProductPriceRel>();
 	private long pricePlanId;
 	private long priceValue;
 	private int payState;
@@ -20,7 +24,6 @@ public class PricePlanInstance extends SpecificationInstanceEntity implements IP
 	private long roleId;
 
 	public PricePlanInstance() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -44,17 +47,16 @@ public class PricePlanInstance extends SpecificationInstanceEntity implements IP
 	}
 
 	@Override
-	public Set<IProduct> getAssignedTo() {
+	public Set<IProductPriceRel> getAssignedTo() {
 		return assignedTo;
 	}
 
 	@Override
-	public void assignTo(IProduct product) {
-		if(null!=product){
-			assignedTo.add(product);
-			Set<IPricePlanInstance> assigndePrices=product.getAssignedPrices();
-			if(!assigndePrices.contains(this)){
-				product.assignPrice(this);
+	public void assignTo(IProductPriceRel productPriceRel) {
+		if(null!=productPriceRel){
+			assignedTo.add(productPriceRel);
+			if(null==productPriceRel.getPricePlanInstance()){
+				productPriceRel.setPricePlanInstance(this);
 			}
 		}
 		

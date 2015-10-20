@@ -9,8 +9,6 @@ import com.ai.crm.common.businessinteraction.domain.model.impl.BusinessInteracti
 import com.ai.crm.customerorder.domain.model.interfaces.ICustomerOrder;
 import com.ai.crm.customerorder.domain.model.interfaces.IOfferOrderItem;
 import com.ai.crm.customerorder.domain.model.interfaces.IProductOrderItem;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 @Component
 public class CustomerOrder extends BusinessInteraction implements ICustomerOrder {
 	private long customerOrderId;
