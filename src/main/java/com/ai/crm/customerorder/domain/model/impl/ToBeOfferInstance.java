@@ -1,10 +1,12 @@
 package com.ai.crm.customerorder.domain.model.impl;
 
+import org.springframework.stereotype.Component;
+
 import com.ai.crm.customerorder.domain.model.interfaces.IOfferOrderItem;
 import com.ai.crm.customerorder.domain.model.interfaces.IToBeOfferInstance;
 import com.ai.crm.product.domain.model.impl.OfferInstance;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
+@Component
 public class ToBeOfferInstance extends OfferInstance implements IToBeOfferInstance {
 	
 	public ToBeOfferInstance() {

@@ -1,11 +1,11 @@
 package com.ai.crm.common.businessinteraction.domain.model.impl;
 
-import com.ai.common.rootentity.domain.model.impl.InstanceEntity;
+import com.ai.common.rootentity.domain.model.impl.SpecificationInstanceEntity;
 import com.ai.crm.common.businessinteraction.domain.model.interfaces.IBusinessInteraction;
 import com.ai.crm.common.businessinteraction.domain.model.interfaces.IBusinessInteractionItem;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public abstract class BusinessInteractionItem extends InstanceEntity implements IBusinessInteractionItem {
+public abstract class BusinessInteractionItem extends SpecificationInstanceEntity implements IBusinessInteractionItem {
 	@JsonIgnore
 	private long businessInteractionItemId;
 	
@@ -20,11 +20,6 @@ public abstract class BusinessInteractionItem extends InstanceEntity implements 
 	
 	public BusinessInteractionItem(IBusinessInteraction bi) {
 		this.setBusinessInteraction(bi);
-	}	
-	
-	@Override
-	public boolean hasCharacteristic() {
-		return true;
 	}	
 
 	@Override

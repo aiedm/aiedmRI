@@ -23,11 +23,6 @@ public class PolicyCompositeConditionOption extends InstanceEntity implements IP
 	}
 
 	@Override
-	public boolean hasCharacteristic() {
-		return false;
-	}
-
-	@Override
 	public IPolicyCompositeCondition getParentCondition() {
 		return this.parent;
 	}

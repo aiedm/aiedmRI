@@ -3,14 +3,12 @@ package com.ai.crm.product.domain.model.impl;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.ai.common.rootentity.domain.model.impl.InstanceEntity;
-import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntity;
+import com.ai.common.rootentity.domain.model.impl.SpecificationInstanceEntity;
 import com.ai.crm.product.domain.model.interfaces.IOfferInstance;
-import com.ai.crm.product.domain.model.interfaces.IOfferInstanceCharacteristicValue;
 import com.ai.crm.product.domain.model.interfaces.IPricePlanInstance;
 import com.ai.crm.product.domain.model.interfaces.IProduct;
 
-public class OfferInstance extends InstanceEntity implements IOfferInstance {
+public class OfferInstance extends SpecificationInstanceEntity implements IOfferInstance {
 	private long offerInstanceId;
 	private Set<IProduct> products=new HashSet<IProduct>();
 	private Set<IPricePlanInstance> prices=new HashSet<IPricePlanInstance>();
@@ -84,8 +82,4 @@ public class OfferInstance extends InstanceEntity implements IOfferInstance {
 		this.productOfferingId=productOfferingId;
 	}
 
-	@Override
-	public boolean hasCharacteristic() {
-		return true;
-	}
 }

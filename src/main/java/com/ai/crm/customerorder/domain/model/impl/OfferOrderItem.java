@@ -5,11 +5,9 @@ import java.util.Set;
 
 import org.springframework.stereotype.Component;
 
-import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntityCharacteristic;
 import com.ai.crm.common.businessinteraction.domain.model.impl.BusinessInteractionItem;
 import com.ai.crm.customerorder.domain.model.interfaces.ICustomerOrder;
 import com.ai.crm.customerorder.domain.model.interfaces.IOfferOrderItem;
-import com.ai.crm.customerorder.domain.model.interfaces.IOrderPrice;
 import com.ai.crm.customerorder.domain.model.interfaces.IProductOrderItem;
 import com.ai.crm.customerorder.domain.model.interfaces.IToBeOfferInstance;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -20,7 +18,6 @@ public class OfferOrderItem extends BusinessInteractionItem implements IOfferOrd
 	private ICustomerOrder customerOrder;
 	private Set<IProductOrderItem> productOrders=new HashSet<IProductOrderItem>();
 	private IToBeOfferInstance toBeOfferInstance;
-	private Set<IOrderPrice> prices=new HashSet<IOrderPrice>();
 	protected OfferOrderItem() {
 		
 	}
@@ -50,16 +47,6 @@ public class OfferOrderItem extends BusinessInteractionItem implements IOfferOrd
 	public void addProductOrder(IProductOrderItem productOrder) {
 		productOrders.add(productOrder);
 		productOrder.setOfferOrder(this);
-	}
-
-	@Override
-	public Set<IInstanceEntityCharacteristic> getOfferOrderCharacteristics() {
-		return this.getCharacteristics();
-	}
-
-	@Override
-	public void addOfferOrderCharacteristic(IInstanceEntityCharacteristic offerOrderCharacteristic) {
-		this.addCharacteristic(offerOrderCharacteristic);
 	}
 
 	@Override
@@ -97,22 +84,6 @@ public class OfferOrderItem extends BusinessInteractionItem implements IOfferOrd
 	@Override
 	public void setToBeOfferInstance(IToBeOfferInstance toBeOfferInstance) {
 		this.toBeOfferInstance=toBeOfferInstance;
-	}
-
-	@Override
-	public Set<IOrderPrice> getPrices() {
-		return this.prices;
-	}
-
-	@Override
-	public void addPrice(IOrderPrice orderPrice) {
-		if(null!=orderPrice){
-			prices.add(orderPrice);
-			if (null==orderPrice.getOfferOrder()){
-				orderPrice.setOfferOrder(this);
-			}
-		}
-		
 	}
 
 }

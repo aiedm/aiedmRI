@@ -32,8 +32,10 @@ import com.ai.crm.customerorder.domain.model.impl.OfferOrderItem;
 import com.ai.crm.customerorder.domain.model.impl.ProductOrderItem;
 import com.ai.crm.customerorder.domain.model.interfaces.ICustomerOrder;
 import com.ai.crm.customerorder.domain.model.interfaces.IOfferOrderItem;
-import com.ai.crm.customerorder.domain.model.interfaces.IOrderPrice;
+import com.ai.crm.customerorder.domain.model.interfaces.IToBeOfferInstance;
+import com.ai.crm.customerorder.domain.model.interfaces.IToBePricePlanInstance;
 import com.ai.crm.customerorder.domain.model.interfaces.IProductOrderItem;
+import com.ai.crm.customerorder.domain.model.interfaces.IToBeProduct;
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
@@ -51,9 +53,13 @@ public class CustomerOrderTests {
 	@Autowired
 	private ICustomerOrder customerOrder;
 	@Autowired
-	private IOrderPrice orderPrice;
+	private IToBePricePlanInstance toBePrice;
 	@Autowired
 	private IInstanceEntityCharacteristic OfferOrderPriceCharacter;
+	@Autowired
+	private IToBeOfferInstance toBeOfferInstance;
+	@Autowired
+	private IToBeProduct toBeProduct;
 	
 	@Autowired
 	private ICharacteristicInstanceValue characteristicInstanceValue;
@@ -73,13 +79,23 @@ public class CustomerOrderTests {
 	@Transactional
 	//@Ignore
 	public void createCustomerOrder() throws Exception{
+		toBeProduct.setProductSpecificationId(101);
+		toBeProduct.setProductOrder(productOrder);
+		toBeProduct.assignPrice(toBePrice);
 		productOrder.setProductOrderId(3);
 		productOrder.setProductOrderState(IProductOrderItem.ProductOrderState.INITIATED.getValue());
+		productOrder.setToBeProduct(toBeProduct);
+		productOrder.setBusinessInteractionItemSpecId(2001);
+		offerOrder.setBusinessInteractionItemSpecId(1001);
 		offerOrder.setOfferOrderId(2);
 		offerOrder.setOfferOrderState(IOfferOrderItem.OfferOrderState.INITIATED.getValue());
 		offerOrder.addProductOrder(productOrder);
-		orderPrice.setPricePlanId(1);
-		orderPrice.setPriceValue(10000);
+		toBeOfferInstance.setProductOfferingId(11);
+		toBeOfferInstance.setOfferOrder(offerOrder);
+		offerOrder.setToBeOfferInstance(toBeOfferInstance);
+		toBeOfferInstance.addPricePlanInstance(toBePrice);
+		toBePrice.setPricePlanId(1);
+		toBePrice.setPriceValue(10000);
 		characteristicValue.setId(1101);
 		characteristicValue.setValue("50%");
 		characteristicSpec.addValue(characteristicValue);
@@ -88,9 +104,7 @@ public class CustomerOrderTests {
 		characteristicInstanceValue.setInputedValue("50%");		
 		characteristicInstanceValue.setCharacteristicValue(characteristicValue);
 		OfferOrderPriceCharacter.addCharacteristicInstanceValue(characteristicInstanceValue);
-		orderPrice.addPriceCharacter(OfferOrderPriceCharacter);
-		offerOrder.addPrice(orderPrice);
-		productOrder.addPrice(orderPrice);
+		toBePrice.addCharacteristic(OfferOrderPriceCharacter);
 		
 		ICharacteristicSpecValue characteristicValue2=new CharacteristicSpecValue();
 		characteristicValue2.setId(1102);
@@ -104,10 +118,11 @@ public class CustomerOrderTests {
 		characteristicInstanceValue2.setInputedValue("Red");
 		productOrderCharacteristic=new InstanceEntityCharacteristic();
 		productOrderCharacteristic.addCharacteristicInstanceValue(characteristicInstanceValue2);
-		productOrder.addProductOrderCharacteristic(productOrderCharacteristic);
+		productOrder.addCharacteristic(productOrderCharacteristic);
 		IProductOrderItem productOrder2=new ProductOrderItem(offerOrder);
 		productOrder2.setProductOrderId(4);
-		productOrder2.setProductOrderState(IProductOrderItem.ProductOrderState.INITIATED.getValue());				
+		productOrder2.setProductOrderState(IProductOrderItem.ProductOrderState.INITIATED.getValue());
+		productOrder2.setBusinessInteractionItemSpecId(2001);
 		customerOrder.setCustomerOrderId(1);
 		customerOrder.setOrderState(ICustomerOrder.CustomerOrderState.INITIATED.getValue());
 		customerOrder.setCustomerOrderCode("201509080001");
@@ -115,6 +130,7 @@ public class CustomerOrderTests {
 		IOfferOrderItem offerOrder2=new OfferOrderItem(customerOrder);
 		offerOrder2.setOfferOrderId(5);
 		offerOrder2.setOfferOrderState(IOfferOrderItem.OfferOrderState.INITIATED.getValue());
+		offerOrder2.setBusinessInteractionItemSpecId(1001);
 		IProductOrderItem productOrder3=new ProductOrderItem(offerOrder2);
 		productOrder3.setProductOrderId(6);
 		productOrder3.setProductOrderState(IProductOrderItem.ProductOrderState.INITIATED.getValue());

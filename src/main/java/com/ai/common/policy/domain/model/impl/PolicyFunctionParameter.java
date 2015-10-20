@@ -64,9 +64,4 @@ public class PolicyFunctionParameter extends InstanceEntity implements IPolicyFu
 		this.paramType=paramType;
 	}
 
-	@Override
-	public boolean hasCharacteristic() {
-		return false;
-	}
-
 }

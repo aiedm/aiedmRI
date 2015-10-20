@@ -10,7 +10,6 @@ import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.Profile;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -38,7 +37,7 @@ import com.ai.crm.customer.repository.interfaces.ICustomerRepository;
 @Configuration
 @EnableTransactionManagement
 @Profile("dev")
-@ComponentScan(basePackages={"com.ai.crm", "com.ai.flyingshutter"})
+@ComponentScan(basePackages={"com.ai"})
 public class DevelopmentProfileConfig {
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -68,8 +67,7 @@ public class DevelopmentProfileConfig {
 	public LocalSessionFactoryBean sessionFactoryBean(DataSource dataSource) {
 		LocalSessionFactoryBean sfb = new LocalSessionFactoryBean();
 		sfb.setDataSource(dataSource);
-		sfb.setPackagesToScan(new String[] { "com.ai.crm.common.party.domain.model.impl",
-				"com.ai.crm.customer.domain.model.impl"});
+		sfb.setPackagesToScan(new String[] { "com.ai"});
 		Properties props = new Properties();
 		props.setProperty("hibernate.dialect", "org.hibernate.dialect.HSQLDialect");
 		props.setProperty("hibernate.hbm2ddl.auto", "create");

@@ -37,11 +37,6 @@ public class PolicyEnumValue extends PolicyValue implements IPolicyEnumValue {
 	}
 
 	@Override
-	public boolean hasCharacteristic() {
-		return false;
-	}
-
-	@Override
 	public String toBodyString() {
 		StringBuffer sb=new StringBuffer();
 		

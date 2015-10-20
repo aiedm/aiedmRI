@@ -43,9 +43,4 @@ public class PolicySetParameter extends InstanceEntity implements IPolicySetPara
 		this.policySet=policySet;
 	}
 
-	@Override
-	public boolean hasCharacteristic() {
-		return false;
-	}
-
 }

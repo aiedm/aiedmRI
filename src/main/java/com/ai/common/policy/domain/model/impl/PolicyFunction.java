@@ -59,11 +59,6 @@ public class PolicyFunction extends InstanceEntity implements IPolicyFunction {
 	}
 
 	@Override
-	public boolean hasCharacteristic() {
-		return false;
-	}
-
-	@Override
 	public String returnType() {
 		return this.returnType;
 	}

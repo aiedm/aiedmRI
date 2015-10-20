@@ -257,10 +257,10 @@ public class PolicyTest {
 		value1.addParam(paramRel3);		
 		
 		//getColorValue
-		IPolicyVariable charVar4=new PolicyVariable();
-		charVar4.setCode("characterValue");
-		charVar4.setVariableType("String");
-		charVar4.setInitialValue(value1.getValue());
+		IPolicyVariable colorValue=new PolicyVariable();
+		colorValue.setCode("characterValue");
+		colorValue.setVariableType("String");
+		colorValue.setInitialValue(value1.getValue());
 		
 		
 		//expected Red Color value
@@ -272,7 +272,7 @@ public class PolicyTest {
 		
 		//Expectedstatement
 		IPolicyConditionStatement conditionStatement=new PolicyConditionStatement();
-		conditionStatement.setVariable(charVar4);
+		conditionStatement.setVariable(colorValue);
 		conditionStatement.setValue(expectedCharValue);
 		conditionStatement.setOperator(stringEqualsOperator);
 		

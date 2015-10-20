@@ -11,7 +11,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan("com.ai.crm")
+@ComponentScan("com.ai")
 public class WebConfig extends WebMvcConfigurerAdapter{
 	@Bean
 	public ViewResolver viewResolver() {

@@ -2,9 +2,9 @@ package com.ai.crm.product.domain.model.interfaces;
 
 import java.util.Set;
 
-import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntity;
+import com.ai.common.rootentity.domain.model.interfaces.ISpecificationInstanceEntity;
 
-public interface IOfferInstance extends IInstanceEntity{
+public interface IOfferInstance extends ISpecificationInstanceEntity{
 	enum OfferInstanceState {
 		INITIATED(0),
 		ACTIVE(1),

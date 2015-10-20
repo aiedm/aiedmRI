@@ -3,18 +3,18 @@ package com.ai.crm.product.domain.model.impl;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.ai.common.rootentity.domain.model.impl.InstanceEntity;
+import com.ai.common.rootentity.domain.model.impl.SpecificationInstanceEntity;
 import com.ai.crm.product.domain.model.interfaces.IOfferInstance;
 import com.ai.crm.product.domain.model.interfaces.IPricePlanInstance;
 import com.ai.crm.product.domain.model.interfaces.IProduct;
 import com.ai.crm.product.domain.model.interfaces.IProductBarReason;
 
-public class Product extends InstanceEntity implements IProduct {
+public class Product extends SpecificationInstanceEntity implements IProduct {
 	private long productId;
 	private long customerId;
 	private long userId;
 	private Set<IProductBarReason> barReasons=new HashSet<IProductBarReason>();
-	private Set<IOfferInstance> participantOfferInstancess=new HashSet<IOfferInstance>();
+	private Set<IOfferInstance> participantOfferInstances=new HashSet<IOfferInstance>();
 	private Set<IPricePlanInstance> assignedPrices=new HashSet<IPricePlanInstance>();
 	private long productSpecificationId;
 	private String serialNumber;
@@ -51,13 +51,13 @@ public class Product extends InstanceEntity implements IProduct {
 
 	@Override
 	public Set<IOfferInstance> getParticipantOfferInstances() {
-		return participantOfferInstancess;
+		return participantOfferInstances;
 	}
 
 	@Override
 	public void addToOfferInstance(IOfferInstance offerInstance) {
 		if (null!=offerInstance){
-			participantOfferInstancess.add(offerInstance);
+			participantOfferInstances.add(offerInstance);
 			Set<IProduct> offerProducts=offerInstance.getProducts();
 			if(!offerProducts.contains(this)){
 				offerInstance.addProduct(this);
@@ -123,9 +123,5 @@ public class Product extends InstanceEntity implements IProduct {
 		this.serialNumber=serialNumber;
 	}
 
-	@Override
-	public boolean hasCharacteristic() {
-		return true;
-	}
 
 }

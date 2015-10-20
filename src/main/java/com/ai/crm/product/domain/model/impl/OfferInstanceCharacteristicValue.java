@@ -22,9 +22,4 @@ public class OfferInstanceCharacteristicValue extends InstanceEntity implements 
 		
 	}
 
-	@Override
-	public boolean hasCharacteristic() {
-		return false;
-	}
-
 }

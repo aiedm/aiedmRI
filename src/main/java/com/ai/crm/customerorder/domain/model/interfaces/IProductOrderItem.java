@@ -1,8 +1,5 @@
 package com.ai.crm.customerorder.domain.model.interfaces;
 
-import java.util.Set;
-
-import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntityCharacteristic;
 import com.ai.crm.common.businessinteraction.domain.model.interfaces.IBusinessInteractionItem;
 import com.ai.crm.customerorder.domain.model.impl.ProductOrderItem;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
@@ -41,8 +38,6 @@ public interface IProductOrderItem extends IBusinessInteractionItem{
 	void setOfferOrder(IOfferOrderItem offerOrder);
 	long getProductOrderId();
 	void setProductOrderId(long productOrderId);
-	Set<IInstanceEntityCharacteristic> getProductOrderCharacteristics();
-	void addProductOrderCharacteristic(IInstanceEntityCharacteristic productOrderCharacteristic);
 	long getBusinessInteractionSpecificationId();
 	int getProductOrderState();
 	void setProductOrderState(int productOrderState);	
@@ -50,6 +45,4 @@ public interface IProductOrderItem extends IBusinessInteractionItem{
 	void setToBeProduct(IToBeProduct toBeProduct);
 	long getProductSpecificationId();
 	void setProductSpecificationId(long productSpecificationId);
-	Set<IOrderPrice> getPrices();
-	void addPrice(IOrderPrice orderPrice);	
 }

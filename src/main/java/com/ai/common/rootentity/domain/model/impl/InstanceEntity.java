@@ -9,19 +9,5 @@ import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntity;
 import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntityCharacteristic;
 @Component
 public abstract class InstanceEntity extends RootEntity implements IInstanceEntity {
-	private  Set<IInstanceEntityCharacteristic> instanceEntityCharacteristics=new HashSet<IInstanceEntityCharacteristic>();
-	
-	public abstract boolean hasCharacteristic();
-	
-	public Set<IInstanceEntityCharacteristic> getCharacteristics() {
-		return this.instanceEntityCharacteristics;
-	}
-
-	public void addCharacteristic(IInstanceEntityCharacteristic instanceEntityCharacteristic) {
-		this.instanceEntityCharacteristics.add(instanceEntityCharacteristic);
-		if (null==instanceEntityCharacteristic.getOwnerInstance()){
-			instanceEntityCharacteristic.setOwnerInstance(this);
-		}
-	}
 
 }

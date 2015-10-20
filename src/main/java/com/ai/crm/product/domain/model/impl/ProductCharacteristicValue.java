@@ -22,9 +22,4 @@ public class ProductCharacteristicValue extends InstanceEntity implements IProdu
 		
 	}
 
-	@Override
-	public boolean hasCharacteristic() {
-		return false;
-	}
-
 }

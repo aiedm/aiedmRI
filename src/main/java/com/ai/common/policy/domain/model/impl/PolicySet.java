@@ -52,10 +52,6 @@ public abstract class PolicySet extends InstanceEntity implements IPolicySet {
 		this.code=code;
 	}
 
-	@Override
-	public boolean hasCharacteristic() {
-		return false;
-	}
 	
 	@Override
 	abstract public Set<IPolicySetInputParameter> getInputParameters();

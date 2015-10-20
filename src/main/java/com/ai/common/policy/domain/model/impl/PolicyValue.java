@@ -49,11 +49,6 @@ public class PolicyValue extends InstanceEntity implements IPolicyValue {
 	public void setCode(String code) {
 		this.code=code;
 	}
-
-	@Override
-	public boolean hasCharacteristic() {
-		return false;
-	}
 	
 	@Override
 	public String getValue() {

@@ -23,11 +23,6 @@ public class PolicyAtomicCondition extends PolicyCondition implements IPolicyAto
 	}
 
 	@Override
-	public boolean hasCharacteristic() {
-		return false;
-	}
-
-	@Override
 	public String toBodyString() {
 		return this.getStatement().toBodyString();
 	}

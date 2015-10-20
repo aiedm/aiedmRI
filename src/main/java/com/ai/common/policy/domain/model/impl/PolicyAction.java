@@ -12,11 +12,6 @@ public abstract class PolicyAction extends InstanceEntity implements IPolicyActi
 	private String code;
 
 	@Override
-	public boolean hasCharacteristic() {
-		return false;
-	}
-
-	@Override
 	public long getId() {
 		return this.id;
 	}

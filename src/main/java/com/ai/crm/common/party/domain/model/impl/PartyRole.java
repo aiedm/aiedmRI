@@ -14,23 +14,17 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
-import com.ai.common.rootentity.domain.model.impl.InstanceEntity;
+import com.ai.common.rootentity.domain.model.impl.SpecificationInstanceEntity;
 import com.ai.crm.common.party.domain.model.interfaces.IParty;
 import com.ai.crm.common.party.domain.model.interfaces.IPartyRole;
 @Entity
 @Table(name="CB_PARTY_ROLE")
 @Inheritance (strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="partyRoleType",discriminatorType=DiscriminatorType.STRING)
-public abstract class PartyRole extends InstanceEntity implements IPartyRole {
+public abstract class PartyRole extends SpecificationInstanceEntity implements IPartyRole {
 	
 	public PartyRole(){}
-
-	@Override
-	public boolean hasCharacteristic() {
-		return true;
-	}
 	
 	
 	@Id

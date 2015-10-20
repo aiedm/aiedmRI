@@ -66,11 +66,6 @@ public class PolicyVariable extends InstanceEntity implements IPolicyVariable {
 	}
 
 	@Override
-	public boolean hasCharacteristic() {
-		return false;
-	}
-
-	@Override
 	public String toBodyString(){
 		return this.getCode();
 	}

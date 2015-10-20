@@ -74,11 +74,6 @@ public abstract class PolicyStatement extends InstanceEntity implements IPolicyS
 	}
 
 	@Override
-	public boolean hasCharacteristic() {
-		return false;
-	}
-
-	@Override
 	public String toBodyString() {
 		StringBuffer sb=new StringBuffer();
 		sb.append(this.getOperator().toBodyString(this.getVariable().toBodyString(),this.getValue().toBodyString()));

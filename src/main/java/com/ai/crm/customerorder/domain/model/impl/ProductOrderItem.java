@@ -5,11 +5,10 @@ import java.util.Set;
 
 import org.springframework.stereotype.Component;
 
-import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntityCharacteristic;
 import com.ai.crm.common.businessinteraction.domain.model.impl.BusinessInteractionItem;
 import com.ai.crm.customerorder.domain.model.interfaces.ICustomerOrder;
 import com.ai.crm.customerorder.domain.model.interfaces.IOfferOrderItem;
-import com.ai.crm.customerorder.domain.model.interfaces.IOrderPrice;
+import com.ai.crm.customerorder.domain.model.interfaces.IToBePricePlanInstance;
 import com.ai.crm.customerorder.domain.model.interfaces.IProductOrderItem;
 import com.ai.crm.customerorder.domain.model.interfaces.IToBeProduct;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -25,7 +24,7 @@ public class ProductOrderItem extends BusinessInteractionItem implements IProduc
 	
 	private IToBeProduct toBeProduct;
 	private long productSpecificationId;
-	private Set<IOrderPrice> prices=new HashSet<IOrderPrice>();
+	private Set<IToBePricePlanInstance> prices=new HashSet<IToBePricePlanInstance>();
 	private ProductOrderItem() {
 		// TODO Auto-generated constructor stub
 	}
@@ -54,16 +53,6 @@ public class ProductOrderItem extends BusinessInteractionItem implements IProduc
 	@Override
 	public long getProductOrderId() {
 		return productOrderId;
-	}
-
-	@Override
-	public Set<IInstanceEntityCharacteristic> getProductOrderCharacteristics() {
-		return this.getCharacteristics();
-	}
-
-	@Override
-	public void addProductOrderCharacteristic(IInstanceEntityCharacteristic productOrderCharacteristic) {
-		this.addCharacteristic(productOrderCharacteristic);
 	}
 
 	@Override
@@ -118,20 +107,5 @@ public class ProductOrderItem extends BusinessInteractionItem implements IProduc
 	@Override
 	public void setProductSpecificationId(long productSpecificationId) {
 		this.productSpecificationId=productSpecificationId;
-	}
-
-	@Override
-	public Set<IOrderPrice> getPrices() {
-		return this.prices;
-	}
-
-	@Override
-	public void addPrice(IOrderPrice orderPrice) {
-		if(null!=orderPrice){
-			prices.add(orderPrice);
-			if (null==orderPrice.getOfferOrder()){
-				orderPrice.setProductOrder(this);
-			}
-		}
 	}
 }

@@ -12,11 +12,6 @@ public abstract class PolicyCondition extends InstanceEntity implements IPolicyC
 	private String code;
 
 	@Override
-	public boolean hasCharacteristic() {
-		return false;
-	}
-
-	@Override
 	public long getId() {
 		return this.id;
 	}

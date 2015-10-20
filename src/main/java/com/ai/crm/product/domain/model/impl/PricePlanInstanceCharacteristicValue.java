@@ -22,9 +22,4 @@ public class PricePlanInstanceCharacteristicValue extends InstanceEntity impleme
 		
 	}
 
-	@Override
-	public boolean hasCharacteristic() {
-		return false;
-	}
-
 }

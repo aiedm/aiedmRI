@@ -54,9 +54,4 @@ public class PolicyFunctionValueParamRel extends InstanceEntity implements IPoli
 		this.value=value;
 	}
 
-	@Override
-	public boolean hasCharacteristic() {
-		return false;
-	}
-
 }

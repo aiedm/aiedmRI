@@ -40,13 +40,9 @@ public interface IOfferOrderItem extends IBusinessInteractionItem{
 	void setOfferOrderId(long offerOrderId);
 	Set<IProductOrderItem> getProductOrders();
 	void addProductOrder(IProductOrderItem productOrder);
-	Set<IInstanceEntityCharacteristic> getOfferOrderCharacteristics();
-	void addOfferOrderCharacteristic(IInstanceEntityCharacteristic offerOrderCharacteristic);
 	long getOldOfferInstanceId();
 	int getOfferOrderState();
 	void setOfferOrderState(int offerOrderState);	
 	IToBeOfferInstance getToBeOfferInstance();
 	void setToBeOfferInstance(IToBeOfferInstance toBeOfferInstance);
-	Set<IOrderPrice> getPrices();
-	void addPrice(IOrderPrice orderPrice);
 }

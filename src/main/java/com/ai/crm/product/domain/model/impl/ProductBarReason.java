@@ -34,9 +34,4 @@ public class ProductBarReason extends InstanceEntity implements IProductBarReaso
 
 	}
 
-	@Override
-	public boolean hasCharacteristic() {
-		return false;
-	}
-
 }
