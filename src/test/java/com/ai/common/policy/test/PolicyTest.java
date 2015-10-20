@@ -30,7 +30,6 @@ import com.ai.common.policy.domain.model.impl.PolicySetInputParameter;
 import com.ai.common.policy.domain.model.impl.PolicySetOutputParameter;
 import com.ai.common.policy.domain.model.impl.PolicyValue;
 import com.ai.common.policy.domain.model.impl.PolicyVariable;
-import com.ai.common.policy.domain.model.impl.PolicyVariableValue;
 import com.ai.common.policy.domain.model.interfaces.IPolicyActionStatement;
 import com.ai.common.policy.domain.model.interfaces.IPolicyAtomicAction;
 import com.ai.common.policy.domain.model.interfaces.IPolicyAtomicCondition;
@@ -264,7 +263,7 @@ public class PolicyTest {
 		
 		
 		//expected Red Color value
-		IPolicyValue expectedCharValue=new PolicyValue();
+		IPolicyValue expectedCharValue=new PolicyConstValue();
 		expectedCharValue.setCode("Red Color");
 		expectedCharValue.setValue("Red");
 		

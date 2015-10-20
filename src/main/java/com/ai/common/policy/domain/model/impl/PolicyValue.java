@@ -3,7 +3,7 @@ package com.ai.common.policy.domain.model.impl;
 import com.ai.common.policy.domain.model.interfaces.IPolicyValue;
 import com.ai.common.rootentity.domain.model.impl.InstanceEntity;
 
-public class PolicyValue extends InstanceEntity implements IPolicyValue {
+public abstract class PolicyValue extends InstanceEntity implements IPolicyValue {
 	private long id;
 	private String name;
 	private String code;
@@ -61,8 +61,6 @@ public class PolicyValue extends InstanceEntity implements IPolicyValue {
 	}	
 
 	@Override
-	public String toBodyString() {
-		return this.getValue();
-	}
+	public abstract String toBodyString();
 
 }

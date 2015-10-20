@@ -14,6 +14,7 @@ public abstract class PolicyStatement extends InstanceEntity implements IPolicyS
 	private String code;
 	private IPolicyVariable varible;
 	private IPolicyValue value;
+
 	public PolicyStatement() {
 	}
 	

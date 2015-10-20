@@ -1,7 +1,5 @@
 package com.ai.common.policy.domain.model.interfaces;
 
-import java.util.Set;
-
 import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntity;
 
 public interface IPolicyStatement extends IInstanceEntity {
