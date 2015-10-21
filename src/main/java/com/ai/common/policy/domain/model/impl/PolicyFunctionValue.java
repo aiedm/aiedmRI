@@ -28,7 +28,10 @@ public class PolicyFunctionValue extends PolicyValue implements IPolicyFunctionV
 	@Override
 	public String toBodyString() {
 		StringBuffer sb=new StringBuffer();
-		sb.append(this.getFunction().getCode()).append("(");
+		sb.append(this.getFunction().getClassName())
+		.append(".")
+		.append(this.getFunction().getMethodName())
+		.append("(");
 		Set<IPolicyFunctionValueParamRel> params=this.getParams();
 		for (IPolicyFunctionValueParamRel paramRel : params) {
 			if(null!=paramRel.getVaraibleValueRef()){

@@ -15,4 +15,8 @@ public interface IPolicyFunction extends IInstanceEntity {
 	void addParameter(IPolicyFunctionParameter param);
 	String returnType();
 	void setReturnType(String type);
+	String getClassName();
+	void setClassName(String className);
+	String getMethodName();
+	void setMethodName(String methodName);
 } 

@@ -12,6 +12,9 @@ public class PolicyFunction extends InstanceEntity implements IPolicyFunction {
 	private String name;
 	private String code;
 	private String returnType;
+	private String className;
+	private String methodName;
+	
 	Set<IPolicyFunctionParameter> parameters=new HashSet<IPolicyFunctionParameter>();
 	public PolicyFunction() {
 	}
@@ -66,6 +69,26 @@ public class PolicyFunction extends InstanceEntity implements IPolicyFunction {
 	@Override
 	public void setReturnType(String type) {
 		this.returnType=type;
+	}
+
+	@Override
+	public String getClassName() {
+		return this.className;
+	}
+
+	@Override
+	public void setClassName(String className) {
+		this.className=className;
+	}
+
+	@Override
+	public String getMethodName() {
+		return this.methodName;
+	}
+
+	@Override
+	public void setMethodName(String methodName) {
+		this.methodName=methodName;
 	}
 
 }
