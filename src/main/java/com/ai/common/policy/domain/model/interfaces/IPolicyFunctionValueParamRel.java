@@ -7,8 +7,7 @@ public interface IPolicyFunctionValueParamRel extends IInstanceEntity {
 	void setFunctionValue(IPolicyFunctionValue value);
 	IPolicyFunctionParameter getParameter();
 	void setParameter(IPolicyFunctionParameter param);
-	IPolicyVariable getVaraibleValueRef();
-	void setVaraibleValueRef(IPolicyVariable variableValue);
-	String getValue();
-	void setValue(String value);
+	IPolicyValue getValue();
+	void setValue(IPolicyValue value);
+	String toBodyString();
 }

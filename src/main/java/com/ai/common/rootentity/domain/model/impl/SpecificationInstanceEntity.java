@@ -7,7 +7,7 @@ import com.ai.common.rootentity.domain.model.interfaces.ICharacteristicInstanceV
 import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntityCharacteristic;
 import com.ai.common.rootentity.domain.model.interfaces.ISpecificationInstanceEntity;
 
-public abstract class SpecificationInstanceEntity extends RootEntity implements ISpecificationInstanceEntity {
+public abstract class SpecificationInstanceEntity extends InstanceEntity implements ISpecificationInstanceEntity {
 	private  Set<IInstanceEntityCharacteristic> instanceEntityCharacteristics=new HashSet<IInstanceEntityCharacteristic>();
 		
 	public Set<IInstanceEntityCharacteristic> getCharacteristics() {
@@ -21,9 +21,9 @@ public abstract class SpecificationInstanceEntity extends RootEntity implements 
 		}
 	}
 	
-	public IInstanceEntityCharacteristic getInstEntityCharByCode(Set<IInstanceEntityCharacteristic> instCharacteristics,String characteristicCode)  throws Exception{
+	public IInstanceEntityCharacteristic getInstEntityCharByCode(String characteristicCode)  throws Exception{
 		IInstanceEntityCharacteristic instCharacteristic=null;
-		for (IInstanceEntityCharacteristic aInstCharacteristic:instCharacteristics) {
+		for (IInstanceEntityCharacteristic aInstCharacteristic:instanceEntityCharacteristics) {
 			if(aInstCharacteristic.getCharacteristic().getCode().equalsIgnoreCase(characteristicCode)){
 				instCharacteristic=aInstCharacteristic;
 				break;
@@ -32,9 +32,9 @@ public abstract class SpecificationInstanceEntity extends RootEntity implements 
 		return instCharacteristic;				
 	}
 	
-	public IInstanceEntityCharacteristic getInstEntityCharById(Set<IInstanceEntityCharacteristic> instCharacteristics,long characteristicId)  throws Exception{
+	public IInstanceEntityCharacteristic getInstEntityCharById(long characteristicId)  throws Exception{
 		IInstanceEntityCharacteristic instCharacteristic=null;
-		for (IInstanceEntityCharacteristic aInstCharacteristic:instCharacteristics) {
+		for (IInstanceEntityCharacteristic aInstCharacteristic:instanceEntityCharacteristics) {
 			if(aInstCharacteristic.getCharacteristic().getId()==characteristicId){
 				instCharacteristic=aInstCharacteristic;
 				break;
@@ -44,13 +44,13 @@ public abstract class SpecificationInstanceEntity extends RootEntity implements 
 	}
 	
 
-	public String getInstEntityCharValueByCharCode(Set<IInstanceEntityCharacteristic> instCharacteristics,String characteristicCode,int valuePosition)  throws Exception{
-		IInstanceEntityCharacteristic instCharacteristic=getInstEntityCharByCode(instCharacteristics,characteristicCode);
+	public String getInstEntityCharValueByCharCode(String characteristicCode,int valuePosition)  throws Exception{
+		IInstanceEntityCharacteristic instCharacteristic=getInstEntityCharByCode(characteristicCode);
 		return getInstEntityCharValue(instCharacteristic,valuePosition);
 	}
 	
-	public String getInstEntityCharValueByCharId(Set<IInstanceEntityCharacteristic> instCharacteristics,long characteristicId,int valuePosition)  throws Exception{
-		IInstanceEntityCharacteristic instCharacteristic=getInstEntityCharById(instCharacteristics,characteristicId);
+	public String getInstEntityCharValueByCharId(long characteristicId,int valuePosition)  throws Exception{
+		IInstanceEntityCharacteristic instCharacteristic=getInstEntityCharById(characteristicId);
 		return getInstEntityCharValue(instCharacteristic,valuePosition);
 	}	
 	

@@ -76,11 +76,15 @@ public class PolicyRule extends PolicySet implements IPolicyRule {
 		}
 		IPolicyAction action=this.getAction();
 		if(null!=action){
-			variables.addAll(action.getVariables());
+			if (action.getVariables().size()>0){
+				variables.addAll(action.getVariables());
+			}
 		}
 		IPolicyAction elseAction=this.getElseAction();
 		if(null!=elseAction){
-			variables.addAll(elseAction.getVariables());		
+			if (elseAction.getVariables().size()>0){
+				variables.addAll(elseAction.getVariables());
+			}			
 		}
 		Map<String , IPolicyVariable>  map=new HashMap<String, IPolicyVariable>();
 		for (IPolicyVariable iPolicyVariable : variables) {

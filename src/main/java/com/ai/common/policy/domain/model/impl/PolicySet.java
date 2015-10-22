@@ -93,7 +93,9 @@ public abstract class PolicySet extends InstanceEntity implements IPolicySet {
 			IPolicyVariable variable = entry.getValue();
 			sb.append("        ").append(variable.getVariableType()).append(" ").append(code);
 			if(null!=variable.getInitialValue()){
-				sb.append(" = ").append(variable.getInitialValue());
+				sb.append(" = ").append(variable.getInitialValue().toBodyString());
+			}else if (null!=variable.getInitialInputValue()){
+				sb.append(" = ").append(variable.getInitialInputValue());
 			}
 			sb.append(";\n");
 		}

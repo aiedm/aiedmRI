@@ -34,11 +34,7 @@ public class PolicyFunctionValue extends PolicyValue implements IPolicyFunctionV
 		.append("(");
 		Set<IPolicyFunctionValueParamRel> params=this.getParams();
 		for (IPolicyFunctionValueParamRel paramRel : params) {
-			if(null!=paramRel.getVaraibleValueRef()){
-				sb.append(paramRel.getVaraibleValueRef().getCode());
-			}else{
-				sb.append(paramRel.getValue());
-			}
+			sb.append(paramRel.toBodyString());
 			sb.append(",");
 		}
 		int lastIdx=sb.lastIndexOf(",");
