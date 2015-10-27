@@ -30,7 +30,7 @@ public class PolicyAtomicCondition extends PolicyCondition implements IPolicyAto
 	@Override
 	public Set<IPolicyVariable> getVariables() {
 		Set<IPolicyVariable> variables=new HashSet<IPolicyVariable>();
-		variables.add(this.getStatement().getVariable());
+		variables.addAll(this.getStatement().getVariables());
 		return variables;
 	}
 }

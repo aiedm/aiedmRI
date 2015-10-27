@@ -2,15 +2,12 @@ package com.ai.common.policy.domain.model.impl;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 
 import com.ai.common.policy.domain.model.interfaces.IPolicyAction;
 import com.ai.common.policy.domain.model.interfaces.IPolicyCondition;
 import com.ai.common.policy.domain.model.interfaces.IPolicyRule;
-import com.ai.common.policy.domain.model.interfaces.IPolicySet;
 import com.ai.common.policy.domain.model.interfaces.IPolicySetInputParameter;
 import com.ai.common.policy.domain.model.interfaces.IPolicyVariable;
 
@@ -88,9 +85,17 @@ public class PolicyRule extends PolicySet implements IPolicyRule {
 		}
 		Map<String , IPolicyVariable>  map=new HashMap<String, IPolicyVariable>();
 		for (IPolicyVariable iPolicyVariable : variables) {
-			String code=iPolicyVariable.getCode();
-			if (!map.containsKey(code)){
-				map.put(code, iPolicyVariable);
+			if(null!=iPolicyVariable){
+				String code=iPolicyVariable.getCode();
+				if (!code.isEmpty()&&!map.containsKey(code)){
+					map.put(code, iPolicyVariable);
+				}	
+			}
+		}
+		for (IPolicySetInputParameter param : this.getInputParameters()) {
+			String varCode=param.getVariable().getCode();
+			if (map.containsKey(varCode)){
+				map.remove(varCode);
 			}
 		}
 		return map;

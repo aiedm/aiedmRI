@@ -1,6 +1,11 @@
 package com.ai.common.policy.domain.model.impl;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import com.ai.common.policy.domain.model.interfaces.IPolicyValue;
+import com.ai.common.policy.domain.model.interfaces.IPolicyVariable;
+import com.ai.common.policy.domain.model.interfaces.IPolicyVariableValue;
 import com.ai.common.rootentity.domain.model.impl.InstanceEntity;
 
 public abstract class PolicyValue extends InstanceEntity implements IPolicyValue {
@@ -62,5 +67,7 @@ public abstract class PolicyValue extends InstanceEntity implements IPolicyValue
 
 	@Override
 	public abstract String toBodyString();
-
+	
+	@Override
+	public abstract Set<IPolicyVariable> getVariables(); 
 }

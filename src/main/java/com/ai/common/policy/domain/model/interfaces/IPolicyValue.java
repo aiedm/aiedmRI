@@ -1,5 +1,8 @@
 package com.ai.common.policy.domain.model.interfaces;
 
+import java.util.Map;
+import java.util.Set;
+
 import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntity;
 
 public interface IPolicyValue extends IInstanceEntity {
@@ -14,4 +17,5 @@ public interface IPolicyValue extends IInstanceEntity {
 	void setType(String type);
 	String getValue();
 	void setValue(String value);	
+	Set<IPolicyVariable> getVariables();
 }

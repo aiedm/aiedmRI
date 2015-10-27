@@ -2,14 +2,14 @@ package com.ai.common.rootentity.domain.model.impl;
 
 import org.springframework.stereotype.Component;
 
-import com.ai.common.rootentity.domain.model.interfaces.ICharacteristicInstanceValue;
+import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntityCharacterValue;
 import com.ai.common.rootentity.domain.model.interfaces.ICharacteristicSpecValue;
-import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntityCharacteristic;
+import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntityCharacter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 @Component
-public class InstanceEntityCharacterValue extends RootEntity implements ICharacteristicInstanceValue {
+public class InstanceEntityCharacterValue extends RootEntity implements IInstanceEntityCharacterValue {
 	@JsonIgnore
-	private IInstanceEntityCharacteristic instanceEntityCharacteristic;
+	private IInstanceEntityCharacter instanceEntityCharacteristic;
 	private ICharacteristicSpecValue characteristicValue;
 	private long id;
 	private String value;
@@ -18,18 +18,18 @@ public class InstanceEntityCharacterValue extends RootEntity implements ICharact
 		
 	}
 			
-	public InstanceEntityCharacterValue(IInstanceEntityCharacteristic instanceEntityCharacteristic, ICharacteristicSpecValue characteristicValue){
+	public InstanceEntityCharacterValue(IInstanceEntityCharacter instanceEntityCharacteristic, ICharacteristicSpecValue characteristicValue){
 		this.setInstanceEntityCharacteristic(instanceEntityCharacteristic);
 		this.setCharacteristicValue(characteristicValue);
 	}
 	
 	@Override
-	public IInstanceEntityCharacteristic getInstanceEntityCharacteristic() {
+	public IInstanceEntityCharacter getInstanceEntityCharacteristic() {
 		return this.instanceEntityCharacteristic;
 	}
 
 	@Override
-	public void setInstanceEntityCharacteristic(IInstanceEntityCharacteristic instanceEntityCharacteristic) {
+	public void setInstanceEntityCharacteristic(IInstanceEntityCharacter instanceEntityCharacteristic) {
 		this.instanceEntityCharacteristic=instanceEntityCharacteristic;
 	}
 

@@ -30,8 +30,8 @@ public class PolicyAtomicAction extends PolicyAction implements IPolicyAtomicAct
 	@Override
 	public Set<IPolicyVariable> getVariables() {
 		Set<IPolicyVariable> variables=new HashSet<IPolicyVariable>();
-		if (null!=this.getStatement().getVariable()){
-			variables.add(this.getStatement().getVariable());
+		if (null!=this.getStatement().getVariables()){
+			variables.addAll(this.getStatement().getVariables());
 		}		
 		return variables;
 	}

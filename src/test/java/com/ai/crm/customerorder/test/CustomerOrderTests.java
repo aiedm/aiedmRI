@@ -20,10 +20,10 @@ import com.ai.common.rootentity.domain.model.impl.InstanceEntityCharacterValue;
 import com.ai.common.rootentity.domain.model.impl.CharacteristicSpec;
 import com.ai.common.rootentity.domain.model.impl.CharacteristicSpecValue;
 import com.ai.common.rootentity.domain.model.impl.InstanceEntityCharacteristic;
-import com.ai.common.rootentity.domain.model.interfaces.ICharacteristicInstanceValue;
+import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntityCharacterValue;
 import com.ai.common.rootentity.domain.model.interfaces.ICharacteristicSpec;
 import com.ai.common.rootentity.domain.model.interfaces.ICharacteristicSpecValue;
-import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntityCharacteristic;
+import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntityCharacter;
 import com.ai.common.rootentity.domain.service.interfaces.IEventPublisher;
 import com.ai.crm.config.DevelopmentProfileConfig;
 import com.ai.crm.customerorder.domain.event.CreateOrderRequested;
@@ -56,7 +56,7 @@ public class CustomerOrderTests {
 	@Autowired
 	private IToBePricePlanInstance toBePrice;
 	@Autowired
-	private IInstanceEntityCharacteristic OfferOrderPriceCharacter;
+	private IInstanceEntityCharacter OfferOrderPriceCharacter;
 	@Autowired
 	private IToBeOfferInstance toBeOfferInstance;
 	@Autowired
@@ -65,13 +65,13 @@ public class CustomerOrderTests {
 	private IProductPriceRel productPriceRel;
 	
 	@Autowired
-	private ICharacteristicInstanceValue characteristicInstanceValue;
+	private IInstanceEntityCharacterValue characteristicInstanceValue;
 	@Autowired
 	private ICharacteristicSpec characteristicSpec;
 	@Autowired
 	private ICharacteristicSpecValue characteristicValue;
 	@Autowired
-	private IInstanceEntityCharacteristic productOrderCharacteristic;
+	private IInstanceEntityCharacter productOrderCharacteristic;
 	@Autowired
 	private IEventPublisher eventPublisher;
 	
@@ -118,7 +118,7 @@ public class CustomerOrderTests {
 		characteristic2.addValue(characteristicValue2);
 		characteristic2.setId(110);
 		
-		ICharacteristicInstanceValue characteristicInstanceValue2=new InstanceEntityCharacterValue(productOrderCharacteristic,characteristicValue2);
+		IInstanceEntityCharacterValue characteristicInstanceValue2=new InstanceEntityCharacterValue(productOrderCharacteristic,characteristicValue2);
 		characteristicInstanceValue2.setId(100005);
 		characteristicInstanceValue2.setInputedValue("Red");
 		productOrderCharacteristic=new InstanceEntityCharacteristic();

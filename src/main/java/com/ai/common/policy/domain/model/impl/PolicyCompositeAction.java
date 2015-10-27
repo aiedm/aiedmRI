@@ -1,6 +1,7 @@
 package com.ai.common.policy.domain.model.impl;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import com.ai.common.policy.domain.model.interfaces.IPolicyAction;
@@ -8,7 +9,7 @@ import com.ai.common.policy.domain.model.interfaces.IPolicyCompositeAction;
 import com.ai.common.policy.domain.model.interfaces.IPolicyVariable;
 
 public class PolicyCompositeAction extends PolicyAction implements IPolicyCompositeAction {
-	Set<IPolicyAction> children=new HashSet<IPolicyAction>();
+	Set<IPolicyAction> children=new LinkedHashSet<IPolicyAction>();
 	public PolicyCompositeAction() {
 	}
 

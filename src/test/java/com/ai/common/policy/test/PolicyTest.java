@@ -58,7 +58,20 @@ import com.ai.common.policy.domain.model.interfaces.IPolicyVariable;
 import com.ai.common.policy.domain.model.interfaces.IPolicyVariableValue;
 import com.ai.common.policy.domain.service.impl.GroovyPolicyExecute;
 import com.ai.common.policy.domain.service.interfaces.IPolicyExecute;
-import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntityCharacteristic;
+import com.ai.common.rootentity.domain.model.impl.CharacteristicSpec;
+import com.ai.common.rootentity.domain.model.impl.CharacteristicSpecValue;
+import com.ai.common.rootentity.domain.model.impl.InstanceEntityCharacterValue;
+import com.ai.common.rootentity.domain.model.impl.InstanceEntityCharacteristic;
+import com.ai.common.rootentity.domain.model.interfaces.ICharacteristicSpec;
+import com.ai.common.rootentity.domain.model.interfaces.ICharacteristicSpecValue;
+import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntityCharacter;
+import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntityCharacterValue;
+import com.ai.crm.customerorder.domain.model.impl.ToBeOfferInstance;
+import com.ai.crm.customerorder.domain.model.impl.ToBePricePlanInstance;
+import com.ai.crm.customerorder.domain.model.impl.ToBeProduct;
+import com.ai.crm.customerorder.domain.model.interfaces.IToBeOfferInstance;
+import com.ai.crm.customerorder.domain.model.interfaces.IToBePricePlanInstance;
+import com.ai.crm.customerorder.domain.model.interfaces.IToBeProduct;
 import com.ai.crm.product.domain.model.impl.OfferInstance;
 import com.ai.crm.product.domain.model.impl.Product;
 import com.ai.crm.product.domain.model.interfaces.IOfferInstance;
@@ -241,13 +254,13 @@ public class PolicyTest {
 	
 		IPolicyVariable varProductPriceRel=new PolicyVariable();
 		varProductPriceRel.setCode("toBeProductPriceRel");
-		varProductPriceRel.setVariableType("com.ai.crm.customerorder.domain.model.interfaces.IProductPriceRel");
-		varProductPriceRel.setInitialInputValue("new ProductPriceRel()");
+		varProductPriceRel.setVariableType("com.ai.crm.customerorder.domain.model.interfaces.IToBeProductPriceRel");
+		varProductPriceRel.setInitialInputValue("new com.ai.crm.customerorder.domain.model.impl.ToBeProductPriceRel()");
 
 		IPolicyVariable varPricePlanInstance=new PolicyVariable();
 		varPricePlanInstance.setCode("toBePricePlanInstance");
 		varPricePlanInstance.setVariableType("com.ai.crm.customerorder.domain.model.interfaces.IToBePricePlanInstance");
-		varPricePlanInstance.setInitialInputValue("new PricePlanInstance()");
+		varPricePlanInstance.setInitialInputValue("new com.ai.crm.customerorder.domain.model.impl.ToBePricePlanInstance()");
 		
 		//getColorValue
 		//function and param define
@@ -256,10 +269,12 @@ public class PolicyTest {
 		function8.setClassName("toBeProduct");
 		function8.setMethodName("getInstEntityCharValueByCharCode");
 		IPolicyFunctionParameter characteristicCode=new PolicyFunctionParameter();
+		characteristicCode.setCode("characteristicCode");
 		characteristicCode.setFunction(function8);
 		characteristicCode.setParameterType("String");
 		function8.addParameter(characteristicCode);
 		IPolicyFunctionParameter characteristicValueIdx=new PolicyFunctionParameter();
+		characteristicValueIdx.setCode("characteristicValueIdx");
 		characteristicValueIdx.setFunction(function8);
 		characteristicValueIdx.setParameterType("int");
 		function8.addParameter(characteristicValueIdx);
@@ -276,23 +291,28 @@ public class PolicyTest {
 		//colorValueIdx.setInitialValue("0");
 		
 		//value define
-		IPolicyConstValue redColor = new PolicyConstValue();
-		redColor.setType("Const");
-		redColor.setCode("redColor");
-		redColor.setValue("'Red'");
+		IPolicyConstValue Color = new PolicyConstValue();
+		Color.setType("Const");
+		Color.setCode("Color");
+		Color.setValue("\"Color\"");
+		
+		IPolicyConstValue Red = new PolicyConstValue();
+		Red.setType("Const");
+		Red.setCode("Red");
+		Red.setValue("\"Red\"");
 		
 		IPolicyConstValue firstValue = new PolicyConstValue();
 		firstValue.setType("Const");
 		firstValue.setCode("firstValue");
 		firstValue.setValue("0");
 		
-		IPolicyFunctionValue getProductColorValue=new PolicyFunctionValue();
-		//getProductColorValue.setType("Function");
+		IPolicyFunctionValue getProductColorValue=new PolicyFunctionValue();		
+		getProductColorValue.setCode("getProductColorValue");
 		getProductColorValue.setFunction(function8);
 		IPolicyFunctionValueParamRel paramRel=new PolicyFunctionValueParamRel();
 		paramRel.setFunctionValue(getProductColorValue);
 		paramRel.setParameter(characteristicCode);
-		paramRel.setValue(redColor);
+		paramRel.setValue(Color);
 		getProductColorValue.addParam(paramRel);
 		
 		IPolicyFunctionValueParamRel paramRel2=new PolicyFunctionValueParamRel();
@@ -329,13 +349,13 @@ public class PolicyTest {
 		//toBePricePlanInstance.setValue
 		//function and param define
 		IPolicyFunction function3=new PolicyFunction();
-		function3.setCode("toBePricePlanInstance.setValue");
+		function3.setCode("toBePricePlanInstance.setPriceValue");
 		function3.setClassName("toBePricePlanInstance");
-		function3.setMethodName("setValue");
-		IPolicyFunctionParameter priceValue=new PolicyFunctionParameter();
-		priceValue.setFunction(function3);
-		priceValue.setParameterType("String");
-		function3.addParameter(priceValue);
+		function3.setMethodName("setPriceValue");
+		IPolicyFunctionParameter priceFuncParam=new PolicyFunctionParameter();
+		priceFuncParam.setFunction(function3);
+		priceFuncParam.setParameterType("long");
+		function3.addParameter(priceFuncParam);
 		
 		//value define	
 		IPolicyConstValue PriceValue200 = new PolicyConstValue();
@@ -344,7 +364,7 @@ public class PolicyTest {
 		PriceValue200.setValue("200");
 		
 		IPolicyFunctionValueParamRel paramRelPriceValue=new PolicyFunctionValueParamRel();
-		paramRelPriceValue.setParameter(priceValue);
+		paramRelPriceValue.setParameter(priceFuncParam);
 		paramRelPriceValue.setValue(PriceValue200);
 		IPolicyFunctionValue setPriceValue=new PolicyFunctionValue();
 		setPriceValue.setFunction(function3);		
@@ -362,16 +382,16 @@ public class PolicyTest {
 		function4.addParameter(paramToBeProduct);		
 		
 		//value define
-		IPolicyVariableValue valToBeProduct = new PolicyVariableValue();
-		//toBeProduct.setType("Variable");
-		valToBeProduct.setCode("toBeProduct");				
+		IPolicyVariableValue toBeProduct = new PolicyVariableValue();
+		toBeProduct.setCode("toBeProduct");	
+		toBeProduct.setVariable(varProduct);
 				
 		IPolicyFunctionValueParamRel paramRelProduct=new PolicyFunctionValueParamRel();
 		paramRelProduct.setParameter(paramToBeProduct);
-		paramRelProduct.setValue(valToBeProduct);
+		paramRelProduct.setValue(toBeProduct);
 		IPolicyFunctionValue setProduct=new PolicyFunctionValue();
-		setPricePlanId.setFunction(function4);		
-		setPricePlanId.addParam(paramRelProduct);
+		setProduct.setFunction(function4);		
+		setProduct.addParam(paramRelProduct);
 		
 		//toBeProductPriceRel.setPricePlanInstance
 		//function and param define
@@ -385,12 +405,13 @@ public class PolicyTest {
 		function5.addParameter(paramToBePricePlan);		
 		
 		//value define
-		IPolicyVariableValue valToBePricePlanInstance = new PolicyVariableValue();
-		valToBePricePlanInstance.setCode("toBePricePlanInstance");				
+		IPolicyVariableValue toBePricePlanInstance = new PolicyVariableValue();
+		toBePricePlanInstance.setCode("toBePricePlanInstance");	
+		toBePricePlanInstance.setVariable(varPricePlanInstance);
 				
 		IPolicyFunctionValueParamRel paramRelPricePlanInstance=new PolicyFunctionValueParamRel();
 		paramRelPricePlanInstance.setParameter(paramToBePricePlan);
-		paramRelPricePlanInstance.setValue(valToBePricePlanInstance);
+		paramRelPricePlanInstance.setValue(toBePricePlanInstance);
 		IPolicyFunctionValue setPricePlanInstance=new PolicyFunctionValue();
 		setPricePlanInstance.setFunction(function5);		
 		setPricePlanInstance.addParam(paramRelPricePlanInstance);
@@ -403,16 +424,21 @@ public class PolicyTest {
 		function6.setMethodName("assignPrice");
 		IPolicyFunctionParameter paramAssignPrice=new PolicyFunctionParameter();
 		paramAssignPrice.setFunction(function6);
-		paramAssignPrice.setParameterType("com.ai.crm.customerorder.domain.model.interfaces.ToBePricePlanInstance");
+		paramAssignPrice.setParameterType("com.ai.crm.customerorder.domain.model.interfaces.IProductPriceRel");
 		function6.addParameter(paramAssignPrice);		
-					
-				
+		
+		//value define
+		IPolicyVariableValue toBeProductPriceRel = new PolicyVariableValue();
+		toBeProductPriceRel.setCode("toBeProductPriceRel");	
+		toBeProductPriceRel.setVariable(varProductPriceRel);
+		
 		IPolicyFunctionValueParamRel paramRelAssignPricePlanInstance=new PolicyFunctionValueParamRel();
 		paramRelAssignPricePlanInstance.setParameter(paramAssignPrice);
-		paramRelAssignPricePlanInstance.setValue(valToBePricePlanInstance);
-		IPolicyFunctionValue assignPrice=new PolicyFunctionValue();
+		paramRelAssignPricePlanInstance.setValue(toBeProductPriceRel);
+		IPolicyFunctionValue assignPrice=new PolicyFunctionValue();		
 		assignPrice.setFunction(function6);		
 		assignPrice.addParam(paramRelAssignPricePlanInstance);
+		
 		
 		//toBeOfferInstance.addPricePlanInstance
 		//function and param define
@@ -428,7 +454,7 @@ public class PolicyTest {
 				
 		IPolicyFunctionValueParamRel paramRelAddPricePlanInstance=new PolicyFunctionValueParamRel();
 		paramRelAddPricePlanInstance.setParameter(paramAddPricePlanInstance);
-		paramRelAddPricePlanInstance.setValue(valToBePricePlanInstance);
+		paramRelAddPricePlanInstance.setValue(toBePricePlanInstance);
 		IPolicyFunctionValue addPricePlanInstance=new PolicyFunctionValue();
 		addPricePlanInstance.setFunction(function7);		
 		addPricePlanInstance.addParam(paramRelAddPricePlanInstance);
@@ -438,13 +464,15 @@ public class PolicyTest {
 		IPolicyVariable expectedCharValue=new PolicyVariable();
 		expectedCharValue.setCode("expectedCharValue");
 		expectedCharValue.setInitialValue(getProductColorValue);
+		expectedCharValue.setVariableType("String");
 		
 		IPolicyOperatorStringEquals stringEqualsOperator=new PolicyOperatorStringEquals();
+		stringEqualsOperator.setCode("equalsIgnoreCase");
 		
 		//Expectedstatement
 		IPolicyConditionStatement conditionStatement=new PolicyConditionStatement();
 		conditionStatement.setVariable(expectedCharValue);
-		conditionStatement.setValue(redColor);
+		conditionStatement.setValue(Red);
 		conditionStatement.setOperator(stringEqualsOperator);
 		
 		//condition
@@ -506,6 +534,7 @@ public class PolicyTest {
 		IPolicyRule rule=new PolicyRule();
 		rule.setCondition(condition);
 		rule.setAction(groupAction);
+		rule.setCode("SelectPriceFromProductAttr");
 		
 		IPolicySetInputParameter param2=new PolicySetInputParameter();
 		param2.setVariable(varProduct);
@@ -519,15 +548,28 @@ public class PolicyTest {
 		
 		IPolicyExecute serv1=new GroovyPolicyExecute();
 		Map<String, Object> context=new HashMap<>();
-		IProduct product=new Product();
-		IOfferInstance offerInstance =new OfferInstance();
+		IToBeProduct product=new ToBeProduct();
+		IInstanceEntityCharacter instChar=new InstanceEntityCharacteristic();		
+		ICharacteristicSpec charspec=new CharacteristicSpec();
+		charspec.setCode("Color");
+		instChar.setCharacteristic(charspec);
+		product.addCharacteristic(instChar);
+		IInstanceEntityCharacterValue instCharValue=new InstanceEntityCharacterValue();
+		instCharValue.setInstanceEntityCharacteristic(instChar);
+		ICharacteristicSpecValue charSpecValue=new CharacteristicSpecValue();
+		charSpecValue.setCharacteristic(charspec);
+		charSpecValue.setCode("Red");
+		charSpecValue.setValue("Red");
+		charspec.addValue(charSpecValue);
+		instCharValue.setCharacteristicValue(charSpecValue);
+		instChar.addCharacteristicInstanceValue(instCharValue);
+		IToBeOfferInstance offerInstance =new ToBeOfferInstance();
 		context.put("toBeProduct", product);
 		context.put("toBeOfferInstance", offerInstance);
 		serv1.execute(rule, context);
-		//assertEquals(resu,new Integer(900));
-		IPricePlanInstance[] plInsts=(IPricePlanInstance[])offerInstance.getPricePlanInstances().toArray();
+		IToBePricePlanInstance[] plInsts=(IToBePricePlanInstance[])offerInstance.getPricePlanInstances().toArray(new IToBePricePlanInstance[0]);
 		long pricePlanValue=plInsts[0].getPriceValue();
-		assertEquals(pricePlanValue,"200");
+		assertEquals(pricePlanValue,200);
 		
 	}
 	

@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.ai.common.policy.domain.model.interfaces.IPolicyEnumValue;
+import com.ai.common.policy.domain.model.interfaces.IPolicyVariable;
 import com.ai.common.rootentity.domain.model.interfaces.ICharacteristicSpecValue;
 
 public class PolicyEnumValue extends PolicyValue implements IPolicyEnumValue {
@@ -53,4 +54,8 @@ public class PolicyEnumValue extends PolicyValue implements IPolicyEnumValue {
 		return sb.toString();
 	}
 
+	@Override
+	public Set<IPolicyVariable> getVariables() {
+		return null;
+	}
 }

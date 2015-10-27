@@ -1,15 +1,17 @@
 package com.ai.common.policy.domain.model.impl;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import com.ai.common.policy.domain.model.interfaces.IPolicyFunction;
 import com.ai.common.policy.domain.model.interfaces.IPolicyFunctionValue;
 import com.ai.common.policy.domain.model.interfaces.IPolicyFunctionValueParamRel;
+import com.ai.common.policy.domain.model.interfaces.IPolicyVariable;
 
 public class PolicyFunctionValue extends PolicyValue implements IPolicyFunctionValue {
 	private IPolicyFunction function;
-	Set<IPolicyFunctionValueParamRel> params=new HashSet<IPolicyFunctionValueParamRel>();
+	Set<IPolicyFunctionValueParamRel> params=new LinkedHashSet<IPolicyFunctionValueParamRel>();
 	public PolicyFunctionValue() {
 	}
 
@@ -71,6 +73,19 @@ public class PolicyFunctionValue extends PolicyValue implements IPolicyFunctionV
 	@Override
 	public void setValue(String value) {
 		// do nothing
+	}
+	
+	@Override
+	public Set<IPolicyVariable> getVariables() {
+		Set<IPolicyVariable> variables=new HashSet<IPolicyVariable>();
+		Set<IPolicyFunctionValueParamRel> params=this.getParams();
+		for (IPolicyFunctionValueParamRel paramRel : params) {
+			Set<IPolicyVariable> paramVariables=paramRel.getValue().getVariables();
+			if (null!=paramVariables&&paramVariables.size()>0){
+				variables.addAll(paramVariables);
+			}			
+		}
+		return variables;
 	}
 
 }

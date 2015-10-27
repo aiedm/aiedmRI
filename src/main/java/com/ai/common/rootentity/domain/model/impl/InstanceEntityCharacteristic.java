@@ -5,18 +5,18 @@ import java.util.Set;
 
 import org.springframework.stereotype.Component;
 
-import com.ai.common.rootentity.domain.model.interfaces.ICharacteristicInstanceValue;
+import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntityCharacterValue;
 import com.ai.common.rootentity.domain.model.interfaces.ICharacteristicSpec;
 import com.ai.common.rootentity.domain.model.interfaces.IEntityVersion;
 import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntity;
-import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntityCharacteristic;
+import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntityCharacter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 @Component
-public class InstanceEntityCharacteristic extends RootEntity implements IInstanceEntityCharacteristic {
+public class InstanceEntityCharacteristic extends RootEntity implements IInstanceEntityCharacter {
 	@JsonIgnore
 	private IInstanceEntity instanceEntity;
 	private ICharacteristicSpec characteristic;
-	private Set<ICharacteristicInstanceValue> characteristicInstanceValues=new HashSet<ICharacteristicInstanceValue>();
+	private Set<IInstanceEntityCharacterValue> characteristicInstanceValues=new HashSet<IInstanceEntityCharacterValue>();
 	
 	@Override
 	@JsonIgnore	
@@ -40,12 +40,12 @@ public class InstanceEntityCharacteristic extends RootEntity implements IInstanc
 	}
 
 	@Override
-	public Set<ICharacteristicInstanceValue> getCharacteristicInstanceValues() {
+	public Set<IInstanceEntityCharacterValue> getCharacteristicInstanceValues() {
 		return this.characteristicInstanceValues;
 	}
 
 	@Override
-	public void addCharacteristicInstanceValue(ICharacteristicInstanceValue characteristicInstanceValue) {
+	public void addCharacteristicInstanceValue(IInstanceEntityCharacterValue characteristicInstanceValue) {
 		this.characteristicInstanceValues.add(characteristicInstanceValue);
 		if (null==characteristicInstanceValue.getInstanceEntityCharacteristic()){
 			characteristicInstanceValue.setInstanceEntityCharacteristic(this);

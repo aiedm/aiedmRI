@@ -14,6 +14,7 @@ public class CharacteristicSpecValue extends RootEntity implements ICharacterist
 	private String displayValue;
 	private boolean isDefault;
 	private long valueFrom;
+	private String code;
 	   
 	public long getId() {
 		return id;
@@ -81,6 +82,16 @@ public class CharacteristicSpecValue extends RootEntity implements ICharacterist
 	@Override
 	public void setCharacteristic(ICharacteristicSpec characteristic) {
 		this.characteristic=characteristic;
+	}
+
+	@Override
+	public String getCode() {
+		return this.code;
+	}
+
+	@Override
+	public void setCode(String code) {
+		this.code=code;
 	}
 
 }

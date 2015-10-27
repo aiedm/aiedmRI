@@ -11,7 +11,7 @@ public class ToBeProduct extends Product implements IToBeProduct {
 	@JsonIgnore
 	private IProductOrderItem productOrder;
 
-	private ToBeProduct() {
+	public ToBeProduct() {
 	}
 	
 	public ToBeProduct(IProductOrderItem productOrder) {

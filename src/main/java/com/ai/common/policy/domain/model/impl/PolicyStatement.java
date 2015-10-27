@@ -1,5 +1,6 @@
 package com.ai.common.policy.domain.model.impl;
 
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import com.ai.common.policy.domain.model.interfaces.IPolicyOperator;
@@ -77,8 +78,28 @@ public abstract class PolicyStatement extends InstanceEntity implements IPolicyS
 	@Override
 	public String toBodyString() {
 		StringBuffer sb=new StringBuffer();
-		sb.append(this.getOperator().toBodyString(this.getVariable().toBodyString(),this.getValue().toBodyString()));
+		String firstParam="";
+		String secondParam="";
+		if(null!=this.getVariable()){
+			firstParam=this.getVariable().toBodyString();
+		}
+		if(null!=this.getValue()){
+			secondParam=this.getValue().toBodyString();
+		}
+		sb.append(this.getOperator().toBodyString(firstParam,secondParam));
 		return sb.toString();
 	}
+	
+	@Override
+	public Set<IPolicyVariable> getVariables(){
+		Set<IPolicyVariable> variables=new LinkedHashSet<IPolicyVariable>();
+		variables.add(this.getVariable());
+		Set<IPolicyVariable> valueVars=this.getValue().getVariables();
+		if (null!=valueVars&&valueVars.size()>0){
+			variables.addAll(valueVars);
+		}
+		return variables;
+	}
+	
 
 }

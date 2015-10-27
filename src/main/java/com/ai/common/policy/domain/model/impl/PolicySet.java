@@ -128,7 +128,9 @@ public abstract class PolicySet extends InstanceEntity implements IPolicySet {
 		constructor.append("    public ").append(className).append("(){\n    }\n");
 		methodDeclare.append("        ").append("boolean matched=false;\n");
 		for (IPolicySetInputParameter param : this.getInputParameters()) {
-			methodDeclare.append("        ").append(param.getVariable().getCode())			
+			methodDeclare.append("        ")
+			.append(param.getVariable().getVariableType()).append(" ")
+			.append(param.getVariable().getCode())			
 			.append(" = ")
 			.append("(").append(param.getVariable().getVariableType()).append(")")
 			.append("context.get(\"").append(param.getVariable().getCode()).append("\")")
@@ -142,9 +144,9 @@ public abstract class PolicySet extends InstanceEntity implements IPolicySet {
 			method.append("void");
 		}
 		
-		method.append(" ").append("executePolicy(").append("Map<String, Object> context").append(") throws Exception {\n")
-		.append(this.getVariableDeclareString())
+		method.append(" ").append("executePolicy(").append("Map<String, Object> context").append(") throws Exception {\n")		
 		.append(methodDeclare.toString())
+		.append(this.getVariableDeclareString())
 		.append(this.toBodyString());
 		if (null!=this.getElseAction()&&this.isEnableElseAction){
 			method.append("        ").append("if (matched==false) {\n")

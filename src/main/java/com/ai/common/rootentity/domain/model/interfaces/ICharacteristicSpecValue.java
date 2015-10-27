@@ -16,6 +16,8 @@ public interface ICharacteristicSpecValue  extends IRootEntity{
 	void setCharacteristic(ICharacteristicSpec characteristic);
 	long getId();
 	void setId(long id);
+	String getCode();
+	void setCode(String code);
 	String getValue();
 	void setValue(String value);
 	String getDisplayValue();
