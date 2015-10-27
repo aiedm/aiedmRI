@@ -174,74 +174,146 @@
       <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <association id="18">    
+  <interface id="18" language="java" name="com.ai.common.rootentity.domain.model.interfaces.IBaseEvent" 
+    project="aiedmRI" file="/aiedmRI/src/main/java/com/ai/common/rootentity/domain/model/interfaces/IBaseEvent.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="175" y="1581"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="19" language="java" name="com.ai.common.rootentity.domain.model.interfaces.IEventSubscriberRule" 
+    project="aiedmRI" 
+    file="/aiedmRI/src/main/java/com/ai/common/rootentity/domain/model/interfaces/IEventSubscriberRule.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="472" y="1582"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="20" language="java" name="com.ai.common.policy.domain.model.interfaces.IPolicyCondition" 
+    project="aiedmRI" file="/aiedmRI/src/main/java/com/ai/common/policy/domain/model/interfaces/IPolicyCondition.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="130" y="1724"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="21" language="java" name="com.ai.common.policy.domain.model.interfaces.IPolicySet" project="aiedmRI" 
+    file="/aiedmRI/src/main/java/com/ai/common/policy/domain/model/interfaces/IPolicySet.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="368" y="1720"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="22" language="java" name="com.ai.common.rootentity.domain.model.interfaces.ISpecificationEntity" 
+    project="aiedmRI" 
+    file="/aiedmRI/src/main/java/com/ai/common/rootentity/domain/model/interfaces/ISpecificationEntity.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="601" y="1720"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <association id="23">    
     <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="19" name="params">        
+      <attribute id="24" name="params">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="20" minimum="0" maximum="2147483647">        
+      <multiplicity id="25" minimum="0" maximum="2147483647">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="8" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="21">    
+  <dependency id="26">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="21"/>  
+  </dependency>  
+  <dependency id="27">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="19"/>  
+  </dependency>  
+  <generalization id="28">    
     <end type="SOURCE" refId="13"/>    
     <end type="TARGET" refId="12"/>  
   </generalization>  
-  <realization id="22">    
+  <realization id="29">    
     <end type="SOURCE" refId="11"/>    
     <end type="TARGET" refId="10"/>  
   </realization>  
-  <generalization id="23">    
+  <dependency id="30">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <generalization id="31">    
     <end type="SOURCE" refId="16"/>    
     <end type="TARGET" refId="13"/>  
   </generalization>  
-  <generalization id="24">    
+  <generalization id="32">    
     <end type="SOURCE" refId="3"/>    
     <end type="TARGET" refId="1"/>  
   </generalization>  
-  <generalization id="25">    
+  <generalization id="33">    
     <end type="SOURCE" refId="14"/>    
     <end type="TARGET" refId="13"/>  
   </generalization>  
-  <generalization id="26">    
+  <generalization id="34">    
     <end type="SOURCE" refId="2"/>    
     <end type="TARGET" refId="1"/>  
   </generalization>  
-  <generalization id="27">    
+  <generalization id="35">    
     <end type="SOURCE" refId="15"/>    
     <end type="TARGET" refId="13"/>  
   </generalization>  
-  <generalization id="28">    
+  <dependency id="36">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="20"/>  
+  </dependency>  
+  <generalization id="37">    
     <end type="SOURCE" refId="17"/>    
     <end type="TARGET" refId="1"/>  
   </generalization>  
-  <association id="29">    
+  <association id="38">    
     <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="30" name="parameters">        
+      <attribute id="39" name="parameters">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="31" minimum="0" maximum="2147483647">        
+      <multiplicity id="40" minimum="0" maximum="2147483647">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="6" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="32">    
+  <realization id="41">    
     <end type="SOURCE" refId="9"/>    
     <end type="TARGET" refId="8"/>  
   </realization>  
-  <realization id="33">    
+  <realization id="42">    
     <end type="SOURCE" refId="7"/>    
     <end type="TARGET" refId="6"/>  
   </realization>  
-  <generalization id="34">    
+  <generalization id="43">    
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="1"/>  
   </generalization>  
+  <dependency id="44">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="22"/>  
+  </dependency>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    
