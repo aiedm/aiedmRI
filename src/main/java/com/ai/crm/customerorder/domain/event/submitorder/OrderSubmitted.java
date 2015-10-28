@@ -1,9 +1,9 @@
 package com.ai.crm.customerorder.domain.event.submitorder;
 
-public class OrderSubmitted {
+public class OrderSubmitted  extends OrderSubmitBaseEvent{
 
-	public OrderSubmitted() {
-		// TODO Auto-generated constructor stub
+	public OrderSubmitted(Object source) {
+		super(source);
 	}
 
 }

@@ -1,9 +1,9 @@
 package com.ai.crm.customerorder.domain.event.submitorder;
 
-public class OrderSubmitFailed {
+public class OrderSubmitFailed extends OrderSubmitBaseEvent{
 
-	public OrderSubmitFailed() {
-		// TODO Auto-generated constructor stub
+	public OrderSubmitFailed(Object source) {
+		super(source);
 	}
 
 }

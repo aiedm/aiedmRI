@@ -7,7 +7,7 @@ import org.springframework.context.ApplicationEvent;
 
 import com.ai.common.policy.domain.model.interfaces.IPolicyCondition;
 
-public class BaseEvent extends ApplicationEvent {
+public abstract class BaseEvent extends ApplicationEvent {
 	private Set<EventSubscriberRule> eventSubscriberRules=new LinkedHashSet<EventSubscriberRule>();
 	private Set<IPolicyCondition> conditions=new LinkedHashSet<IPolicyCondition>();
 	private Set<EventListener> listeners=new LinkedHashSet<EventListener>();
