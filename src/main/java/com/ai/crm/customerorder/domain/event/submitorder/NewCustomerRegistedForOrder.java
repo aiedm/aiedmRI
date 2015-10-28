@@ -1,22 +1,25 @@
-package com.ai.crm.customerorder.domain.event;
+package com.ai.crm.customerorder.domain.event.submitorder;
 
 import com.ai.common.rootentity.domain.model.impl.BaseEvent;
 import com.ai.crm.customerorder.domain.model.interfaces.ICustomerOrder;
 
-public class CreateOrderRequested extends BaseEvent {
+public class NewCustomerRegistedForOrder extends BaseEvent {
 	private ICustomerOrder customerOrder;
-
+	private long customerId; 
+	public long getCustomerId() {
+		return customerId;
+	}
+	public void setCustomerId(long customerId) {
+		this.customerId = customerId;
+	}
 	public ICustomerOrder getCustomerOrder() {
 		return customerOrder;
 	}
-
 	public void setCustomerOrder(ICustomerOrder customerOrder) {
 		this.customerOrder = customerOrder;
 	}
-
-	public CreateOrderRequested(Object source) {
+	public NewCustomerRegistedForOrder(Object source) {
 		super(source);
-		// TODO Auto-generated constructor stub
 	}
 
 }

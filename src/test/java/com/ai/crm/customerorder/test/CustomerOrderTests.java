@@ -26,7 +26,7 @@ import com.ai.common.rootentity.domain.model.interfaces.ICharacteristicSpecValue
 import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntityCharacter;
 import com.ai.common.rootentity.domain.service.interfaces.IEventPublisher;
 import com.ai.crm.config.DevelopmentProfileConfig;
-import com.ai.crm.customerorder.domain.event.CreateOrderRequested;
+import com.ai.crm.customerorder.domain.event.createorder.CreateOrderRequested;
 import com.ai.crm.customerorder.domain.model.impl.CustomerOrder;
 import com.ai.crm.customerorder.domain.model.impl.OfferOrderItem;
 import com.ai.crm.customerorder.domain.model.impl.ProductOrderItem;

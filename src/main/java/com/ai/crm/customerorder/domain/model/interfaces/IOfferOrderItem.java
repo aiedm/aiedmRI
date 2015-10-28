@@ -2,7 +2,6 @@ package com.ai.crm.customerorder.domain.model.interfaces;
 
 import java.util.Set;
 
-import com.ai.crm.common.businessinteraction.domain.model.interfaces.IBusinessInteractionItem;
 import com.ai.crm.customerorder.domain.model.impl.OfferOrderItem;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
@@ -14,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 	@JsonSubTypes({
 	    @Type(value = OfferOrderItem.class, name = "OfferOrder")
 	    })
-public interface IOfferOrderItem extends IBusinessInteractionItem{
+public interface IOfferOrderItem extends ICustomerOrderItem{
 	enum OfferOrderState {
 		INITIATED(0),
 		CREATED(1),

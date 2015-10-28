@@ -1,6 +1,5 @@
 package com.ai.crm.customerorder.domain.model.interfaces;
 
-import com.ai.crm.common.businessinteraction.domain.model.interfaces.IBusinessInteractionItem;
 import com.ai.crm.customerorder.domain.model.impl.ProductOrderItem;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
@@ -12,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 	@JsonSubTypes({
 	    @Type(value = ProductOrderItem.class, name = "ProductOrder"),
 	    })
-public interface IProductOrderItem extends IBusinessInteractionItem{
+public interface IProductOrderItem extends ICustomerOrderItem{
 	enum ProductOrderState {
 		INITIATED(0),
 		CREATED(1),

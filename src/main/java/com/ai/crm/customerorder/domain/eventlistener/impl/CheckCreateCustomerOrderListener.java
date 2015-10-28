@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
-import com.ai.crm.customerorder.domain.event.CreateNewOfferOrderRequested;
-import com.ai.crm.customerorder.domain.event.CreateNewProductOrderRequested;
-import com.ai.crm.customerorder.domain.event.CreateOrderRequested;
+import com.ai.crm.customerorder.domain.event.createorder.CreateNewOfferOrderRequested;
+import com.ai.crm.customerorder.domain.event.createorder.CreateNewProductOrderRequested;
+import com.ai.crm.customerorder.domain.event.createorder.CreateOrderRequested;
 import com.ai.crm.customerorder.domain.eventlistener.interfaces.ICheckCreateCustomerOrderListener;
 import com.ai.crm.customerorder.domain.model.interfaces.ICustomerOrder;
 import com.ai.crm.customerorder.domain.model.interfaces.IOfferOrderItem;

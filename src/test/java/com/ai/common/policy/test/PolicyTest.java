@@ -296,10 +296,10 @@ public class PolicyTest {
 		Color.setCode("Color");
 		Color.setValue("\"Color\"");
 		
-		IPolicyConstValue Red = new PolicyConstValue();
-		Red.setType("Const");
-		Red.setCode("Red");
-		Red.setValue("\"Red\"");
+		IPolicyConstValue Gold = new PolicyConstValue();
+		Gold.setType("Const");
+		Gold.setCode("Gold");
+		Gold.setValue("\"Gold\"");
 		
 		IPolicyConstValue firstValue = new PolicyConstValue();
 		firstValue.setType("Const");
@@ -358,14 +358,14 @@ public class PolicyTest {
 		function3.addParameter(priceFuncParam);
 		
 		//value define	
-		IPolicyConstValue PriceValue200 = new PolicyConstValue();
+		IPolicyConstValue PriceValue = new PolicyConstValue();
 		//PriceValue200.setType("Const");
-		PriceValue200.setCode("PriceValue200");
-		PriceValue200.setValue("200");
+		PriceValue.setCode("PriceValue200");
+		PriceValue.setValue("5888");
 		
 		IPolicyFunctionValueParamRel paramRelPriceValue=new PolicyFunctionValueParamRel();
 		paramRelPriceValue.setParameter(priceFuncParam);
-		paramRelPriceValue.setValue(PriceValue200);
+		paramRelPriceValue.setValue(PriceValue);
 		IPolicyFunctionValue setPriceValue=new PolicyFunctionValue();
 		setPriceValue.setFunction(function3);		
 		setPriceValue.addParam(paramRelPriceValue);
@@ -460,7 +460,7 @@ public class PolicyTest {
 		addPricePlanInstance.addParam(paramRelAddPricePlanInstance);
 		
 		
-		//expected Red Color value
+		//expected Gold Color value
 		IPolicyVariable expectedCharValue=new PolicyVariable();
 		expectedCharValue.setCode("expectedCharValue");
 		expectedCharValue.setInitialValue(getProductColorValue);
@@ -472,7 +472,7 @@ public class PolicyTest {
 		//Expectedstatement
 		IPolicyConditionStatement conditionStatement=new PolicyConditionStatement();
 		conditionStatement.setVariable(expectedCharValue);
-		conditionStatement.setValue(Red);
+		conditionStatement.setValue(Gold);
 		conditionStatement.setOperator(stringEqualsOperator);
 		
 		//condition
@@ -558,8 +558,8 @@ public class PolicyTest {
 		instCharValue.setInstanceEntityCharacteristic(instChar);
 		ICharacteristicSpecValue charSpecValue=new CharacteristicSpecValue();
 		charSpecValue.setCharacteristic(charspec);
-		charSpecValue.setCode("Red");
-		charSpecValue.setValue("Red");
+		charSpecValue.setCode("Gold");
+		charSpecValue.setValue("Gold");
 		charspec.addValue(charSpecValue);
 		instCharValue.setCharacteristicValue(charSpecValue);
 		instChar.addCharacteristicInstanceValue(instCharValue);

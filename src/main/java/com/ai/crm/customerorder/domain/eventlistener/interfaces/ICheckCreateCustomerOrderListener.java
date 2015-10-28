@@ -1,8 +1,8 @@
 package com.ai.crm.customerorder.domain.eventlistener.interfaces;
 
-import com.ai.crm.customerorder.domain.event.CreateNewOfferOrderRequested;
-import com.ai.crm.customerorder.domain.event.CreateNewProductOrderRequested;
-import com.ai.crm.customerorder.domain.event.CreateOrderRequested;
+import com.ai.crm.customerorder.domain.event.createorder.CreateNewOfferOrderRequested;
+import com.ai.crm.customerorder.domain.event.createorder.CreateNewProductOrderRequested;
+import com.ai.crm.customerorder.domain.event.createorder.CreateOrderRequested;
 
 public interface ICheckCreateCustomerOrderListener {
 	void onCreateOrderRequestedEvent(CreateOrderRequested event) throws Exception;

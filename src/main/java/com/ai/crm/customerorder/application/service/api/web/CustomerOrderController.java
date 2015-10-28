@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ai.common.rootentity.domain.service.impl.SpringEventPublisher;
 import com.ai.common.rootentity.domain.service.interfaces.IEventPublisher;
-import com.ai.crm.customerorder.domain.event.CreateOrderRequested;
+import com.ai.crm.customerorder.domain.event.createorder.CreateOrderRequested;
 import com.ai.crm.customerorder.domain.model.impl.CustomerOrder;
 import com.ai.crm.customerorder.domain.model.impl.OfferOrderItem;
 import com.ai.crm.customerorder.domain.model.impl.ProductOrderItem;

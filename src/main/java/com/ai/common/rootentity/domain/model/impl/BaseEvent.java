@@ -6,24 +6,35 @@ import java.util.Set;
 import org.springframework.context.ApplicationEvent;
 
 import com.ai.common.policy.domain.model.interfaces.IPolicyCondition;
-import com.ai.common.rootentity.domain.model.interfaces.IBaseEvent;
-import com.ai.common.rootentity.domain.model.interfaces.IEventSubscriberRule;
 
-public class BaseEvent extends ApplicationEvent implements IBaseEvent{
-	private Set<IEventSubscriberRule> eventSubscriberRules=new LinkedHashSet<IEventSubscriberRule>();
+public class BaseEvent extends ApplicationEvent {
+	private Set<EventSubscriberRule> eventSubscriberRules=new LinkedHashSet<EventSubscriberRule>();
 	private Set<IPolicyCondition> conditions=new LinkedHashSet<IPolicyCondition>();
-
+	private Set<EventListener> listeners=new LinkedHashSet<EventListener>();
+	
 	public BaseEvent(Object source) {
 		super(source);
 		System.out.println("EVENT triggered:"+this);
 	}
 
-	@Override
-	public Set<IEventSubscriberRule> getEventSubscriberRules() {
+	public Set<EventListener> getListeners(){
+		return this.listeners;
+	}
+	
+	public void addListener(EventListener listener){
+		if (null!=listener){
+			this.listeners.add(listener);
+			if (null==listener.getEvent()){
+				listener.setEvent(this);
+			}
+			
+		}
+	}
+	
+	public Set<EventSubscriberRule> getEventSubscriberRules() {
 		return eventSubscriberRules;
 	}
-	@Override
-	public void addEventSubscriberRule(IEventSubscriberRule eventSubscriberRule) {
+	public void addEventSubscriberRule(EventSubscriberRule eventSubscriberRule) {
 		if (null!=eventSubscriberRule){
 			this.eventSubscriberRules.add(eventSubscriberRule);
 			if (null==eventSubscriberRule.getEvent()){
@@ -31,11 +42,9 @@ public class BaseEvent extends ApplicationEvent implements IBaseEvent{
 			}
 		}
 	}
-	@Override
 	public Set<IPolicyCondition> getConditions() {
 		return conditions;
 	}
-	@Override
 	public void addCondition(IPolicyCondition condition) {
 		if (null!=condition){
 			this.conditions.add(condition);
