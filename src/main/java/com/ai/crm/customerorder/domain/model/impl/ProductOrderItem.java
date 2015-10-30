@@ -30,7 +30,7 @@ public class ProductOrderItem extends CustomerOrderItem implements IProductOrder
 	
 	public ProductOrderItem(IOfferOrderItem offerOrder) {
 		this.setOfferOrder(offerOrder);
-		offerOrder.addProductOrder(this);
+		offerOrder.addRelatedProductOrder(this);
 	}	
 
 	@Override
@@ -90,15 +90,5 @@ public class ProductOrderItem extends CustomerOrderItem implements IProductOrder
 	@Override
 	public void setToBeProduct(IToBeProduct toBeProduct) {
 		this.toBeProduct=toBeProduct;
-	}
-
-	@Override
-	public long getProductSpecificationId() {
-		return this.productSpecificationId;
-	}
-
-	@Override
-	public void setProductSpecificationId(long productSpecificationId) {
-		this.productSpecificationId=productSpecificationId;
 	}
 }

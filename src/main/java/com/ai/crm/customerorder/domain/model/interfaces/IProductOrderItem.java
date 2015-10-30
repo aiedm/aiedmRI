@@ -42,6 +42,4 @@ public interface IProductOrderItem extends ICustomerOrderItem{
 	void setProductOrderState(int productOrderState);	
 	IToBeProduct getToBeProduct();
 	void setToBeProduct(IToBeProduct toBeProduct);
-	long getProductSpecificationId();
-	void setProductSpecificationId(long productSpecificationId);
 }

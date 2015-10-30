@@ -12,11 +12,11 @@ import com.ai.crm.customerorder.domain.model.interfaces.IToBeOfferInstance;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 @Component
 public class OfferOrderItem extends CustomerOrderItem implements IOfferOrderItem {
-	private long offerOrderId;
 	@JsonIgnore
 	private ICustomerOrder customerOrder;
-	private Set<IProductOrderItem> productOrders=new HashSet<IProductOrderItem>();
+	private Set<IProductOrderItem> relatedProductOrders=new HashSet<IProductOrderItem>();
 	private IToBeOfferInstance toBeOfferInstance;
+	private IOfferOrderItem replacedOfferOrderItem;
 	protected OfferOrderItem() {
 		
 	}
@@ -32,38 +32,24 @@ public class OfferOrderItem extends CustomerOrderItem implements IOfferOrderItem
 		return customerOrder;
 	}
 
+
 	@Override
-	public long getOfferOrderId() {
-		return this.offerOrderId;
+	public Set<IProductOrderItem> getRelatedProductOrders() {
+		return relatedProductOrders;
 	}
 
 	@Override
-	public Set<IProductOrderItem> getProductOrders() {
-		return productOrders;
-	}
-
-	@Override
-	public void addProductOrder(IProductOrderItem productOrder) {
-		productOrders.add(productOrder);
+	public void addRelatedProductOrder(IProductOrderItem productOrder) {
+		relatedProductOrders.add(productOrder);
 		productOrder.setOfferOrder(this);
 	}
 
-	@Override
-	public long getOldOfferInstanceId() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 	@Override
 	public void setCustomerOrder(ICustomerOrder customerOrder) {
 		this.customerOrder=customerOrder;		
 	}
 
-	@Override
-	public void setOfferOrderId(long offerOrderId) {
-		this.offerOrderId=offerOrderId;
-		
-	}
 
 	@Override
 	public int getOfferOrderState() {
@@ -83,6 +69,16 @@ public class OfferOrderItem extends CustomerOrderItem implements IOfferOrderItem
 	@Override
 	public void setToBeOfferInstance(IToBeOfferInstance toBeOfferInstance) {
 		this.toBeOfferInstance=toBeOfferInstance;
+	}
+
+	@Override
+	public IOfferOrderItem getReplcedOfferOrderItem() {
+		return replacedOfferOrderItem;
+	}
+
+	@Override
+	public void setReplcedOfferOrderItem(IOfferOrderItem offerOrderItem) {
+		replacedOfferOrderItem=offerOrderItem;
 	}
 
 }

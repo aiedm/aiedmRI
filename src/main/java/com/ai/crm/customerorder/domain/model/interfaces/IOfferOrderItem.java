@@ -34,11 +34,10 @@ public interface IOfferOrderItem extends ICustomerOrderItem{
 	}	
 	ICustomerOrder getCustomerOrder();
 	void setCustomerOrder(ICustomerOrder customerOrder);
-	long getOfferOrderId();
-	void setOfferOrderId(long offerOrderId);
-	Set<IProductOrderItem> getProductOrders();
-	void addProductOrder(IProductOrderItem productOrder);
-	long getOldOfferInstanceId();
+	Set<IProductOrderItem> getRelatedProductOrders();
+	void addRelatedProductOrder(IProductOrderItem productOrder);
+	IOfferOrderItem getReplcedOfferOrderItem();
+	void setReplcedOfferOrderItem(IOfferOrderItem offerOrderItem);
 	int getOfferOrderState();
 	void setOfferOrderState(int offerOrderState);	
 	IToBeOfferInstance getToBeOfferInstance();
