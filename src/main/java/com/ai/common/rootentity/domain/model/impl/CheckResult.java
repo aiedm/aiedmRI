@@ -1,30 +1,38 @@
 package com.ai.common.rootentity.domain.model.impl;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 public class CheckResult {
-	private String errorInfomation="";
-	public String getErrorInfomation() {
-		return errorInfomation;
+	private Set<String> errorInfomations=new LinkedHashSet<String>();
+	private Set<String> informInfomations=new LinkedHashSet<String>();
+	
+	public Set<String> getErrorInfomations() {
+		return errorInfomations;
 	}
-	public void setErrorInfomation(String errorInfomation) {
-		this.errorInfomation = errorInfomation;
+	public void addErrorInfomation(String errorInfomation) {
+		if(!errorInfomation.isEmpty()){
+			errorInfomations.add(errorInfomation);
+		}
 	}
-	public String getInformInfomation() {
-		return informInfomation;
+	public Set<String> getInformInfomations() {
+		return informInfomations;
 	}
-	public void setInformInfomation(String informInfomation) {
-		this.informInfomation = informInfomation;
+	public void addInformInfomation(String informInfomation) {
+		if(!informInfomation.isEmpty()){
+			informInfomations.add(informInfomation);
+		}
 	}
-	private String informInfomation="";
+	
 	public CheckResult() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	public boolean isError(){
-		return !errorInfomation.isEmpty();
+		return errorInfomations.size()>0;
 	}
 	
 	public boolean isInformed(){
-		return !informInfomation.isEmpty();
+		return informInfomations.size()>0;
 	}
 
 }

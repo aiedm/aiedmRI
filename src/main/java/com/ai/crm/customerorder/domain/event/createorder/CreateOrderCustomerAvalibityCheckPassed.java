@@ -5,6 +5,15 @@ import com.ai.crm.customerorder.domain.model.interfaces.ICustomerOrder;
 
 public class CreateOrderCustomerAvalibityCheckPassed extends BaseEvent {
 	private ICustomerOrder customerOrder;
+	private long shoppingCartId;
+
+	public long getShoppingCartId() {
+		return shoppingCartId;
+	}
+
+	public void setShoppingCartId(long shoppingCartId) {
+		this.shoppingCartId = shoppingCartId;
+	}
 
 	public ICustomerOrder getCustomerOrder() {
 		return customerOrder;

@@ -35,8 +35,6 @@ public interface ICustomerOrder extends IBusinessInteraction{
 	        return value; 
 	    } 
 	}
-	boolean isDirectSubmitOrder();
-	void setDirectSubmitOrder(boolean directSubmitOrder);
 	long getCustomerOrderId();
 	void setCustomerOrderId(long customerOrderId);
 	String getCustomerOrderCode();
@@ -47,4 +45,6 @@ public interface ICustomerOrder extends IBusinessInteraction{
 	Set<IOfferOrderItem> getOfferOrders();
 	int getOrderState();
 	void setOrderState(int orderState);
+	long getShoppingCartId();
+	void setShoppingCartId(long shoppingCartId);
 }

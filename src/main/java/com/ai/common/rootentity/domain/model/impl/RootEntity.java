@@ -14,6 +14,7 @@ public class RootEntity implements IRootEntity {
 	private ITimePeriod validPeriod;
 	private boolean isDeleted=false;	
 	private Timestamp createTime;	
+	private long id;
 
 	@Override
 	public IEntityVersion getVersion() {
@@ -68,6 +69,16 @@ public class RootEntity implements IRootEntity {
 	@Override
 	public void setToUnDeleted() {
 		this.isDeleted=false;
+	}
+
+	@Override
+	public long getId() {
+		return this.id;
+	}
+
+	@Override
+	public void setId(long id) {
+		this.id=id;
 	}	
 
 }

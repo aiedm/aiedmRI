@@ -13,17 +13,11 @@ import com.ai.crm.customerorder.domain.model.interfaces.IProductOrderItem;
 public class CustomerOrder extends BusinessInteraction implements ICustomerOrder {
 	private long customerOrderId;
 	private String customerOrderCode;
-	private boolean directSubmitOrder;
 	private Set<IOfferOrderItem> offerOrders=new HashSet<IOfferOrderItem>();
 	private Set<IProductOrderItem> productOrders=new HashSet<IProductOrderItem>();
-	
+	private long shoppingCartId;
 	public CustomerOrder() {
 		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	public boolean isDirectSubmitOrder() {
-		return directSubmitOrder;
 	}
 
 	@Override
@@ -68,12 +62,6 @@ public class CustomerOrder extends BusinessInteraction implements ICustomerOrder
 	}
 
 	@Override
-	public void setDirectSubmitOrder(boolean directSubmitOrder) {
-		this.directSubmitOrder=directSubmitOrder;
-		
-	}
-
-	@Override
 	public void setCustomerOrderId(long customerOrderId) {
 		this.customerOrderId=customerOrderId;
 		
@@ -91,6 +79,16 @@ public class CustomerOrder extends BusinessInteraction implements ICustomerOrder
 	
 	public void setOrderState(int orderState){
 		this.setBiState(orderState);
+	}
+
+	@Override
+	public long getShoppingCartId() {
+		return this.shoppingCartId;
+	}
+
+	@Override
+	public void setShoppingCartId(long shoppingCartId) {
+		this.shoppingCartId=shoppingCartId;
 	}
 
 }

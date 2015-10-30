@@ -5,6 +5,8 @@ import java.sql.Timestamp;
 import com.ai.common.basetype.interfaces.ITimePeriod;
 
 public interface IRootEntity {
+	long getId();
+	void setId(long id);
 	long getCreateOperatorId();
 	void setCreateOperatorId(long createOperatorId);
 	Timestamp getCreateTime();

@@ -1,5 +1,7 @@
 package com.ai.crm.customerorder.application.service.api.web;
 
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,12 +16,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ai.common.rootentity.domain.service.impl.SpringEventPublisher;
 import com.ai.common.rootentity.domain.service.interfaces.IEventPublisher;
 import com.ai.crm.customerorder.domain.event.createorder.CreateOrderRequested;
+import com.ai.crm.customerorder.domain.event.shoppingcart.OfferAddingToCart;
 import com.ai.crm.customerorder.domain.model.impl.CustomerOrder;
 import com.ai.crm.customerorder.domain.model.impl.OfferOrderItem;
 import com.ai.crm.customerorder.domain.model.impl.ProductOrderItem;
 import com.ai.crm.customerorder.domain.model.interfaces.ICustomerOrder;
 import com.ai.crm.customerorder.domain.model.interfaces.IOfferOrderItem;
 import com.ai.crm.customerorder.domain.model.interfaces.IProductOrderItem;
+import com.ai.crm.customerorder.domain.model.interfaces.IShoppingCart;
+import com.ai.crm.customerorder.domain.model.interfaces.IToBeOfferInstance;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
@@ -39,7 +44,17 @@ public class CustomerOrderController  {
 		event.setCustomerOrder(requestedCustomerOrder);
 		eventPublisher.publishEvent(event);		
 		return requestedCustomerOrder;
-	}		
+	}
+	
+	@RequestMapping(value="/shoppingCart/addingOffer",method=RequestMethod.POST,consumes="application/json")
+	public ICustomerOrder putOfferToCart(@RequestBody IShoppingCart shoppingCart,
+			@RequestBody Set<IToBeOfferInstance> toBeOfferInstances) throws Exception{
+		OfferAddingToCart event=new OfferAddingToCart(this);		
+		event.setCart(shoppingCart);
+		event.setToBeOfferInstances(toBeOfferInstances);
+		eventPublisher.publishEvent(event);		
+		return shoppingCart;
+	}
 
 //	@RequestMapping(value="/queryOrder",method=RequestMethod.GET,produces="application/json")
 //	public ResponseEntity<ICustomerOrder> getOrder() throws Exception{

@@ -11,7 +11,15 @@ public abstract class BaseEvent extends ApplicationEvent {
 	private Set<EventSubscriberRule> eventSubscriberRules=new LinkedHashSet<EventSubscriberRule>();
 	private Set<IPolicyCondition> conditions=new LinkedHashSet<IPolicyCondition>();
 	private Set<EventListener> listeners=new LinkedHashSet<EventListener>();
-	
+	private String code;
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
 	public BaseEvent(Object source) {
 		super(source);
 		System.out.println("EVENT triggered:"+this);

@@ -16,7 +16,6 @@ public class CreateOrderRequested extends BaseEvent {
 
 	public CreateOrderRequested(Object source) {
 		super(source);
-		// TODO Auto-generated constructor stub
 	}
 
 }

@@ -13,10 +13,10 @@ import com.ai.crm.customerorder.domain.event.createorder.CreateOfferOrderFinishe
 import com.ai.crm.customerorder.domain.event.createorder.CustomerOrderCreated;
 import com.ai.crm.customerorder.domain.event.createorder.NewOfferOrderCreated;
 import com.ai.crm.customerorder.domain.event.createorder.NewProductOrderCreated;
-import com.ai.crm.customerorder.domain.event.createorder.SubmitOrderRequested;
 import com.ai.crm.customerorder.domain.model.interfaces.ICustomerOrder;
 import com.ai.crm.customerorder.domain.model.interfaces.IOfferOrderItem;
 import com.ai.crm.customerorder.domain.model.interfaces.IProductOrderItem;
+import com.ai.crm.customerorder.domain.model.interfaces.IShoppingCart;
 import com.ai.crm.customerorder.domain.service.interfaces.ICreateCustomerOrder;
 @Component
 public class CreateCustomerOrder implements ICreateCustomerOrder {
@@ -182,21 +182,18 @@ public class CreateCustomerOrder implements ICreateCustomerOrder {
 			eventPublisher.publishEvent(event);
 		}
 		return isOfferOrderCreateFinished;
+	}
+
+	@Override
+	public void createCustomerOrder(ICustomerOrder customerOrder, long shoppingCartId) throws Exception {
+		
+		
+	}
+
+	@Override
+	public void startOrder(ICustomerOrder customerOrder) throws Exception{
+		
+		
 	}	
 	
-	public boolean isSubmitOrder(ICustomerOrder customerOrder)  throws Exception{
-		boolean isSubmitOrder=true;
-		if (customerOrder.isDirectSubmitOrder()){
-			SubmitOrderRequested event=new SubmitOrderRequested(this);
-			event.setCustomerOrder(customerOrder);
-			eventPublisher.publishEvent(event);
-			//let submit process to save the order
-		}else{
-			isSubmitOrder=false;
-			//Save the created order
-			
-			//wait other process to trigger the submit event
-		}
-		return isSubmitOrder;
-	}
 }

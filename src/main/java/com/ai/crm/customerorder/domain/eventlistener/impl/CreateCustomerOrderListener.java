@@ -16,7 +16,9 @@ import com.ai.crm.customerorder.domain.eventlistener.interfaces.ICreateCustomerO
 import com.ai.crm.customerorder.domain.model.interfaces.ICustomerOrder;
 import com.ai.crm.customerorder.domain.model.interfaces.IOfferOrderItem;
 import com.ai.crm.customerorder.domain.model.interfaces.IProductOrderItem;
+import com.ai.crm.customerorder.domain.model.interfaces.IShoppingCart;
 import com.ai.crm.customerorder.domain.service.interfaces.ICreateCustomerOrder;
+import com.ai.crm.customerorder.repository.interfaces.ICustomerOrderRepository;
 @Component
 public class CreateCustomerOrderListener implements ICreateCustomerOrderListener {
 	public CreateCustomerOrderListener(){
@@ -24,10 +26,16 @@ public class CreateCustomerOrderListener implements ICreateCustomerOrderListener
 	}
 	@Autowired
 	private ICreateCustomerOrder createCustomerOrder;
+	@Autowired
+	private ICustomerOrderRepository customerOrderRepository;
+	
 	@EventListener
 	public void onCreateOrderCustomerAvalibityCheckPassedEvent(CreateOrderCustomerAvalibityCheckPassed event)  throws Exception{
-		createCustomerOrder.createCustomerOrder((ICustomerOrder)event.getCustomerOrder());
-		
+		if(event.getShoppingCartId()>0){
+			createCustomerOrder.createCustomerOrder((ICustomerOrder)event.getCustomerOrder(),event.getShoppingCartId());
+		}else{
+			createCustomerOrder.createCustomerOrder((ICustomerOrder)event.getCustomerOrder());
+		}		
 	}
 
 	@EventListener
@@ -56,7 +64,10 @@ public class CreateCustomerOrderListener implements ICreateCustomerOrderListener
 	@EventListener
 	public void onCreatedCustomerOrderFinishedEvent(CreateCustomerOrderFinished event)  throws Exception{
 		ICustomerOrder customerOrder=(ICustomerOrder)event.getCustomerOrder();
-		createCustomerOrder.isSubmitOrder(customerOrder);
+		customerOrderRepository.saveCustomerOrder(customerOrder);
+		if(!(customerOrder instanceof IShoppingCart)){
+			createCustomerOrder.startOrder(customerOrder);
+		}
 
 	}
 	
