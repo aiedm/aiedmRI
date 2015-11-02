@@ -3,6 +3,8 @@ package com.ai.crm.customerorder.domain.event.submitorder;
 import java.util.Set;
 
 import com.ai.common.rootentity.domain.model.impl.BaseEvent;
+import com.ai.crm.common.businessinteraction.domain.model.impl.BIIRelatedEntity;
+import com.ai.crm.common.businessinteraction.domain.model.interfaces.IBIIRelatedEntity;
 import com.ai.crm.customerorder.domain.model.interfaces.ICustomerOrder;
 import com.ai.crm.customerorder.domain.model.interfaces.IOfferOrderItem;
 import com.ai.crm.customerorder.domain.model.interfaces.IToBeOfferInstance;
@@ -20,7 +22,9 @@ public abstract class OrderSubmitBaseEvent extends BaseEvent {
 			this.offerOrderItems.add(offerOrderItem);
 			this.customerOrder.addOfferOrder(offerOrderItem);
 			if (null!=toBeOfferInstance){
-				offerOrderItem.setToBeOfferInstance(toBeOfferInstance);
+				IBIIRelatedEntity relatedOfferInstance=new BIIRelatedEntity();
+				relatedOfferInstance.setToBeInstanceEntity(toBeOfferInstance);
+				offerOrderItem.setRelatedEntity(relatedOfferInstance);
 			}
 		}
 	}
@@ -38,7 +42,9 @@ public abstract class OrderSubmitBaseEvent extends BaseEvent {
 		if (null!=toBeOfferInstance){
 			this.toBeOfferInstances.add(toBeOfferInstance);
 			if(null!=offerOrderItem){
-				offerOrderItem.setToBeOfferInstance(toBeOfferInstance);
+				IBIIRelatedEntity relatedOfferInstance=new BIIRelatedEntity();
+				relatedOfferInstance.setToBeInstanceEntity(toBeOfferInstance);
+				offerOrderItem.setRelatedEntity(relatedOfferInstance);
 			}
 		}
 		

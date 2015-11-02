@@ -2,7 +2,7 @@ package com.ai.common.rootentity.domain.model.interfaces;
 
 import java.util.Set;
 
-import com.ai.common.rootentity.domain.model.impl.InstanceEntityCharacteristic;
+import com.ai.common.rootentity.domain.model.impl.InstanceEntityCharacter;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 	    include = JsonTypeInfo.As.PROPERTY,
 	    property = "type")
 @JsonSubTypes({
-    @Type(value = InstanceEntityCharacteristic.class, name = "InstanceEntityCharacteristic"),
+    @Type(value = InstanceEntityCharacter.class, name = "InstanceEntityCharacteristic"),
 })
 public interface IInstanceEntityCharacter  extends IRootEntity{
 	IInstanceEntity getOwnerInstance();

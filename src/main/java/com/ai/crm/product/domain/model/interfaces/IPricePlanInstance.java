@@ -2,6 +2,7 @@ package com.ai.crm.product.domain.model.interfaces;
 
 import java.util.Set;
 
+import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntityCharacter;
 import com.ai.common.rootentity.domain.model.interfaces.ISpecificationInstanceEntity;
 import com.ai.crm.product.domain.model.impl.PricePlanInstance;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
@@ -45,4 +46,6 @@ public interface IPricePlanInstance extends ISpecificationInstanceEntity{
 	void setDiscountReason(String discountReason);
 	long getRoleId();
 	void setRoleId(long roleId);	
+	Set<IInstanceEntityCharacter> getPricePlanInstanceCharacters();
+	void addPricePlanInstanceCharacter(IInstanceEntityCharacter pricePlanInstanceCharacter);
 }

@@ -17,7 +17,7 @@
 	 	<context:exclude-filter expression="org.springframework.stereotype.Controller" type="annotation"/>
 	 </context:component-scan>
 	
-	<bean id="eventPublisher" class="com.ai.flyingshuttle.base.service.impl.SpringEventPublisher" />
+	<bean id="eventPublisher" class="com.ai.common.rootentity.domain.service.impl.SpringEventPublisher" />
 	
 	<bean id="customerOrder" class="com.ai.crm.customerorder.domain.model.impl.CustomerOrder" />
 	

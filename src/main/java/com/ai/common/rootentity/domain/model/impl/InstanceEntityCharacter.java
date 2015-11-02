@@ -12,7 +12,7 @@ import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntity;
 import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntityCharacter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 @Component
-public class InstanceEntityCharacteristic extends RootEntity implements IInstanceEntityCharacter {
+public class InstanceEntityCharacter extends RootEntity implements IInstanceEntityCharacter {
 	@JsonIgnore
 	private IInstanceEntity instanceEntity;
 	private ICharacteristicSpec characteristic;

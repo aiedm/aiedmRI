@@ -1,5 +1,7 @@
 package com.ai.crm.customerorder.domain.model.interfaces;
 
+import java.util.Set;
+
 import com.ai.crm.customerorder.domain.model.impl.ProductOrderItem;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
@@ -33,13 +35,9 @@ public interface IProductOrderItem extends ICustomerOrderItem{
 	}	
 	ICustomerOrder getCustomerOrder();
 	void setCustomerOrder(ICustomerOrder customerOrder);
-	IOfferOrderItem getOfferOrder();
-	void setOfferOrder(IOfferOrderItem offerOrder);
 	long getProductOrderId();
 	void setProductOrderId(long productOrderId);
 	long getBusinessInteractionSpecificationId();
 	int getProductOrderState();
 	void setProductOrderState(int productOrderState);	
-	IToBeProduct getToBeProduct();
-	void setToBeProduct(IToBeProduct toBeProduct);
 }

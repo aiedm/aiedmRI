@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.ai.common.policy.domain.model.interfaces.IPolicySet;
 import com.ai.common.policy.domain.repository.interfaces.IPolicyRepository;
@@ -14,7 +15,7 @@ import com.ai.common.policy.domain.service.interfaces.IPolicyExecute;
 import com.ai.common.rootentity.domain.model.impl.BaseEvent;
 import com.ai.common.rootentity.domain.model.impl.CheckResult;
 import com.ai.common.rootentity.domain.model.interfaces.ISpecificationEntity;
-
+@Component
 public class GroovyPolicyExecute implements IPolicyExecute {
 	@Autowired
 	private IPolicyRepository policyRepository ;
@@ -34,7 +35,11 @@ public class GroovyPolicyExecute implements IPolicyExecute {
 	public CheckResult executeCheckPolicy(BaseEvent event, ISpecificationEntity specEntity, Map<String, Object> context)
 			throws Exception {
 		CheckResult result=new CheckResult();
-		Set<IPolicySet> policies=policyRepository.getEventRegistePolicies(event.getCode(), specEntity.getId());
+		long specEntityId=0;
+		if(null!=specEntity){
+			specEntityId=specEntity.getId();
+		}
+		Set<IPolicySet> policies=policyRepository.getEventRegistePolicies(event.getCode(), specEntityId);
 		if (null!=policies && policies.size()>0){
 			CheckResult perPolicyResult=new CheckResult();
 			for (IPolicySet iPolicySet : policies) {

@@ -25,7 +25,6 @@ public class CreateOrderCustomerAvalibityCheckPassed extends BaseEvent {
 
 	public CreateOrderCustomerAvalibityCheckPassed(Object source) {
 		super(source);
-		// TODO Auto-generated constructor stub
 	}
 
 }

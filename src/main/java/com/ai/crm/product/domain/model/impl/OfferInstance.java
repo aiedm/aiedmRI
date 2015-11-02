@@ -1,11 +1,14 @@
 package com.ai.crm.product.domain.model.impl;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.springframework.stereotype.Component;
 
 import com.ai.common.rootentity.domain.model.impl.SpecificationInstanceEntity;
+import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntityCharacter;
+import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntityCharacterValue;
 import com.ai.crm.product.domain.model.interfaces.IOfferInstance;
 import com.ai.crm.product.domain.model.interfaces.IPricePlanInstance;
 import com.ai.crm.product.domain.model.interfaces.IProduct;
@@ -13,7 +16,7 @@ import com.ai.crm.product.domain.model.interfaces.IProduct;
 public class OfferInstance extends SpecificationInstanceEntity implements IOfferInstance {
 	private long offerInstanceId;
 	private Set<IProduct> products=new HashSet<IProduct>();
-	private Set<IPricePlanInstance> prices=new HashSet<IPricePlanInstance>();
+	private Set<IPricePlanInstance> prices=new LinkedHashSet<IPricePlanInstance>();
 	private long customerId;
 	private long productOfferingId;
 	
@@ -82,6 +85,18 @@ public class OfferInstance extends SpecificationInstanceEntity implements IOffer
 	@Override
 	public void setProductOfferingId(long productOfferingId) {
 		this.productOfferingId=productOfferingId;
+	}
+
+	@Override
+	public Set<IInstanceEntityCharacter> getOfferInstanceCharacters() {
+		return this.getCharacteristics();
+	}
+
+	@Override
+	public void addOfferInstanceCharacter(IInstanceEntityCharacter offerInstanceCharacter) {
+		if(null!=offerInstanceCharacter){
+			this.addCharacteristic(offerInstanceCharacter);
+		}
 	}
 
 }

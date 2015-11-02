@@ -13,5 +13,6 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 	    @Type(value = ToBePricePlanInstance.class, name = "ToBePricePlanInstance")
 	    })
 public interface IToBePricePlanInstance extends IPricePlanInstance{
-
+	IPricePlanInstance getAsIsPricePlanInstance();
+	void setAsIsPricePlanInstance(IPricePlanInstance pricePlanInstance);
 }

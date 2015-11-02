@@ -61,7 +61,7 @@ import com.ai.common.policy.domain.service.interfaces.IPolicyExecute;
 import com.ai.common.rootentity.domain.model.impl.CharacteristicSpec;
 import com.ai.common.rootentity.domain.model.impl.CharacteristicSpecValue;
 import com.ai.common.rootentity.domain.model.impl.InstanceEntityCharacterValue;
-import com.ai.common.rootentity.domain.model.impl.InstanceEntityCharacteristic;
+import com.ai.common.rootentity.domain.model.impl.InstanceEntityCharacter;
 import com.ai.common.rootentity.domain.model.interfaces.ICharacteristicSpec;
 import com.ai.common.rootentity.domain.model.interfaces.ICharacteristicSpecValue;
 import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntityCharacter;
@@ -549,7 +549,7 @@ public class PolicyTest {
 		IPolicyExecute serv1=new GroovyPolicyExecute();
 		Map<String, Object> context=new HashMap<>();
 		IToBeProduct product=new ToBeProduct();
-		IInstanceEntityCharacter instChar=new InstanceEntityCharacteristic();		
+		IInstanceEntityCharacter instChar=new InstanceEntityCharacter();		
 		ICharacteristicSpec charspec=new CharacteristicSpec();
 		charspec.setCode("Color");
 		instChar.setCharacteristic(charspec);

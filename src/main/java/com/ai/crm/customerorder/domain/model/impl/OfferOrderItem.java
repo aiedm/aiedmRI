@@ -1,22 +1,16 @@
 package com.ai.crm.customerorder.domain.model.impl;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.springframework.stereotype.Component;
 
 import com.ai.crm.customerorder.domain.model.interfaces.ICustomerOrder;
 import com.ai.crm.customerorder.domain.model.interfaces.IOfferOrderItem;
-import com.ai.crm.customerorder.domain.model.interfaces.IProductOrderItem;
-import com.ai.crm.customerorder.domain.model.interfaces.IToBeOfferInstance;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 @Component
 public class OfferOrderItem extends CustomerOrderItem implements IOfferOrderItem {
 	@JsonIgnore
 	private ICustomerOrder customerOrder;
-	private Set<IProductOrderItem> relatedProductOrders=new HashSet<IProductOrderItem>();
-	private IToBeOfferInstance toBeOfferInstance;
 	private IOfferOrderItem replacedOfferOrderItem;
+	private long offerOrderId;
 	protected OfferOrderItem() {
 		
 	}
@@ -31,19 +25,6 @@ public class OfferOrderItem extends CustomerOrderItem implements IOfferOrderItem
 	public ICustomerOrder getCustomerOrder() {
 		return customerOrder;
 	}
-
-
-	@Override
-	public Set<IProductOrderItem> getRelatedProductOrders() {
-		return relatedProductOrders;
-	}
-
-	@Override
-	public void addRelatedProductOrder(IProductOrderItem productOrder) {
-		relatedProductOrders.add(productOrder);
-		productOrder.setOfferOrder(this);
-	}
-
 
 	@Override
 	public void setCustomerOrder(ICustomerOrder customerOrder) {
@@ -62,16 +43,6 @@ public class OfferOrderItem extends CustomerOrderItem implements IOfferOrderItem
 	}
 
 	@Override
-	public IToBeOfferInstance getToBeOfferInstance() {
-		return toBeOfferInstance;
-	}
-
-	@Override
-	public void setToBeOfferInstance(IToBeOfferInstance toBeOfferInstance) {
-		this.toBeOfferInstance=toBeOfferInstance;
-	}
-
-	@Override
 	public IOfferOrderItem getReplcedOfferOrderItem() {
 		return replacedOfferOrderItem;
 	}
@@ -79,6 +50,16 @@ public class OfferOrderItem extends CustomerOrderItem implements IOfferOrderItem
 	@Override
 	public void setReplcedOfferOrderItem(IOfferOrderItem offerOrderItem) {
 		replacedOfferOrderItem=offerOrderItem;
+	}
+
+	@Override
+	public long getOfferOrderId() {
+		return this.offerOrderId;
+	}
+
+	@Override
+	public void setOfferOrderId(long offerOrderId) {
+		this.offerOrderId=offerOrderId;
 	}
 
 }

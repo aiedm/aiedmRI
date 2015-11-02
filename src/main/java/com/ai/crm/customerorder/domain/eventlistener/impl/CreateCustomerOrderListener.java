@@ -74,15 +74,13 @@ public class CreateCustomerOrderListener implements ICreateCustomerOrderListener
 	@EventListener
 	public void onNewOfferOrderCreated(NewOfferOrderCreated event)  throws Exception{
 		IOfferOrderItem offerOrder=(IOfferOrderItem)event.getOfferOrder();
-		createCustomerOrder.startCreateProductOrdersOfOfferOrder(offerOrder);
+		createCustomerOrder.isCustomerOrderCreateFinishedOfLastOfferOrder(offerOrder);
 	}	
 	
 	@EventListener
 	public void onNewProductOrderCreated(NewProductOrderCreated event)  throws Exception{
 		IProductOrderItem productOrder=(IProductOrderItem)event.getProductOrder();
-		if (null!=productOrder.getOfferOrder()){
-			createCustomerOrder.isOfferOrderCreateFinishedOfLastProductOrder(productOrder);
-		}else if (null!=productOrder.getCustomerOrder()){
+		if (null!=productOrder.getCustomerOrder()){
 			createCustomerOrder.isCustomerOrderCreateFinishedOfLastProductOrder(productOrder);
 		}
 	}

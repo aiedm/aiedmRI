@@ -2,6 +2,7 @@ package com.ai.crm.product.domain.model.interfaces;
 
 import java.util.Set;
 
+import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntityCharacter;
 import com.ai.common.rootentity.domain.model.interfaces.ISpecificationInstanceEntity;
 import com.ai.crm.product.domain.model.impl.OfferInstance;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
@@ -41,4 +42,6 @@ public interface IOfferInstance extends ISpecificationInstanceEntity{
 	void setCustomerId(long customerId);
 	long getProductOfferingId();
 	void setProductOfferingId(long productOfferingId);
+	Set<IInstanceEntityCharacter> getOfferInstanceCharacters();
+	void addOfferInstanceCharacter(IInstanceEntityCharacter offerInstanceCharacter);
 }

@@ -41,22 +41,6 @@ public class CreateCustomerOrder implements ICreateCustomerOrder {
 		eventPublisher.publishEvent(event);
 	}
 	
-	public void startCreateProductOrdersOfOfferOrder(IOfferOrderItem offerOrder)  throws Exception{
-		Set<IProductOrderItem> productOrders=offerOrder.getProductOrders();
-		if (productOrders.size()==0){
-			CreateOfferOrderFinished event=new CreateOfferOrderFinished(this);
-			event.setOfferOrder(offerOrder);
-			eventPublisher.publishEvent(event);
-		}
-		for (IProductOrderItem productOrder:productOrders) {
-			if(null==productOrder.getOfferOrder()){
-				productOrder.setOfferOrder(offerOrder);
-			}
-			CreateNewProductOrderRequested event=new CreateNewProductOrderRequested(this);
-			event.setProductOrder(productOrder);
-			eventPublisher.publishEvent(event);
-		}
-	}
 
 	public void createNewProductOrder(IProductOrderItem productOrder)  throws Exception{
 		productOrder.setProductOrderState(IProductOrderItem.ProductOrderState.CREATED.getValue());
@@ -165,24 +149,6 @@ public class CreateCustomerOrder implements ICreateCustomerOrder {
 		return isCustomerOrderCreateFinished;
 	}
 	
-	public boolean isOfferOrderCreateFinishedOfLastProductOrder(IProductOrderItem productOrder)  throws Exception{
-		boolean isOfferOrderCreateFinished=true;
-		//if this productOrder is the Last OrderLine of Finished
-		Set<IProductOrderItem> productOrders=productOrder.getOfferOrder().getProductOrders();
-		for (IProductOrderItem aProductOrder:productOrders) {
-			if(IProductOrderItem.ProductOrderState.INITIATED.getValue() == aProductOrder.getProductOrderState()){
-				isOfferOrderCreateFinished=false;
-				break;
-			}
-		}
-		if(isOfferOrderCreateFinished){
-			productOrder.getOfferOrder().setOfferOrderState(IOfferOrderItem.OfferOrderState.CREATED.getValue());
-			CreateOfferOrderFinished event=new CreateOfferOrderFinished(this);
-			event.setOfferOrder(productOrder.getOfferOrder());
-			eventPublisher.publishEvent(event);
-		}
-		return isOfferOrderCreateFinished;
-	}
 
 	@Override
 	public void createCustomerOrder(ICustomerOrder customerOrder, long shoppingCartId) throws Exception {

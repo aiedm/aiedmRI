@@ -9,4 +9,6 @@ public interface IBusinessInteractionItem  extends ISpecificationInstanceEntity 
 	void setBusinessInteraction(IBusinessInteraction bi);
 	long getBusinessInteractionItemSpecId();
 	void setBusinessInteractionItemSpecId(long biiSpecId);
+	IBIIRelatedEntity getRelatedEntity();
+	void setRelatedEntity(IBIIRelatedEntity relatedEntity);
 }

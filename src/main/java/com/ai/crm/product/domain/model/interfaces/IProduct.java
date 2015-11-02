@@ -2,6 +2,7 @@ package com.ai.crm.product.domain.model.interfaces;
 
 import java.util.Set;
 
+import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntityCharacter;
 import com.ai.common.rootentity.domain.model.interfaces.ISpecificationInstanceEntity;
 import com.ai.crm.product.domain.model.impl.Product;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
@@ -50,4 +51,6 @@ public interface IProduct extends ISpecificationInstanceEntity{
 	void setProductSpecificationId(long productSpecificationId);
 	String getSerialNumber();
 	void setSerialNumber(String serialNumber);
+	Set<IInstanceEntityCharacter> getProductCharacters();
+	void addProductCharacter(IInstanceEntityCharacter productCharacter);
 }

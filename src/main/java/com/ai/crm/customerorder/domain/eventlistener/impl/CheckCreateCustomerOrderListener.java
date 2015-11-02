@@ -26,6 +26,8 @@ import com.ai.crm.customerorder.domain.eventlistener.interfaces.ICheckCreateCust
 import com.ai.crm.customerorder.domain.model.interfaces.ICustomerOrder;
 import com.ai.crm.customerorder.domain.model.interfaces.IOfferOrderItem;
 import com.ai.crm.customerorder.domain.model.interfaces.IProductOrderItem;
+import com.ai.crm.customerorder.domain.model.interfaces.IToBeOfferInstance;
+import com.ai.crm.customerorder.domain.model.interfaces.IToBeProduct;
 import com.ai.upc.productoffering.domain.model.interfaces.IProductOffering;
 import com.ai.upc.productoffering.domain.repository.interfaces.IProductOfferingRepository;
 import com.ai.upc.productspecification.domian.model.interfaces.IProductSpecification;
@@ -54,15 +56,15 @@ public class CheckCreateCustomerOrderListener implements ICheckCreateCustomerOrd
 		CheckResult checkResult=policyExecute.executeCheckPolicy(event, null, context);
 		if (checkResult.isError()){
 			CreateOrderCustomerAvalibityCheckFailRejected event1=new CreateOrderCustomerAvalibityCheckFailRejected(this);
-			event.setCustomerOrder(customerOrder);
+			event1.setCustomerOrder(customerOrder);
 			eventPublisher.publishEvent(event1);
 		}else if (checkResult.isInformed()){
 			CreateOrderCustomerAvalibityCheckFailInformed event2=new CreateOrderCustomerAvalibityCheckFailInformed(this);
-			event.setCustomerOrder(customerOrder);
+			event2.setCustomerOrder(customerOrder);
 			eventPublisher.publishEvent(event2);
 		}else{
 			CreateOrderCustomerAvalibityCheckPassed event3=new CreateOrderCustomerAvalibityCheckPassed(this);
-			event.setCustomerOrder(customerOrder);
+			event3.setCustomerOrder(customerOrder);
 			eventPublisher.publishEvent(event3);
 		}
 		
@@ -73,19 +75,20 @@ public class CheckCreateCustomerOrderListener implements ICheckCreateCustomerOrd
 		IOfferOrderItem offerOrder = (IOfferOrderItem)event.getOfferOrder();
 		Map<String,Object> context =new HashMap<String, Object>();
 		context.put("OfferOrder", offerOrder);
-		IProductOffering productOffering=productOfferingRepository.getProductOfferingById(offerOrder.getToBeOfferInstance().getId());
+		IToBeOfferInstance toBeOfferInstance = (IToBeOfferInstance)offerOrder.getRelatedEntity().getToBeInstanceEntity();
+		IProductOffering productOffering=productOfferingRepository.getProductOfferingById(toBeOfferInstance.getId());
 		CheckResult checkResult=policyExecute.executeCheckPolicy(event, productOffering, context);
 		if (checkResult.isError()){
 			CreateNewOfferOrderCheckFailRejected event1=new CreateNewOfferOrderCheckFailRejected(this);
-			event.setOfferOrder(offerOrder);
+			event1.setOfferOrder(offerOrder);
 			eventPublisher.publishEvent(event1);
 		}else if (checkResult.isInformed()){
 			CreateNewOfferOrderCheckFailInformed event2=new CreateNewOfferOrderCheckFailInformed(this);
-			event.setOfferOrder(offerOrder);
+			event2.setOfferOrder(offerOrder);
 			eventPublisher.publishEvent(event2);
 		}else{
 			CreateNewOfferOrderCheckPassed event3=new CreateNewOfferOrderCheckPassed(this);
-			event.setOfferOrder(offerOrder);
+			event3.setOfferOrder(offerOrder);
 			eventPublisher.publishEvent(event3);
 		}
 	}
@@ -94,20 +97,21 @@ public class CheckCreateCustomerOrderListener implements ICheckCreateCustomerOrd
 	public void onCreateNewProductOrderRequestedEvent(CreateNewProductOrderRequested event)  throws Exception{
 		IProductOrderItem productOrder = (IProductOrderItem)event.getProductOrder();
 		Map<String,Object> context =new HashMap<String, Object>();
-		context.put("ProductOrder", productOrder);	
-		IProductSpecification productSpecification = productSpecificationRepository.getProductSpecificationById(productOrder.getToBeProduct().getProductSpecificationId());
+		context.put("ProductOrder", productOrder);
+		IToBeProduct toBeProduct = (IToBeProduct)productOrder.getRelatedEntity();
+		IProductSpecification productSpecification = productSpecificationRepository.getProductSpecificationById(toBeProduct.getProductSpecificationId());
 		CheckResult checkResult=policyExecute.executeCheckPolicy(event, productSpecification, context);
 		if (checkResult.isError()){
 			CreateNewProductOrderCheckFailRejected event1=new CreateNewProductOrderCheckFailRejected(this);
-			event.setProductOrder(productOrder);
+			event1.setProductOrder(productOrder);
 			eventPublisher.publishEvent(event1);
 		}else if (checkResult.isInformed()){
 			CreateNewProductOrderCheckFailInformed event2=new CreateNewProductOrderCheckFailInformed(this);
-			event.setProductOrder(productOrder);
+			event2.setProductOrder(productOrder);
 			eventPublisher.publishEvent(event2);
 		}else{
 			CreateNewProductOrderCheckPassed event3=new CreateNewProductOrderCheckPassed(this);
-			event.setProductOrder(productOrder);
+			event3.setProductOrder(productOrder);
 			eventPublisher.publishEvent(event3);
 		}	}
 
