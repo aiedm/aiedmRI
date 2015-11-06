@@ -6,7 +6,6 @@ import java.util.Set;
 import org.springframework.stereotype.Component;
 
 import com.ai.common.rootentity.domain.model.impl.SpecificationInstanceEntity;
-import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntityCharacter;
 import com.ai.crm.product.domain.model.interfaces.IOfferInstance;
 import com.ai.crm.product.domain.model.interfaces.IProduct;
 import com.ai.crm.product.domain.model.interfaces.IProductBarReason;
@@ -14,7 +13,6 @@ import com.ai.crm.product.domain.model.interfaces.IProductPriceRel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 @Component
 public class Product extends SpecificationInstanceEntity implements IProduct {
-	private long productId;
 	private long customerId;
 	private long userId;
 	private Set<IProductBarReason> barReasons=new HashSet<IProductBarReason>();
@@ -25,16 +23,6 @@ public class Product extends SpecificationInstanceEntity implements IProduct {
 	private String serialNumber;
 
 	public Product() {
-	}
-
-	@Override
-	public long getProductId() {
-		return productId;
-	}
-
-	@Override
-	public void setProductId(long productId) {
-		this.productId=productId;
 	}
 
 	@Override
@@ -125,18 +113,4 @@ public class Product extends SpecificationInstanceEntity implements IProduct {
 	public void setSerialNumber(String serialNumber) {
 		this.serialNumber=serialNumber;
 	}
-
-	@Override
-	public Set<IInstanceEntityCharacter> getProductCharacters() {
-		return this.getCharacteristics();
-	}
-
-	@Override
-	public void addProductCharacter(IInstanceEntityCharacter productCharacter) {
-		if (null!=productCharacter){
-			this.addCharacteristic(productCharacter);
-		}
-	}
-
-
 }

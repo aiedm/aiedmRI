@@ -28,6 +28,14 @@ import com.ai.common.rootentity.domain.service.interfaces.IEventPublisher;
 import com.ai.crm.common.businessinteraction.domain.model.impl.BIIRelatedEntity;
 import com.ai.crm.common.businessinteraction.domain.model.interfaces.IBIIRelatedEntity;
 import com.ai.crm.config.DevelopmentProfileConfig;
+import com.ai.crm.customerorder.application.service.api.dto.CharacterInstanceDTO;
+import com.ai.crm.customerorder.application.service.api.dto.CharacterValueInstanceDTO;
+import com.ai.crm.customerorder.application.service.api.dto.CustomerOrderDTO;
+import com.ai.crm.customerorder.application.service.api.dto.OfferOrderItemDTO;
+import com.ai.crm.customerorder.application.service.api.dto.ProductOrderItemDTO;
+import com.ai.crm.customerorder.application.service.api.dto.ToBeOfferInstanceDTO;
+import com.ai.crm.customerorder.application.service.api.dto.ToBePricePlanInstanceDTO;
+import com.ai.crm.customerorder.application.service.api.dto.ToBeProductDTO;
 import com.ai.crm.customerorder.domain.event.createorder.CreateOrderRequested;
 import com.ai.crm.customerorder.domain.model.impl.CustomerOrder;
 import com.ai.crm.customerorder.domain.model.impl.OfferOrderItem;
@@ -51,31 +59,15 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 @WebAppConfiguration
 @ActiveProfiles("dev")
 public class CustomerOrderTests {
-	@Autowired 
-	private IProductOrderItem productOrder;	
-	@Autowired
-	private IOfferOrderItem offerOrder;
-	@Autowired
-	private ICustomerOrder customerOrder;
-	@Autowired
-	private IToBePricePlanInstance toBePrice;
-	@Autowired
-	private IInstanceEntityCharacter OfferInstancePriceCharacter;
-	@Autowired
-	private IToBeOfferInstance toBeOfferInstance;
-	@Autowired
-	private IToBeProduct toBeProduct;	
-	@Autowired
-	private IProductPriceRel productPriceRel;
-	
-	@Autowired
-	private IInstanceEntityCharacterValue characteristicInstanceValue;
-	@Autowired
-	private ICharacteristicSpec characteristicSpec;
-	@Autowired
-	private ICharacteristicSpecValue characteristicValue;
-	@Autowired
-	private IInstanceEntityCharacter productCharacteristic;
+	private ProductOrderItemDTO productOrder;	
+	private OfferOrderItemDTO offerOrder;
+	private CustomerOrderDTO customerOrder;
+	private ToBePricePlanInstanceDTO toBePrice;
+	private CharacterInstanceDTO OfferInstancePriceCharacter;
+	private ToBeOfferInstanceDTO toBeOfferInstance;
+	private ToBeProductDTO toBeProduct;	
+	private CharacterValueInstanceDTO offerInstancePriceCharacter;
+
 	@Autowired
 	private IEventPublisher eventPublisher;
 	
@@ -86,66 +78,52 @@ public class CustomerOrderTests {
 	@Transactional
 	//@Ignore
 	public void createCustomerOrder() throws Exception{
-		toBeProduct.setProductSpecificationId(101);
-		productPriceRel.setProduct(toBeProduct);
-		toBeProduct.assignPrice(productPriceRel);
-		offerOrder.setBusinessInteractionItemSpecId(1001);
-		offerOrder.setOfferOrderId(2);
-		offerOrder.setOfferOrderState(IOfferOrderItem.OfferOrderState.INITIATED.getValue());
-		toBeOfferInstance.setProductOfferingId(11);
-		toBeOfferInstance.addProduct(toBeProduct);
-		IBIIRelatedEntity relatedTobeOfferInstance=new BIIRelatedEntity();
-		relatedTobeOfferInstance.setToBeInstanceEntity(toBeOfferInstance);
-		relatedTobeOfferInstance.setAction(IBIIRelatedEntity.Action.CREATE.getValue());
-		offerOrder.setRelatedEntity(relatedTobeOfferInstance);
-		toBeOfferInstance.addPricePlanInstance(toBePrice);
 		toBePrice.setPricePlanId(1);
-		toBePrice.setPriceValue(10000);
-		productPriceRel.setPricePlanInstance(toBePrice);
-		characteristicValue.setId(1101);
-		characteristicValue.setValue("50%");
-		characteristicSpec.addValue(characteristicValue);
-		characteristicSpec.setId(100);
-		characteristicInstanceValue.setId(100004);
-		characteristicInstanceValue.setInputedValue("50%");		
-		characteristicInstanceValue.setCharacteristicValue(characteristicValue);
-		OfferInstancePriceCharacter.addCharacteristicInstanceValue(characteristicInstanceValue);
-		toBePrice.addCharacteristic(OfferInstancePriceCharacter);
+		toBePrice.setInputedValue(10000);
+		toBePrice.setTempSeqId(1);
 		
-		ICharacteristicSpecValue characteristicValue2=new CharacteristicSpecValue();
-		characteristicValue2.setId(1102);
-		characteristicValue2.setValue("Red");	
-		ICharacteristicSpec characteristic2=new CharacteristicSpec();
-		characteristic2.addValue(characteristicValue2);
-		characteristic2.setId(110);
+		toBeOfferInstance.addPricePlanInstance(toBePrice);
+		toBeOfferInstance.setProductOfferingId(11);
+		toBeOfferInstance.setAcition(1);
 		
-		IInstanceEntityCharacterValue characteristicInstanceValue2=new InstanceEntityCharacterValue(productCharacteristic,characteristicValue2);
-		characteristicInstanceValue2.setId(100005);
-		characteristicInstanceValue2.setInputedValue("Red");
-		productCharacteristic=new InstanceEntityCharacter();
-		productCharacteristic.addCharacteristicInstanceValue(characteristicInstanceValue2);
-		toBeOfferInstance.addCharacteristic(productCharacteristic);
-		customerOrder.setOrderState(ICustomerOrder.CustomerOrderState.INITIATED.getValue());
-		customerOrder.setCustomerOrderCode("201509080001");
-		customerOrder.addOfferOrder(offerOrder);
-		IOfferOrderItem offerOrder2=new OfferOrderItem(customerOrder);
-		offerOrder2.setOfferOrderId(5);
-		offerOrder2.setOfferOrderState(IOfferOrderItem.OfferOrderState.INITIATED.getValue());
+		offerInstancePriceCharacter.setCharacteristicSpecValueId(10001);
+		offerInstancePriceCharacter.setInputedValue("50%");	
+		OfferInstancePriceCharacter.setCharacteristicSpecId(100);
+		OfferInstancePriceCharacter.addCharacteristicValue(offerInstancePriceCharacter);
+		
+		toBeOfferInstance.addOfferInstanceCharacteristic(OfferInstancePriceCharacter);
+		
+		offerOrder.setBusinessInteractionItemSpecId(1001);
+		offerOrder.setToBeOfferInstanceTDO(toBeOfferInstance);		
+		toBeProduct.setProductSpecId(101);
+		toBeProduct.addAssignedPriceTempSeq(1);
+		CharacterValueInstanceDTO productcharacterInstanceValue=new CharacterValueInstanceDTO();
+		productcharacterInstanceValue.setCharacteristicSpecValueId(20001);
+		productcharacterInstanceValue.setInputedValue("Red");
+		CharacterInstanceDTO productPriceCharacter=new CharacterInstanceDTO();
+		productPriceCharacter.setCharacteristicSpecId(200);
+		productPriceCharacter.addCharacteristicValue(productcharacterInstanceValue);
+		toBeProduct.addProductCharacteristics(productPriceCharacter);
+		toBeOfferInstance.addProduct(toBeProduct);
+	
+		customerOrder.addOfferOrderItem(offerOrder);
+		
+		OfferOrderItemDTO offerOrder2=new OfferOrderItemDTO();
+		offerOrder2.setAction(1);
 		offerOrder2.setBusinessInteractionItemSpecId(1001);
-		IToBeProduct toBeproduct2=new ToBeProduct();
-		toBeproduct2.setProductSpecificationId(102);
-		IToBeOfferInstance toBeOffer2=new ToBeOfferInstance();
+		ToBeProductDTO toBeproduct2=new ToBeProductDTO();
+		toBeproduct2.setProductSpecId(102);
+		ToBeOfferInstanceDTO toBeOffer2=new ToBeOfferInstanceDTO();
 		toBeOffer2.setProductOfferingId(12);
 		toBeOffer2.addProduct(toBeproduct2);
-		IBIIRelatedEntity relatedOffer2=new BIIRelatedEntity();
-		relatedOffer2.setToBeInstanceEntity(toBeOffer2);
-		relatedOffer2.setAction(IBIIRelatedEntity.Action.CREATE.getValue());
-		offerOrder2.setRelatedEntity(relatedOffer2);
-		customerOrder.addOfferOrder(offerOrder2);
+		offerOrder2.setToBeOfferInstanceTDO(toBeOffer2);
+		
+		customerOrder.addOfferOrderItem(offerOrder2);
+		
 		CreateOrderRequested event=new CreateOrderRequested(this);
-		event.setCustomerOrder(customerOrder);
+		event.setCustomerOrderDTO(customerOrder);
 		eventPublisher.publishEvent(event);
-		assertEquals(IOfferOrderItem.OfferOrderState.CREATED.getValue(),offerOrder.getOfferOrderState());
+		assertEquals(1,customerOrder.getCustomerId());
 		String jsonString=mapper.writeValueAsString(customerOrder);
 		mapper.writeValue(new File("D:\\workspace\\springTest\\aiedmRI\\src\\test\\resource\\order.json"), (ICustomerOrder)customerOrder);
 		System.out.println(jsonString);

@@ -5,21 +5,27 @@ import java.util.Set;
 
 import org.springframework.stereotype.Component;
 
-import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntityCharacterValue;
-import com.ai.common.rootentity.domain.model.interfaces.ICharacteristicSpec;
-import com.ai.common.rootentity.domain.model.interfaces.IEntityVersion;
 import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntity;
 import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntityCharacter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntityCharacterValue;
 @Component
 public class InstanceEntityCharacter extends RootEntity implements IInstanceEntityCharacter {
-	@JsonIgnore
+	private long characterInstanceId;
 	private IInstanceEntity instanceEntity;
-	private ICharacteristicSpec characteristic;
+	private long characteristicSpecId;
 	private Set<IInstanceEntityCharacterValue> characteristicInstanceValues=new HashSet<IInstanceEntityCharacterValue>();
 	
+	private int action;
+	
+	public int getAction() {
+		return action;
+	}
+
+
+	public void setAction(int action) {
+		this.action = action;
+	}
 	@Override
-	@JsonIgnore	
 	public IInstanceEntity getOwnerInstance() {
 		return this.instanceEntity;
 	}
@@ -30,13 +36,13 @@ public class InstanceEntityCharacter extends RootEntity implements IInstanceEnti
 	}
 
 	@Override
-	public ICharacteristicSpec getCharacteristic() {
-		return this.characteristic;
+	public long getCharacteristicSpecId() {
+		return this.characteristicSpecId;
 	}
 
 	@Override
-	public void setCharacteristic(ICharacteristicSpec characteristic) {
-		this.characteristic=characteristic;
+	public void setCharacteristicSpecId(long characteristic) {
+		this.characteristicSpecId=characteristic;
 	}
 
 	@Override
@@ -51,6 +57,16 @@ public class InstanceEntityCharacter extends RootEntity implements IInstanceEnti
 			characteristicInstanceValue.setInstanceEntityCharacteristic(this);
 		}
 
+	}
+
+	@Override
+	public long getCharacterInstanceId() {
+		return this.characterInstanceId;
+	}
+
+	@Override
+	public void setCharacterInstanceId(long characterInstanceId) {
+		this.characterInstanceId=characterInstanceId;
 	}
 
 }

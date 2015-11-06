@@ -7,12 +7,18 @@ import org.springframework.stereotype.Component;
 import com.ai.common.basetype.interfaces.ITimePeriod;
 import com.ai.common.rootentity.domain.model.interfaces.IEntityVersion;
 import com.ai.common.rootentity.domain.model.interfaces.IRootEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 @Component
 public class RootEntity implements IRootEntity {
+	@JsonIgnore
 	private IEntityVersion version;
+	@JsonIgnore
 	private long createOperatorId;
+	@JsonIgnore
 	private ITimePeriod validPeriod;
-	private boolean isDeleted=false;	
+	@JsonIgnore
+	private boolean isDeleted=false;
+	@JsonIgnore
 	private Timestamp createTime;	
 	private long id;
 

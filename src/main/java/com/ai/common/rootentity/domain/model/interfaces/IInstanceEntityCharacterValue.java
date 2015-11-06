@@ -13,10 +13,14 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 })
 
 public interface IInstanceEntityCharacterValue extends IRootEntity{
+	int getAction();
+	void setAction(int action);
+	long getCharacterValueInstanceId();
+	void setCharacterValueInstanceId(long characterValueInstanceId);	
 	IInstanceEntityCharacter getInstanceEntityCharacteristic();
 	void setInstanceEntityCharacteristic(IInstanceEntityCharacter instanceEntityCharacteristic);
-	ICharacteristicSpecValue getCharacteristicSpecValue();
-	void setCharacteristicValue(ICharacteristicSpecValue characteristicValue);
+	long getCharacteristicSpecValueId();
+	void setCharacteristicValueId(long characteristicSpecValueId);
 	long getId();
 	void setId(long id);
 	String getInputedValue();

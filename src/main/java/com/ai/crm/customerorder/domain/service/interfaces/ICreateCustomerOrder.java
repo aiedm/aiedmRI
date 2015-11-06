@@ -9,7 +9,7 @@ public interface ICreateCustomerOrder {
 	void createCustomerOrder(ICustomerOrder customerOrder,long shoppingCartId) throws Exception;
 	void createNewOfferOrder(IOfferOrderItem offerOrder) throws Exception;
 	void createNewProductOrder(IProductOrderItem productOrder) throws Exception;
-	void distributeOrderLineCreate(ICustomerOrder customerOrder) throws Exception;
+	void distributeOrderItemCreate(ICustomerOrder customerOrder) throws Exception;
 	boolean isCustomerOrderCreateFinishedOfLastOfferOrder(IOfferOrderItem offerOrder) throws Exception;
 	boolean isCustomerOrderCreateFinishedOfLastProductOrder(IProductOrderItem productOrder) throws Exception;
 	void startOrder(ICustomerOrder customerOrder) throws Exception;

@@ -4,15 +4,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
+import com.ai.crm.customerorder.application.service.api.dto.CustomerOrderDTO;
 import com.ai.crm.customerorder.domain.event.createorder.CreateCustomerOrderFinished;
-import com.ai.crm.customerorder.domain.event.createorder.CreateNewOfferOrderCheckPassed;
-import com.ai.crm.customerorder.domain.event.createorder.CreateNewProductOrderCheckPassed;
+import com.ai.crm.customerorder.domain.event.createorder.CheckNewOfferOrderPassed;
+import com.ai.crm.customerorder.domain.event.createorder.CheckNewProductOrderPassed;
 import com.ai.crm.customerorder.domain.event.createorder.CreateOfferOrderFinished;
-import com.ai.crm.customerorder.domain.event.createorder.CreateOrderCustomerAvalibityCheckPassed;
+import com.ai.crm.customerorder.domain.event.createorder.CheckOrderCustomerAvalibityPassed;
 import com.ai.crm.customerorder.domain.event.createorder.CustomerOrderCreated;
 import com.ai.crm.customerorder.domain.event.createorder.NewOfferOrderCreated;
+import com.ai.crm.customerorder.domain.event.createorder.NewOfferOrderRequested;
 import com.ai.crm.customerorder.domain.event.createorder.NewProductOrderCreated;
+import com.ai.crm.customerorder.domain.event.createorder.NewProductOrderRequested;
 import com.ai.crm.customerorder.domain.eventlistener.interfaces.ICreateCustomerOrderListener;
+import com.ai.crm.customerorder.domain.eventlistener.interfaces.IOrderDTOTransfer;
 import com.ai.crm.customerorder.domain.model.interfaces.ICustomerOrder;
 import com.ai.crm.customerorder.domain.model.interfaces.IOfferOrderItem;
 import com.ai.crm.customerorder.domain.model.interfaces.IProductOrderItem;
@@ -28,30 +32,36 @@ public class CreateCustomerOrderListener implements ICreateCustomerOrderListener
 	private ICreateCustomerOrder createCustomerOrder;
 	@Autowired
 	private ICustomerOrderRepository customerOrderRepository;
+	@Autowired
+	private IOrderDTOTransfer orderDTOTransfer;
 	
 	@EventListener
-	public void onCreateOrderCustomerAvalibityCheckPassedEvent(CreateOrderCustomerAvalibityCheckPassed event)  throws Exception{
+	public void onCreateOrderCustomerAvalibityCheckPassedEvent(CheckOrderCustomerAvalibityPassed event)  throws Exception{
+		CustomerOrderDTO customerOrderDTO=event.getCustomerOrderDTO();
+		ICustomerOrder customerOrder=orderDTOTransfer.transformNewDTO2Order(customerOrderDTO);
 		if(event.getShoppingCartId()>0){
-			createCustomerOrder.createCustomerOrder((ICustomerOrder)event.getCustomerOrder(),event.getShoppingCartId());
+			createCustomerOrder.createCustomerOrder(customerOrder,event.getShoppingCartId());
 		}else{
-			createCustomerOrder.createCustomerOrder((ICustomerOrder)event.getCustomerOrder());
-		}		
+			createCustomerOrder.createCustomerOrder(customerOrder);
+		}
+		customerOrderDTO.setCustomerOrderId(customerOrder.getCustomerOrderId());
+		customerOrderDTO.setCustomerOrderCode(customerOrder.getCustomerOrderCode());
 	}
 
 	@EventListener
-	public void onCreateNewOfferOrderCheckPassedEvent(CreateNewOfferOrderCheckPassed event)  throws Exception{
+	public void onNewOfferOrderRequestedEvent(NewOfferOrderRequested event)  throws Exception{
 		createCustomerOrder.createNewOfferOrder((IOfferOrderItem)event.getOfferOrder());
 	}
 
 	@EventListener
-	public void onCreateNewProductOrderCheckPassedEvent(CreateNewProductOrderCheckPassed event)  throws Exception{
+	public void onNewProductOrderRequestedEvent(NewProductOrderRequested event)  throws Exception{
 		createCustomerOrder.createNewProductOrder((IProductOrderItem)event.getProductOrder());
 
 	}
 
 	@EventListener
 	public void onCustomerOrderCreatedEvent(CustomerOrderCreated event)  throws Exception{
-		createCustomerOrder.distributeOrderLineCreate((ICustomerOrder)event.getCustomerOrder());
+		createCustomerOrder.distributeOrderItemCreate((ICustomerOrder)event.getCustomerOrder());
 
 	}
 

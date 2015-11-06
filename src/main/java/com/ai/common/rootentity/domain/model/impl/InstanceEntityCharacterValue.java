@@ -2,25 +2,32 @@ package com.ai.common.rootentity.domain.model.impl;
 
 import org.springframework.stereotype.Component;
 
-import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntityCharacterValue;
-import com.ai.common.rootentity.domain.model.interfaces.ICharacteristicSpecValue;
 import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntityCharacter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntityCharacterValue;
 @Component
 public class InstanceEntityCharacterValue extends RootEntity implements IInstanceEntityCharacterValue {
-	@JsonIgnore
 	private IInstanceEntityCharacter instanceEntityCharacteristic;
-	private ICharacteristicSpecValue characteristicValue;
+	private long characterValueInstanceId;
+	private long characteristicValueId;
 	private long id;
 	private String value;
+	private int action;
 	
+	public int getAction() {
+		return action;
+	}
+
+
+	public void setAction(int action) {
+		this.action = action;
+	}	
 	public InstanceEntityCharacterValue(){
 		
 	}
 			
-	public InstanceEntityCharacterValue(IInstanceEntityCharacter instanceEntityCharacteristic, ICharacteristicSpecValue characteristicValue){
+	public InstanceEntityCharacterValue(IInstanceEntityCharacter instanceEntityCharacteristic, long characteristicValueId){
 		this.setInstanceEntityCharacteristic(instanceEntityCharacteristic);
-		this.setCharacteristicValue(characteristicValue);
+		this.setCharacteristicValueId(characteristicValueId);
 	}
 	
 	@Override
@@ -34,13 +41,13 @@ public class InstanceEntityCharacterValue extends RootEntity implements IInstanc
 	}
 
 	@Override
-	public ICharacteristicSpecValue getCharacteristicSpecValue() {
-		return this.characteristicValue;
+	public long getCharacteristicSpecValueId() {
+		return this.characteristicValueId;
 	}
 
 	@Override
-	public void setCharacteristicValue(ICharacteristicSpecValue characteristicValue) {
-		this.characteristicValue=characteristicValue;
+	public void setCharacteristicValueId(long characteristicValueId) {
+		this.characteristicValueId=characteristicValueId;
 	}
 
 	@Override
@@ -61,6 +68,16 @@ public class InstanceEntityCharacterValue extends RootEntity implements IInstanc
 	@Override
 	public void setInputedValue(String value) {
 		this.value=value;
+	}
+
+	@Override
+	public long getCharacterValueInstanceId() {
+		return this.characterValueInstanceId;
+	}
+
+	@Override
+	public void setCharacterValueInstanceId(long characterValueInstanceId) {
+		this.characteristicValueId=characterValueInstanceId;
 	}
 
 }

@@ -7,14 +7,11 @@ import java.util.Set;
 import org.springframework.stereotype.Component;
 
 import com.ai.common.rootentity.domain.model.impl.SpecificationInstanceEntity;
-import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntityCharacter;
-import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntityCharacterValue;
 import com.ai.crm.product.domain.model.interfaces.IOfferInstance;
 import com.ai.crm.product.domain.model.interfaces.IPricePlanInstance;
 import com.ai.crm.product.domain.model.interfaces.IProduct;
 @Component
 public class OfferInstance extends SpecificationInstanceEntity implements IOfferInstance {
-	private long offerInstanceId;
 	private Set<IProduct> products=new HashSet<IProduct>();
 	private Set<IPricePlanInstance> prices=new LinkedHashSet<IPricePlanInstance>();
 	private long customerId;
@@ -22,17 +19,6 @@ public class OfferInstance extends SpecificationInstanceEntity implements IOffer
 	
 	public OfferInstance() {
 		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	public long getOfferInstanceId() {
-		return offerInstanceId;
-	}
-
-	@Override
-	public void setOfferInstanceId(long offerInstanceId) {
-		this.offerInstanceId=offerInstanceId;
-
 	}
 
 	@Override
@@ -85,18 +71,6 @@ public class OfferInstance extends SpecificationInstanceEntity implements IOffer
 	@Override
 	public void setProductOfferingId(long productOfferingId) {
 		this.productOfferingId=productOfferingId;
-	}
-
-	@Override
-	public Set<IInstanceEntityCharacter> getOfferInstanceCharacters() {
-		return this.getCharacteristics();
-	}
-
-	@Override
-	public void addOfferInstanceCharacter(IInstanceEntityCharacter offerInstanceCharacter) {
-		if(null!=offerInstanceCharacter){
-			this.addCharacteristic(offerInstanceCharacter);
-		}
 	}
 
 }

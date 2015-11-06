@@ -4,10 +4,8 @@ import org.springframework.stereotype.Component;
 
 import com.ai.crm.customerorder.domain.model.interfaces.ICustomerOrder;
 import com.ai.crm.customerorder.domain.model.interfaces.IOfferOrderItem;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 @Component
 public class OfferOrderItem extends CustomerOrderItem implements IOfferOrderItem {
-	@JsonIgnore
 	private ICustomerOrder customerOrder;
 	private IOfferOrderItem replacedOfferOrderItem;
 	private long offerOrderId;

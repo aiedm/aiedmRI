@@ -6,7 +6,6 @@ import java.util.Set;
 import org.springframework.stereotype.Component;
 
 import com.ai.common.rootentity.domain.model.impl.SpecificationInstanceEntity;
-import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntityCharacter;
 import com.ai.crm.customerorder.domain.model.interfaces.IToBePricePlanInstance;
 import com.ai.crm.product.domain.model.interfaces.IOfferInstance;
 import com.ai.crm.product.domain.model.interfaces.IPricePlanInstance;
@@ -14,7 +13,6 @@ import com.ai.crm.product.domain.model.interfaces.IProductPriceRel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 @Component
 public class PricePlanInstance extends SpecificationInstanceEntity implements IPricePlanInstance {
-	private long pricePlanInstanceId;
 	@JsonIgnore
 	private IOfferInstance offerInstance;
 	private Set<IProductPriceRel> assignedTo=new HashSet<IProductPriceRel>();
@@ -25,16 +23,6 @@ public class PricePlanInstance extends SpecificationInstanceEntity implements IP
 	private long roleId;
 
 	public PricePlanInstance() {
-	}
-
-	@Override
-	public long getPricePlanInstanceId() {
-		return pricePlanInstanceId;
-	}
-
-	@Override
-	public void setPricePlanInstanceId(long pricePlanInstanceId) {
-		this.pricePlanInstanceId=pricePlanInstanceId;
 	}
 
 	@Override
@@ -116,18 +104,5 @@ public class PricePlanInstance extends SpecificationInstanceEntity implements IP
 	@Override
 	public void setRoleId(long roleId) {
 		this.roleId=roleId;
-	}
-
-	@Override
-	public Set<IInstanceEntityCharacter> getPricePlanInstanceCharacters() {
-		return this.getCharacteristics();
-	}
-
-	@Override
-	public void addPricePlanInstanceCharacter(IInstanceEntityCharacter pricePlanInstanceCharacter) {
-		if(null!=pricePlanInstanceCharacter){
-			this.addCharacteristic(pricePlanInstanceCharacter);
-		}
-		
 	}
 }

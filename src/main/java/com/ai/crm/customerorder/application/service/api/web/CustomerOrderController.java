@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ai.common.rootentity.domain.service.impl.SpringEventPublisher;
 import com.ai.common.rootentity.domain.service.interfaces.IEventPublisher;
+import com.ai.crm.customerorder.application.service.api.dto.CustomerOrderDTO;
+import com.ai.crm.customerorder.application.service.api.dto.ShoppingCartDTO;
+import com.ai.crm.customerorder.application.service.api.dto.ToBeOfferInstanceDTO;
 import com.ai.crm.customerorder.domain.event.createorder.CreateOrderRequested;
 import com.ai.crm.customerorder.domain.event.shoppingcart.OfferAddingToCart;
 import com.ai.crm.customerorder.domain.model.impl.CustomerOrder;
@@ -37,18 +40,18 @@ public class CustomerOrderController  {
 	}
 	
 	@RequestMapping(value="/newOrder",method=RequestMethod.POST,consumes="application/json")
-	public ICustomerOrder putOrder(@RequestBody ICustomerOrder requestedCustomerOrder) throws Exception{
+	public CustomerOrderDTO putOrder(@RequestBody CustomerOrderDTO requestedCustomerOrder) throws Exception{
 		requestedCustomerOrder.setCustomerOrderId(917);
 		requestedCustomerOrder.setCustomerOrderCode("20150917");
 		CreateOrderRequested event=new CreateOrderRequested(this);
-		event.setCustomerOrder(requestedCustomerOrder);
+		event.setCustomerOrderDTO(requestedCustomerOrder);
 		eventPublisher.publishEvent(event);		
 		return requestedCustomerOrder;
 	}
 	
 	@RequestMapping(value="/shoppingCart/addingOffer",method=RequestMethod.POST,consumes="application/json")
-	public ICustomerOrder putOfferToCart(@RequestBody IShoppingCart shoppingCart,
-			@RequestBody Set<IToBeOfferInstance> toBeOfferInstances) throws Exception{
+	public CustomerOrderDTO putOfferToCart(@RequestBody ShoppingCartDTO shoppingCart,
+			@RequestBody Set<ToBeOfferInstanceDTO> toBeOfferInstances) throws Exception{
 		OfferAddingToCart event=new OfferAddingToCart(this);		
 		event.setCart(shoppingCart);
 		event.setToBeOfferInstances(toBeOfferInstances);

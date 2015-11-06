@@ -14,9 +14,10 @@ public abstract class BusinessInteraction extends SpecificationInstanceEntity im
 	private int biState;
 	@JsonIgnore
 	private Set<IBusinessInteractionItem> businessInteractionItems=new HashSet<IBusinessInteractionItem>();
-
+	private long biiSpecId;
+	
 	public BusinessInteraction() {
-		// TODO Auto-generated constructor stub
+		
 	}	
 
 	@Override
@@ -25,7 +26,7 @@ public abstract class BusinessInteraction extends SpecificationInstanceEntity im
 	}
 
 	@Override
-	public void setBusinessInteraciotnId(long biId) {
+	public void setBusinessInteractionId(long biId) {
 		this.businessInteractionId=biId;
 	}
 
@@ -52,5 +53,14 @@ public abstract class BusinessInteraction extends SpecificationInstanceEntity im
 		}
 
 	}
+	
+	@Override
+	public long getBusinessInteractionSpecId(){
+		return this.biiSpecId;
+	}
 
+	@Override
+	public void setBusinessInteractionSpecId(long biiSpecId){
+		this.biiSpecId=biiSpecId;
+	}
 }

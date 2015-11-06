@@ -1,17 +1,17 @@
 package com.ai.crm.customerorder.domain.event.createorder;
 
 import com.ai.common.rootentity.domain.model.impl.BaseEvent;
-import com.ai.crm.customerorder.domain.model.interfaces.ICustomerOrder;
+import com.ai.crm.customerorder.application.service.api.dto.CustomerOrderDTO;
 
 public class CreateOrderRequested extends BaseEvent {
-	private ICustomerOrder customerOrder;
+	private CustomerOrderDTO customerOrderDTO;
 
-	public ICustomerOrder getCustomerOrder() {
-		return customerOrder;
+	public CustomerOrderDTO getCustomerOrderDTO() {
+		return customerOrderDTO;
 	}
 
-	public void setCustomerOrder(ICustomerOrder customerOrder) {
-		this.customerOrder = customerOrder;
+	public void setCustomerOrderDTO(CustomerOrderDTO customerOrder) {
+		this.customerOrderDTO = customerOrder;
 	}
 
 	public CreateOrderRequested(Object source) {

@@ -12,13 +12,17 @@ import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 	    include = JsonTypeInfo.As.PROPERTY,
 	    property = "type")
 @JsonSubTypes({
-    @Type(value = InstanceEntityCharacter.class, name = "InstanceEntityCharacteristic"),
+    @Type(value = InstanceEntityCharacter.class, name = "InstanceEntityCharacter"),
 })
 public interface IInstanceEntityCharacter  extends IRootEntity{
+	int getAction();
+	void setAction(int action);
+	long getCharacterInstanceId();
+	void setCharacterInstanceId(long characterInstanceId);
 	IInstanceEntity getOwnerInstance();
 	void setOwnerInstance(IInstanceEntity instanceEntity);
-	ICharacteristicSpec getCharacteristic();
-	void setCharacteristic(ICharacteristicSpec characteristic);
+	long getCharacteristicSpecId();
+	void setCharacteristicSpecId(long characteristic);
 	Set<IInstanceEntityCharacterValue> getCharacteristicInstanceValues();
 	void addCharacteristicInstanceValue(IInstanceEntityCharacterValue characteristicInstanceValue);
 }

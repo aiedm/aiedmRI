@@ -7,12 +7,14 @@ import org.springframework.stereotype.Component;
 
 import com.ai.common.rootentity.domain.service.interfaces.IEventPublisher;
 import com.ai.crm.customerorder.domain.event.createorder.CreateCustomerOrderFinished;
-import com.ai.crm.customerorder.domain.event.createorder.CreateNewOfferOrderRequested;
-import com.ai.crm.customerorder.domain.event.createorder.CreateNewProductOrderRequested;
+import com.ai.crm.customerorder.domain.event.createorder.CheckNewOfferOrderRequested;
+import com.ai.crm.customerorder.domain.event.createorder.CheckNewProductOrderRequested;
 import com.ai.crm.customerorder.domain.event.createorder.CreateOfferOrderFinished;
 import com.ai.crm.customerorder.domain.event.createorder.CustomerOrderCreated;
 import com.ai.crm.customerorder.domain.event.createorder.NewOfferOrderCreated;
+import com.ai.crm.customerorder.domain.event.createorder.NewOfferOrderRequested;
 import com.ai.crm.customerorder.domain.event.createorder.NewProductOrderCreated;
+import com.ai.crm.customerorder.domain.event.createorder.NewProductOrderRequested;
 import com.ai.crm.customerorder.domain.model.interfaces.ICustomerOrder;
 import com.ai.crm.customerorder.domain.model.interfaces.IOfferOrderItem;
 import com.ai.crm.customerorder.domain.model.interfaces.IProductOrderItem;
@@ -51,8 +53,8 @@ public class CreateCustomerOrder implements ICreateCustomerOrder {
 		eventPublisher.publishEvent(event);
 	}
 	
-	public void distributeOrderLineCreate(ICustomerOrder customerOrder)  throws Exception{
-		//OfferOrderLine
+	public void distributeOrderItemCreate(ICustomerOrder customerOrder)  throws Exception{
+		//OfferOrderItem
 		Set<IOfferOrderItem> offerOrders=customerOrder.getOfferOrders();
 		for (IOfferOrderItem offerOrder:offerOrders) {
 			if(null==offerOrder.getCustomerOrder()){
@@ -61,7 +63,7 @@ public class CreateCustomerOrder implements ICreateCustomerOrder {
 			long biiSpecId=offerOrder.getBusinessInteractionItemSpecId();
 			//TODO replace with real newConnectionID
 			if(biiSpecId==1001){
-				CreateNewOfferOrderRequested event=new CreateNewOfferOrderRequested(this);
+				NewOfferOrderRequested event=new NewOfferOrderRequested(this);
 				event.setOfferOrder(offerOrder);
 				eventPublisher.publishEvent(event);
 			}else if (biiSpecId==1002){
@@ -80,7 +82,7 @@ public class CreateCustomerOrder implements ICreateCustomerOrder {
 			long biiSpecId=productOrder.getBusinessInteractionItemSpecId();
 			//TODO replace with real newConnectionID
 			if(biiSpecId==2001){
-				CreateNewProductOrderRequested event=new CreateNewProductOrderRequested(this);
+				NewProductOrderRequested event=new NewProductOrderRequested(this);
 				event.setProductOrder(productOrder);
 				eventPublisher.publishEvent(event);
 			}else if (biiSpecId==2002){

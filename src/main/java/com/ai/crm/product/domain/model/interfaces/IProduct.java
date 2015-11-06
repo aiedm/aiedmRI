@@ -2,19 +2,8 @@ package com.ai.crm.product.domain.model.interfaces;
 
 import java.util.Set;
 
-import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntityCharacter;
 import com.ai.common.rootentity.domain.model.interfaces.ISpecificationInstanceEntity;
-import com.ai.crm.product.domain.model.impl.Product;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-@JsonTypeInfo(
-	    use = JsonTypeInfo.Id.NAME,
-	    include = JsonTypeInfo.As.PROPERTY,
-	    property = "type")
-	@JsonSubTypes({
-		@Type(value = Product.class, name = "Product")
-	    })
+
 public interface IProduct extends ISpecificationInstanceEntity{
 	enum ProductState {
 		INITIATED(0),
@@ -35,8 +24,6 @@ public interface IProduct extends ISpecificationInstanceEntity{
 	        return value; 
 	    } 
 	}
-	long getProductId();
-	void setProductId(long productId);
 	Set<IProductBarReason> getBarReasons();
 	void addBarReason(IProductBarReason productBarReason);
 	Set<IOfferInstance> getParticipantOfferInstances();
@@ -51,6 +38,4 @@ public interface IProduct extends ISpecificationInstanceEntity{
 	void setProductSpecificationId(long productSpecificationId);
 	String getSerialNumber();
 	void setSerialNumber(String serialNumber);
-	Set<IInstanceEntityCharacter> getProductCharacters();
-	void addProductCharacter(IInstanceEntityCharacter productCharacter);
 }

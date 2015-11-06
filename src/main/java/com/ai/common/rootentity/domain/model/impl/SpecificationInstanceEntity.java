@@ -3,11 +3,20 @@ package com.ai.common.rootentity.domain.model.impl;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.ai.common.rootentity.domain.model.interfaces.ICharacteristicSpec;
+import com.ai.common.rootentity.domain.model.interfaces.ICharacteristicSpecValue;
 import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntityCharacterValue;
 import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntityCharacter;
 import com.ai.common.rootentity.domain.model.interfaces.ISpecificationInstanceEntity;
+import com.ai.common.rootentity.domain.repository.interfaces.ICharacterSpecificationRepository;
 
 public abstract class SpecificationInstanceEntity extends InstanceEntity implements ISpecificationInstanceEntity {
+	
+	@Autowired
+	private ICharacterSpecificationRepository characterSpecificationRepository ;
+	
 	private  Set<IInstanceEntityCharacter> instanceEntityCharacteristics=new HashSet<IInstanceEntityCharacter>();
 		
 	public Set<IInstanceEntityCharacter> getCharacteristics() {
@@ -24,7 +33,9 @@ public abstract class SpecificationInstanceEntity extends InstanceEntity impleme
 	public IInstanceEntityCharacter getInstEntityCharByCode(String characteristicCode)  throws Exception{
 		IInstanceEntityCharacter instCharacteristic=null;
 		for (IInstanceEntityCharacter aInstCharacteristic:instanceEntityCharacteristics) {
-			if(aInstCharacteristic.getCharacteristic().getCode().equalsIgnoreCase(characteristicCode)){
+			long characteristicSpecId=aInstCharacteristic.getCharacteristicSpecId();
+			ICharacteristicSpec aCharacteristicSpec=characterSpecificationRepository.getCharacteristicSpecById(characteristicSpecId);
+			if(aCharacteristicSpec.getCode().equalsIgnoreCase(characteristicCode)){
 				instCharacteristic=aInstCharacteristic;
 				break;
 			}		
@@ -35,7 +46,7 @@ public abstract class SpecificationInstanceEntity extends InstanceEntity impleme
 	public IInstanceEntityCharacter getInstEntityCharById(long characteristicId)  throws Exception{
 		IInstanceEntityCharacter instCharacteristic=null;
 		for (IInstanceEntityCharacter aInstCharacteristic:instanceEntityCharacteristics) {
-			if(aInstCharacteristic.getCharacteristic().getId()==characteristicId){
+			if(aInstCharacteristic.getCharacteristicSpecId()==characteristicId){
 				instCharacteristic=aInstCharacteristic;
 				break;
 			}		
@@ -65,7 +76,9 @@ public abstract class SpecificationInstanceEntity extends InstanceEntity impleme
 				IInstanceEntityCharacterValue instValue= (IInstanceEntityCharacterValue)values.toArray()[valuePosition];
 				value=instValue.getInputedValue();
 				if (null==value){
-					value=instValue.getCharacteristicSpecValue().getValue();
+					long characteristicSpecValueId=instValue.getCharacteristicSpecValueId();
+					ICharacteristicSpecValue characteristicSpecValue =characterSpecificationRepository.getCharacteristicSpecValueById(characteristicSpecValueId);
+					value=characteristicSpecValue.getValue();
 				}				
 			}
 		}
