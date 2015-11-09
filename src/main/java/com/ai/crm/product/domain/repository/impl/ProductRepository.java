@@ -1,10 +1,12 @@
 package com.ai.crm.product.domain.repository.impl;
 
+import org.springframework.stereotype.Component;
+
 import com.ai.crm.product.domain.model.interfaces.IOfferInstance;
 import com.ai.crm.product.domain.model.interfaces.IPricePlanInstance;
 import com.ai.crm.product.domain.model.interfaces.IProduct;
 import com.ai.crm.product.domain.repository.interfaces.IProductRepository;
-
+@Component
 public class ProductRepository implements IProductRepository {
 
 	public ProductRepository() {

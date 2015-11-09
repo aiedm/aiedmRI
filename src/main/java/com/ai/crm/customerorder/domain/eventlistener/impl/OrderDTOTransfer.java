@@ -3,11 +3,10 @@ package com.ai.crm.customerorder.domain.eventlistener.impl;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.Map.Entry;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import com.ai.common.policy.domain.model.interfaces.IPolicyVariable;
 import com.ai.common.rootentity.domain.model.impl.InstanceEntityCharacter;
 import com.ai.common.rootentity.domain.model.impl.InstanceEntityCharacterValue;
 import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntityCharacter;
@@ -43,7 +42,7 @@ import com.ai.crm.product.domain.model.interfaces.IPricePlanInstance;
 import com.ai.crm.product.domain.model.interfaces.IProduct;
 import com.ai.crm.product.domain.model.interfaces.IProductPriceRel;
 import com.ai.crm.product.domain.repository.interfaces.IProductRepository;
-
+@Component
 public class OrderDTOTransfer implements IOrderDTOTransfer{
 	@Autowired
 	private ICustomerOrderRepository customerOrderRepository;

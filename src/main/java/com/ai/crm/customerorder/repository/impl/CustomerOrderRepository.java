@@ -20,7 +20,8 @@ public class CustomerOrderRepository implements ICustomerOrderRepository {
 	public ICustomerOrder getCustomerOrderByID(long customerOrderId) {
 		ICustomerOrder customerOrder=new CustomerOrder();
 		customerOrder.setCustomerOrderId(customerOrderId);
-		return new CustomerOrder();
+		customerOrder.setCustomerOrderCode("20150917");
+		return customerOrder;
 	}
 
 }

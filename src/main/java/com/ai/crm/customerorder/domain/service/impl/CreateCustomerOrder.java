@@ -7,9 +7,6 @@ import org.springframework.stereotype.Component;
 
 import com.ai.common.rootentity.domain.service.interfaces.IEventPublisher;
 import com.ai.crm.customerorder.domain.event.createorder.CreateCustomerOrderFinished;
-import com.ai.crm.customerorder.domain.event.createorder.CheckNewOfferOrderRequested;
-import com.ai.crm.customerorder.domain.event.createorder.CheckNewProductOrderRequested;
-import com.ai.crm.customerorder.domain.event.createorder.CreateOfferOrderFinished;
 import com.ai.crm.customerorder.domain.event.createorder.CustomerOrderCreated;
 import com.ai.crm.customerorder.domain.event.createorder.NewOfferOrderCreated;
 import com.ai.crm.customerorder.domain.event.createorder.NewOfferOrderRequested;
@@ -18,7 +15,6 @@ import com.ai.crm.customerorder.domain.event.createorder.NewProductOrderRequeste
 import com.ai.crm.customerorder.domain.model.interfaces.ICustomerOrder;
 import com.ai.crm.customerorder.domain.model.interfaces.IOfferOrderItem;
 import com.ai.crm.customerorder.domain.model.interfaces.IProductOrderItem;
-import com.ai.crm.customerorder.domain.model.interfaces.IShoppingCart;
 import com.ai.crm.customerorder.domain.service.interfaces.ICreateCustomerOrder;
 @Component
 public class CreateCustomerOrder implements ICreateCustomerOrder {
@@ -28,8 +24,8 @@ public class CreateCustomerOrder implements ICreateCustomerOrder {
 	@Autowired
 	private IEventPublisher eventPublisher;
 	
-	
 	public void createCustomerOrder(ICustomerOrder customerOrder)  throws Exception{
+		
 		customerOrder.setOrderState(ICustomerOrder.CustomerOrderState.CREATED.getValue());
 		CustomerOrderCreated event=new CustomerOrderCreated(this);
 		event.setCustomerOrder(customerOrder);

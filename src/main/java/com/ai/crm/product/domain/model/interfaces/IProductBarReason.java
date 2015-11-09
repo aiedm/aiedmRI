@@ -1,17 +1,7 @@
 package com.ai.crm.product.domain.model.interfaces;
 
 import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntity;
-import com.ai.crm.product.domain.model.impl.ProductBarReason;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-@JsonTypeInfo(
-	    use = JsonTypeInfo.Id.NAME,
-	    include = JsonTypeInfo.As.PROPERTY,
-	    property = "type")
-	@JsonSubTypes({
-		@Type(value = ProductBarReason.class, name = "ProductBarReason")
-	    })
+
 public interface IProductBarReason extends IInstanceEntity{
 	enum BarCode {
 		APPLIED_ONE_WAY_BAR(1),

@@ -5,11 +5,9 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import com.ai.crm.customerorder.application.service.api.dto.CustomerOrderDTO;
-import com.ai.crm.customerorder.domain.event.createorder.CreateCustomerOrderFinished;
-import com.ai.crm.customerorder.domain.event.createorder.CheckNewOfferOrderPassed;
-import com.ai.crm.customerorder.domain.event.createorder.CheckNewProductOrderPassed;
-import com.ai.crm.customerorder.domain.event.createorder.CreateOfferOrderFinished;
 import com.ai.crm.customerorder.domain.event.createorder.CheckOrderCustomerAvalibityPassed;
+import com.ai.crm.customerorder.domain.event.createorder.CreateCustomerOrderFinished;
+import com.ai.crm.customerorder.domain.event.createorder.CreateOfferOrderFinished;
 import com.ai.crm.customerorder.domain.event.createorder.CustomerOrderCreated;
 import com.ai.crm.customerorder.domain.event.createorder.NewOfferOrderCreated;
 import com.ai.crm.customerorder.domain.event.createorder.NewOfferOrderRequested;

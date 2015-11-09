@@ -3,6 +3,16 @@ package com.ai.crm.customerorder.application.service.api.dto;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
+@JsonTypeInfo(
+	    use = JsonTypeInfo.Id.NAME,
+	    include = JsonTypeInfo.As.PROPERTY,
+	    property = "type")
+@JsonSubTypes({
+			@Type(value = ToBePricePlanInstanceDTO.class, name = "ToBePricePlanInstanceDTO")
+})
 public class ToBePricePlanInstanceDTO {
 	private long pricePlanId;
 	private long pricePlanInstanceId;

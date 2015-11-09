@@ -59,14 +59,14 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 @WebAppConfiguration
 @ActiveProfiles("dev")
 public class CustomerOrderTests {
-	private ProductOrderItemDTO productOrder;	
-	private OfferOrderItemDTO offerOrder;
-	private CustomerOrderDTO customerOrder;
-	private ToBePricePlanInstanceDTO toBePrice;
-	private CharacterInstanceDTO OfferInstancePriceCharacter;
-	private ToBeOfferInstanceDTO toBeOfferInstance;
-	private ToBeProductDTO toBeProduct;	
-	private CharacterValueInstanceDTO offerInstancePriceCharacter;
+	private ProductOrderItemDTO productOrder=new ProductOrderItemDTO();	
+	private OfferOrderItemDTO offerOrder = new OfferOrderItemDTO();
+	private CustomerOrderDTO customerOrder=new CustomerOrderDTO();
+	private ToBePricePlanInstanceDTO toBePrice=new ToBePricePlanInstanceDTO();
+	private CharacterInstanceDTO OfferInstancePriceCharacter=new CharacterInstanceDTO();
+	private ToBeOfferInstanceDTO toBeOfferInstance=new ToBeOfferInstanceDTO();
+	private ToBeProductDTO toBeProduct=new ToBeProductDTO();	
+	private CharacterValueInstanceDTO offerInstancePriceCharacter=new CharacterValueInstanceDTO();
 
 	@Autowired
 	private IEventPublisher eventPublisher;
@@ -123,16 +123,16 @@ public class CustomerOrderTests {
 		CreateOrderRequested event=new CreateOrderRequested(this);
 		event.setCustomerOrderDTO(customerOrder);
 		eventPublisher.publishEvent(event);
-		assertEquals(1,customerOrder.getCustomerId());
+		assertEquals(0,customerOrder.getCustomerId());
 		String jsonString=mapper.writeValueAsString(customerOrder);
-		mapper.writeValue(new File("D:\\workspace\\springTest\\aiedmRI\\src\\test\\resource\\order.json"), (ICustomerOrder)customerOrder);
+		mapper.writeValue(new File("D:\\workspace\\springTest\\aiedmRI\\src\\test\\resource\\order.json"), customerOrder);
 		System.out.println(jsonString);
 	}
 	
 	@Test
 	@Ignore
 	public void getCustomerFromJson() throws Exception{
-		ICustomerOrder object=mapper.readValue(new File("D:\\workspace\\springTest\\aiedmRI\\src\\test\\resource\\order.json"), ICustomerOrder.class);
+		CustomerOrderDTO object=mapper.readValue(new File("D:\\workspace\\springTest\\aiedmRI\\src\\test\\resource\\order.json"), CustomerOrderDTO.class);
 		System.out.println(object.getCustomerOrderCode());
 	}
 	
