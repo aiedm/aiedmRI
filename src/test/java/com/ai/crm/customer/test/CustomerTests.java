@@ -22,7 +22,7 @@ import com.ai.crm.customer.domain.model.interfaces.ILegalCustomer;
 import com.ai.crm.customer.repository.interfaces.ICustomerRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes=DevelopmentProfileConfig.class)
+@ContextConfiguration(locations={"classpath:spring/root-context.xml","classpath:spring/appServlet/servlet-context.xml"})
 @ActiveProfiles("dev")
 public class CustomerTests{
 	@Autowired 

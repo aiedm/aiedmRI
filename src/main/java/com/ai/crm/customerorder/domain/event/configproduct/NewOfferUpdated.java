@@ -1,13 +1,13 @@
 package com.ai.crm.customerorder.domain.event.configproduct;
 
-import com.ai.crm.customerorder.domain.model.interfaces.IToBeOfferInstance;
+import com.ai.crm.customerorder.domain.model.ToBeOfferInstance;
 
 public class NewOfferUpdated {
-	private IToBeOfferInstance toBeOfferInstance;
-	public IToBeOfferInstance getToBeOfferInstance() {
+	private ToBeOfferInstance toBeOfferInstance;
+	public ToBeOfferInstance getToBeOfferInstance() {
 		return toBeOfferInstance;
 	}
-	public void setToBeOfferInstance(IToBeOfferInstance toBeOfferInstance) {
+	public void setToBeOfferInstance(ToBeOfferInstance toBeOfferInstance) {
 		this.toBeOfferInstance = toBeOfferInstance;
 	}
 	public NewOfferUpdated() {

@@ -1,5 +1,7 @@
 package com.ai.crm.customerorder.domain.service.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +14,9 @@ import com.ai.crm.customerorder.domain.event.createorder.NewOfferOrderCreated;
 import com.ai.crm.customerorder.domain.event.createorder.NewOfferOrderRequested;
 import com.ai.crm.customerorder.domain.event.createorder.NewProductOrderCreated;
 import com.ai.crm.customerorder.domain.event.createorder.NewProductOrderRequested;
-import com.ai.crm.customerorder.domain.model.interfaces.ICustomerOrder;
-import com.ai.crm.customerorder.domain.model.interfaces.IOfferOrderItem;
-import com.ai.crm.customerorder.domain.model.interfaces.IProductOrderItem;
+import com.ai.crm.customerorder.domain.model.CustomerOrder;
+import com.ai.crm.customerorder.domain.model.OfferOrderItem;
+import com.ai.crm.customerorder.domain.model.ProductOrderItem;
 import com.ai.crm.customerorder.domain.service.interfaces.ICreateCustomerOrder;
 @Component
 public class CreateCustomerOrder implements ICreateCustomerOrder {
@@ -24,24 +26,26 @@ public class CreateCustomerOrder implements ICreateCustomerOrder {
 	@Autowired
 	private IEventPublisher eventPublisher;
 	
-	public void createCustomerOrder(ICustomerOrder customerOrder)  throws Exception{
-		
-		customerOrder.setOrderState(ICustomerOrder.CustomerOrderState.CREATED.getValue());
+	public void createCustomerOrder(CustomerOrder customerOrder)  throws Exception{
+		if(customerOrder.getCustomerOrderId()==0){
+			
+		}
+		customerOrder.setOrderState(CustomerOrder.CustomerOrderState.CREATED.getValue());
 		CustomerOrderCreated event=new CustomerOrderCreated(this);
 		event.setCustomerOrder(customerOrder);
 		eventPublisher.publishEvent(event);
 	}
 
-	public void createNewOfferOrder(IOfferOrderItem offerOrder)  throws Exception{
-		offerOrder.setOfferOrderState(IOfferOrderItem.OfferOrderState.CREATED.getValue());
+	public void createNewOfferOrder(OfferOrderItem offerOrder)  throws Exception{
+		offerOrder.setOfferOrderState(OfferOrderItem.OfferOrderState.CREATED.getValue());
 		NewOfferOrderCreated event=new NewOfferOrderCreated(this);
 		event.setOfferOrder(offerOrder);
 		eventPublisher.publishEvent(event);
 	}
 	
 
-	public void createNewProductOrder(IProductOrderItem productOrder)  throws Exception{
-		productOrder.setProductOrderState(IProductOrderItem.ProductOrderState.CREATED.getValue());
+	public void createNewProductOrder(ProductOrderItem productOrder)  throws Exception{
+		productOrder.setProductOrderState(ProductOrderItem.ProductOrderState.CREATED.getValue());
 		//deal with subscriber
 		
 		NewProductOrderCreated event=new NewProductOrderCreated(this);
@@ -49,10 +53,10 @@ public class CreateCustomerOrder implements ICreateCustomerOrder {
 		eventPublisher.publishEvent(event);
 	}
 	
-	public void distributeOrderItemCreate(ICustomerOrder customerOrder)  throws Exception{
+	public void distributeOrderItemCreate(CustomerOrder customerOrder)  throws Exception{
 		//OfferOrderItem
-		Set<IOfferOrderItem> offerOrders=customerOrder.getOfferOrders();
-		for (IOfferOrderItem offerOrder:offerOrders) {
+		Set<OfferOrderItem> offerOrders=customerOrder.getOfferOrders();
+		for (OfferOrderItem offerOrder:offerOrders) {
 			if(null==offerOrder.getCustomerOrder()){
 				offerOrder.setCustomerOrder(customerOrder);
 			}
@@ -70,8 +74,8 @@ public class CreateCustomerOrder implements ICreateCustomerOrder {
 				//replace 
 			}
 		}
-		Set<IProductOrderItem> productOrders=customerOrder.getProductOrders();
-		for (IProductOrderItem productOrder:productOrders) {
+		Set<ProductOrderItem> productOrders=customerOrder.getProductOrders();
+		for (ProductOrderItem productOrder:productOrders) {
 			if(null==productOrder.getCustomerOrder()){
 				productOrder.setCustomerOrder(customerOrder);
 			}
@@ -89,28 +93,28 @@ public class CreateCustomerOrder implements ICreateCustomerOrder {
 		}		
 	}
 	
-	public boolean isCustomerOrderCreateFinishedOfLastOfferOrder(IOfferOrderItem offerOrder)  throws Exception{
+	public boolean isCustomerOrderCreateFinishedOfLastOfferOrder(OfferOrderItem offerOrder)  throws Exception{
 		boolean isCustomerOrderCreateFinished=true;
 		//if this offerOrder is the Last OrderLine of Finished
-		ICustomerOrder customerOrder=offerOrder.getCustomerOrder();
-		Set<IOfferOrderItem> offerOrders=customerOrder.getOfferOrders();
-		for (IOfferOrderItem aOfferOrder:offerOrders) {
-			if(IOfferOrderItem.OfferOrderState.INITIATED.getValue() == aOfferOrder.getOfferOrderState()){
+		CustomerOrder customerOrder=offerOrder.getCustomerOrder();
+		Set<OfferOrderItem> offerOrders=customerOrder.getOfferOrders();
+		for (OfferOrderItem aOfferOrder:offerOrders) {
+			if(OfferOrderItem.OfferOrderState.INITIATED.getValue() == aOfferOrder.getOfferOrderState()){
 				isCustomerOrderCreateFinished=false;
 				break;
 			}
 		}
 		if(isCustomerOrderCreateFinished){
-			Set<IProductOrderItem> productOrders=customerOrder.getProductOrders();
-			for (IProductOrderItem aProductOrder:productOrders) {
-				if(IProductOrderItem.ProductOrderState.INITIATED.getValue() == aProductOrder.getProductOrderState()){
+			Set<ProductOrderItem> productOrders=customerOrder.getProductOrders();
+			for (ProductOrderItem aProductOrder:productOrders) {
+				if(ProductOrderItem.ProductOrderState.INITIATED.getValue() == aProductOrder.getProductOrderState()){
 					isCustomerOrderCreateFinished=false;
 					break;
 				}
 			}	
 		}
 		if(isCustomerOrderCreateFinished){
-			offerOrder.getCustomerOrder().setOrderState(ICustomerOrder.CustomerOrderState.CREATED.getValue());
+			offerOrder.getCustomerOrder().setOrderState(CustomerOrder.CustomerOrderState.CREATED.getValue());
 			CreateCustomerOrderFinished event=new CreateCustomerOrderFinished(this);
 			event.setCustomerOrder(offerOrder.getCustomerOrder());
 			eventPublisher.publishEvent(event);
@@ -118,28 +122,28 @@ public class CreateCustomerOrder implements ICreateCustomerOrder {
 		return isCustomerOrderCreateFinished;
 	}
 	
-	public boolean isCustomerOrderCreateFinishedOfLastProductOrder(IProductOrderItem productOrder)  throws Exception{
+	public boolean isCustomerOrderCreateFinishedOfLastProductOrder(ProductOrderItem productOrder)  throws Exception{
 		boolean isCustomerOrderCreateFinished=true;
 		//if this productOrder is the Last OrderLine of Finished
-		ICustomerOrder customerOrder=productOrder.getCustomerOrder();
-		Set<IProductOrderItem> productOrders=customerOrder.getProductOrders();
-		for (IProductOrderItem aProductOrder:productOrders) {
-			if(IProductOrderItem.ProductOrderState.INITIATED.getValue() == aProductOrder.getProductOrderState()){
+		CustomerOrder customerOrder=productOrder.getCustomerOrder();
+		Set<ProductOrderItem> productOrders=customerOrder.getProductOrders();
+		for (ProductOrderItem aProductOrder:productOrders) {
+			if(ProductOrderItem.ProductOrderState.INITIATED.getValue() == aProductOrder.getProductOrderState()){
 				isCustomerOrderCreateFinished=false;
 				break;
 			}
 		}
 		if(isCustomerOrderCreateFinished){
-			Set<IOfferOrderItem> offerOrders=customerOrder.getOfferOrders();
-			for (IOfferOrderItem aOfferOrder:offerOrders) {
-				if(IOfferOrderItem.OfferOrderState.INITIATED.getValue() == aOfferOrder.getOfferOrderState()){
+			Set<OfferOrderItem> offerOrders=customerOrder.getOfferOrders();
+			for (OfferOrderItem aOfferOrder:offerOrders) {
+				if(OfferOrderItem.OfferOrderState.INITIATED.getValue() == aOfferOrder.getOfferOrderState()){
 					isCustomerOrderCreateFinished=false;
 					break;
 				}
 			}
 		}
 		if(isCustomerOrderCreateFinished){
-			productOrder.getCustomerOrder().setOrderState(ICustomerOrder.CustomerOrderState.CREATED.getValue());
+			productOrder.getCustomerOrder().setOrderState(CustomerOrder.CustomerOrderState.CREATED.getValue());
 			CreateCustomerOrderFinished event=new CreateCustomerOrderFinished(this);
 			event.setCustomerOrder(productOrder.getCustomerOrder());
 			eventPublisher.publishEvent(event);
@@ -149,15 +153,24 @@ public class CreateCustomerOrder implements ICreateCustomerOrder {
 	
 
 	@Override
-	public void createCustomerOrder(ICustomerOrder customerOrder, long shoppingCartId) throws Exception {
+	public void createCustomerOrder(CustomerOrder customerOrder, long shoppingCartId) throws Exception {
 		
 		
 	}
 
 	@Override
-	public void startOrder(ICustomerOrder customerOrder) throws Exception{
+	public void startOrder(CustomerOrder customerOrder) throws Exception{
 		
 		
+	}
+
+	@Override
+	public String generateCustomerOrderCode() throws Exception {
+		StringBuffer sb=new StringBuffer();
+		SimpleDateFormat dateFormater = new SimpleDateFormat("yyyyMMddhhmmss");
+		Date date=new Date();
+		sb.append(dateFormater.format(date));
+		return sb.toString();
 	}	
 	
 }

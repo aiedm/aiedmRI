@@ -1,25 +1,25 @@
 package com.ai.crm.customerorder.domain.event.configproduct;
 
-import com.ai.common.rootentity.domain.model.impl.BaseEvent;
-import com.ai.crm.customerorder.domain.model.interfaces.IToBeOfferInstance;
-import com.ai.crm.customerorder.domain.model.interfaces.IToBeProduct;
+import com.ai.common.rootentity.domain.model.BaseEvent;
+import com.ai.crm.customerorder.domain.model.ToBeOfferInstance;
+import com.ai.crm.customerorder.domain.model.ToBeProduct;
 
 public class NewProductUnSelected extends BaseEvent {
-	private IToBeOfferInstance toBeOfferInstance;
-	private IToBeProduct toBeProduct;
-	public IToBeOfferInstance getToBeOfferInstance() {
+	private ToBeOfferInstance toBeOfferInstance;
+	private ToBeProduct toBeProduct;
+	public ToBeOfferInstance getToBeOfferInstance() {
 		return toBeOfferInstance;
 	}
 
-	public void setToBeOfferInstance(IToBeOfferInstance toBeOfferInstance) {
+	public void setToBeOfferInstance(ToBeOfferInstance toBeOfferInstance) {
 		this.toBeOfferInstance = toBeOfferInstance;
 	}
 
-	public IToBeProduct getToBeProduct() {
+	public ToBeProduct getToBeProduct() {
 		return toBeProduct;
 	}
 
-	public void setToBeProduct(IToBeProduct toBeProduct) {
+	public void setToBeProduct(ToBeProduct toBeProduct) {
 		this.toBeProduct = toBeProduct;
 	}
 	

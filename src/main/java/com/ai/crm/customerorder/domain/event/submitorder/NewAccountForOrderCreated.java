@@ -1,10 +1,10 @@
 package com.ai.crm.customerorder.domain.event.submitorder;
 
-import com.ai.common.rootentity.domain.model.impl.BaseEvent;
-import com.ai.crm.customerorder.domain.model.interfaces.ICustomerOrder;
+import com.ai.common.rootentity.domain.model.BaseEvent;
+import com.ai.crm.customerorder.domain.model.CustomerOrder;
 
 public class NewAccountForOrderCreated extends BaseEvent {
-	private ICustomerOrder customerOrder;
+	private CustomerOrder customerOrder;
 	private long customerAccountId;
 	public long getCustomerAccountId() {
 		return customerAccountId;
@@ -12,10 +12,10 @@ public class NewAccountForOrderCreated extends BaseEvent {
 	public void setCustomerAccountId(long customerAccountId) {
 		this.customerAccountId = customerAccountId;
 	}
-	public ICustomerOrder getCustomerOrder() {
+	public CustomerOrder getCustomerOrder() {
 		return customerOrder;
 	}
-	public void setCustomerOrder(ICustomerOrder customerOrder) {
+	public void setCustomerOrder(CustomerOrder customerOrder) {
 		this.customerOrder = customerOrder;
 	}
 	public NewAccountForOrderCreated(Object source) {

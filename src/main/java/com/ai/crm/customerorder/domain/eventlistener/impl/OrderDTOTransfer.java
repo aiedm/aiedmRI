@@ -7,13 +7,10 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.ai.common.rootentity.domain.model.impl.InstanceEntityCharacter;
-import com.ai.common.rootentity.domain.model.impl.InstanceEntityCharacterValue;
-import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntityCharacter;
-import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntityCharacterValue;
-import com.ai.common.rootentity.domain.model.interfaces.ISpecificationInstanceEntity;
-import com.ai.crm.common.businessinteraction.domain.model.impl.BIIRelatedEntity;
-import com.ai.crm.common.businessinteraction.domain.model.interfaces.IBIIRelatedEntity;
+import com.ai.common.rootentity.domain.model.InstanceEntityCharacter;
+import com.ai.common.rootentity.domain.model.InstanceEntityCharacterValue;
+import com.ai.common.rootentity.domain.model.SpecificationInstanceEntity;
+import com.ai.crm.common.businessinteraction.domain.model.BIIRelatedEntity;
 import com.ai.crm.customerorder.application.service.api.dto.CharacterInstanceDTO;
 import com.ai.crm.customerorder.application.service.api.dto.CharacterValueInstanceDTO;
 import com.ai.crm.customerorder.application.service.api.dto.CustomerOrderDTO;
@@ -23,37 +20,29 @@ import com.ai.crm.customerorder.application.service.api.dto.ToBeOfferInstanceDTO
 import com.ai.crm.customerorder.application.service.api.dto.ToBePricePlanInstanceDTO;
 import com.ai.crm.customerorder.application.service.api.dto.ToBeProductDTO;
 import com.ai.crm.customerorder.domain.eventlistener.interfaces.IOrderDTOTransfer;
-import com.ai.crm.customerorder.domain.model.impl.CustomerOrder;
-import com.ai.crm.customerorder.domain.model.impl.OfferOrderItem;
-import com.ai.crm.customerorder.domain.model.impl.ProductOrderItem;
-import com.ai.crm.customerorder.domain.model.impl.ToBeOfferInstance;
-import com.ai.crm.customerorder.domain.model.impl.ToBePricePlanInstance;
-import com.ai.crm.customerorder.domain.model.impl.ToBeProduct;
-import com.ai.crm.customerorder.domain.model.interfaces.ICustomerOrder;
-import com.ai.crm.customerorder.domain.model.interfaces.IOfferOrderItem;
-import com.ai.crm.customerorder.domain.model.interfaces.IProductOrderItem;
-import com.ai.crm.customerorder.domain.model.interfaces.IToBeOfferInstance;
-import com.ai.crm.customerorder.domain.model.interfaces.IToBePricePlanInstance;
-import com.ai.crm.customerorder.domain.model.interfaces.IToBeProduct;
-import com.ai.crm.customerorder.repository.interfaces.ICustomerOrderRepository;
-import com.ai.crm.product.domain.model.impl.ProductPriceRel;
-import com.ai.crm.product.domain.model.interfaces.IOfferInstance;
-import com.ai.crm.product.domain.model.interfaces.IPricePlanInstance;
-import com.ai.crm.product.domain.model.interfaces.IProduct;
-import com.ai.crm.product.domain.model.interfaces.IProductPriceRel;
+import com.ai.crm.customerorder.domain.model.CustomerOrder;
+import com.ai.crm.customerorder.domain.model.OfferOrderItem;
+import com.ai.crm.customerorder.domain.model.ProductOrderItem;
+import com.ai.crm.customerorder.domain.model.ToBeOfferInstance;
+import com.ai.crm.customerorder.domain.model.ToBePricePlanInstance;
+import com.ai.crm.customerorder.domain.model.ToBeProduct;
+import com.ai.crm.customerorder.repository.impl.CustomerOrderRepository;
+import com.ai.crm.product.domain.model.OfferInstance;
+import com.ai.crm.product.domain.model.PricePlanInstance;
+import com.ai.crm.product.domain.model.Product;
+import com.ai.crm.product.domain.model.ProductPriceRel;
 import com.ai.crm.product.domain.repository.interfaces.IProductRepository;
 @Component
 public class OrderDTOTransfer implements IOrderDTOTransfer{
 	@Autowired
-	private ICustomerOrderRepository customerOrderRepository;
+	private CustomerOrderRepository customerOrderRepository;
 	@Autowired
 	private IProductRepository productRepository ;
 	@Override
-	public ICustomerOrder transformNewDTO2Order(CustomerOrderDTO customerOrderDTO) throws Exception{
-		ICustomerOrder customerOrder=new CustomerOrder();
+	public CustomerOrder transformNewDTO2Order(CustomerOrderDTO customerOrderDTO) throws Exception{
+		CustomerOrder customerOrder=new CustomerOrder(customerOrderDTO.getBusinessInteractionSpecId());
 		//TODO setVersion++
 		customerOrder.setShoppingCartId(customerOrderDTO.getShoppingCartId());
-		customerOrder.setBusinessInteractionSpecId(customerOrderDTO.getBusinessInteractionSpecId());
 		customerOrder.setCustomerOrderId(customerOrderDTO.getCustomerOrderId());
 		customerOrder.setCustomerOrderCode(customerOrderDTO.getCustomerOrderCode());
 		this.addCharacter(customerOrderDTO.getCustomerOrderCharacters(), customerOrder);
@@ -63,17 +52,17 @@ public class OrderDTOTransfer implements IOrderDTOTransfer{
 		return customerOrder;
 	}
 	
-	private void transferOfferOrderItem(Set<OfferOrderItemDTO> offerOrderDTOs,ICustomerOrder customerOrder) throws Exception{
+	private void transferOfferOrderItem(Set<OfferOrderItemDTO> offerOrderDTOs,CustomerOrder customerOrder) throws Exception{
 		if(offerOrderDTOs.size()>0){
 			for (OfferOrderItemDTO offerOrderItemDTO : offerOrderDTOs) {
-				IOfferOrderItem offerOrderItem=new OfferOrderItem(customerOrder);
+				OfferOrderItem offerOrderItem=new OfferOrderItem(customerOrder);
 				offerOrderItem.setBusinessInteractionItemSpecId(offerOrderItemDTO.getBusinessInteractionItemSpecId());
 				offerOrderItem.setOfferOrderId(offerOrderItemDTO.getOfferOrderItemId());
 				long replacedOffeRInstanceId=offerOrderItemDTO.getReplacedOfferInstanceId();
 				if (replacedOffeRInstanceId>0){
-					IOfferOrderItem replacedOfferOrderItem=new OfferOrderItem(customerOrder);
-					IToBeOfferInstance repalcedToBeOfferInstance=(IToBeOfferInstance)productRepository.getOfferInstanceById(replacedOffeRInstanceId);
-					IBIIRelatedEntity relatEntity=new BIIRelatedEntity();
+					OfferOrderItem replacedOfferOrderItem=new OfferOrderItem(customerOrder);
+					ToBeOfferInstance repalcedToBeOfferInstance=(ToBeOfferInstance)productRepository.getOfferInstanceById(replacedOffeRInstanceId);
+					BIIRelatedEntity relatEntity=new BIIRelatedEntity();
 					relatEntity.setToBeInstanceEntity(repalcedToBeOfferInstance);
 					relatEntity.setAction(2);
 					replacedOfferOrderItem.setRelatedEntity(relatEntity);
@@ -81,29 +70,29 @@ public class OrderDTOTransfer implements IOrderDTOTransfer{
 				}
 				this.addCharacter(offerOrderItemDTO.getCharacters(), offerOrderItem);
 				ToBeOfferInstanceDTO toBeOfferInstanceDTO = offerOrderItemDTO.getToBeOfferInstanceTDO();
-				IToBeOfferInstance toBeOfferInstance=new ToBeOfferInstance();
+				ToBeOfferInstance toBeOfferInstance=new ToBeOfferInstance();
 				toBeOfferInstance.setCustomerId(toBeOfferInstanceDTO.getCustomerId());
-				IBIIRelatedEntity relatEntity=new BIIRelatedEntity();
+				BIIRelatedEntity relatEntity=new BIIRelatedEntity();
 				relatEntity.setToBeInstanceEntity(toBeOfferInstance);
 				relatEntity.setAction(offerOrderItemDTO.getAction());
 				offerOrderItem.setRelatedEntity(relatEntity);
 				toBeOfferInstance.setProductOfferingId(toBeOfferInstanceDTO.getProductOffferingId());
 				long offerInstanceId=toBeOfferInstanceDTO.getOfferInstanceId();
 				if(offerInstanceId>0){
-					IOfferInstance asIsOfferInstance=productRepository.getOfferInstanceById(offerInstanceId);
+					OfferInstance asIsOfferInstance=productRepository.getOfferInstanceById(offerInstanceId);
 					toBeOfferInstance.setAsIsOfferInstance(asIsOfferInstance);
 				}
 				this.addCharacter(toBeOfferInstanceDTO.getOfferInstanceCharacteristics(), toBeOfferInstance);
 				Set<ToBePricePlanInstanceDTO> toBePricePlanInstanceDTOs = toBeOfferInstanceDTO.getPricePlanInstances();
-				Map<Integer, IToBePricePlanInstance> pricePlanSeqMap=new HashMap<Integer, IToBePricePlanInstance>();
+				Map<Integer, ToBePricePlanInstance> pricePlanSeqMap=new HashMap<Integer, ToBePricePlanInstance>();
 				if(toBePricePlanInstanceDTOs.size()>0){
 					for (ToBePricePlanInstanceDTO toBePricePlanInstanceDTO : toBePricePlanInstanceDTOs) {
-						IToBePricePlanInstance toBePricePlanInstance=new ToBePricePlanInstance();
+						ToBePricePlanInstance toBePricePlanInstance=new ToBePricePlanInstance();
 						toBePricePlanInstance.setPricePlanId(toBePricePlanInstanceDTO.getPricePlanId());
 						toBePricePlanInstance.setOfferInstance(toBeOfferInstance);
 						long asIsPricePlanInstanceId=toBePricePlanInstanceDTO.getPricePlanInstanceId();
 						if(asIsPricePlanInstanceId>0){
-							IPricePlanInstance asIsPricePlanInstance=productRepository.getPricePlanInstanceById(asIsPricePlanInstanceId);
+							PricePlanInstance asIsPricePlanInstance=productRepository.getPricePlanInstanceById(asIsPricePlanInstanceId);
 							toBePricePlanInstance.setAsIsPricePlanInstance(asIsPricePlanInstance);
 						}
 						toBePricePlanInstance.setPriceValue(toBePricePlanInstanceDTO.getInputedValue());
@@ -124,16 +113,16 @@ public class OrderDTOTransfer implements IOrderDTOTransfer{
 		}
 	}
 	
-	private void transferProductOrderItem(Set<ProductOrderItemDTO> productOrderDTOs,ICustomerOrder customerOrder) throws Exception{
+	private void transferProductOrderItem(Set<ProductOrderItemDTO> productOrderDTOs,CustomerOrder customerOrder) throws Exception{
 		if(productOrderDTOs.size()>0){
 			for (ProductOrderItemDTO productOrderItemDTO : productOrderDTOs) {
-				IProductOrderItem productOrderItem=new ProductOrderItem();
+				ProductOrderItem productOrderItem=new ProductOrderItem();
 				customerOrder.addProductOrder(productOrderItem);
 				productOrderItem.setBusinessInteractionItemSpecId(productOrderItemDTO.getBusinessInteractionItemSpecId());
 				productOrderItem.setProductOrderId(productOrderItemDTO.getProductOrderItemId());				
 				this.addCharacter(productOrderItemDTO.getCharacters(), productOrderItem);
-				IToBeProduct toBeProduct=this.transferToBeProduct(productOrderItemDTO.getToBeProductDTO(),null,null);				
-				IBIIRelatedEntity relatEntity=new BIIRelatedEntity();
+				ToBeProduct toBeProduct=this.transferToBeProduct(productOrderItemDTO.getToBeProductDTO(),null,null);				
+				BIIRelatedEntity relatEntity=new BIIRelatedEntity();
 				relatEntity.setToBeInstanceEntity(toBeProduct);
 				relatEntity.setAction(productOrderItemDTO.getAction());
 				productOrderItem.setRelatedEntity(relatEntity);
@@ -142,14 +131,14 @@ public class OrderDTOTransfer implements IOrderDTOTransfer{
 		}
 	}
 	
-	private IToBeProduct transferToBeProduct(ToBeProductDTO toBeProductDTO,IToBeOfferInstance toBeOfferInstance,Map<Integer, IToBePricePlanInstance> pricePlanSeqMap) throws Exception{
-		IToBeProduct toBeProduct=new ToBeProduct();
+	private ToBeProduct transferToBeProduct(ToBeProductDTO toBeProductDTO,ToBeOfferInstance toBeOfferInstance,Map<Integer, ToBePricePlanInstance> pricePlanSeqMap) throws Exception{
+		ToBeProduct toBeProduct=new ToBeProduct();
 		toBeProduct.setCustomerId(toBeProductDTO.getCustomerId());		
 		toBeProduct.setProductSpecificationId(toBeProductDTO.getProductSpecId());
 		toBeProduct.setSerialNumber(toBeProductDTO.getSerialNo());
 		long productId=toBeProductDTO.getProductId();
 		if(productId>0){
-			IProduct asIsProduct=productRepository.getProductById(productId);
+			Product asIsProduct=productRepository.getProductById(productId);
 			toBeProduct.setAsIsProduct(asIsProduct);
 		}
 		this.addCharacter(toBeProductDTO.getProductCharacteristics(), toBeProduct);
@@ -159,8 +148,8 @@ public class OrderDTOTransfer implements IOrderDTOTransfer{
 			Set<Long> assignedPriceSeqs=toBeProductDTO.getAssignedPriceTempSeqs();
 			if(assignedPriceSeqs.size()>0){
 				for (Long seq : assignedPriceSeqs) {
-					IToBePricePlanInstance toBePricePlanInstance = pricePlanSeqMap.get(seq);
-					IProductPriceRel productPriceRel=new ProductPriceRel();
+					ToBePricePlanInstance toBePricePlanInstance = pricePlanSeqMap.get(seq);
+					ProductPriceRel productPriceRel=new ProductPriceRel();
 					productPriceRel.setPricePlanInstance(toBePricePlanInstance);
 					productPriceRel.setProduct(toBeProduct);
 					toBeProduct.assignPrice(productPriceRel);
@@ -171,10 +160,10 @@ public class OrderDTOTransfer implements IOrderDTOTransfer{
 	}
 	
 	
-	private void addCharacter(Set<CharacterInstanceDTO> characterInstances,ISpecificationInstanceEntity instanceEntity) throws Exception{
+	private void addCharacter(Set<CharacterInstanceDTO> characterInstances,SpecificationInstanceEntity instanceEntity) throws Exception{
 		if(characterInstances.size()>0){
 			for (CharacterInstanceDTO characterInstanceDTO : characterInstances) {
-				IInstanceEntityCharacter character=new InstanceEntityCharacter();
+				InstanceEntityCharacter character=new InstanceEntityCharacter();
 				character.setCharacterInstanceId(characterInstanceDTO.getCharacterInstanceId());
 				character.setCharacteristicSpecId(characterInstanceDTO.getCharacteristicSpecId());
 				character.setAction(characterInstanceDTO.getAction());
@@ -182,7 +171,7 @@ public class OrderDTOTransfer implements IOrderDTOTransfer{
 				Set<CharacterValueInstanceDTO> characterValues=characterInstanceDTO.getCharacteristicValues();
 				if(characterValues.size()>0){
 					for (CharacterValueInstanceDTO characterValueInstanceDTO : characterValues) {
-						IInstanceEntityCharacterValue characterValue=new InstanceEntityCharacterValue();
+						InstanceEntityCharacterValue characterValue=new InstanceEntityCharacterValue();
 						characterValue.setCharacterValueInstanceId(characterValueInstanceDTO.getCharacterValueInstanceId());
 						characterValue.setCharacteristicValueId(characterValueInstanceDTO.getCharacteristicSpecValueId());
 						characterValue.setInputedValue(characterValueInstanceDTO.getInputedValue());
@@ -197,20 +186,20 @@ public class OrderDTOTransfer implements IOrderDTOTransfer{
 	
 	
 
-	public ICustomerOrder transformUpdateDTO2Order(CustomerOrderDTO customerOrderDTO) throws Exception{
+	public CustomerOrder transformUpdateDTO2Order(CustomerOrderDTO customerOrderDTO) throws Exception{
 		if(customerOrderDTO.getCustomerId()<=0){
 			throw new Exception("Customer Order Id can not be null!");
 		}
-		ICustomerOrder customerOrder = customerOrderRepository.getCustomerOrderByID(customerOrderDTO.getCustomerOrderId());
+		CustomerOrder customerOrder = customerOrderRepository.getCustomerOrderByID(customerOrderDTO.getCustomerOrderId());
 		
 		return customerOrder;
 	}
 	
-	public ICustomerOrder transformCancelDTO2Order(CustomerOrderDTO customerOrderDTO) throws Exception{
+	public CustomerOrder transformCancelDTO2Order(CustomerOrderDTO customerOrderDTO) throws Exception{
 		if(customerOrderDTO.getCustomerId()<=0){
 			throw new Exception("Customer Order Id can not be null!");
 		}
-		ICustomerOrder customerOrder = customerOrderRepository.getCustomerOrderByID(customerOrderDTO.getCustomerOrderId());
+		CustomerOrder customerOrder = customerOrderRepository.getCustomerOrderByID(customerOrderDTO.getCustomerOrderId());
 
 		return customerOrder;
 	}

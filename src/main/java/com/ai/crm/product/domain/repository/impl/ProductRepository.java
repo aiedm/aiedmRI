@@ -2,9 +2,9 @@ package com.ai.crm.product.domain.repository.impl;
 
 import org.springframework.stereotype.Component;
 
-import com.ai.crm.product.domain.model.interfaces.IOfferInstance;
-import com.ai.crm.product.domain.model.interfaces.IPricePlanInstance;
-import com.ai.crm.product.domain.model.interfaces.IProduct;
+import com.ai.crm.product.domain.model.OfferInstance;
+import com.ai.crm.product.domain.model.PricePlanInstance;
+import com.ai.crm.product.domain.model.Product;
 import com.ai.crm.product.domain.repository.interfaces.IProductRepository;
 @Component
 public class ProductRepository implements IProductRepository {
@@ -14,19 +14,19 @@ public class ProductRepository implements IProductRepository {
 	}
 
 	@Override
-	public IOfferInstance getOfferInstanceById(long offerInstanceId) throws Exception {
+	public OfferInstance getOfferInstanceById(long offerInstanceId) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public IProduct getProductById(long productId) throws Exception {
+	public Product getProductById(long productId) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public IPricePlanInstance getPricePlanInstanceById(long pricePlanInstanceId) throws Exception {
+	public PricePlanInstance getPricePlanInstanceById(long pricePlanInstanceId) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -2,10 +2,8 @@ package com.ai.common.rootentity.domain.repository.impl;
 
 import org.springframework.stereotype.Component;
 
-import com.ai.common.rootentity.domain.model.impl.CharacteristicSpec;
-import com.ai.common.rootentity.domain.model.impl.CharacteristicSpecValue;
-import com.ai.common.rootentity.domain.model.interfaces.ICharacteristicSpec;
-import com.ai.common.rootentity.domain.model.interfaces.ICharacteristicSpecValue;
+import com.ai.common.rootentity.domain.model.CharacteristicSpec;
+import com.ai.common.rootentity.domain.model.CharacteristicSpecValue;
 import com.ai.common.rootentity.domain.repository.interfaces.ICharacterSpecificationRepository;
 @Component
 public class CharacterSpecificationRepository implements ICharacterSpecificationRepository {
@@ -14,11 +12,11 @@ public class CharacterSpecificationRepository implements ICharacterSpecification
 		
 	}
 
-	@Override
-	public ICharacteristicSpec getCharacteristicSpecById(long characteristicSpecId) throws Exception {
-		ICharacteristicSpec charspec=new CharacteristicSpec();
+	
+	public CharacteristicSpec getCharacteristicSpecById(long characteristicSpecId) throws Exception {
+		CharacteristicSpec charspec=new CharacteristicSpec();
 		charspec.setCode("Color");
-		ICharacteristicSpecValue charSpecValue=new CharacteristicSpecValue();
+		CharacteristicSpecValue charSpecValue=new CharacteristicSpecValue();
 		charSpecValue.setCharacteristic(charspec);
 		charSpecValue.setCode("Gold");
 		charSpecValue.setValue("Gold");
@@ -26,9 +24,9 @@ public class CharacterSpecificationRepository implements ICharacterSpecification
 		return charspec;
 	}
 
-	@Override
-	public ICharacteristicSpecValue getCharacteristicSpecValueById(long characteristicSpecValueId) throws Exception {
-		ICharacteristicSpecValue charSpecValue=new CharacteristicSpecValue();
+	
+	public CharacteristicSpecValue getCharacteristicSpecValueById(long characteristicSpecValueId) throws Exception {
+		CharacteristicSpecValue charSpecValue=new CharacteristicSpecValue();
 		charSpecValue.setCode("Gold");
 		charSpecValue.setValue("Gold");
 		return charSpecValue;

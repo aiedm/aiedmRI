@@ -1,12 +1,12 @@
 package com.ai.crm.customer.repository.interfaces;
 
-import com.ai.crm.customer.domain.model.interfaces.IIndividualCustomer;
-import com.ai.crm.customer.domain.model.interfaces.ILegalCustomer;
+import com.ai.crm.customer.domain.model.IndividualCustomer;
+import com.ai.crm.customer.domain.model.LegalCustomer;
 
 
 public interface ICustomerRepository {
-	IIndividualCustomer saveIndividualCustomer(IIndividualCustomer individualCustomer);
-	ILegalCustomer saveLegalCustomer(ILegalCustomer legalCustomer); 
-	IIndividualCustomer findIndividualCustomer(long customerId);
-	ILegalCustomer findLegalCustomer(long customerId);
+	IndividualCustomer saveIndividualCustomer(IndividualCustomer individualCustomer);
+	LegalCustomer saveLegalCustomer(LegalCustomer legalCustomer); 
+	IndividualCustomer findIndividualCustomer(long customerId);
+	LegalCustomer findLegalCustomer(long customerId);
 }

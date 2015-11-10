@@ -18,19 +18,16 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.ai.common.rootentity.domain.service.impl.SpringEventPublisher;
 import com.ai.common.rootentity.domain.service.interfaces.IEventPublisher;
-import com.ai.crm.common.party.domain.model.impl.Department;
-import com.ai.crm.common.party.domain.model.impl.Individual;
-import com.ai.crm.common.party.domain.model.impl.LegalOrganization;
-import com.ai.crm.common.party.domain.model.interfaces.IDepartment;
-import com.ai.crm.common.party.domain.model.interfaces.IIndividual;
-import com.ai.crm.common.party.domain.model.interfaces.ILegalOrganization;
+import com.ai.crm.common.party.domain.model.Department;
+import com.ai.crm.common.party.domain.model.Individual;
+import com.ai.crm.common.party.domain.model.LegalOrganization;
+
 import com.ai.crm.common.party.eventlistener.PartyNameChangeEventListener;
 import com.ai.crm.common.party.repository.impl.PartyRepository;
 import com.ai.crm.common.party.repository.interfaces.IPartyRepository;
-import com.ai.crm.customer.domain.model.impl.IndividualCustomer;
-import com.ai.crm.customer.domain.model.impl.LegalCustomer;
-import com.ai.crm.customer.domain.model.interfaces.IIndividualCustomer;
-import com.ai.crm.customer.domain.model.interfaces.ILegalCustomer;
+import com.ai.crm.customer.domain.model.IndividualCustomer;
+import com.ai.crm.customer.domain.model.LegalCustomer;
+
 import com.ai.crm.customer.repository.impl.CustomerRepository;
 import com.ai.crm.customer.repository.interfaces.ICustomerRepository;
 
@@ -91,29 +88,29 @@ public class DevelopmentProfileConfig {
 	}
 
 	@Bean
-	public IIndividual individual(){
+	public Individual individual(){
 		return new Individual("Lianhua","Zhang");
 	}
 
 	@Bean
-	public ILegalOrganization legalOrganization(){
+	public LegalOrganization legalOrganization(){
 		return new LegalOrganization("Asiainfo");
 	}
 	
 
 	@Bean
-	public IDepartment department(ILegalOrganization legalOrganization){
+	public Department department(LegalOrganization legalOrganization){
 		return new Department(legalOrganization,"ADA");
 	}	
 
 	
 	@Bean
-	public IIndividualCustomer individualCustomer(IIndividual individual){
+	public IndividualCustomer individualCustomer(Individual individual){
 		return new IndividualCustomer(individual);
 	}
 
 	@Bean
-	public ILegalCustomer organizationCustomer(ILegalOrganization legalOrganization){
+	public LegalCustomer organizationCustomer(LegalOrganization legalOrganization){
 		return new LegalCustomer(legalOrganization);
 	}
 

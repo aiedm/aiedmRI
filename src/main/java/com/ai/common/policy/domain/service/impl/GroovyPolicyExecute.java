@@ -9,12 +9,12 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.ai.common.policy.domain.model.interfaces.IPolicySet;
+import com.ai.common.policy.domain.model.PolicySet;
 import com.ai.common.policy.domain.repository.interfaces.IPolicyRepository;
 import com.ai.common.policy.domain.service.interfaces.IPolicyExecute;
-import com.ai.common.rootentity.domain.model.impl.BaseEvent;
-import com.ai.common.rootentity.domain.model.impl.CheckResult;
-import com.ai.common.rootentity.domain.model.interfaces.ISpecificationEntity;
+import com.ai.common.rootentity.domain.model.BaseEvent;
+import com.ai.common.rootentity.domain.model.CheckResult;
+import com.ai.common.rootentity.domain.model.SpecificationEntity;
 @Component
 public class GroovyPolicyExecute implements IPolicyExecute {
 	@Autowired
@@ -23,7 +23,7 @@ public class GroovyPolicyExecute implements IPolicyExecute {
 	}
 
 	@Override
-	public Object execute(IPolicySet policySet,Map<String, Object> context) throws Exception{
+	public Object execute(PolicySet policySet,Map<String, Object> context) throws Exception{
 		ClassLoader parent =ClassLoader.getSystemClassLoader();
 		GroovyClassLoader loader =new GroovyClassLoader(parent);
 		Class<?> clazz = loader.parseClass(policySet.toPolicyString());
@@ -32,19 +32,19 @@ public class GroovyPolicyExecute implements IPolicyExecute {
 	}
 
 	@Override
-	public CheckResult executeCheckPolicy(BaseEvent event, ISpecificationEntity specEntity, Map<String, Object> context)
+	public CheckResult executeCheckPolicy(BaseEvent event, SpecificationEntity specEntity, Map<String, Object> context)
 			throws Exception {
 		CheckResult result=new CheckResult();
 		long specEntityId=0;
 		if(null!=specEntity){
 			specEntityId=specEntity.getId();
 		}
-		Set<IPolicySet> policies=policyRepository.getEventRegistePolicies(event.getCode(), specEntityId);
+		Set<PolicySet> policies=policyRepository.getEventRegistePolicies(event.getCode(), specEntityId);
 		if (null!=policies && policies.size()>0){
 			CheckResult perPolicyResult=new CheckResult();
-			for (IPolicySet iPolicySet : policies) {
+			for (PolicySet PolicySet : policies) {
 				context.put("CheckResult", perPolicyResult);
-				execute(iPolicySet,context);
+				execute(PolicySet,context);
 				if(null!=perPolicyResult.getErrorInfomations()&&perPolicyResult.getErrorInfomations().size()>0){
 					result.getErrorInfomations().addAll(perPolicyResult.getErrorInfomations());
 				}

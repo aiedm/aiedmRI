@@ -1,6 +1,6 @@
 package com.ai.security.domaim.model.impl;
 
-import com.ai.common.rootentity.domain.model.impl.RootEntity;
+import com.ai.common.rootentity.domain.model.RootEntity;
 import com.ai.security.domaim.model.interfaces.IOperator;
 
 public class Operator extends RootEntity implements IOperator {

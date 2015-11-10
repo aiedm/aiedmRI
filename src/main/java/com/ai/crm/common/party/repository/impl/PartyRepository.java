@@ -6,8 +6,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
-import com.ai.crm.common.party.domain.model.interfaces.IIndividual;
-import com.ai.crm.common.party.domain.model.interfaces.IOrganization;
+import com.ai.crm.common.party.domain.model.Individual;
+import com.ai.crm.common.party.domain.model.Organization;
 import com.ai.crm.common.party.repository.interfaces.IPartyRepository;
 
 @Repository
@@ -26,13 +26,13 @@ public class PartyRepository implements IPartyRepository {
 		return sessionFactory.openSession();
 	}
 	
-	public IIndividual saveIndividual(IIndividual individual) {
+	public Individual saveIndividual(Individual individual) {
 		Serializable id = currentSession().save(individual);
 		individual.setId((Long)id);
 		return individual;
 	}
 
-	public IOrganization saveOrganization(IOrganization organization) {
+	public Organization saveOrganization(Organization organization) {
 		Serializable id = currentSession().save(organization);
 		organization.setId((Long)id);
 		return organization;

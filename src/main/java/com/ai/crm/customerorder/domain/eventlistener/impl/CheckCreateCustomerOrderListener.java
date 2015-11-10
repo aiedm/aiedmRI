@@ -9,7 +9,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import com.ai.common.policy.domain.service.interfaces.IPolicyExecute;
-import com.ai.common.rootentity.domain.model.impl.CheckResult;
+import com.ai.common.rootentity.domain.model.CheckResult;
 import com.ai.common.rootentity.domain.service.interfaces.IEventPublisher;
 import com.ai.crm.customerorder.application.service.api.dto.CustomerOrderDTO;
 import com.ai.crm.customerorder.application.service.api.dto.OfferOrderItemDTO;
@@ -29,11 +29,6 @@ import com.ai.crm.customerorder.domain.event.createorder.CheckOrderCustomerAvali
 import com.ai.crm.customerorder.domain.event.createorder.CheckOrderCustomerAvalibityPassed;
 import com.ai.crm.customerorder.domain.event.createorder.CreateOrderRequested;
 import com.ai.crm.customerorder.domain.eventlistener.interfaces.ICheckCreateCustomerOrderListener;
-import com.ai.crm.customerorder.domain.model.interfaces.ICustomerOrder;
-import com.ai.crm.customerorder.domain.model.interfaces.IOfferOrderItem;
-import com.ai.crm.customerorder.domain.model.interfaces.IProductOrderItem;
-import com.ai.crm.customerorder.domain.model.interfaces.IToBeOfferInstance;
-import com.ai.crm.customerorder.domain.model.interfaces.IToBeProduct;
 import com.ai.upc.productoffering.domain.model.interfaces.IProductOffering;
 import com.ai.upc.productoffering.domain.repository.interfaces.IProductOfferingRepository;
 import com.ai.upc.productspecification.domian.model.interfaces.IProductSpecification;
@@ -138,8 +133,8 @@ public class CheckCreateCustomerOrderListener implements ICheckCreateCustomerOrd
 		ProductOrderItemDTO productOrder = event.getProductOrderDTO();
 		Map<String,Object> context =new HashMap<String, Object>();
 		context.put("ProductOrder", productOrder);
-		IToBeProduct toBeProduct = (IToBeProduct)productOrder.getToBeProductDTO();
-		IProductSpecification productSpecification = productSpecificationRepository.getProductSpecificationById(toBeProduct.getProductSpecificationId());
+		ToBeProductDTO toBeProduct = productOrder.getToBeProductDTO();
+		IProductSpecification productSpecification = productSpecificationRepository.getProductSpecificationById(toBeProduct.getProductSpecId());
 		CheckResult checkResult=policyExecute.executeCheckPolicy(event, productSpecification, context);
 		event.setCheckResult(checkResult);
 		if (checkResult.isError()){

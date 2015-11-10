@@ -20,14 +20,9 @@ import com.ai.crm.customerorder.application.service.api.dto.ShoppingCartDTO;
 import com.ai.crm.customerorder.application.service.api.dto.ToBeOfferInstanceDTO;
 import com.ai.crm.customerorder.domain.event.createorder.CreateOrderRequested;
 import com.ai.crm.customerorder.domain.event.shoppingcart.OfferAddingToCart;
-import com.ai.crm.customerorder.domain.model.impl.CustomerOrder;
-import com.ai.crm.customerorder.domain.model.impl.OfferOrderItem;
-import com.ai.crm.customerorder.domain.model.impl.ProductOrderItem;
-import com.ai.crm.customerorder.domain.model.interfaces.ICustomerOrder;
-import com.ai.crm.customerorder.domain.model.interfaces.IOfferOrderItem;
-import com.ai.crm.customerorder.domain.model.interfaces.IProductOrderItem;
-import com.ai.crm.customerorder.domain.model.interfaces.IShoppingCart;
-import com.ai.crm.customerorder.domain.model.interfaces.IToBeOfferInstance;
+import com.ai.crm.customerorder.domain.model.CustomerOrder;
+import com.ai.crm.customerorder.domain.model.OfferOrderItem;
+import com.ai.crm.customerorder.domain.model.ProductOrderItem;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController

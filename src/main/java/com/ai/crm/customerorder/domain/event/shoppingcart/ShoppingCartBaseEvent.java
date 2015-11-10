@@ -2,10 +2,9 @@ package com.ai.crm.customerorder.domain.event.shoppingcart;
 
 import java.util.Set;
 
-import com.ai.common.rootentity.domain.model.impl.BaseEvent;
+import com.ai.common.rootentity.domain.model.BaseEvent;
 import com.ai.crm.customerorder.application.service.api.dto.ShoppingCartDTO;
 import com.ai.crm.customerorder.application.service.api.dto.ToBeOfferInstanceDTO;
-import com.ai.crm.customerorder.domain.model.interfaces.IToBeOfferInstance;
 
 public abstract class ShoppingCartBaseEvent extends BaseEvent {
 	private ShoppingCartDTO cart;

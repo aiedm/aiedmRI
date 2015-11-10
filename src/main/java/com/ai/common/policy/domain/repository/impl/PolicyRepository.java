@@ -4,7 +4,7 @@ import java.util.Set;
 
 import org.springframework.stereotype.Component;
 
-import com.ai.common.policy.domain.model.interfaces.IPolicySet;
+import com.ai.common.policy.domain.model.PolicySet;
 import com.ai.common.policy.domain.repository.interfaces.IPolicyRepository;
 @Component
 public class PolicyRepository implements IPolicyRepository {
@@ -13,7 +13,7 @@ public class PolicyRepository implements IPolicyRepository {
 	}
 
 	@Override
-	public Set<IPolicySet> getEventRegistePolicies(String  eventCode, long specificationEntityId) throws Exception {
+	public Set<PolicySet> getEventRegistePolicies(String  eventCode, long specificationEntityId) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}

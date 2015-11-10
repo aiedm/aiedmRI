@@ -1,7 +1,7 @@
 package com.ai.crm.customerorder.domain.event.createorder;
 
-import com.ai.common.rootentity.domain.model.impl.BaseEvent;
-import com.ai.common.rootentity.domain.model.impl.CheckResult;
+import com.ai.common.rootentity.domain.model.BaseEvent;
+import com.ai.common.rootentity.domain.model.CheckResult;
 import com.ai.crm.customerorder.application.service.api.dto.OfferOrderItemDTO;
 
 public class CheckNewOfferOrderRequested extends BaseEvent {

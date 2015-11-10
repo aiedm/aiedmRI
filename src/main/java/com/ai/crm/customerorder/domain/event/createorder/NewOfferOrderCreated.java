@@ -1,16 +1,16 @@
 package com.ai.crm.customerorder.domain.event.createorder;
 
-import com.ai.common.rootentity.domain.model.impl.BaseEvent;
-import com.ai.crm.customerorder.domain.model.interfaces.IOfferOrderItem;
+import com.ai.common.rootentity.domain.model.BaseEvent;
+import com.ai.crm.customerorder.domain.model.OfferOrderItem;
 
 public class NewOfferOrderCreated extends BaseEvent {
-	private IOfferOrderItem offerOrder;
+	private OfferOrderItem offerOrder;
 
-	public IOfferOrderItem getOfferOrder() {
+	public OfferOrderItem getOfferOrder() {
 		return offerOrder;
 	}
 
-	public void setOfferOrder(IOfferOrderItem offerOrder) {
+	public void setOfferOrder(OfferOrderItem offerOrder) {
 		this.offerOrder = offerOrder;
 	}
 	public NewOfferOrderCreated(Object source) {
