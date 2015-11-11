@@ -6,15 +6,14 @@ import javax.persistence.Column;
 
 import org.springframework.stereotype.Component;
 
-import com.ai.common.basetype.interfaces.ITimePeriod;
+import com.ai.common.basetype.TimePeriod;
 @Component
 public class RootEntity{
 	@Column
 	private EntityVersion version;
 	@Column
 	private long createOperatorId;
-	@Column
-	private ITimePeriod validPeriod;
+	private TimePeriod validPeriod;
 	private boolean isDeleted=false;
 	@Column
 	private Timestamp createTime;	
@@ -51,12 +50,12 @@ public class RootEntity{
 	}
 	
 	
-	public ITimePeriod getValidPeriod() {
+	public TimePeriod getValidPeriod() {
 		return this.validPeriod;
 	}
 
 	
-	public void setValidPeriod(ITimePeriod validPeriod) {
+	public void setValidPeriod(TimePeriod validPeriod) {
 		this.validPeriod=validPeriod;
 	}
 

@@ -2,7 +2,7 @@ package com.ai.upc.productspecification.domian.repository.impl;
 
 import org.springframework.stereotype.Component;
 
-import com.ai.upc.productspecification.domian.model.interfaces.IProductSpecification;
+import com.ai.upc.productspecification.domian.model.ProductSpecification;
 import com.ai.upc.productspecification.domian.repository.interfaces.IProductSpecificationRepository;
 @Component
 public class ProductSpecificationRepository implements IProductSpecificationRepository {
@@ -12,13 +12,13 @@ public class ProductSpecificationRepository implements IProductSpecificationRepo
 	}
 
 	@Override
-	public IProductSpecification getProductSpecificationById(long ProductSpecificationId) throws Exception {
+	public ProductSpecification getProductSpecificationById(long ProductSpecificationId) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public IProductSpecification getProductSpecificationByCode(String ProductSpecificationCode) throws Exception {
+	public ProductSpecification getProductSpecificationByCode(String ProductSpecificationCode) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}

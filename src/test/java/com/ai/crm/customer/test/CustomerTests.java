@@ -13,12 +13,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.ai.common.rootentity.domain.service.interfaces.IEventPublisher;
 import com.ai.crm.common.party.domain.event.PartyNameChanged;
-import com.ai.crm.common.party.domain.model.interfaces.IDepartment;
-import com.ai.crm.common.party.domain.model.interfaces.ILegalOrganization;
+import com.ai.crm.common.party.domain.model.Department;
 import com.ai.crm.common.party.repository.interfaces.IPartyRepository;
-import com.ai.crm.config.DevelopmentProfileConfig;
-import com.ai.crm.customer.domain.model.interfaces.IIndividualCustomer;
-import com.ai.crm.customer.domain.model.interfaces.ILegalCustomer;
+import com.ai.crm.customer.domain.model.IndividualCustomer;
+import com.ai.crm.customer.domain.model.LegalCustomer;
 import com.ai.crm.customer.repository.interfaces.ICustomerRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -26,11 +24,11 @@ import com.ai.crm.customer.repository.interfaces.ICustomerRepository;
 @ActiveProfiles("dev")
 public class CustomerTests{
 	@Autowired 
-	private IIndividualCustomer indiCustomer;
+	private IndividualCustomer indiCustomer;
 	@Autowired
-	private ILegalCustomer legalCustomer;
+	private LegalCustomer legalCustomer;
 	@Autowired
-	private IDepartment department;
+	private Department department;
 	@Autowired
 	private IPartyRepository partyRepository;
 	@Autowired

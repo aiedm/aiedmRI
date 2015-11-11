@@ -29,9 +29,9 @@ import com.ai.crm.customerorder.domain.event.createorder.CheckOrderCustomerAvali
 import com.ai.crm.customerorder.domain.event.createorder.CheckOrderCustomerAvalibityPassed;
 import com.ai.crm.customerorder.domain.event.createorder.CreateOrderRequested;
 import com.ai.crm.customerorder.domain.eventlistener.interfaces.ICheckCreateCustomerOrderListener;
-import com.ai.upc.productoffering.domain.model.interfaces.IProductOffering;
+import com.ai.upc.productoffering.domain.model.ProductOffering;
 import com.ai.upc.productoffering.domain.repository.interfaces.IProductOfferingRepository;
-import com.ai.upc.productspecification.domian.model.interfaces.IProductSpecification;
+import com.ai.upc.productspecification.domian.model.ProductSpecification;
 import com.ai.upc.productspecification.domian.repository.interfaces.IProductSpecificationRepository;
 @Component
 public class CheckCreateCustomerOrderListener implements ICheckCreateCustomerOrderListener {
@@ -110,7 +110,7 @@ public class CheckCreateCustomerOrderListener implements ICheckCreateCustomerOrd
 		Map<String,Object> context =new HashMap<String, Object>();
 		context.put("OfferOrder", offerOrderItemDTO);
 		ToBeOfferInstanceDTO toBeOfferInstance =offerOrderItemDTO.getToBeOfferInstanceTDO();
-		IProductOffering productOffering=productOfferingRepository.getProductOfferingById(toBeOfferInstance.getProductOffferingId());
+		ProductOffering productOffering=productOfferingRepository.getProductOfferingById(toBeOfferInstance.getProductOffferingId());
 		CheckResult checkResult=policyExecute.executeCheckPolicy(event, productOffering, context);
 		event.setCheckResult(checkResult);
 		if (checkResult.isError()){
@@ -134,7 +134,7 @@ public class CheckCreateCustomerOrderListener implements ICheckCreateCustomerOrd
 		Map<String,Object> context =new HashMap<String, Object>();
 		context.put("ProductOrder", productOrder);
 		ToBeProductDTO toBeProduct = productOrder.getToBeProductDTO();
-		IProductSpecification productSpecification = productSpecificationRepository.getProductSpecificationById(toBeProduct.getProductSpecId());
+		ProductSpecification productSpecification = productSpecificationRepository.getProductSpecificationById(toBeProduct.getProductSpecId());
 		CheckResult checkResult=policyExecute.executeCheckPolicy(event, productSpecification, context);
 		event.setCheckResult(checkResult);
 		if (checkResult.isError()){

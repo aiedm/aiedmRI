@@ -1,6 +1,5 @@
 package com.ai.crm.product.domain.model;
 
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -9,6 +8,23 @@ import org.springframework.stereotype.Component;
 import com.ai.common.rootentity.domain.model.SpecificationInstanceEntity;
 @Component
 public class PricePlanInstance extends SpecificationInstanceEntity {
+	public enum PriceState {
+		INITIATED(0),
+		CREATED(1),
+		SUBMITTED(2),
+		PAID(3),
+		ASSIGNED(5),
+		COMPLETED(6);
+		private int value;  
+
+	    private PriceState(int value){ 
+	        this.value=value; 
+	    } 
+ 
+	    public int getValue(){ 
+	        return value; 
+	    } 
+	}		
 	private OfferInstance offerInstance;
 	private Set<ProductPriceRel> assignedTo=new LinkedHashSet<ProductPriceRel>();
 	private long pricePlanId;
@@ -73,17 +89,16 @@ public class PricePlanInstance extends SpecificationInstanceEntity {
 
 	
 	public void unPaid() {
-		this.payState=ToBePricePlanInstance.PriceState.UNPAID.getValue();
+		this.payState=PricePlanInstance.PriceState.SUBMITTED.getValue();
 	}
 
 	
 	public void paid() {
-		this.payState=ToBePricePlanInstance.PriceState.PAID.getValue();
+		this.payState=PricePlanInstance.PriceState.PAID.getValue();
 	}
 
 	
 	public String getDiscountReason() {
-		// TODO Auto-generated method stub
 		return this.discountReason;
 	}
 

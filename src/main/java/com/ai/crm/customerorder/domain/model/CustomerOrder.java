@@ -13,6 +13,26 @@ import com.ai.crm.common.businessinteraction.domain.model.BusinessInteraction;
 @Entity
 @DiscriminatorValue("1000")
 public class CustomerOrder extends BusinessInteraction {
+	public enum CustomerOrderState {
+		INITIATED(0),
+		CREATED(1),
+		SUBMITTED(2),
+		PAID(3),
+		DELIVERING(4),
+		DELIVERED(5),
+		COMPLETED(6),
+		CLOSED(7),
+		CANCLED(8);
+		private int value;  
+
+	    private CustomerOrderState(int value){ 
+	        this.value=value; 
+	    } 
+ 
+	    public int getValue(){ 
+	        return value; 
+	    } 
+	}	
 	private Set<OfferOrderItem> offerOrders=new HashSet<OfferOrderItem>();
 	private Set<ProductOrderItem> productOrders=new HashSet<ProductOrderItem>();
 	private long shoppingCartId;

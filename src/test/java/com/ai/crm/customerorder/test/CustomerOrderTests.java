@@ -6,7 +6,6 @@ import java.io.File;
 
 import javax.transaction.Transactional;
 
-import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,50 +15,22 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.ai.common.rootentity.domain.model.CharacteristicSpec;
-import com.ai.common.rootentity.domain.model.CharacteristicSpecValue;
-import com.ai.common.rootentity.domain.model.InstanceEntityCharacter;
-import com.ai.common.rootentity.domain.model.InstanceEntityCharacterValue;
-import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntityCharacterValue;
-import com.ai.common.rootentity.domain.model.interfaces.ICharacteristicSpec;
-import com.ai.common.rootentity.domain.model.interfaces.ICharacteristicSpecValue;
-import com.ai.common.rootentity.domain.model.interfaces.IInstanceEntityCharacter;
 import com.ai.common.rootentity.domain.service.interfaces.IEventPublisher;
-import com.ai.crm.common.businessinteraction.domain.model.BIIRelatedEntity;
-import com.ai.crm.common.businessinteraction.domain.model.interfaces.IBIIRelatedEntity;
-import com.ai.crm.config.DevelopmentProfileConfig;
 import com.ai.crm.customerorder.application.service.api.dto.CharacterInstanceDTO;
 import com.ai.crm.customerorder.application.service.api.dto.CharacterValueInstanceDTO;
 import com.ai.crm.customerorder.application.service.api.dto.CustomerOrderDTO;
 import com.ai.crm.customerorder.application.service.api.dto.OfferOrderItemDTO;
-import com.ai.crm.customerorder.application.service.api.dto.ProductOrderItemDTO;
 import com.ai.crm.customerorder.application.service.api.dto.ToBeOfferInstanceDTO;
 import com.ai.crm.customerorder.application.service.api.dto.ToBePricePlanInstanceDTO;
 import com.ai.crm.customerorder.application.service.api.dto.ToBeProductDTO;
 import com.ai.crm.customerorder.domain.event.createorder.CreateOrderRequested;
-import com.ai.crm.customerorder.domain.model.CustomerOrder;
-import com.ai.crm.customerorder.domain.model.OfferOrderItem;
-import com.ai.crm.customerorder.domain.model.ProductOrderItem;
-import com.ai.crm.customerorder.domain.model.ToBeOfferInstance;
-import com.ai.crm.customerorder.domain.model.ToBeProduct;
-import com.ai.crm.customerorder.domain.model.interfaces.ICustomerOrder;
-import com.ai.crm.customerorder.domain.model.interfaces.IOfferOrderItem;
-import com.ai.crm.customerorder.domain.model.interfaces.IToBeOfferInstance;
-import com.ai.crm.customerorder.domain.model.interfaces.IToBePricePlanInstance;
-import com.ai.crm.customerorder.domain.model.interfaces.IProductOrderItem;
-import com.ai.crm.customerorder.domain.model.interfaces.IToBeProduct;
-import com.ai.crm.product.domain.model.interfaces.IProductPriceRel;
-import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectReader;
-import com.fasterxml.jackson.databind.module.SimpleModule;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath:spring/root-context.xml","classpath:spring/appServlet/servlet-context.xml"})
 @WebAppConfiguration
 @ActiveProfiles("dev")
 public class CustomerOrderTests {
-	private ProductOrderItemDTO productOrder=new ProductOrderItemDTO();	
 	private OfferOrderItemDTO offerOrder = new OfferOrderItemDTO();
 	private CustomerOrderDTO customerOrder=new CustomerOrderDTO();
 	private ToBePricePlanInstanceDTO toBePrice=new ToBePricePlanInstanceDTO();

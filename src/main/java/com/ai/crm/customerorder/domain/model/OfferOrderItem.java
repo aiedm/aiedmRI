@@ -4,6 +4,24 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class OfferOrderItem extends CustomerOrderItem{
+	public enum OfferOrderState {
+		INITIATED(0),
+		CREATED(1),
+		SUBMITTED(2),
+		CHARGE_ASSIGNED(9),
+		COMPLETED(6),
+		CLOSED(7),
+		CANCLED(8);
+		private int value;  
+
+	    private OfferOrderState(int value){ 
+	        this.value=value; 
+	    } 
+ 
+	    public int getValue(){ 
+	        return value; 
+	    } 
+	}	
 	private CustomerOrder customerOrder;
 	private OfferOrderItem replacedOfferOrderItem;
 	private long offerOrderId;

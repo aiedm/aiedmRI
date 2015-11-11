@@ -1,11 +1,27 @@
 package com.ai.crm.customerorder.domain.model;
 
 import org.springframework.stereotype.Component;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 @Component
 public class ProductOrderItem extends CustomerOrderItem{
+	public enum ProductOrderState {
+		INITIATED(0),
+		CREATED(1),
+		SUBMITTED(2),
+		DELIVERING(4),
+		DELIVERED(5),
+		COMPLETED(6),
+		CLOSED(7),
+		CANCLED(8);
+		private int value;  
 
+	    private ProductOrderState(int value){ 
+	        this.value=value; 
+	    } 
+ 
+	    public int getValue(){ 
+	        return value; 
+	    } 
+	}
 	private long productOrderId;
 	
 	private CustomerOrder customerOrder;
