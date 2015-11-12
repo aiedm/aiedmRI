@@ -4,8 +4,14 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+@Entity
 public class PolicyFunctionValue extends PolicyValue {
+	@OneToOne
 	private PolicyFunction function;
+	@OneToMany(mappedBy="functionValue")
 	Set<PolicyFunctionValueParamRel> params=new LinkedHashSet<PolicyFunctionValueParamRel>();
 	public PolicyFunctionValue() {
 	}

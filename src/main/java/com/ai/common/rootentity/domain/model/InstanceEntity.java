@@ -1,8 +1,8 @@
 package com.ai.common.rootentity.domain.model;
 
-import org.springframework.stereotype.Component;
+import javax.persistence.MappedSuperclass;
 
-@Component
+@MappedSuperclass
 public abstract class InstanceEntity extends RootEntity{
 
 }

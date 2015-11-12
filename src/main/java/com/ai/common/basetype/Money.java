@@ -1,12 +1,14 @@
 package com.ai.common.basetype;
 
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class Money{
 	private long amount;
 	private String currency;
 
 	
 	public long getAmount() {
-		// TODO Auto-generated method stub
 		return this.amount;
 	}
 

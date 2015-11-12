@@ -1,6 +1,9 @@
 package com.ai.common.policy.domain.model;
 
-public class PolicySetOutputParameter extends PolicySetParameter {
+import javax.persistence.Entity;
+
+@Entity
+public class PolicySetOutputParameter extends PolicyRuleParameter {
 
 	public PolicySetOutputParameter() {
 	}

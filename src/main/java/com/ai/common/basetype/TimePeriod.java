@@ -2,6 +2,8 @@ package com.ai.common.basetype;
 
 import java.sql.Timestamp;
 
+import javax.persistence.Embeddable;
+@Embeddable
 public class TimePeriod {
 	private Timestamp beginTime;
 	private Timestamp endTime;

@@ -1,33 +1,28 @@
 package com.ai.crm.common.businessinteraction.domain.model;
 
-import com.ai.common.rootentity.domain.model.SpecificationInstanceEntity;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
-public abstract class BusinessInteractionItem extends SpecificationInstanceEntity {
-	private long businessInteractionItemId;
-	
+import com.ai.common.rootentity.domain.model.SpecInstanceEntity;
+@Entity
+public abstract class BusinessInteractionItem extends SpecInstanceEntity {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
 	private long businessInteractionItemSpecId;
 	private int biiState;
 	private BIIRelatedEntity relatedEntity;
 	private BusinessInteraction businessInteraction;
 	
 	public BusinessInteractionItem(){
-		// TODO Auto-generated constructor stub
 	}
 	
 	public BusinessInteractionItem(BusinessInteraction bi) {
 		this.setBusinessInteraction(bi);
 	}	
 
-	
-	public long getBusinessInteractionItemId() {
-		return businessInteractionItemId;
-	}
-
-	
-	public void setBusinessInteraciotnItemId(long biiId) {
-		this.businessInteractionItemId=biiId;
-	}
-	
 	
 	public long getBusinessInteractionItemSpecId() {
 		return businessInteractionItemSpecId;
@@ -64,5 +59,13 @@ public abstract class BusinessInteractionItem extends SpecificationInstanceEntit
 	
 	public void setRelatedEntity(BIIRelatedEntity relatedEntity){
 		this.relatedEntity=relatedEntity;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 }

@@ -1,5 +1,8 @@
 package com.ai.common.basetype;
 
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class Quantity{
 	private long amount;
 	private String unit;

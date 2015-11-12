@@ -7,9 +7,9 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.ai.common.rootentity.domain.model.InstanceEntityCharacter;
-import com.ai.common.rootentity.domain.model.InstanceEntityCharacterValue;
-import com.ai.common.rootentity.domain.model.SpecificationInstanceEntity;
+import com.ai.common.rootentity.domain.model.SpecInstanceEntityCharacter;
+import com.ai.common.rootentity.domain.model.SpecInstanceEntityCharacterValue;
+import com.ai.common.rootentity.domain.model.SpecInstanceEntity;
 import com.ai.crm.common.businessinteraction.domain.model.BIIRelatedEntity;
 import com.ai.crm.customerorder.application.service.api.dto.CharacterInstanceDTO;
 import com.ai.crm.customerorder.application.service.api.dto.CharacterValueInstanceDTO;
@@ -160,18 +160,18 @@ public class OrderDTOTransfer implements IOrderDTOTransfer{
 	}
 	
 	
-	private void addCharacter(Set<CharacterInstanceDTO> characterInstances,SpecificationInstanceEntity instanceEntity) throws Exception{
+	private void addCharacter(Set<CharacterInstanceDTO> characterInstances,SpecInstanceEntity instanceEntity) throws Exception{
 		if(characterInstances.size()>0){
 			for (CharacterInstanceDTO characterInstanceDTO : characterInstances) {
-				InstanceEntityCharacter character=new InstanceEntityCharacter();
-				character.setCharacterInstanceId(characterInstanceDTO.getCharacterInstanceId());
+				SpecInstanceEntityCharacter character=new SpecInstanceEntityCharacter();
+				character.setId(characterInstanceDTO.getCharacterInstanceId());
 				character.setCharacteristicSpecId(characterInstanceDTO.getCharacteristicSpecId());
 				character.setAction(characterInstanceDTO.getAction());
 				character.setOwnerInstance(instanceEntity);
 				Set<CharacterValueInstanceDTO> characterValues=characterInstanceDTO.getCharacteristicValues();
 				if(characterValues.size()>0){
 					for (CharacterValueInstanceDTO characterValueInstanceDTO : characterValues) {
-						InstanceEntityCharacterValue characterValue=new InstanceEntityCharacterValue();
+						SpecInstanceEntityCharacterValue characterValue=new SpecInstanceEntityCharacterValue();
 						characterValue.setCharacterValueInstanceId(characterValueInstanceDTO.getCharacterValueInstanceId());
 						characterValue.setCharacteristicValueId(characterValueInstanceDTO.getCharacteristicSpecValueId());
 						characterValue.setInputedValue(characterValueInstanceDTO.getInputedValue());

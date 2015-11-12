@@ -5,9 +5,9 @@ import java.util.Set;
 
 import org.springframework.stereotype.Component;
 
-import com.ai.common.rootentity.domain.model.SpecificationInstanceEntity;
+import com.ai.common.rootentity.domain.model.SpecInstanceEntity;
 @Component
-public class PricePlanInstance extends SpecificationInstanceEntity {
+public class PricePlanInstance extends SpecInstanceEntity {
 	public enum PriceState {
 		INITIATED(0),
 		CREATED(1),

@@ -3,26 +3,24 @@ package com.ai.common.policy.domain.model;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import com.ai.common.rootentity.domain.model.InstanceEntity;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+import com.ai.common.rootentity.domain.model.InstanceEntity;
+@Entity
 public abstract class PolicyStatement extends InstanceEntity{
-	private long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;	
 	private String name;
 	private String code;
 	private PolicyVariable varible;
 	private PolicyValue value;
 
 	public PolicyStatement() {
-	}
-	
-	
-	public long getId() {
-		return this.id;
-	}
-
-	
-	public void setId(long id) {
-		this.id=id;
 	}
 
 	
@@ -55,7 +53,7 @@ public abstract class PolicyStatement extends InstanceEntity{
 		this.varible=varible;
 	}
 
-	
+	@Column(name="OPERATOR_ID")
 	public abstract PolicyOperator getOperator();
 
 	
@@ -95,6 +93,26 @@ public abstract class PolicyStatement extends InstanceEntity{
 			variables.addAll(valueVars);
 		}
 		return variables;
+	}
+
+
+	public long getId() {
+		return id;
+	}
+
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+
+	public PolicyVariable getVarible() {
+		return varible;
+	}
+
+
+	public void setVarible(PolicyVariable varible) {
+		this.varible = varible;
 	}
 	
 

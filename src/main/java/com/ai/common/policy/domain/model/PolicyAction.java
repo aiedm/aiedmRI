@@ -2,23 +2,22 @@ package com.ai.common.policy.domain.model;
 
 import java.util.Set;
 
-import com.ai.common.rootentity.domain.model.InstanceEntity;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
+import com.ai.common.rootentity.domain.model.InstanceEntity;
+@Entity
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 public abstract class PolicyAction extends InstanceEntity{
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	private String name;
 	private String code;
-
-	
-	public long getId() {
-		return this.id;
-	}
-
-	
-	public void setId(long id) {
-		this.id=id;
-	}
-
 	
 	public String getName() {
 		return this.name;
@@ -44,5 +43,15 @@ public abstract class PolicyAction extends InstanceEntity{
 	
 	
 	public abstract Set<PolicyVariable> getVariables();
+
+
+	public long getId() {
+		return id;
+	}
+
+
+	public void setId(long id) {
+		this.id = id;
+	}
 
 }

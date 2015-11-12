@@ -5,9 +5,11 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
+import javax.persistence.Entity;
+@Entity
 public class PolicyGroup extends PolicySet{
 	private Set<PolicySet> policySets=new LinkedHashSet<PolicySet>();
-	private Set<PolicySetInputParameter> inputParameters=new LinkedHashSet<PolicySetInputParameter>();
+	private Set<PolicyRuleInputParameter> inputParameters=new LinkedHashSet<PolicyRuleInputParameter>();
 	public PolicyGroup() {
 	}
 
@@ -39,7 +41,7 @@ public class PolicyGroup extends PolicySet{
 	}
 
 	
-	public Set<PolicySetInputParameter> getInputParameters() {
+	public Set<PolicyRuleInputParameter> getInputParameters() {
 		Set<PolicySet> children=this.getPolicySets();
 		for (PolicySet PolicySet : children) {
 			this.inputParameters.addAll(PolicySet.getInputParameters());

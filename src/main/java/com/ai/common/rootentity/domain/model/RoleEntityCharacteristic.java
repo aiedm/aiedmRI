@@ -3,15 +3,24 @@ package com.ai.common.rootentity.domain.model;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import org.springframework.stereotype.Component;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-@Component
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+@Entity
 public class RoleEntityCharacteristic extends RootEntity{
-	@JsonIgnore
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
+	@OneToOne
 	private SpecificationEntity specificationEntity;
+	@OneToOne
 	private CharacteristicSpec characteristic;
-	private Set<CharacteristicSpecValue> characteristicValues=new LinkedHashSet<CharacteristicSpecValue>();
+	@OneToMany(mappedBy="characteristicSpecValue",fetch=FetchType.LAZY)
+	private Set<RoleEntityCharacterValue> characteristicValues=new LinkedHashSet<RoleEntityCharacterValue>();
 	
 	
 	public SpecificationEntity getOwnerRole() {
@@ -34,16 +43,26 @@ public class RoleEntityCharacteristic extends RootEntity{
 	}
 
 	
-	public Set<CharacteristicSpecValue> getCharacteristicValues() {
+	public Set<RoleEntityCharacterValue> getCharacteristicValues() {
 		return this.characteristicValues;
 	}
 
 	
-	public void addCharacteristicValue(CharacteristicSpecValue characteristicValue) {
+	public void addCharacteristicValue(RoleEntityCharacterValue characteristicValue) {
 		characteristicValues.add(characteristicValue);		
-		if (null==characteristicValue.getCharacteristic()){
-			characteristicValue.setCharacteristic(this.getCharacteristic());
+		if (null==characteristicValue.getOwnerCharacteristic()){
+			characteristicValue.setOwnerCharacteristic(this);
 		}
+	}
+
+
+	public long getId() {
+		return id;
+	}
+
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 }

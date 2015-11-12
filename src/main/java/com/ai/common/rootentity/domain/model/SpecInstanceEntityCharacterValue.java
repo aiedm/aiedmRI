@@ -5,20 +5,21 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import org.springframework.stereotype.Component;
+import javax.persistence.ManyToOne;
 
 @Entity
-@Component
-public class InstanceEntityCharacterValue extends RootEntity{
-	private InstanceEntityCharacter instanceEntityCharacteristic;
+public class SpecInstanceEntityCharacterValue extends RootEntity{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;	
+	@ManyToOne
+	private SpecInstanceEntityCharacter specInstanceEntityCharacteristic;
 	private long characterValueInstanceId;
 	@Column
 	private long characteristicValueId;
 	@Column
 	private String value;
+	@Column
 	private int action;
 	
 	public int getAction() {
@@ -29,23 +30,23 @@ public class InstanceEntityCharacterValue extends RootEntity{
 	public void setAction(int action) {
 		this.action = action;
 	}	
-	public InstanceEntityCharacterValue(){
+	public SpecInstanceEntityCharacterValue(){
 		
 	}
 			
-	public InstanceEntityCharacterValue(InstanceEntityCharacter instanceEntityCharacteristic, long characteristicValueId){
+	public SpecInstanceEntityCharacterValue(SpecInstanceEntityCharacter instanceEntityCharacteristic, long characteristicValueId){
 		this.setInstanceEntityCharacteristic(instanceEntityCharacteristic);
 		this.setCharacteristicValueId(characteristicValueId);
 	}
 	
 	
-	public InstanceEntityCharacter getInstanceEntityCharacteristic() {
-		return this.instanceEntityCharacteristic;
+	public SpecInstanceEntityCharacter getInstanceEntityCharacteristic() {
+		return this.specInstanceEntityCharacteristic;
 	}
 
 	
-	public void setInstanceEntityCharacteristic(InstanceEntityCharacter instanceEntityCharacteristic) {
-		this.instanceEntityCharacteristic=instanceEntityCharacteristic;
+	public void setInstanceEntityCharacteristic(SpecInstanceEntityCharacter instanceEntityCharacteristic) {
+		this.specInstanceEntityCharacteristic=instanceEntityCharacteristic;
 	}
 
 	
@@ -76,6 +77,16 @@ public class InstanceEntityCharacterValue extends RootEntity{
 	
 	public void setCharacterValueInstanceId(long characterValueInstanceId) {
 		this.characteristicValueId=characterValueInstanceId;
+	}
+
+
+	public long getId() {
+		return id;
+	}
+
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 }

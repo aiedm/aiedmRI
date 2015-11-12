@@ -1,8 +1,5 @@
 package com.ai.crm.customerorder.domain.model;
 
-import org.springframework.stereotype.Component;
-
-@Component
 public class OfferOrderItem extends CustomerOrderItem{
 	public enum OfferOrderState {
 		INITIATED(0),
@@ -24,7 +21,6 @@ public class OfferOrderItem extends CustomerOrderItem{
 	}	
 	private CustomerOrder customerOrder;
 	private OfferOrderItem replacedOfferOrderItem;
-	private long offerOrderId;
 	protected OfferOrderItem() {
 		
 	}
@@ -68,12 +64,12 @@ public class OfferOrderItem extends CustomerOrderItem{
 
 	
 	public long getOfferOrderId() {
-		return this.offerOrderId;
+		return super.getId();
 	}
 
 	
 	public void setOfferOrderId(long offerOrderId) {
-		this.offerOrderId=offerOrderId;
+		super.setId(offerOrderId);
 	}
 
 }

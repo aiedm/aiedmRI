@@ -11,21 +11,22 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
-import org.springframework.stereotype.Component;
-
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 @Entity
-@Component
-public class SpecificationEntityCharacteristic extends RootEntity{
+public class SpecEntityCharacteristic extends RootEntity{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private long id;	
 	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
     @JoinColumn(name="SPECIFICATION_ENTITY_ID")
 	private SpecificationEntity specificationEntity;
+	@OneToOne
+	@JoinColumn(name="CHARACTER_ID")
 	private CharacteristicSpec characteristic;
 	
-	private Set<SpecificationEntityCharacterValue> characteristicValues=new HashSet<SpecificationEntityCharacterValue>();
+	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.LAZY,mappedBy="specificationEntityCharacteristic")
+	private Set<SpecEntityCharacterValue> characteristicValues=new HashSet<SpecEntityCharacterValue>();
 	
 	public SpecificationEntity getSpecificationEntity() {
 		return this.specificationEntity;
@@ -47,26 +48,25 @@ public class SpecificationEntityCharacteristic extends RootEntity{
 	}
 
 	
-	public Set<SpecificationEntityCharacterValue> getCharacteristicValues() {
+	public Set<SpecEntityCharacterValue> getCharacteristicValues() {
 		return this.characteristicValues;
 	}
 
 	
-	public void addCharacteristicValue(SpecificationEntityCharacterValue characteristicValue) {
+	public void addCharacteristicValue(SpecEntityCharacterValue characteristicValue) {
 		characteristicValues.add(characteristicValue);
 		if (null==characteristicValue.getOwnerCharacteristic()){
 			characteristicValue.setOwnerCharacteristic(this);
 		}
 	}
 
-	
+
 	public long getId() {
 		return id;
 	}
 
-	
+
 	public void setId(long id) {
 		this.id = id;
 	}
-
 }

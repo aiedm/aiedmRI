@@ -42,7 +42,7 @@ public class CustomerOrder extends BusinessInteraction {
 
 	
 	public long getCustomerOrderId() {
-		return this.getBusinessInteractionId();
+		return super.getId();
 	}
 
 	
@@ -83,7 +83,7 @@ public class CustomerOrder extends BusinessInteraction {
 
 	
 	public void setCustomerOrderId(long customerOrderId) {
-		this.setBusinessInteractionId(customerOrderId);
+		super.setId(customerOrderId);
 		
 	}
 

@@ -3,17 +3,19 @@ package com.ai.common.rootentity.domain.model;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
-
-import org.springframework.stereotype.Component;
+import javax.persistence.Embedded;
+import javax.persistence.MappedSuperclass;
 
 import com.ai.common.basetype.TimePeriod;
-@Component
-public class RootEntity{
-	@Column
+@MappedSuperclass
+public abstract class RootEntity{
+	@Embedded
 	private EntityVersion version;
 	@Column
 	private long createOperatorId;
+	@Embedded
 	private TimePeriod validPeriod;
+	@Column
 	private boolean isDeleted=false;
 	@Column
 	private Timestamp createTime;	
@@ -73,4 +75,5 @@ public class RootEntity{
 	public void setToUnDeleted() {
 		this.isDeleted=false;
 	}
+
 }

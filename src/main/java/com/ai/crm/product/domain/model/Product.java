@@ -5,10 +5,10 @@ import java.util.Set;
 
 import org.springframework.stereotype.Component;
 
-import com.ai.common.rootentity.domain.model.SpecificationInstanceEntity;
+import com.ai.common.rootentity.domain.model.SpecInstanceEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 @Component
-public class Product extends SpecificationInstanceEntity{
+public class Product extends SpecInstanceEntity{
 	private long customerId;
 	private long userId;
 	private Set<ProductBarReason> barReasons=new HashSet<ProductBarReason>();

@@ -1,14 +1,13 @@
 package com.ai.crm.product.domain.model;
 
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.springframework.stereotype.Component;
 
-import com.ai.common.rootentity.domain.model.SpecificationInstanceEntity;
+import com.ai.common.rootentity.domain.model.SpecInstanceEntity;
 @Component
-public class OfferInstance extends SpecificationInstanceEntity{
+public class OfferInstance extends SpecInstanceEntity{
 	private Set<Product> products=new LinkedHashSet<Product>();
 	private Set<PricePlanInstance> prices=new LinkedHashSet<PricePlanInstance>();
 	private long customerId;

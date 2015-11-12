@@ -1,9 +1,23 @@
 package com.ai.common.policy.domain.model;
 
-import com.ai.common.rootentity.domain.model.InstanceEntity;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
+import com.ai.common.rootentity.domain.model.InstanceEntity;
+@Entity
 public class PolicyCompositeConditionOption extends InstanceEntity {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
+	//@Column(name="PARENT_CONDITION_ID")
+	@OneToOne
 	private PolicyCompositeCondition parent;
+	//@Column(name="CHILD_CONDITION_ID")
+	@OneToOne
 	private PolicyCondition child;
 	
 	public PolicyCompositeConditionOption() {
@@ -27,6 +41,16 @@ public class PolicyCompositeConditionOption extends InstanceEntity {
 	
 	public void setParentCondition(PolicyCompositeCondition parent) {
 		this.parent=parent;
+	}
+
+
+	public long getId() {
+		return id;
+	}
+
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 }

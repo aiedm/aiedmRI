@@ -4,6 +4,9 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import javax.persistence.Entity;
+import javax.persistence.MappedSuperclass;
+@MappedSuperclass
 public class PolicyCompositeAction extends PolicyAction{
 	Set<PolicyAction> children=new LinkedHashSet<PolicyAction>();
 	public PolicyCompositeAction() {

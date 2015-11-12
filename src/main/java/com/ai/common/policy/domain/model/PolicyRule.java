@@ -6,10 +6,18 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+@Entity
 public class PolicyRule extends PolicySet{
+	@OneToOne
 	private PolicyCondition condition;
+	@OneToOne
 	private PolicyAction action;
-	private Set<PolicySetInputParameter> inputParameters=new LinkedHashSet<PolicySetInputParameter>();
+	@OneToMany(mappedBy="policyRule",targetEntity=PolicyRuleParameter.class)
+	private Set<PolicyRuleInputParameter> inputParameters=new LinkedHashSet<PolicyRuleInputParameter>();
 
 	public PolicyRule() {
 	}
@@ -47,7 +55,7 @@ public class PolicyRule extends PolicySet{
 	}
 	
 	
-	public void addInputParameter(PolicySetInputParameter param) {
+	public void addInputParameter(PolicyRuleInputParameter param) {
 		if(null!=param){
 			inputParameters.add(param);
 		}
@@ -55,7 +63,7 @@ public class PolicyRule extends PolicySet{
 
 
 	
-	public Set<PolicySetInputParameter> getInputParameters() {
+	public Set<PolicyRuleInputParameter> getInputParameters() {
 		return this.inputParameters;
 	}
 	
@@ -87,7 +95,7 @@ public class PolicyRule extends PolicySet{
 				}	
 			}
 		}
-		for (PolicySetInputParameter param : this.getInputParameters()) {
+		for (PolicyRuleInputParameter param : this.getInputParameters()) {
 			String varCode=param.getVariable().getCode();
 			if (map.containsKey(varCode)){
 				map.remove(varCode);

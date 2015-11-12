@@ -4,21 +4,24 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
-import com.ai.common.policy.domain.model.PolicySet;
 @Entity
 public class SubscribedEvent extends InstanceEntity{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-	@ManyToOne
+	private long id;	
+	@ManyToOne	
 	private SpecificationEntity instanceEntity;
+	@ManyToOne
 	private BaseEvent event;
-	private  Set<PolicySet> policies = new LinkedHashSet<PolicySet>();
+	@OneToMany(fetch=FetchType.LAZY,mappedBy="subscribedEvent")
+	private  Set<SubscribedEventPolicies> policies = new LinkedHashSet<SubscribedEventPolicies>();
 	public SubscribedEvent() {
 	}
 
@@ -43,25 +46,25 @@ public class SubscribedEvent extends InstanceEntity{
 	}
 
 	
-	public Set<PolicySet> getPolicies() {
+	public Set<SubscribedEventPolicies> getPolicies() {
 		return this.policies;
 	}
 
 	
-	public void addPolicy(PolicySet policySet) {
+	public void addPolicy(SubscribedEventPolicies policySet) {
 		if(null!=policySet){
 			policies.add(policySet);
 		}
 	}
 
-	
+
 	public long getId() {
-		return this.id;
+		return id;
 	}
 
-	
+
 	public void setId(long id) {
-		this.id=id;
+		this.id = id;
 	}
 
 }

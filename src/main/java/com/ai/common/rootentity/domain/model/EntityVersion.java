@@ -2,8 +2,9 @@ package com.ai.common.rootentity.domain.model;
 
 import java.sql.Timestamp;
 
-import org.springframework.stereotype.Component;
-@Component
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class EntityVersion{	
 	private Timestamp versionTime;
 	private long versionOperatorId;

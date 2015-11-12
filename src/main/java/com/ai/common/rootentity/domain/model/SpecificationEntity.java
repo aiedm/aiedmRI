@@ -6,40 +6,33 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 
-import org.springframework.stereotype.Component;
-
 @Entity
-@Inheritance (strategy = InheritanceType.TABLE_PER_CLASS)
-@Component
-public class SpecificationEntity extends RootEntity{
+@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
+public abstract  class SpecificationEntity extends RootEntity{
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-	
+	private long id;	
 	@OneToMany(fetch=FetchType.LAZY,mappedBy="specificationEntity")
-	private Set<SpecificationEntityCharacteristic> characteristSpecs=new LinkedHashSet<SpecificationEntityCharacteristic>();
+	private Set<SpecEntityCharacteristic> characteristSpecs=new LinkedHashSet<SpecEntityCharacteristic>();
 	@Column
 	private String name;
 	@Column
 	private String code;
-	@OneToMany(fetch=FetchType.LAZY,mappedBy="SpecificationEntity")
+	@OneToMany(fetch=FetchType.LAZY,mappedBy="instanceEntity")
 	private Set<SubscribedEvent> subscribedEvents=new LinkedHashSet<SubscribedEvent>();
 	
 
 	
-	public Set<SpecificationEntityCharacteristic> getCharacteristSpecs() {
+	public Set<SpecEntityCharacteristic> getCharacteristSpecs() {
 		return this.characteristSpecs;
 	}
 
 	
-	public void addCharacteristSpec(SpecificationEntityCharacteristic characteristicSpec) {
+	public void addCharacteristSpec(SpecEntityCharacteristic characteristicSpec) {
 		if (null!=characteristicSpec){
 			this.characteristSpecs.add(characteristicSpec);
 		}
@@ -72,16 +65,6 @@ public class SpecificationEntity extends RootEntity{
 	}
 	
 	
-	public long getId() {
-		return this.id;
-	}
-
-	
-	public void setId(long id) {
-		this.id=id;
-	}		
-
-	
 	public void addSubscribedEvent(SubscribedEvent event) {
 		if (event!=null){
 			subscribedEvents.add(event);
@@ -89,6 +72,16 @@ public class SpecificationEntity extends RootEntity{
 				event.setOwner(this);
 			}
 		}		
+	}
+
+
+	public long getId() {
+		return id;
+	}
+
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 }

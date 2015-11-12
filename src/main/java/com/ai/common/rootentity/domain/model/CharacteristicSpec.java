@@ -1,7 +1,5 @@
 package com.ai.common.rootentity.domain.model;
 
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -12,10 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import org.springframework.stereotype.Component;
-
 @Entity
-@Component
 public class CharacteristicSpec extends RootEntity{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,13 +20,6 @@ public class CharacteristicSpec extends RootEntity{
 	@Column
 	private String code;
 
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
 
 	public String getName() {
 		return name;
@@ -62,6 +50,14 @@ public class CharacteristicSpec extends RootEntity{
 		if (null!=value){
 			values.add(value);
 		}
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 }

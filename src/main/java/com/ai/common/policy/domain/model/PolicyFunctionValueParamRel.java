@@ -1,10 +1,23 @@
 package com.ai.common.policy.domain.model;
 
-import com.ai.common.rootentity.domain.model.InstanceEntity;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
+import com.ai.common.rootentity.domain.model.InstanceEntity;
+@Entity
 public class PolicyFunctionValueParamRel extends InstanceEntity{
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;	
+	@ManyToOne
 	private PolicyFunctionValue functionValue;
+	@OneToOne
 	private PolicyFunctionParameter param;
+	@OneToOne
 	private PolicyValue value;
 	public PolicyFunctionValueParamRel() {
 	}
@@ -43,6 +56,16 @@ public class PolicyFunctionValueParamRel extends InstanceEntity{
 	public String toBodyString() {
 		PolicyValue value=this.getValue();		
 		return value.toBodyString();
+	}
+
+
+	public long getId() {
+		return id;
+	}
+
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 }

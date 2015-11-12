@@ -1,5 +1,8 @@
 package com.ai.common.basetype;
 
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class QuantityRange {
 	private Quantity minQuantity;
 	private Quantity maxQuantity;

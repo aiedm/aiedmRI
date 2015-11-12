@@ -6,17 +6,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-
-import org.springframework.stereotype.Component;
-
 @Entity
-@Component
 public class CharacteristicSpecValue extends RootEntity {
-	//@ManyToOne
-	private CharacteristicSpec characteristic;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+	@ManyToOne
+	private CharacteristicSpec characteristic;
 	@Column
 	private String value;
 	@Column
@@ -27,14 +23,6 @@ public class CharacteristicSpecValue extends RootEntity {
 	private long valueFrom;
 	@Column
 	private String code;
-	   
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
 
 	public String getValue() {
 		return value;
@@ -104,6 +92,14 @@ public class CharacteristicSpecValue extends RootEntity {
 	
 	public void setCode(String code) {
 		this.code=code;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 }

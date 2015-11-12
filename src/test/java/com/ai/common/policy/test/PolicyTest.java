@@ -28,14 +28,14 @@ import com.ai.common.policy.domain.model.PolicyOperator;
 import com.ai.common.policy.domain.model.PolicyOperatorMethodInvoke;
 import com.ai.common.policy.domain.model.PolicyOperatorStringEquals;
 import com.ai.common.policy.domain.model.PolicyRule;
-import com.ai.common.policy.domain.model.PolicySetInputParameter;
+import com.ai.common.policy.domain.model.PolicyRuleInputParameter;
 import com.ai.common.policy.domain.model.PolicySetOutputParameter;
 import com.ai.common.policy.domain.model.PolicyVariable;
 import com.ai.common.policy.domain.model.PolicyVariableValue;
 import com.ai.common.policy.domain.service.impl.GroovyPolicyExecute;
 import com.ai.common.policy.domain.service.interfaces.IPolicyExecute;
-import com.ai.common.rootentity.domain.model.InstanceEntityCharacter;
-import com.ai.common.rootentity.domain.model.InstanceEntityCharacterValue;
+import com.ai.common.rootentity.domain.model.SpecInstanceEntityCharacter;
+import com.ai.common.rootentity.domain.model.SpecInstanceEntityCharacterValue;
 import com.ai.crm.customerorder.domain.model.ToBeOfferInstance;
 import com.ai.crm.customerorder.domain.model.ToBePricePlanInstance;
 import com.ai.crm.customerorder.domain.model.ToBeProduct;
@@ -175,10 +175,10 @@ public class PolicyTest {
 		PolicySetOutputParameter param=new PolicySetOutputParameter();
 		param.setVariable(var4);
 		groupRule.setOutputParameter(param);
-		PolicySetInputParameter param2=new PolicySetInputParameter();
+		PolicyRuleInputParameter param2=new PolicyRuleInputParameter();
 		param2.setVariable(var1);
 		rule1.addInputParameter(param2);
-		PolicySetInputParameter param3=new PolicySetInputParameter();
+		PolicyRuleInputParameter param3=new PolicyRuleInputParameter();
 		param3.setVariable(var3);
 		rule1.addInputParameter(param3);	
 		
@@ -498,10 +498,10 @@ public class PolicyTest {
 		rule.setAction(groupAction);
 		rule.setCode("SelectPriceFromProductAttr");
 		
-		PolicySetInputParameter param2=new PolicySetInputParameter();
+		PolicyRuleInputParameter param2=new PolicyRuleInputParameter();
 		param2.setVariable(varProduct);
 		rule.addInputParameter(param2);
-		PolicySetInputParameter param3=new PolicySetInputParameter();
+		PolicyRuleInputParameter param3=new PolicyRuleInputParameter();
 		param3.setVariable(varOfferInstance);
 		rule.addInputParameter(param3);	
 		
@@ -511,10 +511,10 @@ public class PolicyTest {
 		IPolicyExecute serv1=new GroovyPolicyExecute();
 		Map<String, Object> context=new HashMap<>();
 		ToBeProduct product=new ToBeProduct();
-		InstanceEntityCharacter instChar=new InstanceEntityCharacter();				
+		SpecInstanceEntityCharacter instChar=new SpecInstanceEntityCharacter();				
 		instChar.setCharacteristicSpecId(1);
 		product.addCharacteristic(instChar);
-		InstanceEntityCharacterValue instCharValue=new InstanceEntityCharacterValue();		
+		SpecInstanceEntityCharacterValue instCharValue=new SpecInstanceEntityCharacterValue();		
 		instCharValue.setCharacteristicValueId(2);
 		instChar.addCharacteristicInstanceValue(instCharValue);
 		ToBeOfferInstance offerInstance =new ToBeOfferInstance();

@@ -15,26 +15,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.ai.common.rootentity.domain.model.SpecificationInstanceEntity;
+import com.ai.common.rootentity.domain.model.SpecInstanceEntity;
 @Entity
 @Table(name="CB_PARTY_ROLE")
 @Inheritance (strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="partyRoleType",discriminatorType=DiscriminatorType.STRING)
-public abstract class PartyRole extends SpecificationInstanceEntity{
-	
-	public PartyRole(){}
-	
-	
+public abstract class PartyRole extends SpecInstanceEntity{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	long id;
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
+	private long id;	
+	public PartyRole(){}
+	
 	
 	@Column(insertable = false, updatable = false)
 	String partyRoleType;
@@ -61,5 +52,13 @@ public abstract class PartyRole extends SpecificationInstanceEntity{
 
 	public void setParty(Party party) {
 		this.party =(Party) party;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 }

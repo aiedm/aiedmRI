@@ -1,8 +1,9 @@
 package com.ai.common.policy.domain.model;
 
-import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.MappedSuperclass;
+@MappedSuperclass
 public class PolicyConstValue extends PolicyValue{
 
 	public PolicyConstValue() {

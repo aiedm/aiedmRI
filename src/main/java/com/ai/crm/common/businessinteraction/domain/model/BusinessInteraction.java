@@ -13,15 +13,13 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 
-import com.ai.common.rootentity.domain.model.SpecificationInstanceEntity;
+import com.ai.common.rootentity.domain.model.SpecInstanceEntity;
 
 @Entity
 @Inheritance (strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="biSpecId",discriminatorType=DiscriminatorType.INTEGER)
-public abstract class BusinessInteraction extends SpecificationInstanceEntity {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long businessInteractionId;
+public abstract class BusinessInteraction extends SpecInstanceEntity {
+	private long id;
 	@Column
 	private int biState;
 	private Set<BusinessInteractionItem> businessInteractionItems=new HashSet<BusinessInteractionItem>();
@@ -33,14 +31,6 @@ public abstract class BusinessInteraction extends SpecificationInstanceEntity {
 	public BusinessInteraction(long biSpecId) {
 		this.biSpecId=biSpecId;
 	}	
-
-	protected long getBusinessInteractionId() {
-		return this.businessInteractionId;
-	}
-
-	protected void setBusinessInteractionId(long biId) {
-		this.businessInteractionId=biId;
-	}
 
 	protected int getBiState() {
 		return this.biState;
@@ -74,6 +64,16 @@ public abstract class BusinessInteraction extends SpecificationInstanceEntity {
 
 	protected void setCode(String code) {
 		this.code = code;
+	}
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	protected long getId() {
+		return id;
+	}
+
+	protected void setId(long id) {
+		this.id = id;
 	}
 
 }

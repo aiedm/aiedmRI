@@ -1,0 +1,55 @@
+package com.ai.common.policy.domain.model;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+
+import com.ai.common.rootentity.domain.model.InstanceEntity;
+@Entity
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+public class PolicyRuleParameter extends InstanceEntity{
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
+	@OneToOne
+	private PolicyVariable variable;
+	@ManyToOne
+	@JoinColumn(name="POLICY_RULE_ID")
+	private PolicyRule policyRule;
+
+	public PolicyRuleParameter() {
+	}
+	
+	public PolicyVariable getVariable() {
+		return this.variable;
+	}
+
+	
+	public void setVariable(PolicyVariable variable) {
+		this.variable=variable;
+	}
+
+	
+	public PolicyRule getPolicyRule() {
+		return this.policyRule;
+	}
+	
+	public void setPolicyRule(PolicyRule policyRule) {
+		this.policyRule=policyRule;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+}
