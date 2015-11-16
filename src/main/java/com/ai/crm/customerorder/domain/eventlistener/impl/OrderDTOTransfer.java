@@ -7,17 +7,27 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.ai.common.rootentity.domain.model.CharacteristicSpec;
+import com.ai.common.rootentity.domain.model.CharacteristicSpecValue;
 import com.ai.common.rootentity.domain.model.SpecInstanceEntityCharacter;
 import com.ai.common.rootentity.domain.model.SpecInstanceEntityCharacterValue;
 import com.ai.common.rootentity.domain.model.SpecInstanceEntity;
+import com.ai.crm.common.businessinteraction.domain.model.BICharacter;
+import com.ai.crm.common.businessinteraction.domain.model.BICharacterValue;
+import com.ai.crm.common.businessinteraction.domain.model.BIICharacter;
+import com.ai.crm.common.businessinteraction.domain.model.BIICharacterValue;
 import com.ai.crm.common.businessinteraction.domain.model.BIIRelatedEntity;
+import com.ai.crm.common.businessinteraction.domain.model.BusinessInteraction;
+import com.ai.crm.common.businessinteraction.domain.model.BusinessInteractionItem;
 import com.ai.crm.customerorder.application.service.api.dto.CharacterInstanceDTO;
 import com.ai.crm.customerorder.application.service.api.dto.CharacterValueInstanceDTO;
 import com.ai.crm.customerorder.application.service.api.dto.CustomerOrderDTO;
 import com.ai.crm.customerorder.application.service.api.dto.OfferOrderItemDTO;
 import com.ai.crm.customerorder.application.service.api.dto.ProductOrderItemDTO;
 import com.ai.crm.customerorder.application.service.api.dto.ToBeOfferInstanceDTO;
+import com.ai.crm.customerorder.application.service.api.dto.ToBeOfferInstanceProductDTO;
 import com.ai.crm.customerorder.application.service.api.dto.ToBePricePlanInstanceDTO;
+import com.ai.crm.customerorder.application.service.api.dto.ToBePricePlanInstanceProductDTO;
 import com.ai.crm.customerorder.application.service.api.dto.ToBeProductDTO;
 import com.ai.crm.customerorder.domain.eventlistener.interfaces.IOrderDTOTransfer;
 import com.ai.crm.customerorder.domain.model.CustomerOrder;
@@ -28,9 +38,14 @@ import com.ai.crm.customerorder.domain.model.ToBePricePlanInstance;
 import com.ai.crm.customerorder.domain.model.ToBeProduct;
 import com.ai.crm.customerorder.repository.impl.CustomerOrderRepository;
 import com.ai.crm.product.domain.model.OfferInstance;
+import com.ai.crm.product.domain.model.OfferInstanceCharacter;
+import com.ai.crm.product.domain.model.OfferInstanceCharacterValue;
 import com.ai.crm.product.domain.model.PricePlanInstance;
+import com.ai.crm.product.domain.model.PricePlanInstanceCharacter;
+import com.ai.crm.product.domain.model.PricePlanInstanceCharacterValue;
 import com.ai.crm.product.domain.model.Product;
-import com.ai.crm.product.domain.model.ProductPriceRel;
+import com.ai.crm.product.domain.model.ProductCharacter;
+import com.ai.crm.product.domain.model.ProductCharacterValue;
 import com.ai.crm.product.domain.repository.interfaces.IProductRepository;
 @Component
 public class OrderDTOTransfer implements IOrderDTOTransfer{
@@ -83,8 +98,16 @@ public class OrderDTOTransfer implements IOrderDTOTransfer{
 					toBeOfferInstance.setAsIsOfferInstance(asIsOfferInstance);
 				}
 				this.addCharacter(toBeOfferInstanceDTO.getOfferInstanceCharacteristics(), toBeOfferInstance);
+				Set<ToBeOfferInstanceProductDTO> toBeOfferInstanceProductDTOs=toBeOfferInstanceDTO.getProducts();
+				Map<ToBeProductDTO,ToBeProduct> toBeProductMap=new HashMap<>();
+				if(toBeOfferInstanceProductDTOs.size()>0){
+					for (ToBeOfferInstanceProductDTO toBeOfferInstanceProductDTO : toBeOfferInstanceProductDTOs) {
+						ToBeProduct toBeProduct=this.transferToBeProduct(toBeOfferInstanceProductDTO.getToBeProductDTO());
+						toBeOfferInstance.addProduct(toBeProduct, toBeOfferInstanceProductDTO.getValidPeriod());
+						toBeProductMap.put(toBeOfferInstanceProductDTO.getToBeProductDTO(), toBeProduct);
+					}
+				}
 				Set<ToBePricePlanInstanceDTO> toBePricePlanInstanceDTOs = toBeOfferInstanceDTO.getPricePlanInstances();
-				Map<Integer, ToBePricePlanInstance> pricePlanSeqMap=new HashMap<Integer, ToBePricePlanInstance>();
 				if(toBePricePlanInstanceDTOs.size()>0){
 					for (ToBePricePlanInstanceDTO toBePricePlanInstanceDTO : toBePricePlanInstanceDTOs) {
 						ToBePricePlanInstance toBePricePlanInstance=new ToBePricePlanInstance();
@@ -98,16 +121,17 @@ public class OrderDTOTransfer implements IOrderDTOTransfer{
 						toBePricePlanInstance.setPriceValue(toBePricePlanInstanceDTO.getInputedValue());
 						toBePricePlanInstance.setDiscountReason(toBePricePlanInstanceDTO.getDiscountReason());
 						toBePricePlanInstance.setRoleId(toBePricePlanInstanceDTO.getRoleId());
-						pricePlanSeqMap.put(new Integer(toBePricePlanInstanceDTO.getTempSeqId()), toBePricePlanInstance);
+						Set<ToBePricePlanInstanceProductDTO> priceplanProducts=toBePricePlanInstanceDTO.getAppliedToProducts();
+						if(priceplanProducts.size()>0){
+							for (ToBePricePlanInstanceProductDTO toBePricePlanInstanceProductDTO : priceplanProducts) {
+								ToBeProduct toBeProduct=(ToBeProduct)toBeProductMap.get(toBePricePlanInstanceProductDTO.getToBeProductDTO());
+								toBePricePlanInstance.assignTo(toBeProduct, toBePricePlanInstanceProductDTO.getValidPeriod());
+							}
+						}
 						toBeOfferInstance.addPricePlanInstance(toBePricePlanInstance);
 					}
 				}
-				Set<ToBeProductDTO> toBeProductDTOs=toBeOfferInstanceDTO.getProducts();
-				if(toBeProductDTOs.size()>0){
-					for (ToBeProductDTO toBeProductDTO : toBeProductDTOs) {
-						this.transferToBeProduct(toBeProductDTO,toBeOfferInstance,pricePlanSeqMap);
-					}
-				}
+
 				
 			}
 		}
@@ -121,7 +145,7 @@ public class OrderDTOTransfer implements IOrderDTOTransfer{
 				productOrderItem.setBusinessInteractionItemSpecId(productOrderItemDTO.getBusinessInteractionItemSpecId());
 				productOrderItem.setProductOrderId(productOrderItemDTO.getProductOrderItemId());				
 				this.addCharacter(productOrderItemDTO.getCharacters(), productOrderItem);
-				ToBeProduct toBeProduct=this.transferToBeProduct(productOrderItemDTO.getToBeProductDTO(),null,null);				
+				ToBeProduct toBeProduct=this.transferToBeProduct(productOrderItemDTO.getToBeProductDTO());				
 				BIIRelatedEntity relatEntity=new BIIRelatedEntity();
 				relatEntity.setToBeInstanceEntity(toBeProduct);
 				relatEntity.setAction(productOrderItemDTO.getAction());
@@ -131,31 +155,21 @@ public class OrderDTOTransfer implements IOrderDTOTransfer{
 		}
 	}
 	
-	private ToBeProduct transferToBeProduct(ToBeProductDTO toBeProductDTO,ToBeOfferInstance toBeOfferInstance,Map<Integer, ToBePricePlanInstance> pricePlanSeqMap) throws Exception{
+	private ToBeProduct transferToBeProduct(ToBeProductDTO toBeProductDTO) throws Exception{
 		ToBeProduct toBeProduct=new ToBeProduct();
 		toBeProduct.setCustomerId(toBeProductDTO.getCustomerId());		
 		toBeProduct.setProductSpecificationId(toBeProductDTO.getProductSpecId());
 		toBeProduct.setSerialNumber(toBeProductDTO.getSerialNo());
+		toBeProduct.setValidPeriod(toBeProductDTO.getValidPeriod());
+		//toBeProductDTO.getAction()
 		long productId=toBeProductDTO.getProductId();
 		if(productId>0){
 			Product asIsProduct=productRepository.getProductById(productId);
 			toBeProduct.setAsIsProduct(asIsProduct);
 		}
-		this.addCharacter(toBeProductDTO.getProductCharacteristics(), toBeProduct);
+		this.addCharacter(toBeProductDTO.getProductCharacteristics(), toBeProduct);		
 		//TODO add BarReason
-		if(null!=toBeOfferInstance){
-			toBeProduct.addToOfferInstance(toBeOfferInstance);
-			Set<Long> assignedPriceSeqs=toBeProductDTO.getAssignedPriceTempSeqs();
-			if(assignedPriceSeqs.size()>0){
-				for (Long seq : assignedPriceSeqs) {
-					ToBePricePlanInstance toBePricePlanInstance = pricePlanSeqMap.get(seq);
-					ProductPriceRel productPriceRel=new ProductPriceRel();
-					productPriceRel.setPricePlanInstance(toBePricePlanInstance);
-					productPriceRel.setProduct(toBeProduct);
-					toBeProduct.assignPrice(productPriceRel);
-				}
-			}
-		}
+
 		return toBeProduct;
 	}
 	
@@ -163,17 +177,43 @@ public class OrderDTOTransfer implements IOrderDTOTransfer{
 	private void addCharacter(Set<CharacterInstanceDTO> characterInstances,SpecInstanceEntity instanceEntity) throws Exception{
 		if(characterInstances.size()>0){
 			for (CharacterInstanceDTO characterInstanceDTO : characterInstances) {
-				SpecInstanceEntityCharacter character=new SpecInstanceEntityCharacter();
+				SpecInstanceEntityCharacter character=null;
+				if(instanceEntity instanceof BusinessInteraction){
+					character=new BICharacter();
+				}else if (instanceEntity instanceof BusinessInteractionItem){
+					character=new BIICharacter();
+				}else if (instanceEntity instanceof BusinessInteractionItem){
+					character=new OfferInstanceCharacter();
+				}else if (instanceEntity instanceof BusinessInteractionItem){
+					character=new ProductCharacter();
+				}else if (instanceEntity instanceof BusinessInteractionItem){
+					character=new PricePlanInstanceCharacter();
+				}
 				character.setId(characterInstanceDTO.getCharacterInstanceId());
-				character.setCharacteristicSpecId(characterInstanceDTO.getCharacteristicSpecId());
+				CharacteristicSpec characterSpec=new CharacteristicSpec();
+				characterSpec.setId(characterInstanceDTO.getCharacteristicSpecId());
+				character.setCharacteristicSpec(characterSpec);
 				character.setAction(characterInstanceDTO.getAction());
 				character.setOwnerInstance(instanceEntity);
 				Set<CharacterValueInstanceDTO> characterValues=characterInstanceDTO.getCharacteristicValues();
 				if(characterValues.size()>0){
-					for (CharacterValueInstanceDTO characterValueInstanceDTO : characterValues) {
-						SpecInstanceEntityCharacterValue characterValue=new SpecInstanceEntityCharacterValue();
+					for (CharacterValueInstanceDTO characterValueInstanceDTO : characterValues) {						
+						SpecInstanceEntityCharacterValue characterValue=null;
+						if(instanceEntity instanceof BusinessInteraction){
+							characterValue=new BICharacterValue();
+						}else if (instanceEntity instanceof BusinessInteractionItem){
+							characterValue=new BIICharacterValue();
+						}else if (instanceEntity instanceof BusinessInteractionItem){
+							characterValue=new OfferInstanceCharacterValue();
+						}else if (instanceEntity instanceof BusinessInteractionItem){
+							characterValue=new ProductCharacterValue();
+						}else if (instanceEntity instanceof BusinessInteractionItem){
+							characterValue=new PricePlanInstanceCharacterValue();
+						}
 						characterValue.setCharacterValueInstanceId(characterValueInstanceDTO.getCharacterValueInstanceId());
-						characterValue.setCharacteristicValueId(characterValueInstanceDTO.getCharacteristicSpecValueId());
+						CharacteristicSpecValue characterSpecValue=new CharacteristicSpecValue();
+						characterSpecValue.setId(characterValueInstanceDTO.getCharacteristicSpecValueId());
+						characterValue.setCharacteristicValue(characterSpecValue);
 						characterValue.setInputedValue(characterValueInstanceDTO.getInputedValue());
 						characterValue.setAction(characterValueInstanceDTO.getAction());
 						character.addCharacteristicInstanceValue(characterValue);

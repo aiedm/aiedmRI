@@ -1,19 +1,23 @@
 package com.ai.crm.common.businessinteraction.domain.model;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
 
 import com.ai.common.rootentity.domain.model.SpecInstanceEntity;
+import com.ai.common.rootentity.domain.model.SpecInstanceEntityCharacter;
 
 @Entity
 @Inheritance (strategy = InheritanceType.SINGLE_TABLE)
@@ -22,11 +26,27 @@ public abstract class BusinessInteraction extends SpecInstanceEntity {
 	private long id;
 	@Column
 	private int biState;
+	@OneToMany(mappedBy="businessInteraction",fetch=FetchType.LAZY)
 	private Set<BusinessInteractionItem> businessInteractionItems=new HashSet<BusinessInteractionItem>();
 	@Column
 	private long biSpecId;
 	@Column
 	private String code;
+	@OneToMany(mappedBy="specInstanceEntity",fetch=FetchType.LAZY)
+	private Set<SpecInstanceEntityCharacter> characterInstances=new LinkedHashSet<SpecInstanceEntityCharacter>();
+	
+	@Override
+	public  Set<SpecInstanceEntityCharacter> getCharacteristics(){
+		return this.characterInstances;
+	}
+	
+	@Override
+	public void addCharacteristic(SpecInstanceEntityCharacter character){
+		if(null!=character){
+			this.characterInstances.add(character);
+			character.setOwnerInstance(this);
+		}
+	}
 	
 	public BusinessInteraction(long biSpecId) {
 		this.biSpecId=biSpecId;

@@ -34,11 +34,15 @@ import com.ai.common.policy.domain.model.PolicyVariable;
 import com.ai.common.policy.domain.model.PolicyVariableValue;
 import com.ai.common.policy.domain.service.impl.GroovyPolicyExecute;
 import com.ai.common.policy.domain.service.interfaces.IPolicyExecute;
+import com.ai.common.rootentity.domain.model.CharacteristicSpec;
+import com.ai.common.rootentity.domain.model.CharacteristicSpecValue;
 import com.ai.common.rootentity.domain.model.SpecInstanceEntityCharacter;
 import com.ai.common.rootentity.domain.model.SpecInstanceEntityCharacterValue;
 import com.ai.crm.customerorder.domain.model.ToBeOfferInstance;
 import com.ai.crm.customerorder.domain.model.ToBePricePlanInstance;
 import com.ai.crm.customerorder.domain.model.ToBeProduct;
+import com.ai.crm.product.domain.model.ProductCharacter;
+import com.ai.crm.product.domain.model.ProductCharacterValue;
 
 public class PolicyTest {
 	
@@ -511,11 +515,15 @@ public class PolicyTest {
 		IPolicyExecute serv1=new GroovyPolicyExecute();
 		Map<String, Object> context=new HashMap<>();
 		ToBeProduct product=new ToBeProduct();
-		SpecInstanceEntityCharacter instChar=new SpecInstanceEntityCharacter();				
-		instChar.setCharacteristicSpecId(1);
+		SpecInstanceEntityCharacter instChar=new ProductCharacter();		
+		CharacteristicSpec character=new CharacteristicSpec();
+		character.setId(1);
+		instChar.setCharacteristicSpec(character);
 		product.addCharacteristic(instChar);
-		SpecInstanceEntityCharacterValue instCharValue=new SpecInstanceEntityCharacterValue();		
-		instCharValue.setCharacteristicValueId(2);
+		SpecInstanceEntityCharacterValue instCharValue=new ProductCharacterValue();	
+		CharacteristicSpecValue characterValue=new CharacteristicSpecValue();
+		characterValue.setId(2);
+		instCharValue.setCharacteristicValue(characterValue);
 		instChar.addCharacteristicInstanceValue(instCharValue);
 		ToBeOfferInstance offerInstance =new ToBeOfferInstance();
 		context.put("toBeProduct", product);

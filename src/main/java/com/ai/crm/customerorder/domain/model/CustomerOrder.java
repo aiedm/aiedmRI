@@ -66,7 +66,8 @@ public class CustomerOrder extends BusinessInteraction {
 			offerOrders.add(offerOrder);
 			if(null==offerOrder.getCustomerOrder()){
 				offerOrder.setCustomerOrder(this);
-			}			
+			}
+			super.addBusinessInteractionItem(offerOrder);
 		}
 	}
 

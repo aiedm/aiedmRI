@@ -3,11 +3,12 @@ package com.ai.common.policy.domain.model;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
-
-import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.OneToMany;
 @MappedSuperclass
 public class PolicyCompositeAction extends PolicyAction{
+	@OneToMany(mappedBy="parentAction",fetch=FetchType.LAZY)
 	Set<PolicyAction> children=new LinkedHashSet<PolicyAction>();
 	public PolicyCompositeAction() {
 	}

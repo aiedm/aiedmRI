@@ -9,7 +9,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -19,10 +18,8 @@ public class SpecEntityCharacteristic extends RootEntity{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;	
 	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
-    @JoinColumn(name="SPECIFICATION_ENTITY_ID")
 	private SpecificationEntity specificationEntity;
 	@OneToOne
-	@JoinColumn(name="CHARACTER_ID")
 	private CharacteristicSpec characteristic;
 	
 	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.LAZY,mappedBy="specificationEntityCharacteristic")

@@ -1,5 +1,8 @@
 package com.ai.crm.common.party.domain.model;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
@@ -13,9 +16,11 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.ai.common.rootentity.domain.model.SpecInstanceEntity;
+import com.ai.common.rootentity.domain.model.SpecInstanceEntityCharacter;
 @Entity
 @Table(name="CB_PARTY_ROLE")
 @Inheritance (strategy = InheritanceType.SINGLE_TABLE)
@@ -30,6 +35,25 @@ public abstract class PartyRole extends SpecInstanceEntity{
 	@Column(insertable = false, updatable = false)
 	String partyRoleType;
 	
+	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+    @JoinColumn(name="PARTY_ID")
+	private Party party;		
+	
+	@OneToMany(mappedBy="specInstanceEntity",fetch=FetchType.LAZY)
+	private Set<SpecInstanceEntityCharacter> characterInstances=new LinkedHashSet<SpecInstanceEntityCharacter>();
+	
+	@Override
+	public  Set<SpecInstanceEntityCharacter> getCharacteristics(){
+		return this.characterInstances;
+	}
+	
+	@Override
+	public void addCharacteristic(SpecInstanceEntityCharacter character){
+		if(null!=character){
+			this.characterInstances.add(character);
+			character.setOwnerInstance(this);
+		}
+	}	
 	public String getPartyRoleType() {
 		return partyRoleType;
 	}
@@ -37,10 +61,7 @@ public abstract class PartyRole extends SpecInstanceEntity{
 	public void setPartyRoleType(String partyRoleType) {
 		this.partyRoleType = partyRoleType;
 	}
-	
-	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
-    @JoinColumn(name="PARTY_ID")
-	private Party party;	
+
 	
 	public PartyRole(Party party){
 		this.party=(Party)party;

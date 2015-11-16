@@ -1,22 +1,23 @@
 package com.ai.common.rootentity.domain.model;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
 
-@Entity
-public class SpecInstanceEntityCharacterValue extends RootEntity{
+@MappedSuperclass
+public abstract class SpecInstanceEntityCharacterValue extends RootEntity{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;	
 	@ManyToOne
 	private SpecInstanceEntityCharacter specInstanceEntityCharacteristic;
+	
 	private long characterValueInstanceId;
 	@Column
-	private long characteristicValueId;
+	private CharacteristicSpecValue characteristicValue;
 	@Column
 	private String value;
 	@Column
@@ -34,9 +35,9 @@ public class SpecInstanceEntityCharacterValue extends RootEntity{
 		
 	}
 			
-	public SpecInstanceEntityCharacterValue(SpecInstanceEntityCharacter instanceEntityCharacteristic, long characteristicValueId){
+	public SpecInstanceEntityCharacterValue(SpecInstanceEntityCharacter instanceEntityCharacteristic, CharacteristicSpecValue characteristicValue){
 		this.setInstanceEntityCharacteristic(instanceEntityCharacteristic);
-		this.setCharacteristicValueId(characteristicValueId);
+		this.setCharacteristicValue(characteristicValue);
 	}
 	
 	
@@ -50,13 +51,13 @@ public class SpecInstanceEntityCharacterValue extends RootEntity{
 	}
 
 	
-	public long getCharacteristicSpecValueId() {
-		return this.characteristicValueId;
+	public CharacteristicSpecValue getCharacteristicSpecValue() {
+		return this.characteristicValue;
 	}
 
 	
-	public void setCharacteristicValueId(long characteristicValueId) {
-		this.characteristicValueId=characteristicValueId;
+	public void setCharacteristicValue(CharacteristicSpecValue characteristicValue) {
+		this.characteristicValue=characteristicValue;
 	}
 
 	
@@ -76,7 +77,7 @@ public class SpecInstanceEntityCharacterValue extends RootEntity{
 
 	
 	public void setCharacterValueInstanceId(long characterValueInstanceId) {
-		this.characteristicValueId=characterValueInstanceId;
+		this.characterValueInstanceId=characterValueInstanceId;
 	}
 
 

@@ -1,45 +1,20 @@
 package com.ai.common.rootentity.domain.model;
 
-import java.util.LinkedHashSet;
 import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.OneToMany;
-import javax.persistence.Transient;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.ai.common.rootentity.domain.repository.interfaces.ICharacterSpecificationRepository;
 
 @MappedSuperclass
 public abstract class SpecInstanceEntity extends InstanceEntity {
-	
-	@Autowired
-	@Transient
-	private ICharacterSpecificationRepository characterSpecificationRepository ;
-	
-	@OneToMany(fetch=FetchType.LAZY,mappedBy="specInstanceEntity")
-	private  Set<SpecInstanceEntityCharacter> instanceEntityCharacteristics=new LinkedHashSet<SpecInstanceEntityCharacter>();
-		
-	public Set<SpecInstanceEntityCharacter> getCharacteristics() {
-		return this.instanceEntityCharacteristics;
-	}
+			
+	public abstract Set<SpecInstanceEntityCharacter> getCharacteristics();
 
-	public void addCharacteristic(SpecInstanceEntityCharacter instanceEntityCharacteristic) {
-		this.instanceEntityCharacteristics.add(instanceEntityCharacteristic);
-		if (null==instanceEntityCharacteristic.getOwnerInstance()){
-			instanceEntityCharacteristic.setOwnerInstance(this);
-		}
-	}
+	public abstract void addCharacteristic(SpecInstanceEntityCharacter instanceEntityCharacteristic);
 	
 	public SpecInstanceEntityCharacter getInstEntityCharByCode(String characteristicCode)  throws Exception{
 		SpecInstanceEntityCharacter instCharacteristic=null;
-		for (SpecInstanceEntityCharacter aInstCharacteristic:instanceEntityCharacteristics) {
-			long characteristicSpecId=aInstCharacteristic.getCharacteristicSpecId();
-			CharacteristicSpec aCharacteristicSpec=characterSpecificationRepository.getCharacteristicSpecById(characteristicSpecId);
-			if(aCharacteristicSpec.getCode().equalsIgnoreCase(characteristicCode)){
+		for (SpecInstanceEntityCharacter aInstCharacteristic:this.getCharacteristics()) {
+			if(aInstCharacteristic.getCharacteristicSpec().getCode().equalsIgnoreCase(characteristicCode)){
 				instCharacteristic=aInstCharacteristic;
 				break;
 			}		
@@ -49,8 +24,8 @@ public abstract class SpecInstanceEntity extends InstanceEntity {
 	
 	public SpecInstanceEntityCharacter getInstEntityCharById(long characteristicId)  throws Exception{
 		SpecInstanceEntityCharacter instCharacteristic=null;
-		for (SpecInstanceEntityCharacter aInstCharacteristic:instanceEntityCharacteristics) {
-			if(aInstCharacteristic.getCharacteristicSpecId()==characteristicId){
+		for (SpecInstanceEntityCharacter aInstCharacteristic:this.getCharacteristics()) {
+			if(aInstCharacteristic.getCharacteristicSpec().getId()==characteristicId){
 				instCharacteristic=aInstCharacteristic;
 				break;
 			}		
@@ -79,15 +54,12 @@ public abstract class SpecInstanceEntity extends InstanceEntity {
 				}
 				SpecInstanceEntityCharacterValue instValue= (SpecInstanceEntityCharacterValue)values.toArray()[valuePosition];
 				value=instValue.getInputedValue();
-				if (null==value){
-					long characteristicSpecValueId=instValue.getCharacteristicSpecValueId();
-					CharacteristicSpecValue characteristicSpecValue =characterSpecificationRepository.getCharacteristicSpecValueById(characteristicSpecValueId);
-					value=characteristicSpecValue.getValue();
+				if (null==value&&null!=instValue.getCharacteristicSpecValue()){
+					value=instValue.getCharacteristicSpecValue().getValue();
 				}				
 			}
 		}
 		return value;
-	}	
-
+	}
 
 }

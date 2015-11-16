@@ -3,6 +3,7 @@ package com.ai.crm.customerorder.application.service.api.dto;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import com.ai.common.basetype.TimePeriod;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
@@ -19,9 +20,26 @@ public class ToBePricePlanInstanceDTO {
 	private long inputedValue;
 	private String discountReason;
 	private int roleId;
-	private int tempSeqId;
 	private int action;
-		
+	private TimePeriod validPeriod;
+	private Set<CharacterInstanceDTO> pricePlanInstanceCharacteristics = new LinkedHashSet<CharacterInstanceDTO>();
+	private Set<ToBePricePlanInstanceProductDTO> appliedToProducts=new LinkedHashSet<ToBePricePlanInstanceProductDTO>();
+
+	
+	public Set<ToBePricePlanInstanceProductDTO> getAppliedToProducts(){
+		return this.appliedToProducts;
+	}
+	
+	public void applyToProduct(ToBeProductDTO toBeProductDTO,TimePeriod validPeriod){
+		if(null!=toBeProductDTO){
+			ToBePricePlanInstanceProductDTO productRel=new ToBePricePlanInstanceProductDTO();
+			productRel.setToBePricePlanInstanceDTO(this);
+			productRel.setToBeProductDTO(toBeProductDTO);
+			productRel.setValidPeriod(validPeriod);
+			this.appliedToProducts.add(productRel);
+		}
+	}
+	
 	public int getAction() {
 		return action;
 	}
@@ -29,16 +47,6 @@ public class ToBePricePlanInstanceDTO {
 
 	public void setAction(int action) {
 		this.action = action;
-	}
-	private Set<CharacterInstanceDTO> pricePlanInstanceCharacteristics = new LinkedHashSet<CharacterInstanceDTO>();
-	
-	public int getTempSeqId() {
-		return tempSeqId;
-	}
-
-
-	public void setTempSeqId(int tempSeqId) {
-		this.tempSeqId = tempSeqId;
 	}
 	
 	public long getPricePlanId() {
@@ -105,6 +113,16 @@ public class ToBePricePlanInstanceDTO {
 
 	public ToBePricePlanInstanceDTO() {
 		
+	}
+
+
+	public TimePeriod getValidPeriod() {
+		return validPeriod;
+	}
+
+
+	public void setValidPeriod(TimePeriod validPeriod) {
+		this.validPeriod = validPeriod;
 	}
 
 }

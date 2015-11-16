@@ -3,22 +3,24 @@ package com.ai.common.rootentity.domain.model;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
-@Entity
-public class SpecInstanceEntityCharacter extends RootEntity {
+import javax.persistence.OneToOne;
+
+@MappedSuperclass
+public abstract class SpecInstanceEntityCharacter extends RootEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	
+	@ManyToOne
 	private SpecInstanceEntity specInstanceEntity;
-	
-	private long characteristicSpecId;
+	@OneToOne
+	private CharacteristicSpec characteristicSpec;
 	
 	@OneToMany (fetch=FetchType.LAZY,mappedBy="specInstanceEntityCharacteristic")
 	private Set<SpecInstanceEntityCharacterValue> characteristicInstanceValues=new LinkedHashSet<SpecInstanceEntityCharacterValue>();
@@ -44,13 +46,13 @@ public class SpecInstanceEntityCharacter extends RootEntity {
 	}
 
 	
-	public long getCharacteristicSpecId() {
-		return this.characteristicSpecId;
+	public CharacteristicSpec getCharacteristicSpec() {
+		return this.characteristicSpec;
 	}
 
 	
-	public void setCharacteristicSpecId(long characteristic) {
-		this.characteristicSpecId=characteristic;
+	public void setCharacteristicSpec(CharacteristicSpec characteristic) {
+		this.characteristicSpec=characteristic;
 	}
 
 	

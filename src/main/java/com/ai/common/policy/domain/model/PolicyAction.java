@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
 
 import com.ai.common.rootentity.domain.model.InstanceEntity;
 @Entity
@@ -18,6 +19,9 @@ public abstract class PolicyAction extends InstanceEntity{
 	private long id;
 	private String name;
 	private String code;
+	
+	@ManyToOne
+	private PolicyAction parentAction;
 	
 	public String getName() {
 		return this.name;
@@ -52,6 +56,16 @@ public abstract class PolicyAction extends InstanceEntity{
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+
+	public PolicyAction getParentAction() {
+		return parentAction;
+	}
+
+
+	public void setParentAction(PolicyAction parentAction) {
+		this.parentAction = parentAction;
 	}
 
 }

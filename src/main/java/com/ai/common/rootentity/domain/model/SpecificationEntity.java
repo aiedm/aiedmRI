@@ -22,8 +22,8 @@ public abstract  class SpecificationEntity extends RootEntity{
 	private String name;
 	@Column
 	private String code;
-	@OneToMany(fetch=FetchType.LAZY,mappedBy="instanceEntity")
-	private Set<SubscribedEvent> subscribedEvents=new LinkedHashSet<SubscribedEvent>();
+	@OneToMany(fetch=FetchType.LAZY,mappedBy="subscriber")
+	private Set<EventSubscriber> subscribedEvents=new LinkedHashSet<EventSubscriber>();
 	
 
 	
@@ -60,12 +60,12 @@ public abstract  class SpecificationEntity extends RootEntity{
 	}
 
 	
-	public Set<SubscribedEvent> getSubscribedEvents() {
+	public Set<EventSubscriber> getSubscribedEvents() {
 		return this.subscribedEvents;
 	}
 	
 	
-	public void addSubscribedEvent(SubscribedEvent event) {
+	public void addSubscribedEvent(EventSubscriber event) {
 		if (event!=null){
 			subscribedEvents.add(event);
 			if (null==event.getOwner()){

@@ -14,7 +14,9 @@ import com.ai.common.policy.domain.repository.interfaces.IPolicyRepository;
 import com.ai.common.policy.domain.service.interfaces.IPolicyExecute;
 import com.ai.common.rootentity.domain.model.BaseEvent;
 import com.ai.common.rootentity.domain.model.CheckResult;
+import com.ai.common.rootentity.domain.model.EventSubscriber;
 import com.ai.common.rootentity.domain.model.SpecificationEntity;
+import com.ai.common.rootentity.domain.model.SubscribedEventPolicy;
 @Component
 public class GroovyPolicyExecute implements IPolicyExecute {
 	@Autowired
@@ -35,22 +37,24 @@ public class GroovyPolicyExecute implements IPolicyExecute {
 	public CheckResult executeCheckPolicy(BaseEvent event, SpecificationEntity specEntity, Map<String, Object> context)
 			throws Exception {
 		CheckResult result=new CheckResult();
-		long specEntityId=0;
-		if(null!=specEntity){
-			specEntityId=specEntity.getId();
-		}
-		Set<PolicySet> policies=policyRepository.getEventRegistePolicies(event.getCode(), specEntityId);
-		if (null!=policies && policies.size()>0){
+		Set<EventSubscriber> subscribedEvents=specEntity.getSubscribedEvents();
+		if (null!=subscribedEvents && subscribedEvents.size()>0){
 			CheckResult perPolicyResult=new CheckResult();
-			for (PolicySet PolicySet : policies) {
-				context.put("CheckResult", perPolicyResult);
-				execute(PolicySet,context);
-				if(null!=perPolicyResult.getErrorInfomations()&&perPolicyResult.getErrorInfomations().size()>0){
-					result.getErrorInfomations().addAll(perPolicyResult.getErrorInfomations());
+			for (EventSubscriber eventSubscriber : subscribedEvents) {
+				Set<SubscribedEventPolicy> policies= eventSubscriber.getPolicies();
+				if(null!=policies&&policies.size()>0){
+					for (SubscribedEventPolicy subscribedEventPolicy : policies) {
+						context.put("CheckResult", perPolicyResult);
+						execute(subscribedEventPolicy.getPolicySet(),context);
+						if(null!=perPolicyResult.getErrorInfomations()&&perPolicyResult.getErrorInfomations().size()>0){
+							result.getErrorInfomations().addAll(perPolicyResult.getErrorInfomations());
+						}
+						if(null!=perPolicyResult.getInformInfomations()&&perPolicyResult.getInformInfomations().size()>0){
+							result.getInformInfomations().addAll(perPolicyResult.getInformInfomations());
+						}
+					}
 				}
-				if(null!=perPolicyResult.getInformInfomations()&&perPolicyResult.getInformInfomations().size()>0){
-					result.getInformInfomations().addAll(perPolicyResult.getInformInfomations());
-				}
+
 			}
 		}
 		return result;

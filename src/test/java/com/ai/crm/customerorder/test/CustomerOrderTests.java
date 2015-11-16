@@ -15,6 +15,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import com.ai.common.basetype.TimePeriod;
 import com.ai.common.rootentity.domain.service.interfaces.IEventPublisher;
 import com.ai.crm.customerorder.application.service.api.dto.CharacterInstanceDTO;
 import com.ai.crm.customerorder.application.service.api.dto.CharacterValueInstanceDTO;
@@ -51,7 +52,6 @@ public class CustomerOrderTests {
 	public void createCustomerOrder() throws Exception{
 		toBePrice.setPricePlanId(1);
 		toBePrice.setInputedValue(10000);
-		toBePrice.setTempSeqId(1);
 		
 		toBeOfferInstance.addPricePlanInstance(toBePrice);
 		toBeOfferInstance.setProductOfferingId(11);
@@ -67,7 +67,10 @@ public class CustomerOrderTests {
 		offerOrder.setBusinessInteractionItemSpecId(1001);
 		offerOrder.setToBeOfferInstanceTDO(toBeOfferInstance);		
 		toBeProduct.setProductSpecId(101);
-		toBeProduct.addAssignedPriceTempSeq(1);
+		TimePeriod prodRelValidPeriod=new TimePeriod();
+		//prodRelValidPeriod.setBeginTime(beginTime);
+		//prodRelValidPeriod.setEndTime(beginTime);
+		toBePrice.applyToProduct(toBeProduct,prodRelValidPeriod);
 		CharacterValueInstanceDTO productcharacterInstanceValue=new CharacterValueInstanceDTO();
 		productcharacterInstanceValue.setCharacteristicSpecValueId(20001);
 		productcharacterInstanceValue.setInputedValue("Red");
@@ -75,7 +78,7 @@ public class CustomerOrderTests {
 		productPriceCharacter.setCharacteristicSpecId(200);
 		productPriceCharacter.addCharacteristicValue(productcharacterInstanceValue);
 		toBeProduct.addProductCharacteristics(productPriceCharacter);
-		toBeOfferInstance.addProduct(toBeProduct);
+		toBeOfferInstance.addProduct(toBeProduct,prodRelValidPeriod);
 	
 		customerOrder.addOfferOrderItem(offerOrder);
 		
@@ -86,7 +89,7 @@ public class CustomerOrderTests {
 		toBeproduct2.setProductSpecId(102);
 		ToBeOfferInstanceDTO toBeOffer2=new ToBeOfferInstanceDTO();
 		toBeOffer2.setProductOfferingId(12);
-		toBeOffer2.addProduct(toBeproduct2);
+		toBeOffer2.addProduct(toBeproduct2,prodRelValidPeriod);
 		offerOrder2.setToBeOfferInstanceTDO(toBeOffer2);
 		
 		customerOrder.addOfferOrderItem(offerOrder2);

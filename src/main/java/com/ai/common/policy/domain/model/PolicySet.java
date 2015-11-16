@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import com.ai.common.rootentity.domain.model.InstanceEntity;
@@ -26,6 +27,9 @@ public abstract class PolicySet extends InstanceEntity{
 	@OneToOne
 	private PolicyAction elseAction;
 	boolean isEnableElseAction=true;
+	
+	@ManyToOne
+	private PolicySet parentPolicySet;
 	
 	public PolicySet() {
 	}
@@ -171,6 +175,16 @@ public abstract class PolicySet extends InstanceEntity{
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+
+	public PolicySet getParentPolicySet() {
+		return parentPolicySet;
+	}
+
+
+	public void setParentPolicySet(PolicySet parentPolicySet) {
+		this.parentPolicySet = parentPolicySet;
 	}
 
 }

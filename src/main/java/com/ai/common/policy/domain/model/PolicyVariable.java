@@ -19,6 +19,7 @@ public class PolicyVariable extends InstanceEntity{
 	@OneToOne
 	private CharacteristicSpec characteristicSpec;
 	private String initialInputValue;
+	@OneToOne
 	private PolicyValue value;
 	public PolicyVariable() {
 	}

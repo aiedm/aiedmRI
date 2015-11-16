@@ -3,14 +3,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.SecondaryTable;
 
 @Entity
-@SecondaryTable(
-	    name = "INDIVIDUAL",
-	    pkJoinColumns = @PrimaryKeyJoinColumn(name = "INDIVIDUAL_ID")
-	)
 @DiscriminatorValue("Individual")
 public class Individual extends Party{
 	private Individual(){}

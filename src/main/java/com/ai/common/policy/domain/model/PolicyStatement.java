@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import com.ai.common.rootentity.domain.model.InstanceEntity;
 @Entity
@@ -17,7 +18,9 @@ public abstract class PolicyStatement extends InstanceEntity{
 	private long id;	
 	private String name;
 	private String code;
+	@OneToOne
 	private PolicyVariable varible;
+	@OneToOne
 	private PolicyValue value;
 
 	public PolicyStatement() {

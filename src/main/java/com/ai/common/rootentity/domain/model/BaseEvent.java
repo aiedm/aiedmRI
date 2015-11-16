@@ -13,7 +13,7 @@ import com.ai.common.policy.domain.model.PolicyCondition;
 @Entity
 public abstract class BaseEvent extends ApplicationEvent {
 	@Transient
-	private Set<EventSubscriberRule> eventSubscriberRules=new LinkedHashSet<EventSubscriberRule>();
+	private Set<EventSubscriber> eventSubscribers=new LinkedHashSet<EventSubscriber>();
 	@Transient
 	private Set<PolicyCondition> conditions=new LinkedHashSet<PolicyCondition>();
 	@Transient
@@ -47,12 +47,12 @@ public abstract class BaseEvent extends ApplicationEvent {
 		}
 	}
 	
-	public Set<EventSubscriberRule> getEventSubscriberRules() {
-		return eventSubscriberRules;
+	public Set<EventSubscriber> getEventSubscriberRules() {
+		return eventSubscribers;
 	}
-	public void addEventSubscriberRule(EventSubscriberRule eventSubscriberRule) {
+	public void addEventSubscriberRule(EventSubscriber eventSubscriberRule) {
 		if (null!=eventSubscriberRule){
-			this.eventSubscriberRules.add(eventSubscriberRule);
+			this.eventSubscribers.add(eventSubscriberRule);
 			if (null==eventSubscriberRule.getEvent()){
 				eventSubscriberRule.setEvent(this);
 			}

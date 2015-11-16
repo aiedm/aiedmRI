@@ -3,6 +3,7 @@ package com.ai.crm.customerorder.application.service.api.dto;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import com.ai.common.basetype.TimePeriod;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
@@ -19,10 +20,11 @@ public class ToBeOfferInstanceDTO {
 	private long customerId;
 	private int acition;
 	private String name;
+	private TimePeriod validPeriod;
 	private Set<CharacterInstanceDTO> offerInstanceCharacteristics = new LinkedHashSet<CharacterInstanceDTO>();	
 	private Set<ToBePricePlanInstanceDTO> pricePlanInstances = new LinkedHashSet<ToBePricePlanInstanceDTO>();
 	
-	private Set<ToBeProductDTO> products = new LinkedHashSet<ToBeProductDTO>();
+	private Set<ToBeOfferInstanceProductDTO> products = new LinkedHashSet<ToBeOfferInstanceProductDTO>();
 
 	public ToBeOfferInstanceDTO() {
 	}
@@ -69,13 +71,17 @@ public class ToBeOfferInstanceDTO {
 		}		
 	}
 
-	public Set<ToBeProductDTO> getProducts() {
+	public Set<ToBeOfferInstanceProductDTO> getProducts() {
 		return products;
 	}
 
-	public void addProduct(ToBeProductDTO product) {
+	public void addProduct(ToBeProductDTO product,TimePeriod validPeriod) {
 		if(null!=product){
-			this.products.add(product);
+			ToBeOfferInstanceProductDTO rel=new ToBeOfferInstanceProductDTO();
+			rel.setToBeOfferInstanceDTO(this);
+			rel.setToBeProductDTO(product);
+			rel.setValidPeriod(validPeriod);
+			this.products.add(rel);
 		}		
 	}
 
@@ -96,6 +102,14 @@ public class ToBeOfferInstanceDTO {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public TimePeriod getValidPeriod() {
+		return validPeriod;
+	}
+
+	public void setValidPeriod(TimePeriod validPeriod) {
+		this.validPeriod = validPeriod;
 	}
 
 }

@@ -6,9 +6,13 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 @Entity
 public class PolicyGroup extends PolicySet{
+	@OneToMany(mappedBy="parentPolicySet",fetch=FetchType.LAZY)
 	private Set<PolicySet> policySets=new LinkedHashSet<PolicySet>();
+	@OneToMany(mappedBy="policyRule",fetch=FetchType.LAZY,targetEntity=PolicyRuleParameter.class)
 	private Set<PolicyRuleInputParameter> inputParameters=new LinkedHashSet<PolicyRuleInputParameter>();
 	public PolicyGroup() {
 	}

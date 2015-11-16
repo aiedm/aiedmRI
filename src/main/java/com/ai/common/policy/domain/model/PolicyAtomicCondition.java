@@ -3,11 +3,12 @@ package com.ai.common.policy.domain.model;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Entity;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.OneToOne;
 
 @MappedSuperclass
 public class PolicyAtomicCondition extends PolicyCondition {
+	@OneToOne
 	private PolicyConditionStatement statement;
 	public PolicyAtomicCondition() {
 	}

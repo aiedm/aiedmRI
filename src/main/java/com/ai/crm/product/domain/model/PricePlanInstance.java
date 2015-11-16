@@ -3,9 +3,14 @@ package com.ai.crm.product.domain.model;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+
 import org.springframework.stereotype.Component;
 
+import com.ai.common.basetype.TimePeriod;
 import com.ai.common.rootentity.domain.model.SpecInstanceEntity;
+import com.ai.common.rootentity.domain.model.SpecInstanceEntityCharacter;
 @Component
 public class PricePlanInstance extends SpecInstanceEntity {
 	public enum PriceState {
@@ -32,7 +37,21 @@ public class PricePlanInstance extends SpecInstanceEntity {
 	private int payState;
 	private String discountReason;
 	private long roleId;
-
+	@OneToMany(mappedBy="specInstanceEntity",fetch=FetchType.LAZY)
+	private Set<SpecInstanceEntityCharacter> characterInstances=new LinkedHashSet<SpecInstanceEntityCharacter>();
+	
+	@Override
+	public  Set<SpecInstanceEntityCharacter> getCharacteristics(){
+		return this.characterInstances;
+	}
+	
+	@Override
+	public void addCharacteristic(SpecInstanceEntityCharacter character){
+		if(null!=character){
+			this.characterInstances.add(character);
+			character.setOwnerInstance(this);
+		}
+	}
 	public PricePlanInstance() {
 	}
 
@@ -52,12 +71,34 @@ public class PricePlanInstance extends SpecInstanceEntity {
 	}
 
 	
-	public void assignTo(ProductPriceRel productPriceRel) {
-		if(null!=productPriceRel){
-			assignedTo.add(productPriceRel);
-			if(null==productPriceRel.getPricePlanInstance()){
-				productPriceRel.setPricePlanInstance(this);
+	public void assignTo(Product product,TimePeriod validPeriod) {
+		if(null!=product){
+			ProductPriceRel productPriceRel=new ProductPriceRel();
+			productPriceRel.setPricePlanInstance(this);
+			productPriceRel.setProduct(product);
+			productPriceRel.setValidPeriod(validPeriod);
+			if(!assignedTo.contains(productPriceRel)){
+				assignedTo.add(productPriceRel);
 			}
+			
+			if(!product.getAssignedPrices().contains(productPriceRel)){
+				product.getAssignedPrices().add(productPriceRel);
+			}
+		}
+		
+	}
+	
+	public void unAssignTo(Product product) {
+		if(null!=product){
+			ProductPriceRel productPriceRel=new ProductPriceRel();
+			productPriceRel.setPricePlanInstance(this);
+			productPriceRel.setProduct(product);
+			if(assignedTo.contains(productPriceRel)){
+				assignedTo.remove(productPriceRel);
+			}
+			if(product.getAssignedPrices().contains(productPriceRel)){
+				product.getAssignedPrices().remove(productPriceRel);
+			}			
 		}
 		
 	}

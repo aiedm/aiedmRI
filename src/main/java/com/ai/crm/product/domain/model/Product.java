@@ -1,11 +1,17 @@
 package com.ai.crm.product.domain.model;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
+
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 
 import org.springframework.stereotype.Component;
 
+import com.ai.common.basetype.TimePeriod;
 import com.ai.common.rootentity.domain.model.SpecInstanceEntity;
+import com.ai.common.rootentity.domain.model.SpecInstanceEntityCharacter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 @Component
 public class Product extends SpecInstanceEntity{
@@ -13,11 +19,25 @@ public class Product extends SpecInstanceEntity{
 	private long userId;
 	private Set<ProductBarReason> barReasons=new HashSet<ProductBarReason>();
 	@JsonIgnore
-	private Set<OfferInstance> participantOfferInstances=new HashSet<OfferInstance>();
+	private Set<OfferInstanceProductRel> participantOfferInstances=new LinkedHashSet<OfferInstanceProductRel>();
 	private Set<ProductPriceRel> assignedPrices=new HashSet<ProductPriceRel>();
 	private long productSpecificationId;
 	private String serialNumber;
-
+	@OneToMany(mappedBy="specInstanceEntity",fetch=FetchType.LAZY)
+	private Set<SpecInstanceEntityCharacter> characterInstances=new LinkedHashSet<SpecInstanceEntityCharacter>();
+	
+	@Override
+	public  Set<SpecInstanceEntityCharacter> getCharacteristics(){
+		return this.characterInstances;
+	}
+	
+	@Override
+	public void addCharacteristic(SpecInstanceEntityCharacter character){
+		if(null!=character){
+			this.characterInstances.add(character);
+			character.setOwnerInstance(this);
+		}
+	}
 	public Product() {
 	}
 
@@ -38,36 +58,13 @@ public class Product extends SpecInstanceEntity{
 	}
 
 	
-	public Set<OfferInstance> getParticipantOfferInstances() {
+	public Set<OfferInstanceProductRel> getParticipantOfferInstances() {
 		return participantOfferInstances;
-	}
-
-	
-	public void addToOfferInstance(OfferInstance offerInstance) {
-		if (null!=offerInstance){
-			participantOfferInstances.add(offerInstance);
-			Set<Product> offerProducts=offerInstance.getProducts();
-			if(!offerProducts.contains(this)){
-				offerInstance.addProduct(this);
-			}
-		}
-
 	}
 
 	
 	public Set<ProductPriceRel> getAssignedPrices() {
 		return assignedPrices;
-	}
-
-	
-	public void assignPrice(ProductPriceRel productPriceRel) {
-		if (null!=productPriceRel){
-			assignedPrices.add(productPriceRel);
-			if (null==productPriceRel.getProduct()){
-				productPriceRel.setProduct(this);
-			}
-		}
-
 	}
 
 	
