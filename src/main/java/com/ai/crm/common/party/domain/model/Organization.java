@@ -3,13 +3,10 @@ package com.ai.crm.common.party.domain.model;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import javax.persistence.Basic;
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -18,8 +15,6 @@ import javax.persistence.OneToMany;
 public abstract class Organization extends Party {
 	public Organization(){}
 	
-	@Basic
-	@Column(table="ORGANIZATION")
 	private boolean isLegal;
 
 	public boolean isLegal() {
@@ -29,8 +24,7 @@ public abstract class Organization extends Party {
 	public void setLegal(boolean isLegal) {
 		this.isLegal = isLegal;
 	}
-	@Basic
-	@Column(table="ORGANIZATION")
+
 	private String tradingName;
 
 	public String getTradingName() {
@@ -42,7 +36,6 @@ public abstract class Organization extends Party {
 	}
 	
 	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
-    @JoinColumn(table="ORGANIZATION",name="PARENT_ORG_ID")
 	private Organization parentOrganization;
 
 	public Organization getParentOrganization() {

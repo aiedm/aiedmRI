@@ -1,16 +1,29 @@
 package com.ai.common.rootentity.domain.model;
 
+import java.util.LinkedHashSet;
 import java.util.Set;
 
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Transient;
 
 @MappedSuperclass
+@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
 public abstract class SpecInstanceEntity extends InstanceEntity {
-			
-	public abstract Set<SpecInstanceEntityCharacter> getCharacteristics();
+	@Transient
+	private Set<SpecInstanceEntityCharacter> characterInstances=new  LinkedHashSet<SpecInstanceEntityCharacter>();
+	@Transient
+	protected Set<SpecInstanceEntityCharacter> getCharacteristics(){
+		return characterInstances;
+	}
 
-	public abstract void addCharacteristic(SpecInstanceEntityCharacter instanceEntityCharacteristic);
-	
+	protected void addCharacteristic(SpecInstanceEntityCharacter instanceEntityCharacteristic){
+		if (null!=instanceEntityCharacteristic){
+			characterInstances.add(instanceEntityCharacteristic);
+		}
+	}
+	@Transient
 	public SpecInstanceEntityCharacter getInstEntityCharByCode(String characteristicCode)  throws Exception{
 		SpecInstanceEntityCharacter instCharacteristic=null;
 		for (SpecInstanceEntityCharacter aInstCharacteristic:this.getCharacteristics()) {
@@ -21,7 +34,7 @@ public abstract class SpecInstanceEntity extends InstanceEntity {
 		}
 		return instCharacteristic;				
 	}
-	
+	@Transient
 	public SpecInstanceEntityCharacter getInstEntityCharById(long characteristicId)  throws Exception{
 		SpecInstanceEntityCharacter instCharacteristic=null;
 		for (SpecInstanceEntityCharacter aInstCharacteristic:this.getCharacteristics()) {
@@ -33,17 +46,17 @@ public abstract class SpecInstanceEntity extends InstanceEntity {
 		return instCharacteristic;				
 	}
 	
-
+	@Transient
 	public String getInstEntityCharValueByCharCode(String characteristicCode,int valuePosition)  throws Exception{
 		SpecInstanceEntityCharacter instCharacteristic=getInstEntityCharByCode(characteristicCode);
 		return getInstEntityCharValue(instCharacteristic,valuePosition);
 	}
-	
+	@Transient
 	public String getInstEntityCharValueByCharId(long characteristicId,int valuePosition)  throws Exception{
 		SpecInstanceEntityCharacter instCharacteristic=getInstEntityCharById(characteristicId);
 		return getInstEntityCharValue(instCharacteristic,valuePosition);
 	}	
-	
+	@Transient
 	public String getInstEntityCharValue(SpecInstanceEntityCharacter instCharacteristic,int valuePosition) throws Exception{
 		String value=null;
 		if (null!=instCharacteristic){

@@ -3,34 +3,42 @@ package com.ai.crm.product.domain.model;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
-
-import org.springframework.stereotype.Component;
 
 import com.ai.common.basetype.TimePeriod;
 import com.ai.common.rootentity.domain.model.SpecInstanceEntity;
-import com.ai.common.rootentity.domain.model.SpecInstanceEntityCharacter;
-@Component
+@Entity
 public class OfferInstance extends SpecInstanceEntity{
-	
+	@OneToMany(mappedBy="offerInstance",fetch=FetchType.LAZY)
 	private Set<OfferInstanceProductRel> includedProducts=new LinkedHashSet<OfferInstanceProductRel>();
+	@OneToMany(mappedBy="offerInstance",fetch=FetchType.LAZY)
 	private Set<PricePlanInstance> prices=new LinkedHashSet<PricePlanInstance>();
 	private long customerId;
 	private long productOfferingId;
-	@OneToMany(mappedBy="specInstanceEntity",fetch=FetchType.LAZY)
-	private Set<SpecInstanceEntityCharacter> characterInstances=new LinkedHashSet<SpecInstanceEntityCharacter>();
+	@OneToMany(mappedBy="offerInstance",fetch=FetchType.LAZY)
+	private Set<OfferInstanceCharacter> characterInstances=new LinkedHashSet<OfferInstanceCharacter>();
 	
-	@Override
-	public  Set<SpecInstanceEntityCharacter> getCharacteristics(){
+	@Id
+	private long id;	
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public  Set<OfferInstanceCharacter> getOfferInstanceCharacters(){
 		return this.characterInstances;
 	}
 	
-	@Override
-	public void addCharacteristic(SpecInstanceEntityCharacter character){
+	public void addOfferInstanceCharacter(OfferInstanceCharacter character){
 		if(null!=character){
 			this.characterInstances.add(character);
-			character.setOwnerInstance(this);
+			super.addCharacteristic(character);
 		}
 	}	
 	public OfferInstance() {

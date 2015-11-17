@@ -3,15 +3,18 @@ package com.ai.crm.product.domain.model;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-
-import org.springframework.stereotype.Component;
 
 import com.ai.common.basetype.TimePeriod;
 import com.ai.common.rootentity.domain.model.SpecInstanceEntity;
-import com.ai.common.rootentity.domain.model.SpecInstanceEntityCharacter;
-@Component
+@Entity
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 public class PricePlanInstance extends SpecInstanceEntity {
 	public enum PriceState {
 		INITIATED(0),
@@ -29,27 +32,36 @@ public class PricePlanInstance extends SpecInstanceEntity {
 	    public int getValue(){ 
 	        return value; 
 	    } 
-	}		
+	}
+	@ManyToOne
 	private OfferInstance offerInstance;
+	@OneToMany(mappedBy="price",fetch=FetchType.LAZY)
 	private Set<ProductPriceRel> assignedTo=new LinkedHashSet<ProductPriceRel>();
 	private long pricePlanId;
 	private long priceValue;
 	private int payState;
 	private String discountReason;
 	private long roleId;
-	@OneToMany(mappedBy="specInstanceEntity",fetch=FetchType.LAZY)
-	private Set<SpecInstanceEntityCharacter> characterInstances=new LinkedHashSet<SpecInstanceEntityCharacter>();
-	
-	@Override
-	public  Set<SpecInstanceEntityCharacter> getCharacteristics(){
+	@OneToMany(mappedBy="pricePlanInstance",fetch=FetchType.LAZY)
+	private Set<PricePlanInstanceCharacter> characterInstances=new LinkedHashSet<PricePlanInstanceCharacter>();
+	@Id
+	private long id;	
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}	
+
+	public  Set<PricePlanInstanceCharacter> getPricePlanInstanceCharacters(){
 		return this.characterInstances;
 	}
 	
-	@Override
-	public void addCharacteristic(SpecInstanceEntityCharacter character){
+	public void addPricePlanInstanceCharacter(PricePlanInstanceCharacter character){
 		if(null!=character){
 			this.characterInstances.add(character);
-			character.setOwnerInstance(this);
+			super.addCharacteristic(character);
 		}
 	}
 	public PricePlanInstance() {

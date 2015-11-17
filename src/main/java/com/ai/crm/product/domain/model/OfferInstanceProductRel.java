@@ -1,12 +1,16 @@
 package com.ai.crm.product.domain.model;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.ai.common.rootentity.domain.model.InstanceEntity;
 @Entity
 public class OfferInstanceProductRel extends InstanceEntity {
+	@Id
+	private long id;
+	
 	@ManyToOne
 	@JoinColumn(name="OFFER_INSTANCE_ID")
 	private OfferInstance offerInstance;
@@ -31,6 +35,14 @@ public class OfferInstanceProductRel extends InstanceEntity {
 
 	public void setProduct(Product product) {
 		this.product = product;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 }

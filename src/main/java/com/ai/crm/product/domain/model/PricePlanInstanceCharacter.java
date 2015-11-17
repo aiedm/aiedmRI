@@ -1,11 +1,39 @@
 package com.ai.crm.product.domain.model;
 
-import com.ai.common.rootentity.domain.model.SpecInstanceEntityCharacter;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import com.ai.common.rootentity.domain.model.SpecInstanceEntityCharacter;
+@Entity
 public class PricePlanInstanceCharacter extends SpecInstanceEntityCharacter {
+	@ManyToOne
+	private PricePlanInstance pricePlanInstance;
+	@OneToMany(mappedBy="pricePlanInstanceCharacter")
+	private Set<PricePlanInstanceCharacterValue> pricePlanInstanceCharacterValues=new LinkedHashSet<PricePlanInstanceCharacterValue>();
 
 	public PricePlanInstanceCharacter() {
-		// TODO Auto-generated constructor stub
+	}
+	public PricePlanInstance getPricePlanInstance() {
+		return pricePlanInstance;
+	}
+	public void setPricePlanInstance(PricePlanInstance pricePlanInstance) {
+		this.pricePlanInstance = pricePlanInstance;
+	}
+	public Set<PricePlanInstanceCharacterValue> getPricePlanInstanceCharacterValues() {
+		return this.pricePlanInstanceCharacterValues;
 	}
 
+	
+	public void addPricePlanInstanceCharacterValueValue(PricePlanInstanceCharacterValue characteristicInstanceValue) {
+		this.pricePlanInstanceCharacterValues.add(characteristicInstanceValue);
+		if (null==characteristicInstanceValue.getPricePlanInstanceCharacter()){
+			characteristicInstanceValue.setPricePlanInstanceCharacter(this);
+			super.addCharacteristicInstanceValue(characteristicInstanceValue);
+		}
+
+	}
 }

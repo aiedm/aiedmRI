@@ -1,6 +1,4 @@
 package com.ai.crm.common.party.domain.model;
-import javax.persistence.Basic;
-import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -9,12 +7,8 @@ import javax.persistence.Entity;
 public class Individual extends Party{
 	private Individual(){}
 	
-	@Basic
-	@Column(table="INDIVIDUAL")
 	private String firstName;
 	
-	@Basic
-	@Column(table="INDIVIDUAL")
 	private String lastName;
 	
 	public Individual(String firstName,String lastName){

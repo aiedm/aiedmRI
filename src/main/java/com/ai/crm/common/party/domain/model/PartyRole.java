@@ -20,7 +20,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.ai.common.rootentity.domain.model.SpecInstanceEntity;
-import com.ai.common.rootentity.domain.model.SpecInstanceEntityCharacter;
 @Entity
 @Table(name="CB_PARTY_ROLE")
 @Inheritance (strategy = InheritanceType.SINGLE_TABLE)
@@ -39,19 +38,17 @@ public abstract class PartyRole extends SpecInstanceEntity{
     @JoinColumn(name="PARTY_ID")
 	private Party party;		
 	
-	@OneToMany(mappedBy="specInstanceEntity",fetch=FetchType.LAZY)
-	private Set<SpecInstanceEntityCharacter> characterInstances=new LinkedHashSet<SpecInstanceEntityCharacter>();
+	@OneToMany(mappedBy="partyRole",fetch=FetchType.LAZY)
+	private Set<PartyRoleCharacter> characterInstances=new LinkedHashSet<PartyRoleCharacter>();
 	
-	@Override
-	public  Set<SpecInstanceEntityCharacter> getCharacteristics(){
+	public  Set<PartyRoleCharacter> getPartyRoleCharacteristics(){
 		return this.characterInstances;
 	}
 	
-	@Override
-	public void addCharacteristic(SpecInstanceEntityCharacter character){
+	public void addPartyRoleCharacteristic(PartyRoleCharacter character){
 		if(null!=character){
 			this.characterInstances.add(character);
-			character.setOwnerInstance(this);
+			super.addCharacteristic(character);
 		}
 	}	
 	public String getPartyRoleType() {

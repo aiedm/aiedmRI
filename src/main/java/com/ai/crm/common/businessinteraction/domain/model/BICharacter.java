@@ -1,11 +1,41 @@
 package com.ai.crm.common.businessinteraction.domain.model;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
 import com.ai.common.rootentity.domain.model.SpecInstanceEntityCharacter;
-
+@Entity
 public class BICharacter extends SpecInstanceEntityCharacter {
-
+	@ManyToOne
+	private BusinessInteraction businessInteraction;
+	@OneToMany(mappedBy="biCharacter",fetch=FetchType.LAZY)
+	private Set<BICharacterValue> biCharacterValues=new LinkedHashSet<BICharacterValue>();
 	public BICharacter() {
-		// TODO Auto-generated constructor stub
+	}
+	public BusinessInteraction getBusinessInteraction() {
+		return businessInteraction;
+	}
+	public void setBusinessInteraction(BusinessInteraction businessInteraction) {
+		this.businessInteraction = businessInteraction;
+	}
+	
+	public Set<BICharacterValue> getBICharacteristicInstanceValues() {
+		return this.biCharacterValues;
+	}
+
+	
+	public void addBICharacteristicInstanceValue(BICharacterValue characteristicInstanceValue) {
+		this.biCharacterValues.add(characteristicInstanceValue);
+		if (null==characteristicInstanceValue.getBiCharacter()){
+			characteristicInstanceValue.setBiCharacter(this);
+			super.addCharacteristicInstanceValue(characteristicInstanceValue);
+		}
+
 	}
 
 }

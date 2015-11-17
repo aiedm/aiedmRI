@@ -6,5 +6,4 @@ import com.ai.crm.customerorder.domain.model.CustomerOrder;
 public interface IOrderDTOTransfer {
 	CustomerOrder transformNewDTO2Order(CustomerOrderDTO customerOrderDTO) throws Exception;
 	CustomerOrder transformUpdateDTO2Order(CustomerOrderDTO customerOrderDTO) throws Exception;
-	CustomerOrder transformCancelDTO2Order(CustomerOrderDTO customerOrderDTO) throws Exception;
 }

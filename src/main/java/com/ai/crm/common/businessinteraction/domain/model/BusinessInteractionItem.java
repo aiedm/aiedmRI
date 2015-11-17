@@ -25,19 +25,19 @@ public abstract class BusinessInteractionItem extends SpecInstanceEntity {
 	private BIIRelatedEntity relatedEntity;
 	@ManyToOne
 	private BusinessInteraction businessInteraction;
-	@OneToMany(mappedBy="specInstanceEntity",fetch=FetchType.LAZY)
-	private Set<SpecInstanceEntityCharacter> characterInstances=new LinkedHashSet<SpecInstanceEntityCharacter>();
 	
-	@Override
-	public  Set<SpecInstanceEntityCharacter> getCharacteristics(){
-		return this.characterInstances;
+	private Set<BIICharacter> characters=new LinkedHashSet<BIICharacter>();
+	
+	@OneToMany(mappedBy="businessInteractionItem",fetch=FetchType.LAZY)	
+	public  Set<BIICharacter> getBIICharacteristics(){
+		return characters;
 	}
 	
-	@Override
-	public void addCharacteristic(SpecInstanceEntityCharacter character){
+	
+	public void addBIICharacteristic(BIICharacter character){
 		if(null!=character){
-			this.characterInstances.add(character);
-			character.setOwnerInstance(this);
+			this.characters.add(character);
+			super.addCharacteristic((SpecInstanceEntityCharacter)character);
 		}
 	}
 	

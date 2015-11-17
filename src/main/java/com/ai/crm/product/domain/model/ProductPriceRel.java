@@ -1,12 +1,25 @@
 package com.ai.crm.product.domain.model;
 
-import org.springframework.stereotype.Component;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import com.ai.common.rootentity.domain.model.InstanceEntity;
-@Component
+@Entity
 public class ProductPriceRel extends InstanceEntity{
+	@ManyToOne
 	private Product product;
+	@ManyToOne
 	private PricePlanInstance price;
+	@Id
+	private long id;	
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}	
 	public ProductPriceRel() {
 	}
 

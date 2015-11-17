@@ -26,25 +26,23 @@ public abstract class BusinessInteraction extends SpecInstanceEntity {
 	private long id;
 	@Column
 	private int biState;
-	@OneToMany(mappedBy="businessInteraction",fetch=FetchType.LAZY)
+	
 	private Set<BusinessInteractionItem> businessInteractionItems=new HashSet<BusinessInteractionItem>();
 	@Column
 	private long biSpecId;
 	@Column
 	private String code;
-	@OneToMany(mappedBy="specInstanceEntity",fetch=FetchType.LAZY)
-	private Set<SpecInstanceEntityCharacter> characterInstances=new LinkedHashSet<SpecInstanceEntityCharacter>();
 	
-	@Override
-	public  Set<SpecInstanceEntityCharacter> getCharacteristics(){
-		return this.characterInstances;
+	private Set<BICharacter> characterInstances=new LinkedHashSet<BICharacter>();
+	@OneToMany(mappedBy="businessInteraction",fetch=FetchType.LAZY)
+	public  Set<BICharacter> getBICharacteristics(){
+		return characterInstances;
 	}
 	
-	@Override
-	public void addCharacteristic(SpecInstanceEntityCharacter character){
+	public void addBICharacteristic(BICharacter character){
 		if(null!=character){
 			this.characterInstances.add(character);
-			character.setOwnerInstance(this);
+			super.addCharacteristic((SpecInstanceEntityCharacter)character);
 		}
 	}
 	
@@ -59,7 +57,8 @@ public abstract class BusinessInteraction extends SpecInstanceEntity {
 	protected void setBiState(int biState) {
 		this.biState=biState;
 	}
-
+	
+	@OneToMany(mappedBy="businessInteraction",fetch=FetchType.LAZY)
 	public Set<BusinessInteractionItem> getBusinessInteractionItems() {
 		return this.businessInteractionItems;
 	}

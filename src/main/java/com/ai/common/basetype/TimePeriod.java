@@ -9,7 +9,7 @@ public class TimePeriod {
 	private Timestamp endTime;
 
 	
-	public Timestamp getStartTime() {
+	public Timestamp getBeginTime() {
 		return this.beginTime;
 	}
 

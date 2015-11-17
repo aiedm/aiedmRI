@@ -26,7 +26,7 @@ public class ProductOrderItem extends CustomerOrderItem{
 	
 	private CustomerOrder customerOrder;
 	
-	public ProductOrderItem() {
+	private ProductOrderItem() {
 	}
 	
 	public ProductOrderItem(CustomerOrder customerOrder) {

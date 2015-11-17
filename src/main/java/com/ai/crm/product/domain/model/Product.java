@@ -4,38 +4,46 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import org.springframework.stereotype.Component;
-
-import com.ai.common.basetype.TimePeriod;
 import com.ai.common.rootentity.domain.model.SpecInstanceEntity;
-import com.ai.common.rootentity.domain.model.SpecInstanceEntityCharacter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-@Component
+
+@Entity
 public class Product extends SpecInstanceEntity{
 	private long customerId;
 	private long userId;
+	@OneToMany(mappedBy="product",fetch=FetchType.LAZY)
 	private Set<ProductBarReason> barReasons=new HashSet<ProductBarReason>();
-	@JsonIgnore
+	@OneToMany(mappedBy="product",fetch=FetchType.LAZY)
 	private Set<OfferInstanceProductRel> participantOfferInstances=new LinkedHashSet<OfferInstanceProductRel>();
+	@OneToMany(mappedBy="product",fetch=FetchType.LAZY)
 	private Set<ProductPriceRel> assignedPrices=new HashSet<ProductPriceRel>();
 	private long productSpecificationId;
 	private String serialNumber;
-	@OneToMany(mappedBy="specInstanceEntity",fetch=FetchType.LAZY)
-	private Set<SpecInstanceEntityCharacter> characterInstances=new LinkedHashSet<SpecInstanceEntityCharacter>();
-	
-	@Override
-	public  Set<SpecInstanceEntityCharacter> getCharacteristics(){
+	@OneToMany(mappedBy="product",fetch=FetchType.LAZY)
+	private Set<ProductCharacter> characterInstances=new LinkedHashSet<ProductCharacter>();
+		
+	@Id
+	private long id;	
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}	
+
+	public  Set<ProductCharacter> getProductCharacters(){
 		return this.characterInstances;
 	}
 	
-	@Override
-	public void addCharacteristic(SpecInstanceEntityCharacter character){
+	public void addProductCharacter(ProductCharacter character){
 		if(null!=character){
 			this.characterInstances.add(character);
-			character.setOwnerInstance(this);
+			super.addCharacteristic(character);
 		}
 	}
 	public Product() {

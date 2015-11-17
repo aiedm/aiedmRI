@@ -515,11 +515,11 @@ public class PolicyTest {
 		IPolicyExecute serv1=new GroovyPolicyExecute();
 		Map<String, Object> context=new HashMap<>();
 		ToBeProduct product=new ToBeProduct();
-		SpecInstanceEntityCharacter instChar=new ProductCharacter();		
+		ProductCharacter instChar=new ProductCharacter();		
 		CharacteristicSpec character=new CharacteristicSpec();
 		character.setId(1);
 		instChar.setCharacteristicSpec(character);
-		product.addCharacteristic(instChar);
+		product.addProductCharacter(instChar);
 		SpecInstanceEntityCharacterValue instCharValue=new ProductCharacterValue();	
 		CharacteristicSpecValue characterValue=new CharacteristicSpecValue();
 		characterValue.setId(2);

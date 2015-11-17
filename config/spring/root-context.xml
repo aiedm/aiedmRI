@@ -13,7 +13,7 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	
-	<context:component-scan base-package="{'com.ai.common','com.ai.crm.common.party','com.ai.crm.customer'}">
+	<context:component-scan base-package="com.ai。*">
 	 	<context:exclude-filter expression="org.springframework.stereotype.Controller" type="annotation"/>
 	 </context:component-scan>
 			
@@ -27,7 +27,7 @@
 	
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
-		p:dataSource-ref="dataSource" p:packagesToScan="com.ai.common"  >
+		p:dataSource-ref="dataSource" p:packagesToScan="com.ai"  >
 	    <property name="hibernateProperties">
 	    	<value>
 	    		hibernate.dialect=org.hibernate.dialect.HSQLDialect

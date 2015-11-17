@@ -15,7 +15,6 @@ import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 
 import com.ai.common.rootentity.domain.model.SpecInstanceEntity;
-import com.ai.common.rootentity.domain.model.SpecInstanceEntityCharacter;
 @Entity
 @Inheritance (strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name="partyType",discriminatorType=DiscriminatorType.STRING)
@@ -29,19 +28,17 @@ public abstract class Party extends SpecInstanceEntity{
 	@OneToMany(fetch=FetchType.LAZY,mappedBy="party")
 	private Set<PartyRole> partyRoles; 
 	
-	@OneToMany(mappedBy="specInstanceEntity",fetch=FetchType.LAZY)
-	private Set<SpecInstanceEntityCharacter> characterInstances=new LinkedHashSet<SpecInstanceEntityCharacter>();
+	@OneToMany(mappedBy="party",fetch=FetchType.LAZY)
+	private Set<PartyCharacter> characterInstances=new LinkedHashSet<PartyCharacter>();
 	
-	@Override
-	public  Set<SpecInstanceEntityCharacter> getCharacteristics(){
+	public  Set<PartyCharacter> getPartyCharacteristics(){
 		return this.characterInstances;
 	}
 	
-	@Override
-	public void addCharacteristic(SpecInstanceEntityCharacter character){
+	public void addPartyCharacteristic(PartyCharacter character){
 		if(null!=character){
 			this.characterInstances.add(character);
-			character.setOwnerInstance(this);
+			super.addCharacteristic(character);
 		}
 	}
 	
