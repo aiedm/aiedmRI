@@ -20,7 +20,7 @@ import com.ai.common.rootentity.domain.model.SpecInstanceEntity;
 @DiscriminatorColumn(name="partyType",discriminatorType=DiscriminatorType.STRING)
 public abstract class Party extends SpecInstanceEntity{
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	private long id;
 	@Column(insertable = false, updatable = false)
 	private String partyType;

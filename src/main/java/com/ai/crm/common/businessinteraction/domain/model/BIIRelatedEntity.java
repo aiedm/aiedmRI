@@ -1,5 +1,8 @@
 package com.ai.crm.common.businessinteraction.domain.model;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -15,8 +18,18 @@ public class BIIRelatedEntity extends InstanceEntity  {
 	@OneToOne
 	private BusinessInteractionItem bii;
 	@Embedded
+	@AttributeOverrides({
+        @AttributeOverride(name="versionTime", column=@Column(name="ASIA_VERSION_TIME")),
+        @AttributeOverride(name="versionOperatorId", column=@Column(name="ASIA_VERSION_OPERATOR_ID")),
+        @AttributeOverride(name="version", column=@Column(name="ASIA_VERSION"))
+    })
 	private EntityVersion asIsAfterVersion;
 	@Embedded
+	@AttributeOverrides({
+        @AttributeOverride(name="versionTime", column=@Column(name="TOBE_VERSION_TIME")),
+        @AttributeOverride(name="versionOperatorId", column=@Column(name="TOBE_VERSION_OPERATOR_ID")),
+        @AttributeOverride(name="version", column=@Column(name="TOBE_VERSION"))
+    })
 	private EntityVersion toBeVersion;
 	@Transient
 	private InstanceEntity toBeEntity;

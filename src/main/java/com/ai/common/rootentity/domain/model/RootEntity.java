@@ -16,7 +16,7 @@ public abstract class RootEntity{
 	@Embedded
 	private TimePeriod validPeriod;
 	@Column
-	private boolean isDeleted=false;
+	private boolean deleted=false;
 	@Column
 	private Timestamp createTime;	
 
@@ -62,18 +62,14 @@ public abstract class RootEntity{
 	}
 
 	
-	public boolean isDeleted() {
-		return this.isDeleted;
+	public boolean getDeleted() {
+		return this.deleted;
 	}
 
 	
-	public void setToDeleted() {
-		this.isDeleted=true;
+	public void setDeleted(boolean isDeleted) {
+		this.deleted=isDeleted;
 	}
 
-	
-	public void setToUnDeleted() {
-		this.isDeleted=false;
-	}
 
 }

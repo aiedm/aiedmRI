@@ -14,7 +14,7 @@ import com.ai.crm.customerorder.repository.interfaces.ICustomerOrderRepository;
 public class CustomerOrderRepository implements ICustomerOrderRepository {
 	@Autowired
 	private ICreateCustomerOrder CreateCustomerOrder ;
-	//@Autowired
+	@Autowired
 	SessionFactory sessionFactory;
 	
 	public CustomerOrderRepository() {

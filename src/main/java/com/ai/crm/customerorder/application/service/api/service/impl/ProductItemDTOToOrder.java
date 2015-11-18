@@ -77,7 +77,7 @@ public class ProductItemDTOToOrder implements IProductItemDTOToOrder{
 			for (CharacterInstanceDTO characterInstanceDTO : characterInstanceDTOs) {
 				BIICharacter character=new BIICharacter();
 				CharacteristicDTOTransHelper.transCharacteristic(character,characterInstanceDTO);
-				productOrderItem.addBIICharacteristic(character);
+				productOrderItem.addBiiCharacteristic(character);
 			}				
 		 }
 	}	

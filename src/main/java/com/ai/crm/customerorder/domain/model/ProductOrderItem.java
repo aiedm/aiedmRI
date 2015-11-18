@@ -1,7 +1,8 @@
 package com.ai.crm.customerorder.domain.model;
 
-import org.springframework.stereotype.Component;
-@Component
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+@Entity
 public class ProductOrderItem extends CustomerOrderItem{
 	public enum ProductOrderState {
 		INITIATED(0),
@@ -22,8 +23,7 @@ public class ProductOrderItem extends CustomerOrderItem{
 	        return value; 
 	    } 
 	}
-	private long productOrderId;
-	
+	@ManyToOne
 	private CustomerOrder customerOrder;
 	
 	private ProductOrderItem() {
@@ -43,13 +43,7 @@ public class ProductOrderItem extends CustomerOrderItem{
 
 	
 	public long getProductOrderId() {
-		return productOrderId;
-	}
-
-	
-	public long getBusinessInteractionSpecificationId() {
-		//TODO
-		return 0;
+		return super.getId();
 	}
 
 	
@@ -60,7 +54,7 @@ public class ProductOrderItem extends CustomerOrderItem{
 
 	
 	public void setProductOrderId(long productOrderId) {
-		this.productOrderId=productOrderId;
+		super.setId(productOrderId);
 		
 	}
 

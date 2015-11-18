@@ -8,6 +8,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -15,9 +17,10 @@ import javax.persistence.OneToOne;
 import com.ai.common.rootentity.domain.model.SpecInstanceEntity;
 import com.ai.common.rootentity.domain.model.SpecInstanceEntityCharacter;
 @Entity
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 public abstract class BusinessInteractionItem extends SpecInstanceEntity {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	private long id;
 	private long businessInteractionItemSpecId;
 	private int biiState;
@@ -25,24 +28,24 @@ public abstract class BusinessInteractionItem extends SpecInstanceEntity {
 	private BIIRelatedEntity relatedEntity;
 	@ManyToOne
 	private BusinessInteraction businessInteraction;
-	
-	private Set<BIICharacter> characters=new LinkedHashSet<BIICharacter>();
-	
 	@OneToMany(mappedBy="businessInteractionItem",fetch=FetchType.LAZY)	
-	public  Set<BIICharacter> getBIICharacteristics(){
-		return characters;
+	private Set<BIICharacter> biiCharacters=new LinkedHashSet<BIICharacter>();
+	
+	
+	public  Set<BIICharacter> getBiiCharacteristics(){
+		return biiCharacters;
 	}
 	
 	
-	public void addBIICharacteristic(BIICharacter character){
+	public void addBiiCharacteristic(BIICharacter character){
 		if(null!=character){
-			this.characters.add(character);
+			this.biiCharacters.add(character);
 			super.addCharacteristic((SpecInstanceEntityCharacter)character);
 		}
 	}
 	
 	
-	public BusinessInteractionItem(){
+	protected BusinessInteractionItem(){
 	}
 	
 	public BusinessInteractionItem(BusinessInteraction bi) {

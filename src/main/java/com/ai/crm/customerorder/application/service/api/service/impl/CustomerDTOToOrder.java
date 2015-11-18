@@ -15,18 +15,29 @@ import com.ai.crm.customerorder.application.service.api.service.interfaces.IOffe
 import com.ai.crm.customerorder.application.service.api.service.interfaces.IProductItemDTOToOrder;
 import com.ai.crm.customerorder.application.service.api.util.CharacteristicDTOTransHelper;
 import com.ai.crm.customerorder.domain.model.CustomerOrder;
+import com.ai.crm.customerorder.domain.model.ShoppingCart;
+import com.ai.crm.customerorder.repository.interfaces.IShoppingCartRepository;
 @Component
 public class CustomerDTOToOrder implements ICustomerDTOToOrder{
 	@Autowired
 	private IOfferItemDTOToOrder offerItemDTOToOrder;
 	@Autowired
 	private IProductItemDTOToOrder productItemDTOToOrder;
+	@Autowired
+	private IShoppingCartRepository shoppingCartRepository;
+	
 	public CustomerDTOToOrder() {
 	}
 	
 	public CustomerOrder transDTOToOrder(CustomerOrderDTO customerOrderDTO,CustomerOrder customerOrder) throws Exception{		
 		//TODO setVersion++
-		customerOrder.setShoppingCartId(customerOrderDTO.getShoppingCartId());
+		if(customerOrderDTO.getShoppingCartId()>0){
+			ShoppingCart shoppingCart= shoppingCartRepository.getShoppingCartByID(customerOrderDTO.getShoppingCartId());
+			if(null!=shoppingCart){
+				customerOrder.setShoppingCart(shoppingCart);
+			}
+		}
+		
 		addCharacter(customerOrderDTO,customerOrder);
 		Set<OfferOrderItemDTO> offerOrderItemDTOs=customerOrderDTO.getOfferOrderItems();
 		if(offerOrderItemDTOs.size()>0){

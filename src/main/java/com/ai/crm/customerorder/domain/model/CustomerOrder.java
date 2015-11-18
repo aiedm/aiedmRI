@@ -3,15 +3,23 @@ package com.ai.crm.customerorder.domain.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import org.springframework.stereotype.Component;
 
 import com.ai.crm.common.businessinteraction.domain.model.BusinessInteraction;
+import com.ai.crm.common.businessinteraction.domain.model.BusinessInteractionRel;
 @Component
 @Entity
 @DiscriminatorValue("1000")
+@Access(AccessType.FIELD) 
 public class CustomerOrder extends BusinessInteraction {
 	public enum CustomerOrderState {
 		INITIATED(0),
@@ -32,10 +40,20 @@ public class CustomerOrder extends BusinessInteraction {
 	    public int getValue(){ 
 	        return value; 
 	    } 
-	}	
+	}
+	@OneToMany(mappedBy="customerOrder",fetch=FetchType.EAGER)
 	private Set<OfferOrderItem> offerOrders=new HashSet<OfferOrderItem>();
+	@OneToMany(mappedBy="customerOrder",fetch=FetchType.EAGER)
 	private Set<ProductOrderItem> productOrders=new HashSet<ProductOrderItem>();
-	private long shoppingCartId;
+	@OneToOne(targetEntity=BusinessInteractionRel.class,mappedBy="businessInteractiocA")
+	@JoinColumn(name="BI_B")
+	private ShoppingCart shoppingCart;
+	
+	private CustomerOrder(){
+		
+	}
+	
+	
 	public CustomerOrder( long biSpecId) {
 		super(biSpecId);
 	}
@@ -78,7 +96,7 @@ public class CustomerOrder extends BusinessInteraction {
 			if(null==productOrder.getCustomerOrder()){
 				productOrder.setCustomerOrder(this);
 			}
-			
+			super.addBusinessInteractionItem(productOrder);
 		}
 	}
 
@@ -103,13 +121,13 @@ public class CustomerOrder extends BusinessInteraction {
 	}
 
 	
-	public long getShoppingCartId() {
-		return this.shoppingCartId;
+	public ShoppingCart getShoppingCart() {
+		return this.shoppingCart;
 	}
 
 	
-	public void setShoppingCartId(long shoppingCartId) {
-		this.shoppingCartId=shoppingCartId;
+	public void setShoppingCart(ShoppingCart shoppingCart) {
+		this.shoppingCart=shoppingCart;
 	}
 
 }

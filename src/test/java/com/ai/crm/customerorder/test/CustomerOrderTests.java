@@ -25,6 +25,7 @@ import com.ai.crm.customerorder.application.service.api.dto.ToBeOfferInstanceDTO
 import com.ai.crm.customerorder.application.service.api.dto.ToBePricePlanInstanceDTO;
 import com.ai.crm.customerorder.application.service.api.dto.ToBeProductDTO;
 import com.ai.crm.customerorder.domain.event.createorder.CreateOrderRequested;
+import com.ai.crm.customerorder.repository.interfaces.ICustomerOrderRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -42,7 +43,6 @@ public class CustomerOrderTests {
 
 	@Autowired
 	private IEventPublisher eventPublisher;
-	
 	
 	private ObjectMapper mapper = new ObjectMapper();
 	

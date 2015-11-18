@@ -23,25 +23,31 @@ import com.ai.common.rootentity.domain.model.SpecInstanceEntityCharacter;
 @Inheritance (strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="biSpecId",discriminatorType=DiscriminatorType.INTEGER)
 public abstract class BusinessInteraction extends SpecInstanceEntity {
+	@Id
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	private long id;
 	@Column
 	private int biState;
-	
+	@OneToMany(mappedBy="businessInteraction",fetch=FetchType.LAZY)
 	private Set<BusinessInteractionItem> businessInteractionItems=new HashSet<BusinessInteractionItem>();
 	@Column
 	private long biSpecId;
 	@Column
 	private String code;
-	
-	private Set<BICharacter> characterInstances=new LinkedHashSet<BICharacter>();
 	@OneToMany(mappedBy="businessInteraction",fetch=FetchType.LAZY)
+	private Set<BICharacter> bICharacteristic=new LinkedHashSet<BICharacter>();
+	
+	protected BusinessInteraction(){
+		
+	}
+	
 	public  Set<BICharacter> getBICharacteristics(){
-		return characterInstances;
+		return bICharacteristic;
 	}
 	
 	public void addBICharacteristic(BICharacter character){
 		if(null!=character){
-			this.characterInstances.add(character);
+			this.bICharacteristic.add(character);
 			super.addCharacteristic((SpecInstanceEntityCharacter)character);
 		}
 	}
@@ -58,7 +64,7 @@ public abstract class BusinessInteraction extends SpecInstanceEntity {
 		this.biState=biState;
 	}
 	
-	@OneToMany(mappedBy="businessInteraction",fetch=FetchType.LAZY)
+	
 	public Set<BusinessInteractionItem> getBusinessInteractionItems() {
 		return this.businessInteractionItems;
 	}
@@ -85,8 +91,6 @@ public abstract class BusinessInteraction extends SpecInstanceEntity {
 		this.code = code;
 	}
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected long getId() {
 		return id;
 	}

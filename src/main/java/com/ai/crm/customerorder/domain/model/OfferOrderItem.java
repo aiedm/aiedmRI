@@ -1,5 +1,13 @@
 package com.ai.crm.customerorder.domain.model;
 
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+
+import com.ai.crm.common.businessinteraction.domain.model.BusinessInteractionItemRel;
+
+@Entity
 public class OfferOrderItem extends CustomerOrderItem{
 	public enum OfferOrderState {
 		INITIATED(0),
@@ -19,7 +27,10 @@ public class OfferOrderItem extends CustomerOrderItem{
 	        return value; 
 	    } 
 	}	
+	@ManyToOne
 	private CustomerOrder customerOrder;
+	@OneToOne(targetEntity=BusinessInteractionItemRel.class,mappedBy="businessInteractionItemA")
+	@JoinColumn(name="BII_B")
 	private OfferOrderItem replacedOfferOrderItem;
 	protected OfferOrderItem() {
 		

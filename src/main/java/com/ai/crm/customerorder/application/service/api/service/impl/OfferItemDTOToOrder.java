@@ -112,7 +112,7 @@ public class OfferItemDTOToOrder implements IOfferItemDTOToOrder{
 			for (CharacterInstanceDTO characterInstanceDTO : characterInstanceDTOs) {
 				BIICharacter character=new BIICharacter();
 				CharacteristicDTOTransHelper.transCharacteristic(character,characterInstanceDTO);
-				offerOrderItem.addBIICharacteristic(character);
+				offerOrderItem.addBiiCharacteristic(character);
 			}				
 		 }
 	}

@@ -21,6 +21,7 @@ import com.ai.common.rootentity.domain.model.SubscribedEventPolicy;
 public class GroovyPolicyExecute implements IPolicyExecute {
 	@Autowired
 	private IPolicyRepository policyRepository ;
+	
 	public GroovyPolicyExecute() {
 	}
 
@@ -37,7 +38,11 @@ public class GroovyPolicyExecute implements IPolicyExecute {
 	public CheckResult executeCheckPolicy(BaseEvent event, SpecificationEntity specEntity, Map<String, Object> context)
 			throws Exception {
 		CheckResult result=new CheckResult();
-		Set<EventSubscriber> subscribedEvents=specEntity.getSubscribedEvents();
+		long specificationEntityId=0;
+		if (null!=specEntity){
+			specificationEntityId=specEntity.getId();
+		}
+		Set<EventSubscriber> subscribedEvents=policyRepository.getEventRegistePolicies(event.getCode(), specificationEntityId);
 		if (null!=subscribedEvents && subscribedEvents.size()>0){
 			CheckResult perPolicyResult=new CheckResult();
 			for (EventSubscriber eventSubscriber : subscribedEvents) {
