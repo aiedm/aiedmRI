@@ -6,7 +6,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 @Entity
+@Table(name="RT_CHARACTER_VALUE")
 public class CharacteristicSpecValue extends RootEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

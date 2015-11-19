@@ -2,12 +2,18 @@ package com.ai.common.rootentity.domain.model;
 
 import java.sql.Timestamp;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+import com.sun.istack.internal.Nullable;
+
 @Embeddable
-public class EntityVersion{	
+public class EntityVersion{
+	@Column(nullable=true)
 	private Timestamp versionTime;
+	@Column(nullable=true)
 	private long versionOperatorId;
+	@Column(nullable=true)
 	private String version;
 
 	

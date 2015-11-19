@@ -21,9 +21,9 @@ import javax.persistence.Table;
 
 import com.ai.common.rootentity.domain.model.SpecInstanceEntity;
 @Entity
-@Table(name="CB_PARTY_ROLE")
+@Table(name="PT_PARTY_ROLE")
 @Inheritance (strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="partyRoleType",discriminatorType=DiscriminatorType.STRING)
+@DiscriminatorColumn(name="PARTY_ROLE_TYPE",discriminatorType=DiscriminatorType.STRING)
 public abstract class PartyRole extends SpecInstanceEntity{
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
@@ -31,7 +31,7 @@ public abstract class PartyRole extends SpecInstanceEntity{
 	public PartyRole(){}
 	
 	
-	@Column(insertable = false, updatable = false)
+	@Column(insertable = false, updatable = false,name="PARTY_ROLE_TYPE")
 	String partyRoleType;
 	
 	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)

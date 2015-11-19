@@ -5,28 +5,26 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToOne;
 
-import org.springframework.stereotype.Component;
-
 @Entity
-@Component
 public class SpecEntityCharacterValue extends RootEntity{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	@ManyToOne
-	private SpecEntityCharacteristic specificationEntityCharacteristic;
+	private SpecEntityCharacter specificationEntityCharacteristic;
 	@OneToOne
 	private CharacteristicSpecValue characteristicSpecValue;
 
 	
-	public SpecEntityCharacteristic getOwnerCharacteristic() {
+	public SpecEntityCharacter getOwnerCharacteristic() {
 		return this.specificationEntityCharacteristic;
 	}
 
 	
-	public void setOwnerCharacteristic(SpecEntityCharacteristic specificationEntityCharacteristic) {
+	public void setOwnerCharacteristic(SpecEntityCharacter specificationEntityCharacteristic) {
 		this.specificationEntityCharacteristic=specificationEntityCharacteristic;
 		
 	}

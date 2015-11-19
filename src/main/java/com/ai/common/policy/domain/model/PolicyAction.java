@@ -9,10 +9,12 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import com.ai.common.rootentity.domain.model.InstanceEntity;
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@Table(name="PL_ACTION")
 public abstract class PolicyAction extends InstanceEntity{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

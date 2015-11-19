@@ -11,12 +11,9 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-
-import org.springframework.stereotype.Component;
-
 import com.ai.crm.common.businessinteraction.domain.model.BusinessInteraction;
 import com.ai.crm.common.businessinteraction.domain.model.BusinessInteractionRel;
-@Component
+
 @Entity
 @DiscriminatorValue("1000")
 @Access(AccessType.FIELD) 

@@ -9,8 +9,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="RT_CHARACTER")
 public class CharacteristicSpec extends RootEntity{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

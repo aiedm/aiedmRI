@@ -15,17 +15,17 @@ import com.ai.crm.common.party.domain.model.PartyRole;
 @Entity
 //@PrimaryKeyJoinColumn(name="CUST_ID")
 @SecondaryTable(
-	    name = "CUSTOMER",
+	    name = "CM_CUSTOMER",
 	    pkJoinColumns = @PrimaryKeyJoinColumn(name = "CUST_ID")
 	)
 @DiscriminatorValue("Customer")
 public abstract class Customer  extends PartyRole{
 	
 	@Basic
-	@Column(table="CUSTOMER")
+	@Column(table="CM_CUSTOMER",name="IS_INDIVIDUAL")
 	private boolean isIndividual;
 	@Basic
-	@Column(table="CUSTOMER")
+	@Column(table="CM_CUSTOMER",name="CUSTOMER_NAME")
 	private String customerName;
 	
 	public Customer(){
@@ -36,10 +36,10 @@ public abstract class Customer  extends PartyRole{
 		super(party);
 		if (party instanceof Individual){
 			isIndividual=true;
-			super.setPartyRoleType("Customer.Individual");
+			super.setPartyRoleType("CUSRTOMER.INDIVIDUAL");
 		}else{
 			isIndividual=false;
-			super.setPartyRoleType("Customer.Legal");
+			super.setPartyRoleType("CUSTOMER.LEGAL");
 		}
 		customerName= super.getParty().getName();
 	}

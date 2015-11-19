@@ -9,9 +9,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import com.ai.common.rootentity.domain.model.InstanceEntity;
 @Entity
+@Table(name="PL_FUNCTION")
 public class PolicyFunction extends InstanceEntity{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

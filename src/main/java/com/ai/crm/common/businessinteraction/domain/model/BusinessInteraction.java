@@ -15,24 +15,26 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import com.ai.common.rootentity.domain.model.SpecInstanceEntity;
 import com.ai.common.rootentity.domain.model.SpecInstanceEntityCharacter;
 
 @Entity
 @Inheritance (strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="biSpecId",discriminatorType=DiscriminatorType.INTEGER)
+//@DiscriminatorColumn(name="BI_SPEC_ID",discriminatorType=DiscriminatorType.INTEGER)
+@Table(name="BI_BIZINTERACTION")
 public abstract class BusinessInteraction extends SpecInstanceEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	private long id;
-	@Column
+	@Column(name="BI_STATE")
 	private int biState;
 	@OneToMany(mappedBy="businessInteraction",fetch=FetchType.LAZY)
 	private Set<BusinessInteractionItem> businessInteractionItems=new HashSet<BusinessInteractionItem>();
-	@Column
+	@Column(name="BI_SPEC_ID")
 	private long biSpecId;
-	@Column
+	@Column(name="BI_CODE")
 	private String code;
 	@OneToMany(mappedBy="businessInteraction",fetch=FetchType.LAZY)
 	private Set<BICharacter> bICharacteristic=new LinkedHashSet<BICharacter>();

@@ -6,9 +6,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import com.ai.common.policy.domain.model.PolicySet;
 @Entity
+@Table(name="RT_SUBSCRIBED_EVENT_POLICY")
 public class SubscribedEventPolicy extends InstanceEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

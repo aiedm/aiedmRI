@@ -6,7 +6,9 @@ import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 @Entity
+@Table(name="PL_COMPOSITE_CONDITION")
 public class PolicyCompositeCondition extends PolicyCondition{
 	@OneToMany(mappedBy="parent",fetch=FetchType.LAZY)
 	private Set<PolicyCompositeConditionOption> children=new HashSet<PolicyCompositeConditionOption>();

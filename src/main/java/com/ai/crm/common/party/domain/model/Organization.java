@@ -3,18 +3,30 @@ package com.ai.crm.common.party.domain.model;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.SecondaryTable;
 
 @Entity
-@DiscriminatorValue("Organization")
+@DiscriminatorValue("ORGANIZATION")
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@SecondaryTable(
+	    name = "PT_ORGANIZATION",
+	    pkJoinColumns = @PrimaryKeyJoinColumn(name = "ORGANIZATION_ID")
+)
 public abstract class Organization extends Party {
 	public Organization(){}
-	
+	@Basic
+	@Column(table="PT_ORGANIZATION",name="IS_LEGAL")
 	private boolean isLegal;
 
 	public boolean isLegal() {

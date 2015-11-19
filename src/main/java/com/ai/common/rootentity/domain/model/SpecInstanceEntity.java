@@ -3,13 +3,10 @@ package com.ai.common.rootentity.domain.model;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
 
 @MappedSuperclass
-@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
 public abstract class SpecInstanceEntity extends InstanceEntity {
 	@Transient
 	private Set<SpecInstanceEntityCharacter> characterInstances=new  LinkedHashSet<SpecInstanceEntityCharacter>();

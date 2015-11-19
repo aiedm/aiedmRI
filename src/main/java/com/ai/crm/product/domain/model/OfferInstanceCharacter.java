@@ -6,9 +6,11 @@ import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import com.ai.common.rootentity.domain.model.SpecInstanceEntityCharacter;
 @Entity
+@Table(name="PD_OFFER_INS_CHARACTER")
 public class OfferInstanceCharacter extends SpecInstanceEntityCharacter {
 	@ManyToOne
 	private OfferInstance offerInstance;

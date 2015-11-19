@@ -7,10 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import com.ai.common.basetype.TimePeriod;
 import com.ai.common.rootentity.domain.model.SpecInstanceEntity;
 @Entity
+@Table(name="PD_OFFER_INS")
 public class OfferInstance extends SpecInstanceEntity{
 	@OneToMany(mappedBy="offerInstance",fetch=FetchType.LAZY)
 	private Set<OfferInstanceProductRel> includedProducts=new LinkedHashSet<OfferInstanceProductRel>();

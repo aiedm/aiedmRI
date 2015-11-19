@@ -6,10 +6,12 @@ import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import com.ai.common.rootentity.domain.model.SpecInstanceEntityCharacter;
 
 @Entity
+@Table(name="PD_PRODUCT_CHARACTER")
 public class ProductCharacter extends SpecInstanceEntityCharacter {
 	@ManyToOne
 	private Product product;

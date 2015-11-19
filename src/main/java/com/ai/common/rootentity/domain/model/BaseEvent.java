@@ -5,12 +5,17 @@ import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.springframework.context.ApplicationEvent;
 
 import com.ai.common.policy.domain.model.PolicyCondition;
 @Entity
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@Table(name="RT_EVENT")
 public abstract class BaseEvent extends ApplicationEvent {
 	@Transient
 	private Set<EventSubscriber> eventSubscribers=new LinkedHashSet<EventSubscriber>();

@@ -9,30 +9,29 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 
 @Entity
-@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
 public abstract  class SpecificationEntity extends RootEntity{
 	@Id
 	private long id;	
 	@OneToMany(fetch=FetchType.LAZY,mappedBy="specificationEntity")
-	private Set<SpecEntityCharacteristic> characteristSpecs=new LinkedHashSet<SpecEntityCharacteristic>();
+	private Set<SpecEntityCharacter> characteristSpecs=new LinkedHashSet<SpecEntityCharacter>();
 	@Column
 	private String name;
 	@Column
 	private String code;
-	@OneToMany(fetch=FetchType.LAZY,mappedBy="subscriber")
-	private Set<EventSubscriber> subscribedEvents=new LinkedHashSet<EventSubscriber>();
+
 	
 
 	
-	public Set<SpecEntityCharacteristic> getCharacteristSpecs() {
+	public Set<SpecEntityCharacter> getCharacteristSpecs() {
 		return this.characteristSpecs;
 	}
 
 	
-	public void addCharacteristSpec(SpecEntityCharacteristic characteristicSpec) {
+	public void addCharacteristSpec(SpecEntityCharacter characteristicSpec) {
 		if (null!=characteristicSpec){
 			this.characteristSpecs.add(characteristicSpec);
 		}
@@ -57,21 +56,6 @@ public abstract  class SpecificationEntity extends RootEntity{
 	
 	public void setCode(String code) {
 		this.code=code;
-	}
-
-	
-	public Set<EventSubscriber> getSubscribedEvents() {
-		return this.subscribedEvents;
-	}
-	
-	
-	public void addSubscribedEvent(EventSubscriber event) {
-		if (event!=null){
-			subscribedEvents.add(event);
-			if (null==event.getOwner()){
-				event.setOwner(this);
-			}
-		}		
 	}
 
 

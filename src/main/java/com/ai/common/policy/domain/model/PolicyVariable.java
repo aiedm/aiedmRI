@@ -5,10 +5,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import com.ai.common.rootentity.domain.model.CharacteristicSpec;
 import com.ai.common.rootentity.domain.model.InstanceEntity;
 @Entity
+@Table(name="PL_VARIABLE")
 public class PolicyVariable extends InstanceEntity{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

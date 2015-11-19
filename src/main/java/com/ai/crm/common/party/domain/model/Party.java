@@ -13,16 +13,19 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import com.ai.common.rootentity.domain.model.SpecInstanceEntity;
 @Entity
-@Inheritance (strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name="partyType",discriminatorType=DiscriminatorType.STRING)
+@Inheritance (strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="PARTY_TYPE",discriminatorType=DiscriminatorType.STRING)
+@Table(name="PT_PARTY")
 public abstract class Party extends SpecInstanceEntity{
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
+	@Column(name="ID")
 	private long id;
-	@Column(insertable = false, updatable = false)
+	@Column(insertable = false, updatable = false,name="PARTY_TYPE")
 	private String partyType;
 	
 	@OneToMany(fetch=FetchType.LAZY,mappedBy="party")

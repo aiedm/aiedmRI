@@ -7,11 +7,13 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.ai.common.rootentity.domain.model.EntityVersion;
 import com.ai.common.rootentity.domain.model.InstanceEntity;
 @Entity
+@Table(name="BII_RELATED_ENTITY")
 public class BIIRelatedEntity extends InstanceEntity  {
 	@Id
 	private long id;

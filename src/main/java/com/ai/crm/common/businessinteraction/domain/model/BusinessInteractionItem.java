@@ -3,6 +3,7 @@ package com.ai.crm.common.businessinteraction.domain.model;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -13,16 +14,20 @@ import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import com.ai.common.rootentity.domain.model.SpecInstanceEntity;
 import com.ai.common.rootentity.domain.model.SpecInstanceEntityCharacter;
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@Table(name="BI_BIZINTERACTION_ITEM")
 public abstract class BusinessInteractionItem extends SpecInstanceEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	private long id;
+	@Column(name="BII_SPEC_ID")
 	private long businessInteractionItemSpecId;
+	@Column(name="BII_STATE")
 	private int biiState;
 	@OneToOne
 	private BIIRelatedEntity relatedEntity;

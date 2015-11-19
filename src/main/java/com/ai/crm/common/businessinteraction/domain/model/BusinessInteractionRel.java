@@ -7,9 +7,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import com.ai.common.rootentity.domain.model.InstanceEntity;
 @Entity
+@Table(name="BI_BIZINTERACTION_REL")
 public class BusinessInteractionRel extends InstanceEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -7,9 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import com.ai.common.rootentity.domain.model.SpecInstanceEntityCharacter;
 @Entity
+@Table(name="BI_CHARACTER")
 public class BICharacter extends SpecInstanceEntityCharacter {
 	@ManyToOne
 	private BusinessInteraction businessInteraction;

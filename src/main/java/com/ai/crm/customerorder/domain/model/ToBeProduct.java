@@ -1,10 +1,14 @@
 package com.ai.crm.customerorder.domain.model;
 
-import org.springframework.stereotype.Component;
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import com.ai.crm.product.domain.model.Product;
-@Component
+@Entity
+@Table(name="ORD_TOBE_PRODUCT")
 public class ToBeProduct extends Product{
+	@OneToOne
 	private Product asIsProduct;
 	public ToBeProduct() {
 	}

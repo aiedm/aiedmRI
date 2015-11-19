@@ -7,14 +7,14 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
-@DiscriminatorValue("Organization.Legal")
+@DiscriminatorValue("ORGANIZATION.LEGAL")
 public class LegalOrganization extends Organization{	
 	private LegalOrganization(){}
 	
 	public LegalOrganization(String legalName){
 		this.setTradingName(legalName);
 		super.setLegal(true);
-		super.setPartyType("Organization.Legal");
+		super.setPartyType("ORGANIZATION.LEGAL");
 	}
 	
 	public List<Department> getDepartments() {
