@@ -1,14 +1,12 @@
 package com.ai.crm.product.domain.model;
 
-import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.MappedSuperclass;
 
 import com.ai.common.rootentity.domain.model.CharacteristicSpecValue;
 import com.ai.common.rootentity.domain.model.SpecInstanceEntityCharacter;
 import com.ai.common.rootentity.domain.model.SpecInstanceEntityCharacterValue;
-@Entity
-@Table(name="PD_OFFER_INS_CHARACTER_VALUE")
+@MappedSuperclass
 public class OfferInstanceCharacterValue extends SpecInstanceEntityCharacterValue {
 	@ManyToOne
 	private  OfferInstanceCharacter offerInstanceCharacter;

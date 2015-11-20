@@ -1,4 +1,4 @@
-package com.ai.crm.customerorder.application.service.api.service.interfaces;
+package com.ai.crm.customerorder.application.service.api.adapter.interfaces;
 
 import com.ai.crm.customerorder.application.service.api.dto.OfferOrderItemDTO;
 import com.ai.crm.customerorder.domain.model.CustomerOrder;

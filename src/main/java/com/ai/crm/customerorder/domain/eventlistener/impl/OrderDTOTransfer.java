@@ -3,8 +3,8 @@ package com.ai.crm.customerorder.domain.eventlistener.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.ai.crm.customerorder.application.service.api.adapter.interfaces.ICustomerDTOToOrder;
 import com.ai.crm.customerorder.application.service.api.dto.CustomerOrderDTO;
-import com.ai.crm.customerorder.application.service.api.service.interfaces.ICustomerDTOToOrder;
 import com.ai.crm.customerorder.domain.eventlistener.interfaces.IOrderDTOTransfer;
 import com.ai.crm.customerorder.domain.model.CustomerOrder;
 import com.ai.crm.customerorder.repository.interfaces.ICustomerOrderRepository;

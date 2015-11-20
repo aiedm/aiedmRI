@@ -9,6 +9,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.ai.common.rootentity.domain.model.SpecInstanceEntityCharacter;
+import com.ai.common.rootentity.domain.model.SpecInstanceEntityCharacterValue;
 
 @Entity
 @Table(name="PT_PARTY_CHARACTER")
@@ -37,6 +38,10 @@ public class PartyCharacter extends SpecInstanceEntityCharacter {
 			characteristicInstanceValue.setPartyCharacter(this);
 			super.addCharacteristicInstanceValue(characteristicInstanceValue);
 		}
-
+	}
+	
+	@Override
+	public SpecInstanceEntityCharacterValue  newCharacterValue(){
+		return new PartyCharacterValue();
 	}
 }

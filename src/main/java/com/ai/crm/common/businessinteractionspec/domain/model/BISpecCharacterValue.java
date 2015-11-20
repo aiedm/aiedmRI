@@ -1,31 +1,33 @@
-package com.ai.common.rootentity.domain.model;
+package com.ai.crm.common.businessinteractionspec.domain.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToOne;
 
+import com.ai.common.rootentity.domain.model.CharacteristicSpecValue;
+import com.ai.common.rootentity.domain.model.RootEntity;
+
 @Entity
-public class SpecEntityCharacterValue extends RootEntity{
+public class BISpecCharacterValue extends RootEntity{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	@ManyToOne
-	private SpecEntityCharacter specificationEntityCharacteristic;
+	private BISpecCharacter biSpecCharacter;
 	@OneToOne
 	private CharacteristicSpecValue characteristicSpecValue;
 
 	
-	public SpecEntityCharacter getOwnerCharacteristic() {
-		return this.specificationEntityCharacteristic;
+	public BISpecCharacter getBiSpecCharacter() {
+		return this.biSpecCharacter;
 	}
 
 	
-	public void setOwnerCharacteristic(SpecEntityCharacter specificationEntityCharacteristic) {
-		this.specificationEntityCharacteristic=specificationEntityCharacteristic;
+	public void setBiSpecCharacter(BISpecCharacter biSpecCharacter) {
+		this.biSpecCharacter=biSpecCharacter;
 		
 	}
 

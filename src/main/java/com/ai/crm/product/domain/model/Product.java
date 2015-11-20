@@ -4,16 +4,14 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 import com.ai.common.rootentity.domain.model.SpecInstanceEntity;
 
-@Entity
-@Table(name="PD_PRODUCT")
+@MappedSuperclass
 public class Product extends SpecInstanceEntity{
 	private long customerId;
 	private long userId;

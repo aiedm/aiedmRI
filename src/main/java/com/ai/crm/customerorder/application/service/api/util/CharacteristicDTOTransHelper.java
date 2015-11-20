@@ -6,7 +6,6 @@ import com.ai.common.rootentity.domain.model.CharacteristicSpec;
 import com.ai.common.rootentity.domain.model.CharacteristicSpecValue;
 import com.ai.common.rootentity.domain.model.SpecInstanceEntityCharacter;
 import com.ai.common.rootentity.domain.model.SpecInstanceEntityCharacterValue;
-import com.ai.crm.common.businessinteraction.domain.model.BICharacterValue;
 import com.ai.crm.customerorder.application.service.api.dto.CharacterInstanceDTO;
 import com.ai.crm.customerorder.application.service.api.dto.CharacterValueInstanceDTO;
 
@@ -24,7 +23,7 @@ public class CharacteristicDTOTransHelper {
 		Set<CharacterValueInstanceDTO> characterValues=characterInstanceDTO.getCharacteristicValues();
 		if(characterValues.size()>0){
 			for (CharacterValueInstanceDTO characterValueInstanceDTO : characterValues) {						
-				BICharacterValue characterValue=new BICharacterValue();
+				SpecInstanceEntityCharacterValue characterValue=character.newCharacterValue();
 				transCharacteristicValue(characterValue,characterValueInstanceDTO);
 				character.addCharacteristicInstanceValue(characterValue);
 			}

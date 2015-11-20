@@ -1,4 +1,4 @@
-package com.ai.crm.customerorder.application.service.api.service.impl;
+package com.ai.crm.customerorder.application.service.api.adapter.impl;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 
 import com.ai.crm.common.businessinteraction.domain.model.BIICharacter;
 import com.ai.crm.common.businessinteraction.domain.model.BIIRelatedEntity;
+import com.ai.crm.customerorder.application.service.api.adapter.interfaces.IOfferItemDTOToOrder;
+import com.ai.crm.customerorder.application.service.api.adapter.interfaces.IProductItemDTOToOrder;
 import com.ai.crm.customerorder.application.service.api.dto.CharacterInstanceDTO;
 import com.ai.crm.customerorder.application.service.api.dto.OfferOrderItemDTO;
 import com.ai.crm.customerorder.application.service.api.dto.ToBeOfferInstanceDTO;
@@ -16,18 +18,16 @@ import com.ai.crm.customerorder.application.service.api.dto.ToBeOfferInstancePro
 import com.ai.crm.customerorder.application.service.api.dto.ToBePricePlanInstanceDTO;
 import com.ai.crm.customerorder.application.service.api.dto.ToBePricePlanInstanceProductDTO;
 import com.ai.crm.customerorder.application.service.api.dto.ToBeProductDTO;
-import com.ai.crm.customerorder.application.service.api.service.interfaces.IOfferItemDTOToOrder;
-import com.ai.crm.customerorder.application.service.api.service.interfaces.IProductItemDTOToOrder;
 import com.ai.crm.customerorder.application.service.api.util.CharacteristicDTOTransHelper;
 import com.ai.crm.customerorder.domain.model.CustomerOrder;
 import com.ai.crm.customerorder.domain.model.OfferOrderItem;
 import com.ai.crm.customerorder.domain.model.ToBeOfferInstance;
+import com.ai.crm.customerorder.domain.model.ToBeOfferInstanceCharacter;
 import com.ai.crm.customerorder.domain.model.ToBePricePlanInstance;
+import com.ai.crm.customerorder.domain.model.ToBePricePlanInstanceCharacter;
 import com.ai.crm.customerorder.domain.model.ToBeProduct;
-import com.ai.crm.product.domain.model.OfferInstance;
-import com.ai.crm.product.domain.model.OfferInstanceCharacter;
-import com.ai.crm.product.domain.model.PricePlanInstance;
-import com.ai.crm.product.domain.model.PricePlanInstanceCharacter;
+import com.ai.crm.product.domain.model.AsIsOfferInstance;
+import com.ai.crm.product.domain.model.AsIsPricePlanInstance;
 import com.ai.crm.product.domain.repository.interfaces.IProductRepository;
 @Component
 public class OfferItemDTOToOrder implements IOfferItemDTOToOrder{
@@ -47,7 +47,8 @@ public class OfferItemDTOToOrder implements IOfferItemDTOToOrder{
 		long replacedOffeRInstanceId=offerOrderItemDTO.getReplacedOfferInstanceId();
 		if (replacedOffeRInstanceId>0){
 			OfferOrderItem replacedOfferOrderItem=new OfferOrderItem(customerOrder);
-			ToBeOfferInstance repalcedToBeOfferInstance=(ToBeOfferInstance)productRepository.getOfferInstanceById(replacedOffeRInstanceId);
+			ToBeOfferInstance repalcedToBeOfferInstance= new ToBeOfferInstance();
+			repalcedToBeOfferInstance.setAsIsOfferInstance(productRepository.getOfferInstanceById(replacedOffeRInstanceId));
 			BIIRelatedEntity relatEntity=new BIIRelatedEntity();
 			relatEntity.setToBeInstanceEntity(repalcedToBeOfferInstance);
 			relatEntity.setAction(2);
@@ -65,7 +66,7 @@ public class OfferItemDTOToOrder implements IOfferItemDTOToOrder{
 		toBeOfferInstance.setProductOfferingId(toBeOfferInstanceDTO.getProductOffferingId());
 		long offerInstanceId=toBeOfferInstanceDTO.getOfferInstanceId();
 		if(offerInstanceId>0){
-			OfferInstance asIsOfferInstance=productRepository.getOfferInstanceById(offerInstanceId);
+			AsIsOfferInstance asIsOfferInstance=productRepository.getOfferInstanceById(offerInstanceId);
 			toBeOfferInstance.setAsIsOfferInstance(asIsOfferInstance);
 		}
 		this.addToBeOfferInstanceCharacter(toBeOfferInstanceDTO, toBeOfferInstance);
@@ -86,7 +87,7 @@ public class OfferItemDTOToOrder implements IOfferItemDTOToOrder{
 				toBePricePlanInstance.setOfferInstance(toBeOfferInstance);
 				long asIsPricePlanInstanceId=toBePricePlanInstanceDTO.getPricePlanInstanceId();
 				if(asIsPricePlanInstanceId>0){
-					PricePlanInstance asIsPricePlanInstance=productRepository.getPricePlanInstanceById(asIsPricePlanInstanceId);
+					AsIsPricePlanInstance asIsPricePlanInstance=productRepository.getPricePlanInstanceById(asIsPricePlanInstanceId);					
 					toBePricePlanInstance.setAsIsPricePlanInstance(asIsPricePlanInstance);
 				}
 				toBePricePlanInstance.setPriceValue(toBePricePlanInstanceDTO.getInputedValue());
@@ -121,7 +122,7 @@ public class OfferItemDTOToOrder implements IOfferItemDTOToOrder{
 		 Set<CharacterInstanceDTO>  characterInstanceDTOs = toBeOfferInstanceDTO.getOfferInstanceCharacteristics();
 		 if(characterInstanceDTOs.size()>0){
 			for (CharacterInstanceDTO characterInstanceDTO : characterInstanceDTOs) {
-				OfferInstanceCharacter character=new OfferInstanceCharacter();
+				ToBeOfferInstanceCharacter character=new ToBeOfferInstanceCharacter();
 				CharacteristicDTOTransHelper.transCharacteristic(character,characterInstanceDTO);
 				toBeOfferInstance.addOfferInstanceCharacter(character);
 			}				
@@ -132,7 +133,7 @@ public class OfferItemDTOToOrder implements IOfferItemDTOToOrder{
 		 Set<CharacterInstanceDTO>  characterInstanceDTOs = toBePricePlanInstanceDTO.getPricePlanInstanceCharacteristics();
 		 if(characterInstanceDTOs.size()>0){
 			for (CharacterInstanceDTO characterInstanceDTO : characterInstanceDTOs) {
-				PricePlanInstanceCharacter character=new PricePlanInstanceCharacter();
+				ToBePricePlanInstanceCharacter character=new ToBePricePlanInstanceCharacter();
 				CharacteristicDTOTransHelper.transCharacteristic(character,characterInstanceDTO);
 				toBePricePlanInstance.addPricePlanInstanceCharacter(character);
 			}				

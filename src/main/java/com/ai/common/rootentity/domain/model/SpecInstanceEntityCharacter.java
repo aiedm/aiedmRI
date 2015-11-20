@@ -67,5 +67,7 @@ public abstract class SpecInstanceEntityCharacter extends RootEntity {
 	public void setId(long id) {
 		this.id = id;
 	}
+	
+	public abstract SpecInstanceEntityCharacterValue newCharacterValue(); 
 
 }

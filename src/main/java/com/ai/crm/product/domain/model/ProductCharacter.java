@@ -3,15 +3,14 @@ package com.ai.crm.product.domain.model;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 import com.ai.common.rootentity.domain.model.SpecInstanceEntityCharacter;
+import com.ai.common.rootentity.domain.model.SpecInstanceEntityCharacterValue;
 
-@Entity
-@Table(name="PD_PRODUCT_CHARACTER")
+@MappedSuperclass
 public class ProductCharacter extends SpecInstanceEntityCharacter {
 	@ManyToOne
 	private Product product;
@@ -38,5 +37,10 @@ public class ProductCharacter extends SpecInstanceEntityCharacter {
 			super.addCharacteristicInstanceValue(characteristicInstanceValue);
 		}
 
+	}
+	
+	@Override
+	public SpecInstanceEntityCharacterValue  newCharacterValue(){
+		return new ProductCharacterValue();
 	}
 }

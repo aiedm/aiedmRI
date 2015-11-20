@@ -1,14 +1,12 @@
 package com.ai.crm.product.domain.model;
 
-import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.MappedSuperclass;
 
 import com.ai.common.rootentity.domain.model.InstanceEntity;
-@Entity
-@Table(name="PD_OFFER_INS_PRODUCT_REL")
+@MappedSuperclass
 public class OfferInstanceProductRel extends InstanceEntity {
 	@Id
 	private long id;

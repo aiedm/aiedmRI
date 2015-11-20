@@ -1,4 +1,4 @@
-package com.ai.common.rootentity.domain.model;
+package com.ai.crm.common.businessinteractionspec.domain.model;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -10,29 +10,31 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import com.ai.common.rootentity.domain.model.CharacteristicSpec;
+import com.ai.common.rootentity.domain.model.RootEntity;
 @Entity
-public class SpecEntityCharacter extends RootEntity{
+public class BIISpecCharacter extends RootEntity{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;	
 	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
-	private SpecificationEntity specificationEntity;
+	private BusinessInteractionItemSpec businessInteractionItemSpec;
 	@OneToOne
 	private CharacteristicSpec characteristic;
 	
-	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.LAZY,mappedBy="specificationEntityCharacteristic")
-	private Set<SpecEntityCharacterValue> characteristicValues=new HashSet<SpecEntityCharacterValue>();
+	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.LAZY,mappedBy="biSpecCharacter")
+	private Set<BIISpecCharacterValue> characteristicValues=new HashSet<BIISpecCharacterValue>();
 	
-	public SpecificationEntity getSpecificationEntity() {
-		return this.specificationEntity;
+	public BusinessInteractionItemSpec getBusinessInteractionItemSpec() {
+		return this.businessInteractionItemSpec;
 	}
 
 	
-	public void setSpecificationEntity(SpecificationEntity specificationEntity) {
-		this.specificationEntity=(SpecificationEntity)specificationEntity;
+	public void setBusinessInteractionItemSpec(BusinessInteractionItemSpec businessInteractionSpec) {
+		this.businessInteractionItemSpec=businessInteractionSpec;
 	}
 
 	
@@ -46,15 +48,15 @@ public class SpecEntityCharacter extends RootEntity{
 	}
 
 	
-	public Set<SpecEntityCharacterValue> getCharacteristicValues() {
+	public Set<BIISpecCharacterValue> getCharacteristicValues() {
 		return this.characteristicValues;
 	}
 
 	
-	public void addCharacteristicValue(SpecEntityCharacterValue characteristicValue) {
+	public void addCharacteristicValue(BIISpecCharacterValue characteristicValue) {
 		characteristicValues.add(characteristicValue);
-		if (null==characteristicValue.getOwnerCharacteristic()){
-			characteristicValue.setOwnerCharacteristic(this);
+		if (null==characteristicValue.getBiiSpecCharacter()){
+			characteristicValue.setBiiSpecCharacter(this);
 		}
 	}
 

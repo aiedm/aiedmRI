@@ -1,4 +1,4 @@
-package com.ai.crm.customerorder.application.service.api.service.impl;
+package com.ai.crm.customerorder.application.service.api.adapter.impl;
 
 import java.util.Set;
 
@@ -7,14 +7,16 @@ import org.springframework.stereotype.Component;
 
 import com.ai.crm.common.businessinteraction.domain.model.BIICharacter;
 import com.ai.crm.common.businessinteraction.domain.model.BIIRelatedEntity;
+import com.ai.crm.customerorder.application.service.api.adapter.interfaces.IProductItemDTOToOrder;
 import com.ai.crm.customerorder.application.service.api.dto.CharacterInstanceDTO;
 import com.ai.crm.customerorder.application.service.api.dto.ProductOrderItemDTO;
 import com.ai.crm.customerorder.application.service.api.dto.ToBeProductDTO;
-import com.ai.crm.customerorder.application.service.api.service.interfaces.IProductItemDTOToOrder;
 import com.ai.crm.customerorder.application.service.api.util.CharacteristicDTOTransHelper;
 import com.ai.crm.customerorder.domain.model.CustomerOrder;
 import com.ai.crm.customerorder.domain.model.ProductOrderItem;
 import com.ai.crm.customerorder.domain.model.ToBeProduct;
+import com.ai.crm.customerorder.domain.model.ToBeProductCharacter;
+import com.ai.crm.product.domain.model.AsIsProduct;
 import com.ai.crm.product.domain.model.Product;
 import com.ai.crm.product.domain.model.ProductCharacter;
 import com.ai.crm.product.domain.repository.interfaces.IProductRepository;
@@ -50,7 +52,7 @@ public class ProductItemDTOToOrder implements IProductItemDTOToOrder{
 		//toBeProductDTO.getAction()
 		long productId=toBeProductDTO.getProductId();
 		if(productId>0){
-			Product asIsProduct=productRepository.getProductById(productId);
+			AsIsProduct asIsProduct=productRepository.getProductById(productId);
 			toBeProduct.setAsIsProduct(asIsProduct);
 		}
 		this.addToBeProductCharacter(toBeProductDTO, toBeProduct);		
@@ -64,7 +66,7 @@ public class ProductItemDTOToOrder implements IProductItemDTOToOrder{
 		 Set<CharacterInstanceDTO>  characterInstanceDTOs = toBeProductDTO.getProductCharacteristics();
 		 if(characterInstanceDTOs.size()>0){
 			for (CharacterInstanceDTO characterInstanceDTO : characterInstanceDTOs) {
-				ProductCharacter character=new ProductCharacter();
+				ToBeProductCharacter character=new ToBeProductCharacter();
 				CharacteristicDTOTransHelper.transCharacteristic(character,characterInstanceDTO);
 				toBeProduct.addProductCharacter(character);
 			}				
