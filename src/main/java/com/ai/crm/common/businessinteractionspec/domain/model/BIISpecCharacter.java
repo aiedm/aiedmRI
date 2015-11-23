@@ -12,10 +12,12 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import com.ai.common.rootentity.domain.model.CharacteristicSpec;
 import com.ai.common.rootentity.domain.model.RootEntity;
 @Entity
+@Table(name="BIISPEC_CHARACTER")
 public class BIISpecCharacter extends RootEntity{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +27,7 @@ public class BIISpecCharacter extends RootEntity{
 	@OneToOne
 	private CharacteristicSpec characteristic;
 	
-	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.LAZY,mappedBy="biSpecCharacter")
+	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.LAZY,mappedBy="biiSpecCharacter")
 	private Set<BIISpecCharacterValue> characteristicValues=new HashSet<BIISpecCharacterValue>();
 	
 	public BusinessInteractionItemSpec getBusinessInteractionItemSpec() {

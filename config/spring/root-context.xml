@@ -37,6 +37,10 @@
 		</property>
 	</bean>	
 	
+	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    	<property name="dataSource" ref="dataSource"/>
+	</bean>
+	
 	<bean id="eventPublisher"
 		class="com.ai.common.rootentity.domain.service.impl.SpringEventPublisher"></bean>
 		

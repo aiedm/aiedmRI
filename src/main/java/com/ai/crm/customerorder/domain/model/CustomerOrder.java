@@ -42,7 +42,7 @@ public class CustomerOrder extends BusinessInteraction {
 	private Set<OfferOrderItem> offerOrders=new HashSet<OfferOrderItem>();
 	@OneToMany(mappedBy="customerOrder",fetch=FetchType.EAGER)
 	private Set<ProductOrderItem> productOrders=new HashSet<ProductOrderItem>();
-	@OneToOne(targetEntity=BusinessInteractionRel.class,mappedBy="businessInteractiocA")
+	@OneToOne(targetEntity=BusinessInteractionRel.class,mappedBy="businessInteractionA")
 	@JoinColumn(name="BI_B")
 	private ShoppingCart shoppingCart;
 	

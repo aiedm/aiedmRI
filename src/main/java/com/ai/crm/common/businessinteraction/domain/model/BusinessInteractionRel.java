@@ -18,11 +18,11 @@ public class BusinessInteractionRel extends InstanceEntity {
 	private long Id;
 	@JoinColumn(name="BI_A")
 	@ManyToOne
-	private BusinessInteraction businessInteractiocA;
+	private BusinessInteraction businessInteractionA;
 	
 	@JoinColumn(name="BI_B")
 	@ManyToOne
-	private BusinessInteraction businessInteractiocB;
+	private BusinessInteraction businessInteractionB;
 	@Column(name="REL_TYPE")
 	private String relType;
 
@@ -30,19 +30,19 @@ public class BusinessInteractionRel extends InstanceEntity {
 	}
 
 	public BusinessInteraction getFirstBi() {
-		return businessInteractiocA;
+		return businessInteractionA;
 	}
 
 	public void setFirstBi(BusinessInteraction firstBi) {
-		this.businessInteractiocA = firstBi;
+		this.businessInteractionA = firstBi;
 	}
 
 	public BusinessInteraction getSecondBi() {
-		return businessInteractiocB;
+		return businessInteractionB;
 	}
 
 	public void setSecondBi(BusinessInteraction secondBi) {
-		this.businessInteractiocB = secondBi;
+		this.businessInteractionB = secondBi;
 	}
 
 	public String getRelType() {

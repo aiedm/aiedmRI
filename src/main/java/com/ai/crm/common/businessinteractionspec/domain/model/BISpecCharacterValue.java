@@ -6,11 +6,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import com.ai.common.rootentity.domain.model.CharacteristicSpecValue;
 import com.ai.common.rootentity.domain.model.RootEntity;
 
 @Entity
+@Table(name="BISPEC_CHARACTER_VALUE")
 public class BISpecCharacterValue extends RootEntity{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

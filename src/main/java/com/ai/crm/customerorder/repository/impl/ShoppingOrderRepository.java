@@ -3,10 +3,11 @@ package com.ai.crm.customerorder.repository.impl;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import com.ai.crm.customerorder.domain.model.ShoppingCart;
 import com.ai.crm.customerorder.repository.interfaces.IShoppingCartRepository;
-@Component
+@Repository
 public class ShoppingOrderRepository implements IShoppingCartRepository {
 
 	//@Autowired

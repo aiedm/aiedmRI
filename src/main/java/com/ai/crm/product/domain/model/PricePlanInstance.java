@@ -1,21 +1,17 @@
 package com.ai.crm.product.domain.model;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
-
-import javax.persistence.FetchType;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.OneToMany;
 
-import com.ai.common.basetype.TimePeriod;
 import com.ai.common.rootentity.domain.model.SpecInstanceEntity;
 @MappedSuperclass
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-public class PricePlanInstance extends SpecInstanceEntity {
+public abstract class PricePlanInstance extends SpecInstanceEntity {
 	public enum PriceState {
 		INITIATED(0),
 		CREATED(1),
@@ -33,19 +29,18 @@ public class PricePlanInstance extends SpecInstanceEntity {
 	        return value; 
 	    } 
 	}
-	@ManyToOne
-	private OfferInstance offerInstance;
-	@OneToMany(mappedBy="price",fetch=FetchType.LAZY)
-	private Set<ProductPriceRel> assignedTo=new LinkedHashSet<ProductPriceRel>();
+
 	private long pricePlanId;
 	private long priceValue;
 	private int payState;
 	private String discountReason;
 	private long roleId;
-	@OneToMany(mappedBy="pricePlanInstance",fetch=FetchType.LAZY)
-	private Set<PricePlanInstanceCharacter> characterInstances=new LinkedHashSet<PricePlanInstanceCharacter>();
+	@Column(name="PRICE_TYPE")
+	private int priceType;
 	@Id
 	private long id;	
+	
+	
 	public long getId() {
 		return id;
 	}
@@ -54,65 +49,7 @@ public class PricePlanInstance extends SpecInstanceEntity {
 		this.id = id;
 	}	
 
-	public  Set<PricePlanInstanceCharacter> getPricePlanInstanceCharacters(){
-		return this.characterInstances;
-	}
-	
-	public void addPricePlanInstanceCharacter(PricePlanInstanceCharacter character){
-		if(null!=character){
-			this.characterInstances.add(character);
-			super.addCharacteristic(character);
-		}
-	}
 	public PricePlanInstance() {
-	}
-
-	
-	public OfferInstance getOfferInstance() {
-		return offerInstance;
-	}
-
-	
-	public void setOfferInstance(OfferInstance offerInstance) {
-		this.offerInstance=offerInstance;
-	}
-
-	
-	public Set<ProductPriceRel> getAssignedTo() {
-		return assignedTo;
-	}
-
-	
-	public void assignTo(Product product,TimePeriod validPeriod) {
-		if(null!=product){
-			ProductPriceRel productPriceRel=new ProductPriceRel();
-			productPriceRel.setPricePlanInstance(this);
-			productPriceRel.setProduct(product);
-			productPriceRel.setValidPeriod(validPeriod);
-			if(!assignedTo.contains(productPriceRel)){
-				assignedTo.add(productPriceRel);
-			}
-			
-			if(!product.getAssignedPrices().contains(productPriceRel)){
-				product.getAssignedPrices().add(productPriceRel);
-			}
-		}
-		
-	}
-	
-	public void unAssignTo(Product product) {
-		if(null!=product){
-			ProductPriceRel productPriceRel=new ProductPriceRel();
-			productPriceRel.setPricePlanInstance(this);
-			productPriceRel.setProduct(product);
-			if(assignedTo.contains(productPriceRel)){
-				assignedTo.remove(productPriceRel);
-			}
-			if(product.getAssignedPrices().contains(productPriceRel)){
-				product.getAssignedPrices().remove(productPriceRel);
-			}			
-		}
-		
 	}
 
 	
@@ -167,5 +104,13 @@ public class PricePlanInstance extends SpecInstanceEntity {
 	
 	public void setRoleId(long roleId) {
 		this.roleId=roleId;
+	}
+
+	public int getPriceType() {
+		return priceType;
+	}
+
+	public void setPriceType(int priceType) {
+		this.priceType = priceType;
 	}
 }

@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Set;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,13 +21,14 @@ import com.ai.crm.customerorder.domain.model.OfferOrderItem;
 import com.ai.crm.customerorder.domain.model.ProductOrderItem;
 import com.ai.crm.customerorder.domain.service.interfaces.ICreateCustomerOrder;
 @Component
+//@Transactional
 public class CreateCustomerOrder implements ICreateCustomerOrder {
 	public CreateCustomerOrder(){
 		
 	}
 	@Autowired
 	private IEventPublisher eventPublisher;
-	
+		
 	public void createCustomerOrder(CustomerOrder customerOrder)  throws Exception{
 		if(customerOrder.getCustomerOrderId()==0){
 			

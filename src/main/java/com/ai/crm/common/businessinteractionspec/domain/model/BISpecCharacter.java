@@ -12,10 +12,12 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import com.ai.common.rootentity.domain.model.CharacteristicSpec;
 import com.ai.common.rootentity.domain.model.RootEntity;
 @Entity
+@Table(name="BISPEC_CHARACTER")
 public class BISpecCharacter extends RootEntity{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

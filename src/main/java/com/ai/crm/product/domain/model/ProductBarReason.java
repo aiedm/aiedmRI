@@ -1,14 +1,11 @@
 package com.ai.crm.product.domain.model;
 
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 
 import com.ai.common.rootentity.domain.model.InstanceEntity;
 @MappedSuperclass
-public class ProductBarReason extends InstanceEntity {
-	@ManyToOne
-	private Product product;
+public abstract class ProductBarReason extends InstanceEntity {
 	private int barCode;
 	@Id
 	private long id;	
@@ -31,15 +28,4 @@ public class ProductBarReason extends InstanceEntity {
 	public void setBarCode(int barCode) {
 		this.barCode=barCode;
 	}
-
-	
-	public Product getProduct() {
-		return this.product;
-	}
-
-	
-	public void setProduct(Product product) {
-		this.product=product;
-	}
-
 }

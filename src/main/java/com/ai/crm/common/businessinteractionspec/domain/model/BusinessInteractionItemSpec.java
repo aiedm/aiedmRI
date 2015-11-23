@@ -17,7 +17,7 @@ public class BusinessInteractionItemSpec extends SpecificationEntity{
 	@ManyToOne
 	private BusinessInteractionSpec biSpec;
 
-	@OneToMany(fetch=FetchType.LAZY,mappedBy="businessInteractionSpec")
+	@OneToMany(fetch=FetchType.LAZY,mappedBy="businessInteractionItemSpec")
 	private Set<BIISpecCharacter> characteristSpecs=new LinkedHashSet<BIISpecCharacter>();
 	
 	public Set<BIISpecCharacter> getCharacteristSpecs(){

@@ -5,12 +5,12 @@ import java.io.Serializable;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import com.ai.crm.customerorder.domain.model.CustomerOrder;
 import com.ai.crm.customerorder.domain.service.interfaces.ICreateCustomerOrder;
 import com.ai.crm.customerorder.repository.interfaces.ICustomerOrderRepository;
-@Component
+@Repository
 public class CustomerOrderRepository implements ICustomerOrderRepository {
 	@Autowired
 	private ICreateCustomerOrder CreateCustomerOrder ;
@@ -38,7 +38,8 @@ public class CustomerOrderRepository implements ICustomerOrderRepository {
 
 	@Override
 	public void saveCustomerOrder(CustomerOrder customerOrder) {
-		currentSession().save(customerOrder);
+		Serializable id = currentSession().save(customerOrder);
+		customerOrder.setCustomerOrderId((Long)id);
 	}
 
 	@Override
