@@ -4,7 +4,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import com.ai.crm.common.businessinteraction.domain.model.BusinessInteractionItemRel;
@@ -36,9 +35,6 @@ public class OfferOrderItem extends CustomerOrderItem{
 	@OneToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	@JoinColumn(name="RELAT_ENTITY_ID")
 	private ToBeOfferInstance  toBeOfferInstance;
-	
-	@ManyToOne
-	CustomerOrder customerOrder;
 	
 	protected OfferOrderItem() {
 		

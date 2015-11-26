@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
@@ -18,13 +19,13 @@ public class ToBeProduct extends Product{
 	@OneToOne
 	private AsIsProduct asIsProduct;
 	
-	@OneToMany(mappedBy="product",fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="product",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	private Set<ToBeProductBarReason> barReasons=new HashSet<ToBeProductBarReason>();
-	@OneToMany(mappedBy="product",fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="product",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	private Set<ToBeOfferInstanceProductRel> participantOfferInstances=new LinkedHashSet<ToBeOfferInstanceProductRel>();
-	@OneToMany(mappedBy="product",fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="product",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	private Set<ToBeProductPriceRel> assignedPrices=new LinkedHashSet<ToBeProductPriceRel>();
-	@OneToMany(mappedBy="product",fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="product",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	private Set<ToBeProductCharacter> characterInstances=new LinkedHashSet<ToBeProductCharacter>();
 	
 	public  Set<ToBeProductCharacter> getProductCharacters(){

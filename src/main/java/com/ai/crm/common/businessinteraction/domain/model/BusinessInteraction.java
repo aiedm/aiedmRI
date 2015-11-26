@@ -20,7 +20,6 @@ import com.ai.common.rootentity.domain.model.SpecInstanceEntityCharacter;
 
 @Entity
 @Inheritance (strategy = InheritanceType.SINGLE_TABLE)
-//@DiscriminatorColumn(name="BI_SPEC_ID",discriminatorType=DiscriminatorType.INTEGER)
 @Table(name="BI_BIZINTERACTION")
 public abstract class BusinessInteraction extends SpecInstanceEntity {
 	@Id
@@ -30,7 +29,7 @@ public abstract class BusinessInteraction extends SpecInstanceEntity {
 	@Column(name="BI_STATE")
 	private int biState;
 	
-	@OneToMany(mappedBy="businessInteraction",fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="businessInteraction",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	private Set<BusinessInteractionItem> businessInteractionItems=new LinkedHashSet<BusinessInteractionItem>();
 	
 	@Column(name="BI_SPEC_ID")
@@ -39,7 +38,7 @@ public abstract class BusinessInteraction extends SpecInstanceEntity {
 	@Column(name="BI_CODE")
 	private String code;
 	
-	@OneToMany(mappedBy="businessInteraction",fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="businessInteraction",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	private Set<BICharacter> bICharacteristic=new LinkedHashSet<BICharacter>();
 	
 	protected BusinessInteraction(){
