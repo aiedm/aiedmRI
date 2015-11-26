@@ -3,6 +3,8 @@ package com.ai.crm.product.domain.model;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -38,6 +40,7 @@ public abstract class PricePlanInstance extends SpecInstanceEntity {
 	@Column(name="PRICE_TYPE")
 	private int priceType;
 	@Id
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	private long id;	
 	
 	

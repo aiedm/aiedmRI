@@ -1,6 +1,8 @@
 package com.ai.crm.customerorder.domain.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -27,11 +29,17 @@ public class OfferOrderItem extends CustomerOrderItem{
 	        return value; 
 	    } 
 	}	
-	@ManyToOne
-	private CustomerOrder customerOrder;
 	@OneToOne(targetEntity=BusinessInteractionItemRel.class,mappedBy="businessInteractionItemA")
 	@JoinColumn(name="BII_B")
 	private OfferOrderItem replacedOfferOrderItem;
+	
+	@OneToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+	@JoinColumn(name="RELAT_ENTITY_ID")
+	private ToBeOfferInstance  toBeOfferInstance;
+	
+	@ManyToOne
+	CustomerOrder customerOrder;
+	
 	protected OfferOrderItem() {
 		
 	}
@@ -42,14 +50,13 @@ public class OfferOrderItem extends CustomerOrderItem{
 		customerOrder.addOfferOrder(this);
 	}	
 
-	
 	public CustomerOrder getCustomerOrder() {
-		return customerOrder;
+		return (CustomerOrder)super.getBusinessInteraction();
 	}
 
 	
 	public void setCustomerOrder(CustomerOrder customerOrder) {
-		this.customerOrder=customerOrder;		
+		super.setBusinessInteraction(customerOrder);	
 	}
 
 
@@ -81,6 +88,14 @@ public class OfferOrderItem extends CustomerOrderItem{
 	
 	public void setOfferOrderId(long offerOrderId) {
 		super.setId(offerOrderId);
+	}
+
+	public ToBeOfferInstance getToBeOfferInstance() {
+		return toBeOfferInstance;
+	}
+
+	public void setToBeOfferInstance(ToBeOfferInstance toBeOfferInstance) {
+		this.toBeOfferInstance = toBeOfferInstance;
 	}
 
 }

@@ -2,12 +2,15 @@ package com.ai.common.rootentity.domain.model;
 
 import java.sql.Timestamp;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.MappedSuperclass;
 
 import com.ai.common.basetype.TimePeriod;
 @MappedSuperclass
+@Access(AccessType.FIELD)
 public abstract class RootEntity{
 	@Embedded
 	private EntityVersion version;

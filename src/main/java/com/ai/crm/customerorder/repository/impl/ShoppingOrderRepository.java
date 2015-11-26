@@ -21,7 +21,7 @@ public class ShoppingOrderRepository implements IShoppingCartRepository {
 	}
 
 	private Session currentSession() {
-		return sessionFactory.openSession();
+		return sessionFactory.getCurrentSession();
 	}
 
 	@Override

@@ -5,12 +5,14 @@ import java.util.Set;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
 import com.ai.crm.common.businessinteraction.domain.model.BusinessInteraction;
 import com.ai.crm.common.businessinteraction.domain.model.BusinessInteractionRel;
 
@@ -38,9 +40,9 @@ public class CustomerOrder extends BusinessInteraction {
 	        return value; 
 	    } 
 	}
-	@OneToMany(mappedBy="customerOrder",fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="customerOrder",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	private Set<OfferOrderItem> offerOrders=new HashSet<OfferOrderItem>();
-	@OneToMany(mappedBy="customerOrder",fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="customerOrder",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	private Set<ProductOrderItem> productOrders=new HashSet<ProductOrderItem>();
 	@OneToOne(targetEntity=BusinessInteractionRel.class,mappedBy="businessInteractionA")
 	@JoinColumn(name="BI_B")

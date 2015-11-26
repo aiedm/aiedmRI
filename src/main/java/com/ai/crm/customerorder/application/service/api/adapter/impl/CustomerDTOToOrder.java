@@ -55,7 +55,7 @@ public class CustomerDTOToOrder implements ICustomerDTOToOrder{
 		return customerOrder;
 	}
 	
-	private void addCharacter(CustomerOrderDTO customerOrderDTO,CustomerOrder customerOrder){
+	private void addCharacter(CustomerOrderDTO customerOrderDTO,CustomerOrder customerOrder)  throws Exception{
 		 Set<CharacterInstanceDTO>  characterInstanceDTOs = customerOrderDTO.getCustomerOrderCharacters();
 		 if(characterInstanceDTOs.size()>0){
 			for (CharacterInstanceDTO characterInstanceDTO : characterInstanceDTOs) {

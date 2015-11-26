@@ -3,7 +3,9 @@ package com.ai.crm.customerorder.domain.model;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -16,7 +18,7 @@ import com.ai.crm.product.domain.model.OfferInstanceCharacter;
 public class ToBeOfferInstanceCharacter extends OfferInstanceCharacter {
 	@ManyToOne
 	private ToBeOfferInstance offerInstance;
-	@OneToMany(mappedBy="offerInstanceCharacter")
+	@OneToMany(mappedBy="offerInstanceCharacter",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	private Set<ToBeOfferInstanceCharacterValue> offerInstanceCharacterValues=new LinkedHashSet<ToBeOfferInstanceCharacterValue>();
 
 	public OfferInstance getOfferInstance() {

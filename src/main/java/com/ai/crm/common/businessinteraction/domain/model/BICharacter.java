@@ -3,6 +3,7 @@ package com.ai.crm.common.businessinteraction.domain.model;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
@@ -14,7 +15,7 @@ import com.ai.common.rootentity.domain.model.SpecInstanceEntityCharacterValue;
 @Entity
 @Table(name="BI_CHARACTER")
 public class BICharacter extends SpecInstanceEntityCharacter {
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	private BusinessInteraction businessInteraction;
 	@OneToMany(mappedBy="biCharacter",fetch=FetchType.LAZY)
 	private Set<BICharacterValue> biCharacterValues=new LinkedHashSet<BICharacterValue>();

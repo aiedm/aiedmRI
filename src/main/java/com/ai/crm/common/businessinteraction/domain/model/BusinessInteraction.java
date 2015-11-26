@@ -1,12 +1,10 @@
 package com.ai.crm.common.businessinteraction.domain.model;
 
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -28,14 +26,19 @@ public abstract class BusinessInteraction extends SpecInstanceEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	private long id;
+	
 	@Column(name="BI_STATE")
 	private int biState;
+	
 	@OneToMany(mappedBy="businessInteraction",fetch=FetchType.LAZY)
-	private Set<BusinessInteractionItem> businessInteractionItems=new HashSet<BusinessInteractionItem>();
+	private Set<BusinessInteractionItem> businessInteractionItems=new LinkedHashSet<BusinessInteractionItem>();
+	
 	@Column(name="BI_SPEC_ID")
 	private long biSpecId;
+	
 	@Column(name="BI_CODE")
 	private String code;
+	
 	@OneToMany(mappedBy="businessInteraction",fetch=FetchType.LAZY)
 	private Set<BICharacter> bICharacteristic=new LinkedHashSet<BICharacter>();
 	

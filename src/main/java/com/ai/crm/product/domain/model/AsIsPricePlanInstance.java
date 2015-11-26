@@ -3,6 +3,7 @@ package com.ai.crm.product.domain.model;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
@@ -19,10 +20,10 @@ public class AsIsPricePlanInstance extends PricePlanInstance {
 	@ManyToOne
 	private AsIsOfferInstance offerInstance;
 	
-	@OneToMany(mappedBy="price",fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="price",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	private Set<AsIsProductPriceRel> assignedTo=new LinkedHashSet<AsIsProductPriceRel>();
 	
-	@OneToMany(mappedBy="pricePlanInstance",fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="pricePlanInstance",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	private Set<AsIsPricePlanInstanceCharacter> characterInstances=new LinkedHashSet<AsIsPricePlanInstanceCharacter>();
 
 	public  Set<AsIsPricePlanInstanceCharacter> getPricePlanInstanceCharacters(){

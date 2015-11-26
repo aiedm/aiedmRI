@@ -3,7 +3,9 @@ package com.ai.crm.product.domain.model;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -14,7 +16,7 @@ import com.ai.common.rootentity.domain.model.SpecInstanceEntityCharacterValue;
 public class AsIsPricePlanInstanceCharacter extends PricePlanInstanceCharacter {
 	@ManyToOne
 	private AsIsPricePlanInstance pricePlanInstance;
-	@OneToMany(mappedBy="pricePlanInstanceCharacter")
+	@OneToMany(mappedBy="pricePlanInstanceCharacter",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	private Set<AsIsPricePlanInstanceCharacterValue> pricePlanInstanceCharacterValues=new LinkedHashSet<AsIsPricePlanInstanceCharacterValue>();
 
 	public AsIsPricePlanInstanceCharacter() {

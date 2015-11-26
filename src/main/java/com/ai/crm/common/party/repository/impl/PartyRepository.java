@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ai.crm.common.party.domain.model.Individual;
@@ -12,7 +13,7 @@ import com.ai.crm.common.party.repository.interfaces.IPartyRepository;
 
 @Repository
 public class PartyRepository implements IPartyRepository {
-	//@Autowired
+	@Autowired
 	SessionFactory sessionFactory;
 	public PartyRepository(){
 		
@@ -23,7 +24,7 @@ public class PartyRepository implements IPartyRepository {
 	}
 
 	private Session currentSession() {
-		return sessionFactory.openSession();
+		return sessionFactory.getCurrentSession();
 	}
 	
 	public Individual saveIndividual(Individual individual) {
@@ -36,6 +37,11 @@ public class PartyRepository implements IPartyRepository {
 		Serializable id = currentSession().save(organization);
 		organization.setId((Long)id);
 		return organization;
+	}
+
+	@Override
+	public Individual findIndividualById(long individualID) {
+		return (Individual)currentSession().get(Individual.class, individualID);
 	}
 
 }

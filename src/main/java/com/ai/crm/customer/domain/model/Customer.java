@@ -13,7 +13,7 @@ import com.ai.crm.common.party.domain.model.Party;
 import com.ai.crm.common.party.domain.model.PartyRole;
 
 @Entity
-//@PrimaryKeyJoinColumn(name="CUST_ID")
+@PrimaryKeyJoinColumn(name="CUST_ID")
 @SecondaryTable(
 	    name = "CM_CUSTOMER",
 	    pkJoinColumns = @PrimaryKeyJoinColumn(name = "CUST_ID")

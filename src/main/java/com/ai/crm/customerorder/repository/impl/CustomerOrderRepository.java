@@ -20,12 +20,12 @@ public class CustomerOrderRepository implements ICustomerOrderRepository {
 	public CustomerOrderRepository() {
 	}
 	
-	public CustomerOrderRepository(SessionFactory sessionFactory) {
+	public CustomerOrderRepository(SessionFactory sessionFactory) throws Exception{
 		this.sessionFactory = sessionFactory;
 	}
 
-	private Session currentSession() {
-		return sessionFactory.openSession();
+	private Session currentSession() throws Exception{
+		return sessionFactory.getCurrentSession();
 	}
 	
 	@Override
@@ -37,7 +37,7 @@ public class CustomerOrderRepository implements ICustomerOrderRepository {
 	}
 
 	@Override
-	public void saveCustomerOrder(CustomerOrder customerOrder) {
+	public void saveCustomerOrder(CustomerOrder customerOrder) throws Exception{
 		Serializable id = currentSession().save(customerOrder);
 		customerOrder.setCustomerOrderId((Long)id);
 	}

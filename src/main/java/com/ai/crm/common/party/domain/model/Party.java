@@ -23,7 +23,7 @@ import com.ai.common.rootentity.domain.model.SpecInstanceEntity;
 public abstract class Party extends SpecInstanceEntity{
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
-	@Column(name="ID")
+	@Column(name="ID",insertable = false, updatable = false)
 	private long id;
 	@Column(insertable = false, updatable = false,name="PARTY_TYPE")
 	private String partyType;

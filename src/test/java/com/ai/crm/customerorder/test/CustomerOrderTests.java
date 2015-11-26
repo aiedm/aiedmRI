@@ -4,8 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 
-import javax.transaction.Transactional;
-
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,6 +13,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ai.common.basetype.TimePeriod;
 import com.ai.common.rootentity.domain.service.interfaces.IEventPublisher;
@@ -26,6 +25,7 @@ import com.ai.crm.customerorder.application.service.api.dto.ToBeOfferInstanceDTO
 import com.ai.crm.customerorder.application.service.api.dto.ToBePricePlanInstanceDTO;
 import com.ai.crm.customerorder.application.service.api.dto.ToBeProductDTO;
 import com.ai.crm.customerorder.domain.event.createorder.CreateOrderRequested;
+import com.ai.crm.customerorder.domain.model.CustomerOrder;
 import com.ai.crm.customerorder.repository.interfaces.ICustomerOrderRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -33,56 +33,60 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @ContextConfiguration(locations={"classpath:spring/root-context.xml","classpath:spring/appServlet/servlet-context.xml"})
 @WebAppConfiguration
 @ActiveProfiles("dev")
+@Transactional
+@Rollback(false)
 public class CustomerOrderTests {
-	private OfferOrderItemDTO offerOrder = new OfferOrderItemDTO();
-	private CustomerOrderDTO customerOrder=new CustomerOrderDTO();
-	private ToBePricePlanInstanceDTO toBePrice=new ToBePricePlanInstanceDTO();
-	private CharacterInstanceDTO OfferInstancePriceCharacter=new CharacterInstanceDTO();
-	private ToBeOfferInstanceDTO toBeOfferInstance=new ToBeOfferInstanceDTO();
-	private ToBeProductDTO toBeProduct=new ToBeProductDTO();	
-	private CharacterValueInstanceDTO offerInstancePriceCharacter=new CharacterValueInstanceDTO();
+	private OfferOrderItemDTO offerOrderDTO = new OfferOrderItemDTO();
+	private CustomerOrderDTO customerOrderDTO=new CustomerOrderDTO();
+	private ToBePricePlanInstanceDTO toBePriceDTO=new ToBePricePlanInstanceDTO();
+	private CharacterInstanceDTO OfferInstancePriceCharacterDTO=new CharacterInstanceDTO();
+	private ToBeOfferInstanceDTO toBeOfferInstanceDTO=new ToBeOfferInstanceDTO();
+	private ToBeProductDTO toBeProductDTO=new ToBeProductDTO();	
+	private CharacterValueInstanceDTO offerInstancePriceCharacterDTO=new CharacterValueInstanceDTO();
 
 	@Autowired
 	private IEventPublisher eventPublisher;
+	@Autowired
+	private ICustomerOrderRepository customerOrderRepository;
 	
 	private ObjectMapper mapper = new ObjectMapper();
 	
+	
 	@Test
-	@Transactional
-	@Rollback(false)
 	//@Ignore
 	public void createCustomerOrder() throws Exception{
-		toBePrice.setPricePlanId(1);
-		toBePrice.setInputedValue(10000);
+		toBePriceDTO.setPricePlanId(1);
+		toBePriceDTO.setInputedValue(10000);
 		
-		toBeOfferInstance.addPricePlanInstance(toBePrice);
-		toBeOfferInstance.setProductOfferingId(11);
-		toBeOfferInstance.setAcition(1);
+		toBeOfferInstanceDTO.addPricePlanInstance(toBePriceDTO);
+		toBeOfferInstanceDTO.setProductOfferingId(11);
+		toBeOfferInstanceDTO.setAcition(1);
 		
-		offerInstancePriceCharacter.setCharacteristicSpecValueId(10001);
-		offerInstancePriceCharacter.setInputedValue("50%");	
-		OfferInstancePriceCharacter.setCharacteristicSpecId(100);
-		OfferInstancePriceCharacter.addCharacteristicValue(offerInstancePriceCharacter);
+		offerInstancePriceCharacterDTO.setCharacteristicSpecValueId(10001);
+		offerInstancePriceCharacterDTO.setInputedValue("50%");	
+		OfferInstancePriceCharacterDTO.setCharacteristicSpecId(100);
+		OfferInstancePriceCharacterDTO.addCharacteristicValue(offerInstancePriceCharacterDTO);
 		
-		toBeOfferInstance.addOfferInstanceCharacteristic(OfferInstancePriceCharacter);
+		toBeOfferInstanceDTO.addOfferInstanceCharacteristic(OfferInstancePriceCharacterDTO);
 		
-		offerOrder.setBusinessInteractionItemSpecId(1001);
-		offerOrder.setToBeOfferInstanceTDO(toBeOfferInstance);		
-		toBeProduct.setProductSpecId(101);
+		offerOrderDTO.setBusinessInteractionItemSpecId(1001);
+		offerOrderDTO.setToBeOfferInstanceTDO(toBeOfferInstanceDTO);	
+		offerOrderDTO.setAction(1);
+		toBeProductDTO.setProductSpecId(101);
 		TimePeriod prodRelValidPeriod=new TimePeriod();
 		//prodRelValidPeriod.setBeginTime(beginTime);
 		//prodRelValidPeriod.setEndTime(beginTime);
-		toBePrice.applyToProduct(toBeProduct,prodRelValidPeriod);
+		toBePriceDTO.applyToProduct(toBeProductDTO,prodRelValidPeriod);
 		CharacterValueInstanceDTO productcharacterInstanceValue=new CharacterValueInstanceDTO();
 		productcharacterInstanceValue.setCharacteristicSpecValueId(20001);
 		productcharacterInstanceValue.setInputedValue("Red");
 		CharacterInstanceDTO productPriceCharacter=new CharacterInstanceDTO();
 		productPriceCharacter.setCharacteristicSpecId(200);
 		productPriceCharacter.addCharacteristicValue(productcharacterInstanceValue);
-		toBeProduct.addProductCharacteristics(productPriceCharacter);
-		toBeOfferInstance.addProduct(toBeProduct,prodRelValidPeriod);
+		toBeProductDTO.addProductCharacteristics(productPriceCharacter);
+		toBeOfferInstanceDTO.addProduct(toBeProductDTO,prodRelValidPeriod);
 	
-		customerOrder.addOfferOrderItem(offerOrder);
+		customerOrderDTO.addOfferOrderItem(offerOrderDTO);
 		
 		OfferOrderItemDTO offerOrder2=new OfferOrderItemDTO();
 		offerOrder2.setAction(1);
@@ -94,14 +98,14 @@ public class CustomerOrderTests {
 		toBeOffer2.addProduct(toBeproduct2,prodRelValidPeriod);
 		offerOrder2.setToBeOfferInstanceTDO(toBeOffer2);
 		
-		customerOrder.addOfferOrderItem(offerOrder2);
+		customerOrderDTO.addOfferOrderItem(offerOrder2);
 		
 		CreateOrderRequested event=new CreateOrderRequested(this);
-		event.setCustomerOrderDTO(customerOrder);
+		event.setCustomerOrderDTO(customerOrderDTO);
 		eventPublisher.publishEvent(event);
-		assertEquals(0,customerOrder.getCustomerId());
-		String jsonString=mapper.writeValueAsString(customerOrder);
-		mapper.writeValue(new File("D:\\workspace\\springTest\\aiedmRI\\src\\test\\resource\\order.json"), customerOrder);
+		assertEquals(0,customerOrderDTO.getCustomerId());
+		String jsonString=mapper.writeValueAsString(customerOrderDTO);
+		mapper.writeValue(new File("D:\\workspace\\springTest\\aiedmRI\\src\\test\\resource\\order.json"), customerOrderDTO);
 		System.out.println(jsonString);
 	}
 	

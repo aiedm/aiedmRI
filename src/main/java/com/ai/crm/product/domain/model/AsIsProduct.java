@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
@@ -12,13 +13,13 @@ import javax.persistence.Table;
 @Entity
 @Table(name="PD_PRODUCT")
 public class AsIsProduct extends Product{
-	@OneToMany(mappedBy="product",fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="product",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	private Set<AsIsProductBarReason> barReasons=new HashSet<AsIsProductBarReason>();
-	@OneToMany(mappedBy="product",fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="product",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	private Set<AsIsOfferInstanceProductRel> participantOfferInstances=new LinkedHashSet<AsIsOfferInstanceProductRel>();
-	@OneToMany(mappedBy="product",fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="product",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	private Set<AsIsProductPriceRel> assignedPrices=new HashSet<AsIsProductPriceRel>();
-	@OneToMany(mappedBy="product",fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="product",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	private Set<AsIsProductCharacter> characterInstances=new LinkedHashSet<AsIsProductCharacter>();
 	
 	public  Set<AsIsProductCharacter> getProductCharacters(){

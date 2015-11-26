@@ -3,6 +3,7 @@ package com.ai.crm.customerorder.domain.model;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
@@ -22,10 +23,10 @@ public class ToBePricePlanInstance extends PricePlanInstance{
 	@ManyToOne
 	private ToBeOfferInstance offerInstance;
 	
-	@OneToMany(mappedBy="price",fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="price",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	private Set<ToBeProductPriceRel> assignedTo=new LinkedHashSet<ToBeProductPriceRel>();
 	
-	@OneToMany(mappedBy="pricePlanInstance",fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="pricePlanInstance",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	private Set<ToBePricePlanInstanceCharacter> characterInstances=new LinkedHashSet<ToBePricePlanInstanceCharacter>();
 
 	public  Set<ToBePricePlanInstanceCharacter> getPricePlanInstanceCharacters(){

@@ -1,5 +1,7 @@
 package com.ai.crm.product.domain.model;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
@@ -13,6 +15,7 @@ public abstract class Product extends SpecInstanceEntity{
 	private String serialNumber;
 		
 	@Id
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	private long id;	
 	public long getId() {
 		return id;

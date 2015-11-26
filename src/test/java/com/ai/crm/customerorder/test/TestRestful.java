@@ -75,7 +75,7 @@ public class TestRestful {
 				 )
 				 .andExpect(status().isOk())
 				 //.andExpect(content().contentType(MediaType.APPLICATION_JSON))
-				 .andExpect(jsonPath("$.customerOrderCode").value("20150917"))
+				 .andExpect(jsonPath("$.customerOrderId").value(1))
 				 ;			
 	}	
 

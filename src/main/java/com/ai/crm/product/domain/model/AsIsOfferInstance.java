@@ -3,6 +3,7 @@ package com.ai.crm.product.domain.model;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
@@ -12,11 +13,11 @@ import com.ai.common.basetype.TimePeriod;
 @Entity
 @Table(name="PD_OFFER_INS")
 public class AsIsOfferInstance extends OfferInstance{
-	@OneToMany(mappedBy="offerInstance",fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="offerInstance",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	private Set<AsIsOfferInstanceProductRel> includedProducts=new LinkedHashSet<AsIsOfferInstanceProductRel>();
-	@OneToMany(mappedBy="offerInstance",fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="offerInstance",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	private Set<AsIsPricePlanInstance> prices=new LinkedHashSet<AsIsPricePlanInstance>();
-	@OneToMany(mappedBy="offerInstance",fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="offerInstance",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	private Set<AsIsOfferInstanceCharacter> characterInstances=new LinkedHashSet<AsIsOfferInstanceCharacter>();
 	public  Set<AsIsOfferInstanceCharacter> getOfferInstanceCharacters(){
 		return this.characterInstances;

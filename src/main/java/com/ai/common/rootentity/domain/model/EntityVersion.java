@@ -5,8 +5,6 @@ import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
-import com.sun.istack.internal.Nullable;
-
 @Embeddable
 public class EntityVersion{
 	@Column(nullable=true)

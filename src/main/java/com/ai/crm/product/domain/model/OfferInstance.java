@@ -1,5 +1,7 @@
 package com.ai.crm.product.domain.model;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
@@ -11,6 +13,7 @@ public class OfferInstance extends SpecInstanceEntity{
 	private long productOfferingId;
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	private long id;	
 	public long getId() {
 		return id;

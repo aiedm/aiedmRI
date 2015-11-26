@@ -15,7 +15,6 @@ import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 public class ToBePricePlanInstanceProductDTO {
 	@JsonIgnore
 	private ToBePricePlanInstanceDTO toBePricePlanInstanceDTO;
-	@JsonIgnore
 	private ToBeProductDTO toBeProductDTO;
 	private TimePeriod validPeriod;
 	public ToBePricePlanInstanceProductDTO() {

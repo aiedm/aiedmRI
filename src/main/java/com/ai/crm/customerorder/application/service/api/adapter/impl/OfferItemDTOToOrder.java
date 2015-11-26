@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.ai.crm.common.businessinteraction.domain.model.BIICharacter;
-import com.ai.crm.common.businessinteraction.domain.model.BIIRelatedEntity;
 import com.ai.crm.customerorder.application.service.api.adapter.interfaces.IOfferItemDTOToOrder;
 import com.ai.crm.customerorder.application.service.api.adapter.interfaces.IProductItemDTOToOrder;
 import com.ai.crm.customerorder.application.service.api.dto.CharacterInstanceDTO;
@@ -49,20 +48,16 @@ public class OfferItemDTOToOrder implements IOfferItemDTOToOrder{
 			OfferOrderItem replacedOfferOrderItem=new OfferOrderItem(customerOrder);
 			ToBeOfferInstance repalcedToBeOfferInstance= new ToBeOfferInstance();
 			repalcedToBeOfferInstance.setAsIsOfferInstance(productRepository.getOfferInstanceById(replacedOffeRInstanceId));
-			BIIRelatedEntity relatEntity=new BIIRelatedEntity();
-			relatEntity.setToBeInstanceEntity(repalcedToBeOfferInstance);
-			relatEntity.setAction(2);
-			replacedOfferOrderItem.setRelatedEntity(relatEntity);
+			replacedOfferOrderItem.setToBeOfferInstance(repalcedToBeOfferInstance);
+			replacedOfferOrderItem.setAction(2);
 			offerOrderItem.setReplcedOfferOrderItem(replacedOfferOrderItem);
 		}
 		this.addOfferItemCharacter(offerOrderItemDTO, offerOrderItem);
 		ToBeOfferInstanceDTO toBeOfferInstanceDTO = offerOrderItemDTO.getToBeOfferInstanceTDO();
 		ToBeOfferInstance toBeOfferInstance=new ToBeOfferInstance();
 		toBeOfferInstance.setCustomerId(toBeOfferInstanceDTO.getCustomerId());
-		BIIRelatedEntity relatEntity=new BIIRelatedEntity();
-		relatEntity.setToBeInstanceEntity(toBeOfferInstance);
-		relatEntity.setAction(offerOrderItemDTO.getAction());
-		offerOrderItem.setRelatedEntity(relatEntity);
+		offerOrderItem.setToBeOfferInstance(toBeOfferInstance);
+		offerOrderItem.setAction(offerOrderItemDTO.getAction());
 		toBeOfferInstance.setProductOfferingId(toBeOfferInstanceDTO.getProductOffferingId());
 		long offerInstanceId=toBeOfferInstanceDTO.getOfferInstanceId();
 		if(offerInstanceId>0){

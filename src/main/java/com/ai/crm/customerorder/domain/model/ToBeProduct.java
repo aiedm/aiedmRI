@@ -23,7 +23,7 @@ public class ToBeProduct extends Product{
 	@OneToMany(mappedBy="product",fetch=FetchType.LAZY)
 	private Set<ToBeOfferInstanceProductRel> participantOfferInstances=new LinkedHashSet<ToBeOfferInstanceProductRel>();
 	@OneToMany(mappedBy="product",fetch=FetchType.LAZY)
-	private Set<ToBeProductPriceRel> assignedPrices=new HashSet<ToBeProductPriceRel>();
+	private Set<ToBeProductPriceRel> assignedPrices=new LinkedHashSet<ToBeProductPriceRel>();
 	@OneToMany(mappedBy="product",fetch=FetchType.LAZY)
 	private Set<ToBeProductCharacter> characterInstances=new LinkedHashSet<ToBeProductCharacter>();
 	

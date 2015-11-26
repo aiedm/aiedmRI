@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.ai.crm.common.businessinteraction.domain.model.BIICharacter;
-import com.ai.crm.common.businessinteraction.domain.model.BIIRelatedEntity;
 import com.ai.crm.customerorder.application.service.api.adapter.interfaces.IProductItemDTOToOrder;
 import com.ai.crm.customerorder.application.service.api.dto.CharacterInstanceDTO;
 import com.ai.crm.customerorder.application.service.api.dto.ProductOrderItemDTO;
@@ -17,8 +16,6 @@ import com.ai.crm.customerorder.domain.model.ProductOrderItem;
 import com.ai.crm.customerorder.domain.model.ToBeProduct;
 import com.ai.crm.customerorder.domain.model.ToBeProductCharacter;
 import com.ai.crm.product.domain.model.AsIsProduct;
-import com.ai.crm.product.domain.model.Product;
-import com.ai.crm.product.domain.model.ProductCharacter;
 import com.ai.crm.product.domain.repository.interfaces.IProductRepository;
 @Component
 public class ProductItemDTOToOrder implements IProductItemDTOToOrder{
@@ -35,10 +32,8 @@ public class ProductItemDTOToOrder implements IProductItemDTOToOrder{
 		productOrderItem.setProductOrderId(productOrderItemDTO.getProductOrderItemId());				
 		this.addCharacter(productOrderItemDTO, productOrderItem);
 		ToBeProduct toBeProduct=this.transferToBeProduct(productOrderItemDTO.getToBeProductDTO());				
-		BIIRelatedEntity relatEntity=new BIIRelatedEntity();
-		relatEntity.setToBeInstanceEntity(toBeProduct);
-		relatEntity.setAction(productOrderItemDTO.getAction());
-		productOrderItem.setRelatedEntity(relatEntity);
+		productOrderItem.setToBeProduct(toBeProduct);
+		productOrderItem.setAction(productOrderItemDTO.getAction());
 		return productOrderItem;
 	}
 

@@ -11,17 +11,19 @@ import javax.persistence.Table;
 
 import com.ai.common.basetype.TimePeriod;
 import com.ai.crm.product.domain.model.AsIsOfferInstance;
-import com.ai.crm.product.domain.model.AsIsProduct;
 import com.ai.crm.product.domain.model.OfferInstance;
 @Entity
 @Table(name="ORD_TOBE_OFFER_INS")
 public class ToBeOfferInstance extends OfferInstance{
 	@OneToOne
 	private AsIsOfferInstance asIsOfferInstance;
+	
 	@OneToMany(mappedBy="offerInstance",fetch=FetchType.LAZY)
 	private Set<ToBeOfferInstanceProductRel> includedProducts=new LinkedHashSet<ToBeOfferInstanceProductRel>();
+	
 	@OneToMany(mappedBy="offerInstance",fetch=FetchType.LAZY)
 	private Set<ToBePricePlanInstance> prices=new LinkedHashSet<ToBePricePlanInstance>();
+	
 	@OneToMany(mappedBy="offerInstance",fetch=FetchType.LAZY)
 	private Set<ToBeOfferInstanceCharacter> characterInstances=new LinkedHashSet<ToBeOfferInstanceCharacter>();
 	public  Set<ToBeOfferInstanceCharacter> getOfferInstanceCharacters(){

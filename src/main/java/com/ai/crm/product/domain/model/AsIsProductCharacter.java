@@ -3,7 +3,9 @@ package com.ai.crm.product.domain.model;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -13,7 +15,7 @@ import javax.persistence.Table;
 public class AsIsProductCharacter extends ProductCharacter {
 	@ManyToOne
 	private AsIsProduct product;
-	@OneToMany(mappedBy="productCharacter")
+	@OneToMany(mappedBy="productCharacter",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	private Set<AsIsProductCharacterValue> productCharacterValues=new LinkedHashSet<AsIsProductCharacterValue>();
 
 	public AsIsProductCharacter() {
