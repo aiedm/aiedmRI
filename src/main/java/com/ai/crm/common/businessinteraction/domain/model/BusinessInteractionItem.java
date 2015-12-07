@@ -31,7 +31,7 @@ import com.ai.common.rootentity.domain.model.SpecInstanceEntityCharacter;
 @Table(name="BI_BIZINTERACTION_ITEM")
 public abstract class BusinessInteractionItem extends SpecInstanceEntity {
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
 	@Column(name="BII_SPEC_ID")

@@ -11,6 +11,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.ai.common.rootentity.domain.model.SpecInstanceEntityCharacterValue;
+import com.ai.crm.common.businessinteraction.domain.model.BIICharacterValue;
 @Entity
 @Table(name="PD_OFFER_INS_CHARACTER")
 public class AsIsOfferInstanceCharacter extends OfferInstanceCharacter {	
@@ -25,12 +26,12 @@ public class AsIsOfferInstanceCharacter extends OfferInstanceCharacter {
 	public void setOfferInstance(AsIsOfferInstance offerInstance) {
 		this.offerInstance = offerInstance;
 	}
-	public Set<AsIsOfferInstanceCharacterValue> getBICharacteristicInstanceValues() {
+	public Set<AsIsOfferInstanceCharacterValue> getOfferInstanceCharacterValues() {
 		return this.offerInstanceCharacterValues;
 	}
 
 	
-	public void addBICharacteristicInstanceValue(AsIsOfferInstanceCharacterValue characteristicInstanceValue) {
+	public void addOfferInstanceCharacterValue(AsIsOfferInstanceCharacterValue characteristicInstanceValue) {
 		this.offerInstanceCharacterValues.add(characteristicInstanceValue);
 		if (null==characteristicInstanceValue.getOfferInstanceCharacter()){
 			characteristicInstanceValue.setOfferInstanceCharacter(this);
@@ -43,4 +44,8 @@ public class AsIsOfferInstanceCharacter extends OfferInstanceCharacter {
 		return new AsIsOfferInstanceCharacterValue();
 	}
 	
+	@Override
+	public void addInstanceEntityCharacterValue(SpecInstanceEntityCharacterValue characteristicInstanceValue) {
+		this.addOfferInstanceCharacterValue((AsIsOfferInstanceCharacterValue)characteristicInstanceValue);		
+	}
 }

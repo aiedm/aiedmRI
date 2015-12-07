@@ -10,6 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.ai.common.rootentity.domain.model.SpecInstanceEntityCharacterValue;
 import com.ai.crm.product.domain.model.ProductCharacter;
 
 @Entity
@@ -17,7 +18,7 @@ import com.ai.crm.product.domain.model.ProductCharacter;
 public class ToBeProductCharacter extends ProductCharacter {
 	@ManyToOne
 	private ToBeProduct product;
-	@OneToMany(mappedBy="productCharacter",fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="productCharacter",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	private Set<ToBeProductCharacterValue> productCharacterValues=new LinkedHashSet<ToBeProductCharacterValue>();
 
 	public ToBeProductCharacter() {
@@ -33,7 +34,7 @@ public class ToBeProductCharacter extends ProductCharacter {
 	}
 
 	
-	public void addproductCharacterValue(ToBeProductCharacterValue characteristicInstanceValue) {
+	public void addProductCharacterValue(ToBeProductCharacterValue characteristicInstanceValue) {
 		this.productCharacterValues.add(characteristicInstanceValue);
 		if (null==characteristicInstanceValue.getProductCharacter()){
 			characteristicInstanceValue.setProductCharacter(this);
@@ -45,5 +46,10 @@ public class ToBeProductCharacter extends ProductCharacter {
 	@Override
 	public ToBeProductCharacterValue  newCharacterValue(){
 		return new ToBeProductCharacterValue();
+	}
+	
+	@Override
+	public void addInstanceEntityCharacterValue(SpecInstanceEntityCharacterValue characteristicInstanceValue) {
+		this.addProductCharacterValue((ToBeProductCharacterValue)characteristicInstanceValue);		
 	}
 }

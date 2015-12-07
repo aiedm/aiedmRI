@@ -1,16 +1,22 @@
 package com.ai.crm.product.domain.model;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
-import com.ai.common.rootentity.domain.model.CharacteristicSpecValue;
 import com.ai.common.rootentity.domain.model.SpecInstanceEntityCharacterValue;
 @MappedSuperclass
 public abstract class PricePlanInstanceCharacterValue extends SpecInstanceEntityCharacterValue {
-	public PricePlanInstanceCharacterValue(){
-		
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
+
+	public long getId() {
+		return id;
 	}
-	public PricePlanInstanceCharacterValue(PricePlanInstanceCharacter instanceEntityCharacteristic,
-			CharacteristicSpecValue characteristicValue) {
-		super(instanceEntityCharacteristic, characteristicValue);
+
+	public void setId(long id) {
+		this.id = id;
 	}
 }

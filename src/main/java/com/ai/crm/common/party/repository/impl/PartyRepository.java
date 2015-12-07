@@ -2,29 +2,22 @@ package com.ai.crm.common.party.repository.impl;
 
 import java.io.Serializable;
 
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.ai.common.rootentity.domain.repository.impl.BaseRepository;
 import com.ai.crm.common.party.domain.model.Individual;
 import com.ai.crm.common.party.domain.model.Organization;
 import com.ai.crm.common.party.repository.interfaces.IPartyRepository;
 
 @Repository
-public class PartyRepository implements IPartyRepository {
-	@Autowired
-	SessionFactory sessionFactory;
+public class PartyRepository extends BaseRepository implements IPartyRepository {
 	public PartyRepository(){
 		
 	}
 	
 	public PartyRepository(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
-
-	private Session currentSession() {
-		return sessionFactory.getCurrentSession();
+		super(sessionFactory);
 	}
 	
 	public Individual saveIndividual(Individual individual) {

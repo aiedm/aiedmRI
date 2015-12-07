@@ -23,7 +23,7 @@ import com.ai.common.rootentity.domain.model.SpecInstanceEntityCharacter;
 @Table(name="BI_BIZINTERACTION")
 public abstract class BusinessInteraction extends SpecInstanceEntity {
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
 	@Column(name="BI_STATE")

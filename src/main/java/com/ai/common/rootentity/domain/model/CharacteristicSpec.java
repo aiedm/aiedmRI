@@ -2,6 +2,7 @@ package com.ai.common.rootentity.domain.model;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,6 +18,10 @@ public class CharacteristicSpec extends RootEntity{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+	
+	@OneToMany(mappedBy="characteristic",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+	private Set<CharacteristicSpecValue> values=new java.util.LinkedHashSet<CharacteristicSpecValue>();
+	
 	@Column
 	private String name;
 	@Column
@@ -38,9 +43,6 @@ public class CharacteristicSpec extends RootEntity{
 	public void setCode(String code) {
 		this.code = code;
 	}
-	
-	@OneToMany(fetch=FetchType.LAZY,mappedBy="characteristic")
-	private Set<CharacteristicSpecValue> values=new java.util.LinkedHashSet<CharacteristicSpecValue>();
 
 	
 	public Set<CharacteristicSpecValue> getValues() {
@@ -51,6 +53,9 @@ public class CharacteristicSpec extends RootEntity{
 	public void addValue(CharacteristicSpecValue value) {
 		if (null!=value){
 			values.add(value);
+			if (null==value.getCharacteristic()){
+				value.setCharacteristic(this);
+			}
 		}
 	}
 

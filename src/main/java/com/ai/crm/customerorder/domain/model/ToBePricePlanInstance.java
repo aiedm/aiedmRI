@@ -36,6 +36,9 @@ public class ToBePricePlanInstance extends PricePlanInstance{
 	public void addPricePlanInstanceCharacter(ToBePricePlanInstanceCharacter character){
 		if(null!=character){
 			this.characterInstances.add(character);
+			if (null==character.getPricePlanInstance()){
+				character.setPricePlanInstance(this);
+			}
 			super.addCharacteristic(character);
 		}
 	}

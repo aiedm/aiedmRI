@@ -10,7 +10,7 @@ import com.ai.common.rootentity.domain.model.InstanceEntity;
 public abstract class ProductBarReason extends InstanceEntity {
 	private int barCode;
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;	
 	public long getId() {
 		return id;

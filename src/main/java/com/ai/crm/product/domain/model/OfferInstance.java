@@ -13,7 +13,7 @@ public class OfferInstance extends SpecInstanceEntity{
 	private long productOfferingId;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;	
 	public long getId() {
 		return id;

@@ -15,7 +15,9 @@ public class CharacteristicDTOTransHelper {
 	}
 
 	public static void transCharacteristic(SpecInstanceEntityCharacter character,CharacterInstanceDTO characterInstanceDTO){
-		character.setId(characterInstanceDTO.getCharacterInstanceId());
+		if (characterInstanceDTO.getCharacterInstanceId()>0){
+			character.setId(characterInstanceDTO.getCharacterInstanceId());
+		}		
 		CharacteristicSpec characterSpec=new CharacteristicSpec();
 		characterSpec.setId(characterInstanceDTO.getCharacteristicSpecId());
 		character.setCharacteristicSpec(characterSpec);
@@ -25,13 +27,16 @@ public class CharacteristicDTOTransHelper {
 			for (CharacterValueInstanceDTO characterValueInstanceDTO : characterValues) {						
 				SpecInstanceEntityCharacterValue characterValue=character.newCharacterValue();
 				transCharacteristicValue(characterValue,characterValueInstanceDTO);
-				character.addCharacteristicInstanceValue(characterValue);
+				character.addInstanceEntityCharacterValue(characterValue);
 			}
 		}
 	}
 	
 	public static void transCharacteristicValue(SpecInstanceEntityCharacterValue characterValue,CharacterValueInstanceDTO characterValueInstanceDTO){
-		characterValue.setCharacterValueInstanceId(characterValueInstanceDTO.getCharacterValueInstanceId());
+		if(characterValueInstanceDTO.getCharacterValueInstanceId()>0){
+			characterValue.setId(characterValueInstanceDTO.getCharacterValueInstanceId());
+		}
+		
 		CharacteristicSpecValue characterSpecValue=new CharacteristicSpecValue();
 		characterSpecValue.setId(characterValueInstanceDTO.getCharacteristicSpecValueId());
 		characterValue.setCharacteristicValue(characterSpecValue);

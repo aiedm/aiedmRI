@@ -45,4 +45,9 @@ public class AsIsPricePlanInstanceCharacter extends PricePlanInstanceCharacter {
 	public SpecInstanceEntityCharacterValue  newCharacterValue(){
 		return new AsIsPricePlanInstanceCharacterValue();
 	}
+	
+	@Override
+	public void addInstanceEntityCharacterValue(SpecInstanceEntityCharacterValue characteristicInstanceValue) {
+		this.addPricePlanInstanceCharacterValueValue((AsIsPricePlanInstanceCharacterValue)characteristicInstanceValue);		
+	}
 }

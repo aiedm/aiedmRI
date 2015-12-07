@@ -17,7 +17,7 @@ import com.ai.crm.product.domain.model.PricePlanInstanceCharacter;
 public class ToBePricePlanInstanceCharacter extends PricePlanInstanceCharacter {
 	@ManyToOne
 	private ToBePricePlanInstance pricePlanInstance;
-	@OneToMany(mappedBy="pricePlanInstanceCharacter",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="pricePlanInstanceCharacter",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	private Set<ToBePricePlanInstanceCharacterValue> pricePlanInstanceCharacterValues=new LinkedHashSet<ToBePricePlanInstanceCharacterValue>();
 
 	public ToBePricePlanInstanceCharacter() {
@@ -33,11 +33,11 @@ public class ToBePricePlanInstanceCharacter extends PricePlanInstanceCharacter {
 	}
 
 	
-	public void addPricePlanInstanceCharacterValueValue(ToBePricePlanInstanceCharacterValue characteristicInstanceValue) {
+	public void addPricePlanInstanceCharacterValue(ToBePricePlanInstanceCharacterValue characteristicInstanceValue) {
 		this.pricePlanInstanceCharacterValues.add(characteristicInstanceValue);
+		super.addCharacteristicInstanceValue(characteristicInstanceValue);
 		if (null==characteristicInstanceValue.getPricePlanInstanceCharacter()){
-			characteristicInstanceValue.setPricePlanInstanceCharacter(this);
-			super.addCharacteristicInstanceValue(characteristicInstanceValue);
+			characteristicInstanceValue.setPricePlanInstanceCharacter(this);			
 		}
 
 	}
@@ -45,5 +45,10 @@ public class ToBePricePlanInstanceCharacter extends PricePlanInstanceCharacter {
 	@Override
 	public SpecInstanceEntityCharacterValue  newCharacterValue(){
 		return new ToBePricePlanInstanceCharacterValue();
+	}
+	
+	@Override
+	public void addInstanceEntityCharacterValue(SpecInstanceEntityCharacterValue characteristicInstanceValue) {
+		this.addPricePlanInstanceCharacterValue((ToBePricePlanInstanceCharacterValue)characteristicInstanceValue);		
 	}
 }

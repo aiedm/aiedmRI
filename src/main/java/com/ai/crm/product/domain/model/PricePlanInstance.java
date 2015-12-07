@@ -40,7 +40,7 @@ public abstract class PricePlanInstance extends SpecInstanceEntity {
 	@Column(name="PRICE_TYPE")
 	private int priceType;
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;	
 	
 	

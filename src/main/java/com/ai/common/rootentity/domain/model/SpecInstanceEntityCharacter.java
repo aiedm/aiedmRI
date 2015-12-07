@@ -3,22 +3,13 @@ package com.ai.common.rootentity.domain.model;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
 @MappedSuperclass
-@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
 public abstract class SpecInstanceEntityCharacter extends RootEntity {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-
-	@Transient
+	@OneToOne
 	private CharacteristicSpec characteristicSpec;
 	
 	@Transient
@@ -59,15 +50,12 @@ public abstract class SpecInstanceEntityCharacter extends RootEntity {
 	}
 
 
-	public long getId() {
-		return id;
-	}
+	public abstract long getId() ;
 
-
-	public void setId(long id) {
-		this.id = id;
-	}
+	public abstract void setId(long id);
 	
 	public abstract SpecInstanceEntityCharacterValue newCharacterValue(); 
+	
+	public abstract void addInstanceEntityCharacterValue(SpecInstanceEntityCharacterValue characteristicInstanceValue);
 
 }

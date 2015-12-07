@@ -27,12 +27,12 @@ public class ToBeOfferInstanceCharacter extends OfferInstanceCharacter {
 	public void setOfferInstance(ToBeOfferInstance offerInstance) {
 		this.offerInstance = offerInstance;
 	}
-	public Set<ToBeOfferInstanceCharacterValue> getBICharacteristicInstanceValues() {
+	public Set<ToBeOfferInstanceCharacterValue> getOfferInstanceCharacteristicIValues() {
 		return this.offerInstanceCharacterValues;
 	}
 
 	
-	public void addBICharacteristicInstanceValue(ToBeOfferInstanceCharacterValue characteristicInstanceValue) {
+	public void addOfferInstanceCharacteristicValue(ToBeOfferInstanceCharacterValue characteristicInstanceValue) {
 		this.offerInstanceCharacterValues.add(characteristicInstanceValue);
 		if (null==characteristicInstanceValue.getOfferInstanceCharacter()){
 			characteristicInstanceValue.setOfferInstanceCharacter(this);
@@ -44,4 +44,9 @@ public class ToBeOfferInstanceCharacter extends OfferInstanceCharacter {
 	public SpecInstanceEntityCharacterValue  newCharacterValue(){
 		return new ToBeOfferInstanceCharacterValue();
 	}
+	
+	@Override
+	public void addInstanceEntityCharacterValue(SpecInstanceEntityCharacterValue characteristicInstanceValue) {
+		this.addOfferInstanceCharacteristicValue((ToBeOfferInstanceCharacterValue)characteristicInstanceValue);		
+	}	
 }

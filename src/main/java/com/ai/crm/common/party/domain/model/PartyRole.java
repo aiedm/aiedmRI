@@ -26,7 +26,7 @@ import com.ai.common.rootentity.domain.model.SpecInstanceEntity;
 @DiscriminatorColumn(name="PARTY_ROLE_TYPE",discriminatorType=DiscriminatorType.STRING)
 public abstract class PartyRole extends SpecInstanceEntity{
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;	
 	public PartyRole(){}
 	

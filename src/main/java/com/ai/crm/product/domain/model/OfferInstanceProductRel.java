@@ -9,7 +9,7 @@ import com.ai.common.rootentity.domain.model.InstanceEntity;
 @MappedSuperclass
 public abstract class OfferInstanceProductRel extends InstanceEntity {
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
 

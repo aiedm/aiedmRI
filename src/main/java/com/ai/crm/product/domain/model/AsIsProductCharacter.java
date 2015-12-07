@@ -10,6 +10,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.ai.common.rootentity.domain.model.SpecInstanceEntityCharacterValue;
+
 @Entity
 @Table(name="PD_PRODUCT_CHARACTER")
 public class AsIsProductCharacter extends ProductCharacter {
@@ -43,5 +45,10 @@ public class AsIsProductCharacter extends ProductCharacter {
 	@Override
 	public AsIsProductCharacterValue  newCharacterValue(){
 		return new AsIsProductCharacterValue();
+	}
+	
+	@Override
+	public void addInstanceEntityCharacterValue(SpecInstanceEntityCharacterValue characteristicInstanceValue) {
+		this.addproductCharacterValue((AsIsProductCharacterValue)characteristicInstanceValue);		
 	}
 }
