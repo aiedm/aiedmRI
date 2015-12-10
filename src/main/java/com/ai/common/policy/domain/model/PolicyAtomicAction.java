@@ -3,13 +3,18 @@ package com.ai.common.policy.domain.model;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.MappedSuperclass;
+import javax.persistence.CascadeType;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
-@MappedSuperclass
+@Entity
+@DiscriminatorValue("ATOMIC")
 public class PolicyAtomicAction extends PolicyAction{
-	@OneToOne
+	@OneToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
 	private PolicyActionStatement statement;
-	public PolicyAtomicAction() {
+	public PolicyAtomicAction(PolicySet policyset) {
+		super(policyset);
 	}
 
 	

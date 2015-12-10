@@ -3,17 +3,19 @@ package com.ai.common.policy.domain.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 @Entity
+@DiscriminatorValue("COMPOSITE")
 public class PolicyCompositeCondition extends PolicyCondition{
 	@OneToMany(mappedBy="parent",fetch=FetchType.LAZY)
 	private Set<PolicyCompositeConditionOption> children=new HashSet<PolicyCompositeConditionOption>();
 	private boolean isOr;
-	public PolicyCompositeCondition() {
+	public PolicyCompositeCondition(PolicySet policyset) {
+		super(policyset);
 	}
-
 	
 	public Set<PolicyCompositeConditionOption> getChildren() {
 		return this.children;

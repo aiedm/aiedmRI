@@ -6,17 +6,18 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 @Entity
 public class PolicyRule extends PolicySet{
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	private PolicyCondition condition;
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	private PolicyAction action;
-	@OneToMany(mappedBy="policyRule",targetEntity=PolicyRuleParameter.class)
+	@OneToMany(mappedBy="policyRule",fetch=FetchType.LAZY,cascade=CascadeType.ALL,targetEntity=PolicyRuleParameter.class)
 	private Set<PolicyRuleInputParameter> inputParameters=new LinkedHashSet<PolicyRuleInputParameter>();
 
 	public PolicyRule() {

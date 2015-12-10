@@ -13,7 +13,8 @@ public class PolicyFunctionValue extends PolicyValue {
 	private PolicyFunction function;
 	@OneToMany(mappedBy="functionValue")
 	Set<PolicyFunctionValueParamRel> params=new LinkedHashSet<PolicyFunctionValueParamRel>();
-	public PolicyFunctionValue() {
+	public PolicyFunctionValue(PolicySet policyset) {
+		super(policyset);
 	}
 
 
@@ -81,8 +82,8 @@ public class PolicyFunctionValue extends PolicyValue {
 		Set<PolicyVariable> variables=new HashSet<PolicyVariable>();
 		Set<PolicyFunctionValueParamRel> params=this.getParams();
 		for (PolicyFunctionValueParamRel paramRel : params) {
-			Set<PolicyVariable> paramVariables=paramRel.getValue().getVariables();
-			if (null!=paramVariables&&paramVariables.size()>0){
+			Set<PolicyVariable> paramVariables=paramRel.getParamValuePan().getVariables();
+			if (null!=paramVariables){
 				variables.addAll(paramVariables);
 			}			
 		}

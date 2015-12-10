@@ -1,16 +1,20 @@
 package com.ai.common.policy.domain.model;
 
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -26,9 +30,15 @@ public abstract class PolicySet extends InstanceEntity{
 	private String code;
 	@OneToOne
 	private PolicySetOutputParameter outputParam;	
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	private PolicyAction elseAction;
 	boolean isEnableElseAction=true;
+	
+	@OneToMany(mappedBy="policyset",fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	private Set<PolicyVariable> policyVariables=new LinkedHashSet<PolicyVariable>();
+	
+	@OneToMany(mappedBy="policyset",fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	private Set<PolicyValue> polivyValues = new LinkedHashSet<PolicyValue>();
 	
 	@ManyToOne
 	private PolicySet parentPolicySet;
@@ -187,6 +197,16 @@ public abstract class PolicySet extends InstanceEntity{
 
 	public void setParentPolicySet(PolicySet parentPolicySet) {
 		this.parentPolicySet = parentPolicySet;
+	}
+
+
+	public Set<PolicyVariable> getPolicyVariables() {
+		return policyVariables;
+	}
+
+
+	public Set<PolicyValue> getPolivyValues() {
+		return polivyValues;
 	}
 
 }

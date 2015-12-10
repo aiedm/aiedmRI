@@ -2,18 +2,23 @@ package com.ai.common.policy.domain.model;
 
 import java.util.Set;
 
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.ai.common.rootentity.domain.model.InstanceEntity;
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @Table(name="PL_VALUE")
+@DiscriminatorColumn(name="VALUE_TYPE",discriminatorType=DiscriminatorType.STRING)
 public abstract class PolicyValue extends InstanceEntity{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +27,11 @@ public abstract class PolicyValue extends InstanceEntity{
 	private String code;
 	private String type;
 	private String value;
+	@Column(insertable = false, updatable = false,name="VALUE_TYPE")
+	private String valueType;
+	@ManyToOne
+	private PolicySet policyset;
+	
 	public String getType() {
 		return type;
 	}
@@ -30,7 +40,8 @@ public abstract class PolicyValue extends InstanceEntity{
 		this.type = type;
 	}
 
-	public PolicyValue() {
+	protected PolicyValue( PolicySet policyset) {
+		this.setPolicyset(policyset);
 	}
 	
 	public String getName() {
@@ -74,5 +85,13 @@ public abstract class PolicyValue extends InstanceEntity{
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public PolicySet getPolicyset() {
+		return policyset;
+	}
+
+	public void setPolicyset(PolicySet policyset) {
+		this.policyset = policyset;
 	} 
 }

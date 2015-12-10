@@ -5,9 +5,17 @@ import static org.junit.Assert.assertEquals;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.transaction.Transactional;
+
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Commit;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.ai.common.policy.domain.model.PolicyActionOperator;
 import com.ai.common.policy.domain.model.PolicyActionStatement;
@@ -30,23 +38,26 @@ import com.ai.common.policy.domain.model.PolicyOperatorStringEquals;
 import com.ai.common.policy.domain.model.PolicyRule;
 import com.ai.common.policy.domain.model.PolicyRuleInputParameter;
 import com.ai.common.policy.domain.model.PolicySetOutputParameter;
+import com.ai.common.policy.domain.model.PolicyPan;
 import com.ai.common.policy.domain.model.PolicyVariable;
-import com.ai.common.policy.domain.model.PolicyVariableValue;
+import com.ai.common.policy.domain.repository.interfaces.IPolicyRepository;
 import com.ai.common.policy.domain.service.impl.GroovyPolicyExecute;
 import com.ai.common.policy.domain.service.interfaces.IPolicyExecute;
 import com.ai.common.rootentity.domain.model.CharacteristicSpec;
 import com.ai.common.rootentity.domain.model.CharacteristicSpecValue;
-import com.ai.common.rootentity.domain.model.SpecInstanceEntityCharacter;
-import com.ai.common.rootentity.domain.model.SpecInstanceEntityCharacterValue;
 import com.ai.crm.customerorder.domain.model.ToBeOfferInstance;
 import com.ai.crm.customerorder.domain.model.ToBePricePlanInstance;
 import com.ai.crm.customerorder.domain.model.ToBeProduct;
 import com.ai.crm.customerorder.domain.model.ToBeProductCharacter;
 import com.ai.crm.customerorder.domain.model.ToBeProductCharacterValue;
-import com.ai.crm.product.domain.model.ProductCharacter;
-import com.ai.crm.product.domain.model.ProductCharacterValue;
-
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations={"classpath:spring/root-context.xml","classpath:spring/appServlet/servlet-context.xml"})
+@WebAppConfiguration
+@Transactional
+@Commit
 public class PolicyTest {
+	@Autowired
+	IPolicyRepository policyRepository;
 	
 	@Before
 	public void prepare() throws Exception{
@@ -69,60 +80,62 @@ public class PolicyTest {
 		funcParam2.setParameterType("Integer");
 		function.addParameter(funcParam2);
 		
+		policyRepository.savePolicyFunction(function);
+		
 		PolicyRule rule1=new PolicyRule();
 		rule1.setCode("TestRule");
 		PolicyGroup groupRule=new PolicyGroup();
 		groupRule.addPolicySet(rule1);		
 		groupRule.setCode("TestGroup");
 		
-		PolicyVariable var1=new PolicyVariable();
+		PolicyVariable var1=new PolicyVariable(rule1);
 		var1.setCode("a");
 		var1.setVariableType("Integer");
 		var1.setInitialInputValue("0");
-		PolicyVariable var2=new PolicyVariable();
+		PolicyVariable var2=new PolicyVariable(rule1);
 		var2.setCode("b");
 		var2.setVariableType("Integer");
 		var2.setInitialInputValue("0");
-		PolicyVariable var3=new PolicyVariable();
+		PolicyVariable var3=new PolicyVariable(rule1);
 		var3.setCode("c");
 		var3.setVariableType("Integer");
 		var3.setInitialInputValue("0");
-		PolicyVariable var4=new PolicyVariable();
+		PolicyVariable var4=new PolicyVariable(rule1);
 		var4.setCode("returnValue");
 		var4.setVariableType("boolean");
 		var4.setInitialInputValue("false");
-		PolicyConstValue value1=new PolicyConstValue();
+		PolicyConstValue value1=new PolicyConstValue(rule1);
 		value1.setType("Integer");
 		value1.setValue("100*10");
 		
-		PolicyVariableValue valueA=new PolicyVariableValue();
-		valueA.setVariable(var1);
+		PolicyPan rightPanA=new PolicyPan();		
+		rightPanA.setPolicyVariable(var1);
 		
-		PolicyVariableValue valueB=new PolicyVariableValue();
-		valueB.setVariable(var2);		
+		PolicyPan rightPanB=new PolicyPan();
+		rightPanB.setPolicyVariable(var2);		
 		
-		PolicyFunctionValue value2=new PolicyFunctionValue();
+		PolicyFunctionValue value2=new PolicyFunctionValue(rule1);
 		value2.setType("Integer");
 		//value2.setValue("tested:a>100");
 		//value2.setVariable(var3);
 		value2.setFunction(function);
 		PolicyFunctionValueParamRel funcValueParam1=new PolicyFunctionValueParamRel();
 		funcValueParam1.setParameter(funcParam);
-		funcValueParam1.setValue(valueA);
+		funcValueParam1.setParamValuePan(rightPanA);
 		PolicyFunctionValueParamRel funcValueParam2=new PolicyFunctionValueParamRel();
 		funcValueParam2.setParameter(funcParam);
-		funcValueParam2.setValue(valueB);
+		funcValueParam2.setParamValuePan(rightPanB);
 		value2.addParam(funcValueParam1);
 		value2.addParam(funcValueParam2);
 		
 		
-		PolicyConstValue value3=new PolicyConstValue();
+		PolicyConstValue value3=new PolicyConstValue(rule1);
 		value3.setType("Integer");
 		value3.setValue("200");
-		PolicyConstValue value4=new PolicyConstValue();
+		PolicyConstValue value4=new PolicyConstValue(rule1);
 		value4.setType("boolean");
 		value4.setValue("true");
-		PolicyConstValue value5=new PolicyConstValue();
+		PolicyConstValue value5=new PolicyConstValue(rule1);
 		value5.setType("boolean");
 		value5.setValue("false");		
 		PolicyOperator opertor1=new PolicyConditionOperator();
@@ -130,32 +143,61 @@ public class PolicyTest {
 		PolicyOperator opertor2=new PolicyActionOperator();
 		opertor2.setCode("=");
 		PolicyConditionStatement statement1=new PolicyConditionStatement();
-		statement1.setVariable(var1);
+		PolicyPan leftPan1=new PolicyPan();		
+		leftPan1.setPolicyVariable(var1);		
+		statement1.setLeftPan(leftPan1);
 		statement1.setOperator(opertor1);
-		statement1.setValue(value1);
+		PolicyPan rightPan1=new PolicyPan();
+		rightPan1.setPolicyValue(value1);		
+		statement1.setRightPan(rightPan1);
+		
 		PolicyConditionStatement statement3=new PolicyConditionStatement();
-		statement3.setVariable(var3);
+		PolicyPan leftPan3=new PolicyPan();		
+		leftPan3.setPolicyVariable(var3);
+		
+		statement3.setLeftPan(leftPan3);
 		statement3.setOperator(opertor1);
-		statement3.setValue(value3);		
+		
+		PolicyPan rightPan3=new PolicyPan();
+		rightPan3.setPolicyValue(value3);		
+		statement3.setRightPan(rightPan3);		
+		
 		PolicyActionStatement statement2=new PolicyActionStatement();
-		statement2.setVariable(var2);
+		PolicyPan leftPan2=new PolicyPan();		
+		leftPan2.setPolicyVariable(var2);
+		
+		statement2.setLeftPan(leftPan2);
 		statement2.setOperator(opertor2);
-		statement2.setValue(value2);
+		PolicyPan rightPan2=new PolicyPan();
+		rightPan2.setPolicyValue(value2);		
+		statement2.setRightPan(rightPan2);	
+		
 		PolicyActionStatement statement4=new PolicyActionStatement();
-		statement4.setVariable(var4);
+		PolicyPan leftPan4=new PolicyPan();		
+		leftPan4.setPolicyVariable(var4);
+		statement4.setLeftPan(leftPan4);
 		statement4.setOperator(opertor2);
-		statement4.setValue(value4);	
+		PolicyPan rightPan4=new PolicyPan();
+		rightPan4.setPolicyValue(value4);		
+		statement4.setRightPan(rightPan4);	
+
 		PolicyActionStatement statement5=new PolicyActionStatement();
-		statement5.setVariable(var4);
+		PolicyPan leftPan5=new PolicyPan();		
+		leftPan5.setPolicyVariable(var4);
+		statement5.setLeftPan(leftPan5);
 		statement5.setOperator(opertor2);
-		statement5.setValue(value5);		
-		PolicyAtomicCondition condition1=new PolicyAtomicCondition();
+		PolicyPan rightPan5=new PolicyPan();
+		rightPan5.setPolicyValue(value5);		
+		statement5.setRightPan(rightPan5);	
+
+		
+		PolicyAtomicCondition condition1=new PolicyAtomicCondition(rule1);
 		condition1.setStatement(statement1);
 		condition1.setCode("condition1");
-		PolicyAtomicCondition condition2=new PolicyAtomicCondition();
+		PolicyAtomicCondition condition2=new PolicyAtomicCondition(rule1);
 		condition2.setStatement(statement3);
 		condition2.setCode("condition2");
-		PolicyCompositeCondition condition3=new PolicyCompositeCondition();
+		PolicyCompositeCondition condition3=new PolicyCompositeCondition(rule1);
 		condition3.setAnd();
 		condition3.setCode("condition3");
 		PolicyCompositeConditionOption compositeConditionOption=new PolicyCompositeConditionOption();
@@ -167,15 +209,15 @@ public class PolicyTest {
 		condition3.addChild(compositeConditionOption);
 		condition3.addChild(compositeConditionOption2);	
 		rule1.setCondition(condition3);
-		PolicyAtomicAction action1=new PolicyAtomicAction();
+		PolicyAtomicAction action1=new PolicyAtomicAction(rule1);
 		action1.setStatement(statement2);				
-		PolicyAtomicAction action2=new PolicyAtomicAction();
+		PolicyAtomicAction action2=new PolicyAtomicAction(rule1);
 		action2.setStatement(statement4);
-		PolicyCompositeAction action3=new PolicyCompositeAction();
+		PolicyCompositeAction action3=new PolicyCompositeAction(rule1);
 		action3.addChild(action1);
 		action3.addChild(action2);
 		rule1.setAction(action3);
-		PolicyAtomicAction action5=new PolicyAtomicAction();
+		PolicyAtomicAction action5=new PolicyAtomicAction(rule1);
 		action5.setStatement(statement5);	
 		rule1.setElseAction(action5);
 		PolicySetOutputParameter param=new PolicySetOutputParameter();
@@ -211,24 +253,25 @@ public class PolicyTest {
 	@Test
 	//@Ignore
 	public void  prepareProductPriceRule() throws Exception{
+		PolicyRule rule=new PolicyRule();
 		//variable define
-		PolicyVariable varOfferInstance=new PolicyVariable();
+		PolicyVariable varOfferInstance=new PolicyVariable(rule);
 		varOfferInstance.setCode("toBeOfferInstance");
-		varOfferInstance.setVariableType("com.ai.crm.customerorder.domain.model.interfaces.ToBeOfferInstance");
+		varOfferInstance.setVariableType("com.ai.crm.customerorder.domain.model.ToBeOfferInstance");
 		
-		PolicyVariable varProduct=new PolicyVariable();
+		PolicyVariable varProduct=new PolicyVariable(rule);
 		varProduct.setCode("toBeProduct");
-		varProduct.setVariableType("com.ai.crm.customerorder.domain.model.interfaces.ToBeProduct");
+		varProduct.setVariableType("com.ai.crm.customerorder.domain.model.ToBeProduct");
 	
-		PolicyVariable varProductPriceRel=new PolicyVariable();
+		PolicyVariable varProductPriceRel=new PolicyVariable(rule);
 		varProductPriceRel.setCode("toBeProductPriceRel");
-		varProductPriceRel.setVariableType("com.ai.crm.customerorder.domain.model.interfaces.ToBeProductPriceRel");
-		varProductPriceRel.setInitialInputValue("new com.ai.crm.customerorder.domain.model.impl.ToBeProductPriceRel()");
+		varProductPriceRel.setVariableType("com.ai.crm.customerorder.domain.model.ToBeProductPriceRel");
+		varProductPriceRel.setInitialInputValue("new com.ai.crm.customerorder.domain.model.ToBeProductPriceRel()");
 
-		PolicyVariable varPricePlanInstance=new PolicyVariable();
+		PolicyVariable varPricePlanInstance=new PolicyVariable(rule);
 		varPricePlanInstance.setCode("toBePricePlanInstance");
-		varPricePlanInstance.setVariableType("com.ai.crm.customerorder.domain.model.interfaces.ToBePricePlanInstance");
-		varPricePlanInstance.setInitialInputValue("new com.ai.crm.customerorder.domain.model.impl.ToBePricePlanInstance()");
+		varPricePlanInstance.setVariableType("com.ai.crm.customerorder.domain.model.ToBePricePlanInstance");
+		varPricePlanInstance.setInitialInputValue("new com.ai.crm.customerorder.domain.model.ToBePricePlanInstance()");
 		
 		//getColorValue
 		//function and param define
@@ -247,46 +290,53 @@ public class PolicyTest {
 		characteristicValueIdx.setParameterType("int");
 		function8.addParameter(characteristicValueIdx);
 		
+		policyRepository.savePolicyFunction(function8);
+		
 		//variable define
 			
-		PolicyVariable colorCharCode=new PolicyVariable();
+		PolicyVariable colorCharCode=new PolicyVariable(rule);
 		colorCharCode.setCode("colorCharCode");
 		colorCharCode.setVariableType("String");
 		
-		PolicyVariable colorValueIdx=new PolicyVariable();
+		PolicyVariable colorValueIdx=new PolicyVariable(rule);
 		colorValueIdx.setCode("colorValueIdx");
 		colorValueIdx.setVariableType("int");
 		//colorValueIdx.setInitialValue("0");
 		
 		//value define
-		PolicyConstValue Color = new PolicyConstValue();
+		PolicyConstValue Color = new PolicyConstValue(rule);
 		Color.setType("Const");
 		Color.setCode("Color");
 		Color.setValue("\"Color\"");
 		
-		PolicyConstValue Gold = new PolicyConstValue();
+		PolicyConstValue Gold = new PolicyConstValue(rule);
 		Gold.setType("Const");
 		Gold.setCode("Gold");
 		Gold.setValue("\"Gold\"");
 		
-		PolicyConstValue firstValue = new PolicyConstValue();
+		PolicyConstValue firstValue = new PolicyConstValue(rule);
 		firstValue.setType("Const");
 		firstValue.setCode("firstValue");
 		firstValue.setValue("0");
 		
-		PolicyFunctionValue getProductColorValue=new PolicyFunctionValue();		
+		PolicyFunctionValue getProductColorValue=new PolicyFunctionValue(rule);		
 		getProductColorValue.setCode("getProductColorValue");
 		getProductColorValue.setFunction(function8);
 		PolicyFunctionValueParamRel paramRel=new PolicyFunctionValueParamRel();
 		paramRel.setFunctionValue(getProductColorValue);
 		paramRel.setParameter(characteristicCode);
-		paramRel.setValue(Color);
+		
+		PolicyPan colorPan=new PolicyPan();
+		colorPan.setPolicyValue(Color);		
+		paramRel.setParamValuePan(colorPan);
 		getProductColorValue.addParam(paramRel);
 		
 		PolicyFunctionValueParamRel paramRel2=new PolicyFunctionValueParamRel();
 		paramRel2.setFunctionValue(getProductColorValue);
 		paramRel2.setParameter(characteristicValueIdx);
-		paramRel2.setValue(firstValue);
+		PolicyPan firstValuePan=new PolicyPan();
+		firstValuePan.setPolicyValue(firstValue);		
+		paramRel2.setParamValuePan(firstValuePan);
 		getProductColorValue.addParam(paramRel2);		
 		
 		//toBePricePlanInstance.setPricePlanId
@@ -300,8 +350,10 @@ public class PolicyTest {
 		pricePlanId.setParameterType("long");
 		function2.addParameter(pricePlanId);
 		
+		policyRepository.savePolicyFunction(function2);
+		
 		//value define
-		PolicyConstValue monthFeePricePlan = new PolicyConstValue();
+		PolicyConstValue monthFeePricePlan = new PolicyConstValue(rule);
 		//monthFeePricePlan.setType("Const");
 		monthFeePricePlan.setCode("monthFeePricePlan");
 		monthFeePricePlan.setValue("10001");
@@ -309,8 +361,12 @@ public class PolicyTest {
 				
 		PolicyFunctionValueParamRel paramRelPriceId=new PolicyFunctionValueParamRel();
 		paramRelPriceId.setParameter(pricePlanId);
-		paramRelPriceId.setValue(monthFeePricePlan);
-		PolicyFunctionValue setPricePlanId=new PolicyFunctionValue();
+		
+		PolicyPan monthFeePricePlanPan=new PolicyPan();
+		monthFeePricePlanPan.setPolicyValue(monthFeePricePlan);		
+		paramRelPriceId.setParamValuePan(monthFeePricePlanPan);
+		
+		PolicyFunctionValue setPricePlanId=new PolicyFunctionValue(rule);
 		setPricePlanId.setFunction(function2);		
 		setPricePlanId.addParam(paramRelPriceId);
 		
@@ -325,87 +381,62 @@ public class PolicyTest {
 		priceFuncParam.setParameterType("long");
 		function3.addParameter(priceFuncParam);
 		
+		policyRepository.savePolicyFunction(function3);
+		
 		//value define	
-		PolicyConstValue PriceValue = new PolicyConstValue();
+		PolicyConstValue PriceValue = new PolicyConstValue(rule);
 		//PriceValue200.setType("Const");
 		PriceValue.setCode("PriceValue200");
 		PriceValue.setValue("5888");
 		
 		PolicyFunctionValueParamRel paramRelPriceValue=new PolicyFunctionValueParamRel();
 		paramRelPriceValue.setParameter(priceFuncParam);
-		paramRelPriceValue.setValue(PriceValue);
-		PolicyFunctionValue setPriceValue=new PolicyFunctionValue();
+		PolicyPan PriceValuePan=new PolicyPan();
+		PriceValuePan.setPolicyValue(PriceValue);		
+		paramRelPriceValue.setParamValuePan(PriceValuePan);
+		
+		PolicyFunctionValue setPriceValue=new PolicyFunctionValue(rule);
 		setPriceValue.setFunction(function3);		
 		setPriceValue.addParam(paramRelPriceValue);
 		
-		//toBeProductPriceRel.setProduct
-		//function and param define
-		PolicyFunction function4=new PolicyFunction();
-		function4.setCode("toBeProductPriceRel.setProduct");
-		function4.setClassName("toBeProductPriceRel");
-		function4.setMethodName("setProduct");
-		PolicyFunctionParameter paramToBeProduct=new PolicyFunctionParameter();
-		paramToBeProduct.setFunction(function4);
-		paramToBeProduct.setParameterType("com.ai.crm.customerorder.domain.model.interfaces.ToBeProduct");
-		function4.addParameter(paramToBeProduct);		
-		
-		//value define
-		PolicyVariableValue toBeProduct = new PolicyVariableValue();
-		toBeProduct.setCode("toBeProduct");	
-		toBeProduct.setVariable(varProduct);
-				
-		PolicyFunctionValueParamRel paramRelProduct=new PolicyFunctionValueParamRel();
-		paramRelProduct.setParameter(paramToBeProduct);
-		paramRelProduct.setValue(toBeProduct);
-		PolicyFunctionValue setProduct=new PolicyFunctionValue();
-		setProduct.setFunction(function4);		
-		setProduct.addParam(paramRelProduct);
-		
-		//toBeProductPriceRel.setPricePlanInstance
-		//function and param define
-		PolicyFunction function5=new PolicyFunction();
-		function5.setCode("toBeProductPriceRel.setPricePlanInstance");
-		function5.setClassName("toBeProductPriceRel");
-		function5.setMethodName("setPricePlanInstance");
-		PolicyFunctionParameter paramToBePricePlan=new PolicyFunctionParameter();
-		paramToBePricePlan.setFunction(function5);
-		paramToBePricePlan.setParameterType("com.ai.crm.customerorder.domain.model.interfaces.ToBePricePlanInstance");
-		function5.addParameter(paramToBePricePlan);		
-		
-		//value define
-		PolicyVariableValue toBePricePlanInstance = new PolicyVariableValue();
-		toBePricePlanInstance.setCode("toBePricePlanInstance");	
-		toBePricePlanInstance.setVariable(varPricePlanInstance);
-				
-		PolicyFunctionValueParamRel paramRelPricePlanInstance=new PolicyFunctionValueParamRel();
-		paramRelPricePlanInstance.setParameter(paramToBePricePlan);
-		paramRelPricePlanInstance.setValue(toBePricePlanInstance);
-		PolicyFunctionValue setPricePlanInstance=new PolicyFunctionValue();
-		setPricePlanInstance.setFunction(function5);		
-		setPricePlanInstance.addParam(paramRelPricePlanInstance);
+		PolicyPan toBePricePlanInstancePan=new PolicyPan();
+		toBePricePlanInstancePan.setPolicyVariable(varPricePlanInstance);		
 		
 		//toBeProduct.assignPrice
 		//function and param define
 		PolicyFunction function6=new PolicyFunction();
-		function6.setCode("toBeProduct.assignPrice");
-		function6.setClassName("toBeProduct");
-		function6.setMethodName("assignPrice");
-		PolicyFunctionParameter paramAssignPrice=new PolicyFunctionParameter();
-		paramAssignPrice.setFunction(function6);
-		paramAssignPrice.setParameterType("com.ai.crm.customerorder.domain.model.interfaces.IProductPriceRel");
-		function6.addParameter(paramAssignPrice);		
+		function6.setCode("toBePricePlanInstance.assignTo");
+		function6.setClassName("toBePricePlanInstance");
+		function6.setMethodName("assignTo");
+		PolicyFunctionParameter paramAssignProduct=new PolicyFunctionParameter();
+		paramAssignProduct.setFunction(function6);
+		paramAssignProduct.setParameterType("com.ai.crm.customerorder.domain.model.ToBeProduct");
+		function6.addParameter(paramAssignProduct);
+		PolicyFunctionParameter paramAssignPeriod=new PolicyFunctionParameter();
+		paramAssignPeriod.setFunction(function6);
+		paramAssignPeriod.setParameterType("com.ai.common.basetype.TimePeriod");
+		function6.addParameter(paramAssignPeriod);
 		
-		//value define
-		PolicyVariableValue toBeProductPriceRel = new PolicyVariableValue();
-		toBeProductPriceRel.setCode("toBeProductPriceRel");	
-		toBeProductPriceRel.setVariable(varProductPriceRel);
+		policyRepository.savePolicyFunction(function6);
 		
-		PolicyFunctionValueParamRel paramRelAssignPricePlanInstance=new PolicyFunctionValueParamRel();
-		paramRelAssignPricePlanInstance.setParameter(paramAssignPrice);
-		paramRelAssignPricePlanInstance.setValue(toBeProductPriceRel);
-		PolicyFunctionValue assignPrice=new PolicyFunctionValue();		
+		PolicyFunctionValueParamRel paramRelAssignProduct=new PolicyFunctionValueParamRel();
+		paramRelAssignProduct.setParameter(paramAssignProduct);
+		PolicyPan toBeAssignProductPan=new PolicyPan();
+		toBeAssignProductPan.setPolicyVariable(varProduct);		
+		paramRelAssignProduct.setParamValuePan(toBeAssignProductPan);
+		
+		PolicyFunctionValueParamRel paramRelAssignPeriod=new PolicyFunctionValueParamRel();
+		paramRelAssignPeriod.setParameter(paramAssignProduct);
+		PolicyPan toBeAssignProductPeriodPan=new PolicyPan();
+		PolicyConstValue periodValue=new PolicyConstValue(rule);
+		periodValue.setValue("null");
+		toBeAssignProductPeriodPan.setPolicyValue(periodValue);	
+		paramRelAssignPeriod.setParamValuePan(toBeAssignProductPeriodPan);
+		
+		PolicyFunctionValue assignPrice=new PolicyFunctionValue(rule);		
 		assignPrice.setFunction(function6);		
-		assignPrice.addParam(paramRelAssignPricePlanInstance);
+		assignPrice.addParam(paramRelAssignProduct);
+		assignPrice.addParam(paramRelAssignPeriod);
 		
 		
 		//toBeOfferInstance.addPricePlanInstance
@@ -416,20 +447,21 @@ public class PolicyTest {
 		function7.setMethodName("addPricePlanInstance");
 		PolicyFunctionParameter paramAddPricePlanInstance=new PolicyFunctionParameter();
 		paramAddPricePlanInstance.setFunction(function7);
-		paramAddPricePlanInstance.setParameterType("com.ai.crm.customerorder.domain.model.interfaces.ToBePricePlanInstance");
+		paramAddPricePlanInstance.setParameterType("com.ai.crm.customerorder.domain.model.ToBePricePlanInstance");
 		function7.addParameter(paramAddPricePlanInstance);		
-					
+		
+		policyRepository.savePolicyFunction(function7);
 				
 		PolicyFunctionValueParamRel paramRelAddPricePlanInstance=new PolicyFunctionValueParamRel();
 		paramRelAddPricePlanInstance.setParameter(paramAddPricePlanInstance);
-		paramRelAddPricePlanInstance.setValue(toBePricePlanInstance);
-		PolicyFunctionValue addPricePlanInstance=new PolicyFunctionValue();
+		paramRelAddPricePlanInstance.setParamValuePan(toBePricePlanInstancePan);
+		PolicyFunctionValue addPricePlanInstance=new PolicyFunctionValue(rule);
 		addPricePlanInstance.setFunction(function7);		
 		addPricePlanInstance.addParam(paramRelAddPricePlanInstance);
 		
 		
 		//expected Gold Color value
-		PolicyVariable expectedCharValue=new PolicyVariable();
+		PolicyVariable expectedCharValue=new PolicyVariable(rule);
 		expectedCharValue.setCode("expectedCharValue");
 		expectedCharValue.setInitialValue(getProductColorValue);
 		expectedCharValue.setVariableType("String");
@@ -437,69 +469,78 @@ public class PolicyTest {
 		PolicyOperatorStringEquals stringEqualsOperator=new PolicyOperatorStringEquals();
 		stringEqualsOperator.setCode("equalsIgnoreCase");
 		
+		policyRepository.savePolicyOperator(stringEqualsOperator);
+		
 		//Expectedstatement
 		PolicyConditionStatement conditionStatement=new PolicyConditionStatement();
-		conditionStatement.setVariable(expectedCharValue);
-		conditionStatement.setValue(Gold);
+		conditionStatement.setCode("conditionStatement");
+		PolicyPan leftPan=new PolicyPan();
+		leftPan.setPolicyVariable(expectedCharValue);
+		conditionStatement.setLeftPan(leftPan);
+		PolicyPan rightPan=new PolicyPan();
+		rightPan.setPolicyValue(Gold);
+		conditionStatement.setRightPan(rightPan);
 		conditionStatement.setOperator(stringEqualsOperator);
 		
 		//condition
-		PolicyAtomicCondition condition=new PolicyAtomicCondition();
+		PolicyAtomicCondition condition=new PolicyAtomicCondition(rule);
 		condition.setStatement(conditionStatement);
 		
 		//action,set up the price to be selected
 		PolicyOperatorMethodInvoke methodInvOper=new PolicyOperatorMethodInvoke();
-		PolicyCompositeAction groupAction=new PolicyCompositeAction();
+		policyRepository.savePolicyOperator(methodInvOper);
+		
+		PolicyCompositeAction groupAction=new PolicyCompositeAction(rule);
+		groupAction.setCode("groupAction");
 		
 		PolicyActionStatement actionStatement_setPriceId=new PolicyActionStatement();
-		actionStatement_setPriceId.setValue(setPricePlanId);
+		actionStatement_setPriceId.setCode("actionStatement_setPriceId");
+		PolicyPan setPricePlanIdPan=new PolicyPan();
+		setPricePlanIdPan.setPolicyValue(setPricePlanId);
+		actionStatement_setPriceId.setRightPan(setPricePlanIdPan);
 		actionStatement_setPriceId.setOperator(methodInvOper);
 		
-		PolicyAtomicAction action1=new PolicyAtomicAction();
+		PolicyAtomicAction action1=new PolicyAtomicAction(rule);
+		action1.setCode("action1");
 		action1.setStatement(actionStatement_setPriceId);
 		groupAction.addChild(action1);
 		
 		PolicyActionStatement actionStatement_setPriceValue=new PolicyActionStatement();
-		actionStatement_setPriceValue.setValue(setPriceValue);
+		actionStatement_setPriceValue.setCode("actionStatement_setPriceValue");
+		PolicyPan setPriceValuePan=new PolicyPan();
+		setPriceValuePan.setPolicyValue(setPriceValue);
+		actionStatement_setPriceValue.setRightPan(setPriceValuePan);
 		actionStatement_setPriceValue.setOperator(methodInvOper);
 		
-		PolicyAtomicAction action2=new PolicyAtomicAction();
+		PolicyAtomicAction action2=new PolicyAtomicAction(rule);
+		action2.setCode("action2");
 		action2.setStatement(actionStatement_setPriceValue);
-		groupAction.addChild(action2);
-		
-		PolicyActionStatement actionStatement_setProduct=new PolicyActionStatement();
-		actionStatement_setProduct.setValue(setProduct);
-		actionStatement_setProduct.setOperator(methodInvOper);
-		
-		PolicyAtomicAction action3=new PolicyAtomicAction();
-		action3.setStatement(actionStatement_setProduct);
-		groupAction.addChild(action3);
-		
-		PolicyActionStatement actionStatement_setPricePlanInstance=new PolicyActionStatement();
-		actionStatement_setPricePlanInstance.setValue(setPricePlanInstance);
-		actionStatement_setPricePlanInstance.setOperator(methodInvOper);
-		
-		PolicyAtomicAction action4=new PolicyAtomicAction();
-		action4.setStatement(actionStatement_setPricePlanInstance);
-		groupAction.addChild(action4);
-		
+		groupAction.addChild(action2);		
+				
 		PolicyActionStatement actionStatement_assignPrice=new PolicyActionStatement();
-		actionStatement_assignPrice.setValue(assignPrice);
+		actionStatement_assignPrice.setCode("actionStatement_assignPrice");
+		
+		PolicyPan assignPricePan=new PolicyPan();
+		assignPricePan.setPolicyValue(assignPrice);
+		actionStatement_assignPrice.setRightPan(assignPricePan);
 		actionStatement_assignPrice.setOperator(methodInvOper);
 		
-		PolicyAtomicAction action5=new PolicyAtomicAction();
+		PolicyAtomicAction action5=new PolicyAtomicAction(rule);
+		action5.setCode("action5");
 		action5.setStatement(actionStatement_assignPrice);
 		groupAction.addChild(action5);
 		
 		PolicyActionStatement actionStatement_addPricePlanInstance=new PolicyActionStatement();
-		actionStatement_addPricePlanInstance.setValue(addPricePlanInstance);
+		PolicyPan addPricePlanInstancePan=new PolicyPan();
+		addPricePlanInstancePan.setPolicyValue(addPricePlanInstance);
+		actionStatement_addPricePlanInstance.setRightPan(addPricePlanInstancePan);
 		actionStatement_addPricePlanInstance.setOperator(methodInvOper);
 		
-		PolicyAtomicAction action6=new PolicyAtomicAction();
+		PolicyAtomicAction action6=new PolicyAtomicAction(rule);
+		action6.setCode("action6");
 		action6.setStatement(actionStatement_addPricePlanInstance);
 		groupAction.addChild(action6);
 		
-		PolicyRule rule=new PolicyRule();
 		rule.setCondition(condition);
 		rule.setAction(groupAction);
 		rule.setCode("SelectPriceFromProductAttr");
@@ -511,6 +552,8 @@ public class PolicyTest {
 		param3.setVariable(varOfferInstance);
 		rule.addInputParameter(param3);	
 		
+		policyRepository.savePolicySet(rule);
+		
 		String ss=rule.toPolicyString();
 		System.out.println(ss);
 		
@@ -519,12 +562,15 @@ public class PolicyTest {
 		ToBeProduct product=new ToBeProduct();
 		ToBeProductCharacter instChar=new ToBeProductCharacter();		
 		CharacteristicSpec character=new CharacteristicSpec();
+		character.setCode("Color");
 		character.setId(1);
 		instChar.setCharacteristicSpec(character);
 		product.addProductCharacter(instChar);
 		ToBeProductCharacterValue instCharValue=new ToBeProductCharacterValue();	
 		CharacteristicSpecValue characterValue=new CharacteristicSpecValue();
+		characterValue.setCode("Gold");
 		characterValue.setId(2);
+		characterValue.setValue("Red");
 		instCharValue.setCharacteristicValue(characterValue);
 		instChar.addCharacteristicInstanceValue(instCharValue);
 		ToBeOfferInstance offerInstance =new ToBeOfferInstance();
@@ -532,8 +578,11 @@ public class PolicyTest {
 		context.put("toBeOfferInstance", offerInstance);
 		serv1.execute(rule, context);
 		ToBePricePlanInstance[] plInsts=(ToBePricePlanInstance[])offerInstance.getPricePlanInstances().toArray(new ToBePricePlanInstance[0]);
-		long pricePlanValue=plInsts[0].getPriceValue();
-		assertEquals(pricePlanValue,200);
+		long pricePlanValue=0;
+		if (plInsts.length>0){
+			pricePlanValue=plInsts[0].getPriceValue();
+		}		
+		assertEquals(pricePlanValue,5888);
 		
 	}
 	

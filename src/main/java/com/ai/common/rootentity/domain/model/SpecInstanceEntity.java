@@ -24,7 +24,8 @@ public abstract class SpecInstanceEntity extends InstanceEntity {
 	public SpecInstanceEntityCharacter getInstEntityCharByCode(String characteristicCode)  throws Exception{
 		SpecInstanceEntityCharacter instCharacteristic=null;
 		for (SpecInstanceEntityCharacter aInstCharacteristic:this.getCharacteristics()) {
-			if(aInstCharacteristic.getCharacteristicSpec().getCode().equalsIgnoreCase(characteristicCode)){
+			String code=aInstCharacteristic.getCharacteristicSpec().getCode();
+			if(code!=null && code.equalsIgnoreCase(characteristicCode)){
 				instCharacteristic=aInstCharacteristic;
 				break;
 			}		

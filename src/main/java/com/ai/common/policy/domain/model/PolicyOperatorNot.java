@@ -1,6 +1,9 @@
 package com.ai.common.policy.domain.model;
 
-public class PolicyOperatorNot extends PolicyOperator{
+import javax.persistence.Entity;
+
+@Entity
+public class PolicyOperatorNot extends PolicyConditionOperator{
 
 	public PolicyOperatorNot() {
 	}

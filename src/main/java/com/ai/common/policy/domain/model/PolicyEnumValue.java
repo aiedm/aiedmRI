@@ -3,19 +3,21 @@ package com.ai.common.policy.domain.model;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 
 import com.ai.common.rootentity.domain.model.CharacteristicSpecValue;
 
 @Entity
+@DiscriminatorValue("ENUM")
 public class PolicyEnumValue extends PolicyValue {
 	@Transient //TODO
 	private Set<CharacteristicSpecValue> enumValues=new LinkedHashSet<CharacteristicSpecValue>();
 	@Transient //TODO
 	private CharacteristicSpecValue enumValue;
-	public PolicyEnumValue() {
-		// TODO Auto-generated constructor stub
+	public PolicyEnumValue( PolicySet policyset) {
+		super(policyset);
 	}
 
 	

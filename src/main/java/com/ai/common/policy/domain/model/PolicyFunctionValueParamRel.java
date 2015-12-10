@@ -1,5 +1,9 @@
 package com.ai.common.policy.domain.model;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,8 +23,8 @@ public class PolicyFunctionValueParamRel extends InstanceEntity{
 	private PolicyFunctionValue functionValue;
 	@OneToOne
 	private PolicyFunctionParameter param;
-	@OneToOne
-	private PolicyValue value;
+	@Embedded
+	private PolicyPan paramValuePan;
 	public PolicyFunctionValueParamRel() {
 	}
 
@@ -45,19 +49,8 @@ public class PolicyFunctionValueParamRel extends InstanceEntity{
 	}
 
 	
-	public PolicyValue getValue() {
-		return this.value;
-	}
-
-	
-	public void setValue(PolicyValue value) {
-		this.value=value;
-	}
-
-	
 	public String toBodyString() {
-		PolicyValue value=this.getValue();		
-		return value.toBodyString();
+		return this.getParamValuePan().toBodyString();
 	}
 
 
@@ -68,6 +61,16 @@ public class PolicyFunctionValueParamRel extends InstanceEntity{
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+
+	public PolicyPan getParamValuePan() {
+		return paramValuePan;
+	}
+
+
+	public void setParamValuePan(PolicyPan paramValuePan) {
+		this.paramValuePan = paramValuePan;
 	}
 
 }

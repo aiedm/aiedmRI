@@ -2,11 +2,14 @@ package com.ai.common.policy.domain.model;
 
 import java.util.Set;
 
-import javax.persistence.MappedSuperclass;
-@MappedSuperclass
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+@Entity
+@DiscriminatorValue("CONST")
 public class PolicyConstValue extends PolicyValue{
 
-	public PolicyConstValue() {
+	public PolicyConstValue(PolicySet policyset) {
+		super(policyset);
 	}
 
 	@Override

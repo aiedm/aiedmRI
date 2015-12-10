@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -23,7 +24,11 @@ public class PolicyVariable extends InstanceEntity{
 	private String initialInputValue;
 	@OneToOne
 	private PolicyValue value;
-	public PolicyVariable() {
+	@ManyToOne
+	private PolicySet policyset;
+	
+	public PolicyVariable(PolicySet policyset) {
+		this.setPolicyset(policyset);
 	}
 
 	
@@ -100,6 +105,16 @@ public class PolicyVariable extends InstanceEntity{
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+
+	public PolicySet getPolicyset() {
+		return policyset;
+	}
+
+
+	public void setPolicyset(PolicySet policyset) {
+		this.policyset = policyset;
 	}
 
 }

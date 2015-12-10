@@ -3,11 +3,15 @@ package com.ai.common.policy.domain.model;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -20,11 +24,21 @@ public abstract class PolicyStatement extends InstanceEntity{
 	private long id;	
 	private String name;
 	private String code;
-	@OneToOne
-	private PolicyVariable varible;
-	@OneToOne
-	private PolicyValue value;
-
+	@Embedded
+	@AttributeOverrides({
+        @AttributeOverride(name="panType", column=@Column(name="LEFT_PAN_TYPE")),
+        @AttributeOverride(name="policyValue", column=@Column(name="LEFT_VALUE")),
+        @AttributeOverride(name="policyVariable", column=@Column(name="LEFT_VARIABLE"))
+    })
+	private PolicyPan leftPan;
+	@Embedded
+	@AttributeOverrides({
+        @AttributeOverride(name="panType", column=@Column(name="RIGHT_PAN_TYPE")),
+        @AttributeOverride(name="policyValue", column=@Column(name="RIGHT_VALUE")),
+        @AttributeOverride(name="policyVariable", column=@Column(name="RIGHT_VARIABLE"))
+    })
+	private PolicyPan rightPan;
+	
 	public PolicyStatement() {
 	}
 
@@ -48,15 +62,6 @@ public abstract class PolicyStatement extends InstanceEntity{
 		this.code=code;
 	}	
 
-	
-	public PolicyVariable getVariable() {
-		return this.varible;
-	}
-
-	
-	public void setVariable(PolicyVariable varible) {
-		this.varible=varible;
-	}
 
 	@Column(name="OPERATOR_ID")
 	public abstract PolicyOperator getOperator();
@@ -65,37 +70,30 @@ public abstract class PolicyStatement extends InstanceEntity{
 	public abstract void setOperator(PolicyOperator operator);
 
 	
-	public PolicyValue getValue() {
-		return this.value;
-	}
-
-	
-	public void setValue(PolicyValue value) {
-		this.value=value;
-	}
-
-	
 	public String toBodyString() {
 		StringBuffer sb=new StringBuffer();
 		String firstParam="";
 		String secondParam="";
-		if(null!=this.getVariable()){
-			firstParam=this.getVariable().toBodyString();
+		if(null!=this.getLeftPan()){
+			firstParam=this.getLeftPan().toBodyString();
 		}
-		if(null!=this.getValue()){
-			secondParam=this.getValue().toBodyString();
-		}
-		sb.append(this.getOperator().toBodyString(firstParam,secondParam));
+		if(null!=this.getRightPan()){
+			secondParam=this.getRightPan().toBodyString();
+			if (null!=secondParam){
+				sb.append(this.getOperator().toBodyString(firstParam,secondParam));
+			}
+		}		
 		return sb.toString();
 	}
 	
 	
 	public Set<PolicyVariable> getVariables(){
 		Set<PolicyVariable> variables=new LinkedHashSet<PolicyVariable>();
-		variables.add(this.getVariable());
-		Set<PolicyVariable> valueVars=this.getValue().getVariables();
-		if (null!=valueVars&&valueVars.size()>0){
-			variables.addAll(valueVars);
+		if(null!=this.getLeftPan() && (null!=this.getLeftPan().getVariables())){
+			variables.addAll(this.getLeftPan().getVariables());
+		}
+		if(null!=this.getRightPan() && (null!=this.getRightPan().getVariables())){
+			variables.addAll(this.getRightPan().getVariables());
 		}
 		return variables;
 	}
@@ -111,13 +109,23 @@ public abstract class PolicyStatement extends InstanceEntity{
 	}
 
 
-	public PolicyVariable getVarible() {
-		return varible;
+	public PolicyPan getLeftPan() {
+		return leftPan;
 	}
 
 
-	public void setVarible(PolicyVariable varible) {
-		this.varible = varible;
+	public void setLeftPan(PolicyPan leftPan) {
+		this.leftPan = leftPan;
+	}
+
+
+	public PolicyPan getRightPan() {
+		return rightPan;
+	}
+
+
+	public void setRightPan(PolicyPan rightPan) {
+		this.rightPan = rightPan;
 	}
 	
 

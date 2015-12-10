@@ -3,6 +3,8 @@ package com.ai.common.policy.domain.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -13,6 +15,7 @@ import javax.persistence.Table;
 
 import com.ai.common.rootentity.domain.model.InstanceEntity;
 @Entity
+@DiscriminatorColumn(name="PAN_TYPE",discriminatorType=DiscriminatorType.STRING)
 @Table(name="PL_FUNCTION")
 public class PolicyFunction extends InstanceEntity{
 	@Id

@@ -1,8 +1,8 @@
 package com.ai.common.policy.domain.model;
 
-import javax.persistence.MappedSuperclass;
+import javax.persistence.Entity;
 
-@MappedSuperclass
+@Entity
 public class PolicyActionOperator extends PolicyOperator {
 
 	public PolicyActionOperator() {

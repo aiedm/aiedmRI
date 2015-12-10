@@ -1,6 +1,9 @@
 package com.ai.common.policy.domain.model;
 
-public class PolicyOperatorStringEquals extends PolicyOperator{
+import javax.persistence.Entity;
+
+@Entity
+public class PolicyOperatorStringEquals extends PolicyConditionOperator{
 
 	public PolicyOperatorStringEquals() {
 	}
