@@ -2,6 +2,7 @@ package com.ai.common.policy.domain.model;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
@@ -29,7 +30,7 @@ public abstract class PolicyValue extends InstanceEntity{
 	private String value;
 	@Column(insertable = false, updatable = false,name="VALUE_TYPE")
 	private String valueType;
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	private PolicySet policyset;
 	
 	public String getType() {

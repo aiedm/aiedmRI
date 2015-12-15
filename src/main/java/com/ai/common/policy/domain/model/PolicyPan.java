@@ -3,18 +3,20 @@ package com.ai.common.policy.domain.model;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 @Embeddable
 public class PolicyPan {
 	@Column(name="PAN_TYPE")
 	private String panType;
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	@JoinColumn(name="POLICY_VARIABLE_ID",insertable=false,updatable=false)
 	private PolicyVariable policyVariable;
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	@JoinColumn(name="POLICY_VALUE_ID",insertable=false,updatable=false)
 	private PolicyValue policyValue;
 		

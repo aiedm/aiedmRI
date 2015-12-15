@@ -570,7 +570,7 @@ public class PolicyTest {
 		CharacteristicSpecValue characterValue=new CharacteristicSpecValue();
 		characterValue.setCode("Gold");
 		characterValue.setId(2);
-		characterValue.setValue("Red");
+		characterValue.setValue("Gold");
 		instCharValue.setCharacteristicValue(characterValue);
 		instChar.addCharacteristicInstanceValue(instCharValue);
 		ToBeOfferInstance offerInstance =new ToBeOfferInstance();

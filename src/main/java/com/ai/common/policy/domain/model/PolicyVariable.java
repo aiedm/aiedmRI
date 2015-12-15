@@ -1,6 +1,8 @@
 package com.ai.common.policy.domain.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,9 +24,9 @@ public class PolicyVariable extends InstanceEntity{
 	@OneToOne
 	private CharacteristicSpec characteristicSpec;
 	private String initialInputValue;
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	private PolicyValue value;
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	private PolicySet policyset;
 	
 	public PolicyVariable(PolicySet policyset) {
