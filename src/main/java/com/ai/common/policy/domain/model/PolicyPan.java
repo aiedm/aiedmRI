@@ -14,11 +14,11 @@ public class PolicyPan {
 	@Column(name="PAN_TYPE")
 	private String panType;
 	@OneToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
-	@JoinColumn(name="POLICY_VARIABLE_ID",insertable=false,updatable=false)
-	private PolicyVariable policyVariable;
+	@JoinColumn(name="VARIABLE_ID")
+	private PolicyVariable panVariable;
 	@OneToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
-	@JoinColumn(name="POLICY_VALUE_ID",insertable=false,updatable=false)
-	private PolicyValue policyValue;
+	@JoinColumn(name="VALUE_ID")
+	private PolicyValue panValue;
 		
 	public PolicyPan() {
 		
@@ -26,12 +26,12 @@ public class PolicyPan {
 	
 
 	public PolicyVariable getPolicyVariable() {
-		return policyVariable;
+		return panVariable;
 	}
 
 	public void setPolicyVariable(PolicyVariable variable) {
 		this.setPanType("VARIABLE");
-		this.policyVariable = variable;
+		this.panVariable = variable;
 	}
 	
 	public String toBodyString(){
@@ -57,12 +57,12 @@ public class PolicyPan {
 	}	
 
 	public PolicyValue getPolicyValue() {
-		return policyValue;
+		return panValue;
 	}
 
 	public void setPolicyValue(PolicyValue value) {
 		this.setPanType("VALUE");
-		this.policyValue = value;
+		this.panValue = value;
 	}
 
 	public String getPanType() {

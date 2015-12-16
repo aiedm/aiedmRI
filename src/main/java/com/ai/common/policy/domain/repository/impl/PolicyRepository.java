@@ -55,5 +55,15 @@ public class PolicyRepository implements IPolicyRepository {
 		return function;
 	}
 
+	@Override
+	public PolicySet findPolicyById(long id) throws Exception {
+		return (PolicySet)currentSession().get(PolicySet.class, id);
+	}
+
+	@Override
+	public PolicySet findPolicyByCode(String code) throws Exception {
+		return null;
+	}
+
 
 }

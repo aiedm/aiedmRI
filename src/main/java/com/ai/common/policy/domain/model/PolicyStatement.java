@@ -3,6 +3,8 @@ package com.ai.common.policy.domain.model;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import javax.persistence.AssociationOverride;
+import javax.persistence.AssociationOverrides;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
@@ -11,8 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
 import com.ai.common.rootentity.domain.model.InstanceEntity;
@@ -26,17 +27,21 @@ public abstract class PolicyStatement extends InstanceEntity{
 	private String code;
 	@Embedded
 	@AttributeOverrides({
-        @AttributeOverride(name="panType", column=@Column(name="LEFT_PAN_TYPE")),
-        @AttributeOverride(name="policyValue", column=@Column(name="LEFT_VALUE")),
-        @AttributeOverride(name="policyVariable", column=@Column(name="LEFT_VARIABLE"))
+        @AttributeOverride(name="panType", column=@Column(name="LEFT_PAN_TYPE"))
     })
+	@AssociationOverrides({
+		@AssociationOverride(name="panValue", joinColumns=@JoinColumn(name="LEFT_VALUE_ID",referencedColumnName = "ID")),
+		@AssociationOverride(name="panVariable", joinColumns=@JoinColumn(name="LEFT_VARIABLE_ID",referencedColumnName = "ID"))
+	})
 	private PolicyPan leftPan;
 	@Embedded
 	@AttributeOverrides({
-        @AttributeOverride(name="panType", column=@Column(name="RIGHT_PAN_TYPE")),
-        @AttributeOverride(name="policyValue", column=@Column(name="RIGHT_VALUE")),
-        @AttributeOverride(name="policyVariable", column=@Column(name="RIGHT_VARIABLE"))
+        @AttributeOverride(name="panType", column=@Column(name="RIGHT_PAN_TYPE"))
     })
+	@AssociationOverrides({
+		@AssociationOverride(name="panValue", joinColumns=@JoinColumn(name="RIGHT_VALUE_ID",referencedColumnName = "ID")),
+		@AssociationOverride(name="panVariable", joinColumns=@JoinColumn(name="RIGHT_VARIABLE_ID",referencedColumnName = "ID"))
+	})
 	private PolicyPan rightPan;
 	
 	public PolicyStatement() {

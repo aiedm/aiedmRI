@@ -12,4 +12,6 @@ public interface IPolicyRepository {
 	PolicySet savePolicySet(PolicySet policySet) throws Exception;
 	PolicyOperator savePolicyOperator(PolicyOperator operator) throws Exception;
 	PolicyFunction savePolicyFunction(PolicyFunction function) throws Exception;
+	PolicySet findPolicyById(long id) throws Exception;
+	PolicySet findPolicyByCode(String code) throws Exception;
 }

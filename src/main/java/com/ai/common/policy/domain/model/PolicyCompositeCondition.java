@@ -25,9 +25,7 @@ public class PolicyCompositeCondition extends PolicyCondition{
 	public void addChild(PolicyCompositeConditionOption child) {
 		if(child!=null){
 			this.children.add(child);
-			if (null==child.getParentCondition()){
-				child.setParentCondition(this);
-			}
+			child.setParentCondition(this);
 		}
 
 	}

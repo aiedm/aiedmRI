@@ -11,7 +11,7 @@ import javax.persistence.OneToOne;
 @Entity
 @DiscriminatorValue("ATOMIC")
 public class PolicyAtomicAction extends PolicyAction{
-	@OneToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+	@OneToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL,mappedBy="action")
 	private PolicyActionStatement statement;
 	public PolicyAtomicAction(PolicySet policyset) {
 		super(policyset);

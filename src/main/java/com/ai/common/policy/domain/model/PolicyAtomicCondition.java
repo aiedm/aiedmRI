@@ -12,7 +12,7 @@ import javax.persistence.OneToOne;
 @Entity
 @DiscriminatorValue("ATOMIC")
 public class PolicyAtomicCondition extends PolicyCondition {
-	@OneToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+	@OneToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL,mappedBy="condition")
 	private PolicyConditionStatement statement;
 	public PolicyAtomicCondition(PolicySet policyset) {
 		super(policyset);

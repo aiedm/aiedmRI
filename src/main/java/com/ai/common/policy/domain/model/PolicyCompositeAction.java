@@ -35,7 +35,8 @@ public class PolicyCompositeAction extends PolicyAction{
 	
 	public void addChild(PolicyAction child) {
 		if (null!=child){
-			this.children.add(child);			
+			this.children.add(child);	
+			child.setParentAction(this);
 		}		
 	}
 

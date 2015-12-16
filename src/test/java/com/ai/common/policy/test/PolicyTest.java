@@ -37,6 +37,7 @@ import com.ai.common.policy.domain.model.PolicyOperatorMethodInvoke;
 import com.ai.common.policy.domain.model.PolicyOperatorStringEquals;
 import com.ai.common.policy.domain.model.PolicyRule;
 import com.ai.common.policy.domain.model.PolicyRuleInputParameter;
+import com.ai.common.policy.domain.model.PolicySet;
 import com.ai.common.policy.domain.model.PolicySetOutputParameter;
 import com.ai.common.policy.domain.model.PolicyPan;
 import com.ai.common.policy.domain.model.PolicyVariable;
@@ -142,7 +143,9 @@ public class PolicyTest {
 		opertor1.setCode(">");
 		PolicyOperator opertor2=new PolicyActionOperator();
 		opertor2.setCode("=");
-		PolicyConditionStatement statement1=new PolicyConditionStatement();
+		
+		PolicyAtomicCondition condition1=new PolicyAtomicCondition(rule1);
+		PolicyConditionStatement statement1=new PolicyConditionStatement(condition1);
 		PolicyPan leftPan1=new PolicyPan();		
 		leftPan1.setPolicyVariable(var1);		
 		statement1.setLeftPan(leftPan1);
@@ -151,7 +154,9 @@ public class PolicyTest {
 		rightPan1.setPolicyValue(value1);		
 		statement1.setRightPan(rightPan1);
 		
-		PolicyConditionStatement statement3=new PolicyConditionStatement();
+		PolicyAtomicCondition condition2=new PolicyAtomicCondition(rule1);
+		condition2.setCode("condition2");
+		PolicyConditionStatement statement3=new PolicyConditionStatement(condition2);
 		PolicyPan leftPan3=new PolicyPan();		
 		leftPan3.setPolicyVariable(var3);
 		
@@ -162,7 +167,9 @@ public class PolicyTest {
 		rightPan3.setPolicyValue(value3);		
 		statement3.setRightPan(rightPan3);		
 		
-		PolicyActionStatement statement2=new PolicyActionStatement();
+		PolicyAtomicAction action1=new PolicyAtomicAction(rule1);
+		
+		PolicyActionStatement statement2=new PolicyActionStatement(action1);
 		PolicyPan leftPan2=new PolicyPan();		
 		leftPan2.setPolicyVariable(var2);
 		
@@ -172,7 +179,8 @@ public class PolicyTest {
 		rightPan2.setPolicyValue(value2);		
 		statement2.setRightPan(rightPan2);	
 		
-		PolicyActionStatement statement4=new PolicyActionStatement();
+		PolicyAtomicAction action2=new PolicyAtomicAction(rule1);
+		PolicyActionStatement statement4=new PolicyActionStatement(action2);
 		PolicyPan leftPan4=new PolicyPan();		
 		leftPan4.setPolicyVariable(var4);
 		statement4.setLeftPan(leftPan4);
@@ -181,7 +189,8 @@ public class PolicyTest {
 		rightPan4.setPolicyValue(value4);		
 		statement4.setRightPan(rightPan4);	
 
-		PolicyActionStatement statement5=new PolicyActionStatement();
+		PolicyAtomicAction action5=new PolicyAtomicAction(rule1);
+		PolicyActionStatement statement5=new PolicyActionStatement(action5);
 		PolicyPan leftPan5=new PolicyPan();		
 		leftPan5.setPolicyVariable(var4);
 		statement5.setLeftPan(leftPan5);
@@ -191,12 +200,9 @@ public class PolicyTest {
 		statement5.setRightPan(rightPan5);	
 
 		
-		PolicyAtomicCondition condition1=new PolicyAtomicCondition(rule1);
-		condition1.setStatement(statement1);
+
 		condition1.setCode("condition1");
-		PolicyAtomicCondition condition2=new PolicyAtomicCondition(rule1);
-		condition2.setStatement(statement3);
-		condition2.setCode("condition2");
+		
 		PolicyCompositeCondition condition3=new PolicyCompositeCondition(rule1);
 		condition3.setAnd();
 		condition3.setCode("condition3");
@@ -209,16 +215,12 @@ public class PolicyTest {
 		condition3.addChild(compositeConditionOption);
 		condition3.addChild(compositeConditionOption2);	
 		rule1.setCondition(condition3);
-		PolicyAtomicAction action1=new PolicyAtomicAction(rule1);
-		action1.setStatement(statement2);				
-		PolicyAtomicAction action2=new PolicyAtomicAction(rule1);
-		action2.setStatement(statement4);
+		
 		PolicyCompositeAction action3=new PolicyCompositeAction(rule1);
 		action3.addChild(action1);
 		action3.addChild(action2);
 		rule1.setAction(action3);
-		PolicyAtomicAction action5=new PolicyAtomicAction(rule1);
-		action5.setStatement(statement5);	
+		
 		rule1.setElseAction(action5);
 		PolicySetOutputParameter param=new PolicySetOutputParameter();
 		param.setVariable(var4);
@@ -472,7 +474,9 @@ public class PolicyTest {
 		policyRepository.savePolicyOperator(stringEqualsOperator);
 		
 		//Expectedstatement
-		PolicyConditionStatement conditionStatement=new PolicyConditionStatement();
+		//condition
+		PolicyAtomicCondition condition=new PolicyAtomicCondition(rule);
+		PolicyConditionStatement conditionStatement=new PolicyConditionStatement(condition);
 		conditionStatement.setCode("conditionStatement");
 		PolicyPan leftPan=new PolicyPan();
 		leftPan.setPolicyVariable(expectedCharValue);
@@ -482,9 +486,7 @@ public class PolicyTest {
 		conditionStatement.setRightPan(rightPan);
 		conditionStatement.setOperator(stringEqualsOperator);
 		
-		//condition
-		PolicyAtomicCondition condition=new PolicyAtomicCondition(rule);
-		condition.setStatement(conditionStatement);
+
 		
 		//action,set up the price to be selected
 		PolicyOperatorMethodInvoke methodInvOper=new PolicyOperatorMethodInvoke();
@@ -493,52 +495,44 @@ public class PolicyTest {
 		PolicyCompositeAction groupAction=new PolicyCompositeAction(rule);
 		groupAction.setCode("groupAction");
 		
-		PolicyActionStatement actionStatement_setPriceId=new PolicyActionStatement();
+		PolicyAtomicAction action1=new PolicyAtomicAction(rule);
+		action1.setCode("action1");
+		PolicyActionStatement actionStatement_setPriceId=new PolicyActionStatement(action1);
 		actionStatement_setPriceId.setCode("actionStatement_setPriceId");
 		PolicyPan setPricePlanIdPan=new PolicyPan();
 		setPricePlanIdPan.setPolicyValue(setPricePlanId);
 		actionStatement_setPriceId.setRightPan(setPricePlanIdPan);
-		actionStatement_setPriceId.setOperator(methodInvOper);
-		
-		PolicyAtomicAction action1=new PolicyAtomicAction(rule);
-		action1.setCode("action1");
-		action1.setStatement(actionStatement_setPriceId);
+		actionStatement_setPriceId.setOperator(methodInvOper);				
 		groupAction.addChild(action1);
 		
-		PolicyActionStatement actionStatement_setPriceValue=new PolicyActionStatement();
+		PolicyAtomicAction action2=new PolicyAtomicAction(rule);
+		action2.setCode("action2");
+		PolicyActionStatement actionStatement_setPriceValue=new PolicyActionStatement(action2);
 		actionStatement_setPriceValue.setCode("actionStatement_setPriceValue");
 		PolicyPan setPriceValuePan=new PolicyPan();
 		setPriceValuePan.setPolicyValue(setPriceValue);
 		actionStatement_setPriceValue.setRightPan(setPriceValuePan);
-		actionStatement_setPriceValue.setOperator(methodInvOper);
-		
-		PolicyAtomicAction action2=new PolicyAtomicAction(rule);
-		action2.setCode("action2");
-		action2.setStatement(actionStatement_setPriceValue);
+		actionStatement_setPriceValue.setOperator(methodInvOper);		
 		groupAction.addChild(action2);		
-				
-		PolicyActionStatement actionStatement_assignPrice=new PolicyActionStatement();
-		actionStatement_assignPrice.setCode("actionStatement_assignPrice");
-		
-		PolicyPan assignPricePan=new PolicyPan();
-		assignPricePan.setPolicyValue(assignPrice);
-		actionStatement_assignPrice.setRightPan(assignPricePan);
-		actionStatement_assignPrice.setOperator(methodInvOper);
 		
 		PolicyAtomicAction action5=new PolicyAtomicAction(rule);
 		action5.setCode("action5");
-		action5.setStatement(actionStatement_assignPrice);
+		PolicyActionStatement actionStatement_assignPrice=new PolicyActionStatement(action5);
+		actionStatement_assignPrice.setCode("actionStatement_assignPrice");		
+		PolicyPan assignPricePan=new PolicyPan();
+		assignPricePan.setPolicyValue(assignPrice);
+		actionStatement_assignPrice.setRightPan(assignPricePan);
+		actionStatement_assignPrice.setOperator(methodInvOper);		
 		groupAction.addChild(action5);
-		
-		PolicyActionStatement actionStatement_addPricePlanInstance=new PolicyActionStatement();
-		PolicyPan addPricePlanInstancePan=new PolicyPan();
-		addPricePlanInstancePan.setPolicyValue(addPricePlanInstance);
-		actionStatement_addPricePlanInstance.setRightPan(addPricePlanInstancePan);
-		actionStatement_addPricePlanInstance.setOperator(methodInvOper);
 		
 		PolicyAtomicAction action6=new PolicyAtomicAction(rule);
 		action6.setCode("action6");
-		action6.setStatement(actionStatement_addPricePlanInstance);
+		PolicyActionStatement actionStatement_addPricePlanInstance=new PolicyActionStatement(action6);
+		actionStatement_addPricePlanInstance.setCode("actionStatement_addPricePlanInstance");
+		PolicyPan addPricePlanInstancePan=new PolicyPan();
+		addPricePlanInstancePan.setPolicyValue(addPricePlanInstance);
+		actionStatement_addPricePlanInstance.setRightPan(addPricePlanInstancePan);
+		actionStatement_addPricePlanInstance.setOperator(methodInvOper);		
 		groupAction.addChild(action6);
 		
 		rule.setCondition(condition);
@@ -554,8 +548,11 @@ public class PolicyTest {
 		
 		policyRepository.savePolicySet(rule);
 		
-		String ss=rule.toPolicyString();
-		System.out.println(ss);
+		//String ss=rule.toPolicyString();
+		//System.out.println(ss);
+		
+		PolicySet savedRule=policyRepository.findPolicyById(rule.getId());
+		System.out.println(savedRule.toPolicyString());
 		
 		IPolicyExecute serv1=new GroovyPolicyExecute();
 		Map<String, Object> context=new HashMap<>();
@@ -576,7 +573,7 @@ public class PolicyTest {
 		ToBeOfferInstance offerInstance =new ToBeOfferInstance();
 		context.put("toBeProduct", product);
 		context.put("toBeOfferInstance", offerInstance);
-		serv1.execute(rule, context);
+		serv1.execute(savedRule, context);
 		ToBePricePlanInstance[] plInsts=(ToBePricePlanInstance[])offerInstance.getPricePlanInstances().toArray(new ToBePricePlanInstance[0]);
 		long pricePlanValue=0;
 		if (plInsts.length>0){

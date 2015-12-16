@@ -7,23 +7,27 @@ import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Transient;
 
 import com.ai.common.basetype.TimePeriod;
 @MappedSuperclass
 @Access(AccessType.FIELD)
 public abstract class RootEntity{
 	@Embedded
+	@Transient
 	private EntityVersion version;
 	@Column
+	@Transient
 	private long createOperatorId;
 	@Embedded
+	@Transient
 	private TimePeriod validPeriod;
 	@Column
+	@Transient
 	private boolean deleted=false;
 	@Column
+	@Transient
 	private Timestamp createTime;	
-
-
 	
 	public EntityVersion getVersion() {
 		return this.version;

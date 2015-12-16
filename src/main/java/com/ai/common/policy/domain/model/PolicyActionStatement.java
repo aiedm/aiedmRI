@@ -1,18 +1,22 @@
 package com.ai.common.policy.domain.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
 public class PolicyActionStatement extends PolicyStatement {
-	@OneToOne
+	@OneToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
 	private PolicyActionOperator operator;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
 	private PolicyAtomicAction action;
 	
-	public PolicyActionStatement() {
+	public PolicyActionStatement(PolicyAtomicAction action) {
+		this.setAction(action);
+		action.setStatement(this);
 	}
 
 	
