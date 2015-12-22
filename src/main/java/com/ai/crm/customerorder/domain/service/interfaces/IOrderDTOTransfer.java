@@ -1,4 +1,4 @@
-package com.ai.crm.customerorder.domain.eventlistener.interfaces;
+package com.ai.crm.customerorder.domain.service.interfaces;
 
 import com.ai.crm.customerorder.application.service.api.dto.CustomerOrderDTO;
 import com.ai.crm.customerorder.domain.model.CustomerOrder;

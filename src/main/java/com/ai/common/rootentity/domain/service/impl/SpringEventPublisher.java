@@ -4,7 +4,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.stereotype.Component;
 
-import com.ai.common.rootentity.domain.model.BaseEvent;
+import com.ai.common.bpmn.model.BaseEvent;
 import com.ai.common.rootentity.domain.service.interfaces.IEventPublisher;
 @Component
 public class SpringEventPublisher implements IEventPublisher, ApplicationEventPublisherAware{

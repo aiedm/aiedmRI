@@ -1,6 +1,6 @@
 package com.ai.crm.customerorder.domain.event.configproduct;
 
-import com.ai.common.rootentity.domain.model.BaseEvent;
+import com.ai.common.bpmn.model.BaseEvent;
 import com.ai.crm.customerorder.domain.model.ToBePricePlanInstance;
 
 public class NewPricePlanSelected extends BaseEvent {

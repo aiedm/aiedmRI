@@ -2,7 +2,7 @@ package com.ai.crm.customerorder.domain.event.shoppingcart;
 
 import java.util.Set;
 
-import com.ai.common.rootentity.domain.model.BaseEvent;
+import com.ai.common.bpmn.model.BaseEvent;
 import com.ai.crm.customerorder.application.service.api.dto.ShoppingCartDTO;
 import com.ai.crm.customerorder.application.service.api.dto.ToBeOfferInstanceDTO;
 

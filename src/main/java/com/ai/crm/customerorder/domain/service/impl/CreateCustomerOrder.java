@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.ai.common.rootentity.domain.service.interfaces.IEventPublisher;
+import com.ai.crm.customerorder.application.service.api.dto.CustomerOrderDTO;
+import com.ai.crm.customerorder.domain.event.createorder.CheckOrderCustomerAvalibityPassed;
 import com.ai.crm.customerorder.domain.event.createorder.CreateCustomerOrderFinished;
 import com.ai.crm.customerorder.domain.event.createorder.CustomerOrderCreated;
 import com.ai.crm.customerorder.domain.event.createorder.NewOfferOrderCreated;
@@ -17,7 +19,10 @@ import com.ai.crm.customerorder.domain.event.createorder.NewProductOrderRequeste
 import com.ai.crm.customerorder.domain.model.CustomerOrder;
 import com.ai.crm.customerorder.domain.model.OfferOrderItem;
 import com.ai.crm.customerorder.domain.model.ProductOrderItem;
+import com.ai.crm.customerorder.domain.model.ShoppingCart;
 import com.ai.crm.customerorder.domain.service.interfaces.ICreateCustomerOrder;
+import com.ai.crm.customerorder.domain.service.interfaces.IOrderDTOTransfer;
+import com.ai.crm.customerorder.repository.interfaces.ICustomerOrderRepository;
 @Component
 //@Transactional
 public class CreateCustomerOrder implements ICreateCustomerOrder {
@@ -26,15 +31,23 @@ public class CreateCustomerOrder implements ICreateCustomerOrder {
 	}
 	@Autowired
 	private IEventPublisher eventPublisher;
-		
-	public void createCustomerOrder(CustomerOrder customerOrder)  throws Exception{
-		if(customerOrder.getCustomerOrderId()==0){
-			
-		}
+	@Autowired
+	private IOrderDTOTransfer orderDTOTransfer;
+	@Autowired
+	private ICustomerOrderRepository customerOrderRepository;
+	
+	public void createCustomerOrder(CheckOrderCustomerAvalibityPassed event)  throws Exception{
+		CustomerOrderDTO customerOrderDTO=event.getCustomerOrderDTO();
+		CustomerOrder customerOrder=orderDTOTransfer.transformNewDTO2Order(customerOrderDTO);
 		customerOrder.setOrderState(CustomerOrder.CustomerOrderState.CREATED.getValue());
-		CustomerOrderCreated event=new CustomerOrderCreated(this);
-		event.setCustomerOrder(customerOrder);
-		eventPublisher.publishEvent(event);
+		CustomerOrderCreated newEvent=new CustomerOrderCreated(this);
+		newEvent.setCustomerOrder(customerOrder);
+		eventPublisher.publishEvent(newEvent);
+		if(event.getShoppingCartId()>0){
+			this.createCustomerOrder(customerOrder,event.getShoppingCartId());
+		}
+		customerOrderDTO.setCustomerOrderId(customerOrder.getCustomerOrderId());
+		customerOrderDTO.setCustomerOrderCode(customerOrder.getCustomerOrderCode());		
 	}
 
 	public void createNewOfferOrder(OfferOrderItem offerOrder)  throws Exception{
@@ -172,6 +185,15 @@ public class CreateCustomerOrder implements ICreateCustomerOrder {
 		Date date=new Date();
 		sb.append(dateFormater.format(date));
 		return sb.toString();
+	}
+
+	@Override
+	public void saveCustomerOrder(CustomerOrder customerOrder) throws Exception {
+		customerOrderRepository.saveCustomerOrder(customerOrder);
+		if(!(customerOrder instanceof ShoppingCart)){
+			this.startOrder(customerOrder);
+		}
+		
 	}	
 	
 }

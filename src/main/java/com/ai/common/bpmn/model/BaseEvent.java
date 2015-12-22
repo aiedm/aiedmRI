@@ -1,4 +1,4 @@
-package com.ai.common.rootentity.domain.model;
+package com.ai.common.bpmn.model;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -13,6 +13,7 @@ import javax.persistence.Transient;
 import org.springframework.context.ApplicationEvent;
 
 import com.ai.common.policy.domain.model.PolicyCondition;
+import com.ai.common.rootentity.domain.model.EventSubscriber;
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @Table(name="RT_EVENT")
@@ -25,6 +26,9 @@ public abstract class BaseEvent extends ApplicationEvent {
 	private Set<EventListener> listeners=new LinkedHashSet<EventListener>();
 	@Id
 	private String code;
+	
+	private String packageName;
+	
 	public String getCode() {
 		return code;
 	}
@@ -71,6 +75,14 @@ public abstract class BaseEvent extends ApplicationEvent {
 			this.conditions.add(condition);
 		}
 		
+	}
+
+	public String getPackageName() {
+		return packageName;
+	}
+
+	public void setPackageName(String packageName) {
+		this.packageName = packageName;
 	}
 	
 }

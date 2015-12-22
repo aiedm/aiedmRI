@@ -1,6 +1,6 @@
 package com.ai.crm.customerorder.domain.event.submitorder;
 
-import com.ai.common.rootentity.domain.model.BaseEvent;
+import com.ai.common.bpmn.model.BaseEvent;
 import com.ai.crm.customerorder.domain.model.CustomerOrder;
 
 public class NewAccountForOrderCreated extends BaseEvent {

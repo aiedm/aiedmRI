@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.ai.common.bpmn.model.BaseEvent;
+
 @Entity
 @Table(name="RT_EVENT_SUBSCRIBER")
 public class EventSubscriber extends InstanceEntity{

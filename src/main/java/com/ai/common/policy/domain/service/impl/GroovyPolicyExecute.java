@@ -9,10 +9,10 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.ai.common.bpmn.model.BaseEvent;
 import com.ai.common.policy.domain.model.PolicySet;
 import com.ai.common.policy.domain.repository.interfaces.IPolicyRepository;
 import com.ai.common.policy.domain.service.interfaces.IPolicyExecute;
-import com.ai.common.rootentity.domain.model.BaseEvent;
 import com.ai.common.rootentity.domain.model.CheckResult;
 import com.ai.common.rootentity.domain.model.EventSubscriber;
 import com.ai.common.rootentity.domain.model.SpecificationEntity;

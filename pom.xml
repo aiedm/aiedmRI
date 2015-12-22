@@ -13,6 +13,17 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+	<dependencyManagement>
+	    <dependencies>
+	      <dependency>
+	        <groupId>org.camunda.bpm</groupId>
+	        <artifactId>camunda-bom</artifactId>
+	        <version>7.4.0</version>
+	        <scope>import</scope>
+	        <type>pom</type>
+	      </dependency>
+	    </dependencies>
+	  </dependencyManagement>
 	<dependencies>
 	    <dependency>
 	        <groupId>org.springframework</groupId>
@@ -106,6 +117,11 @@
 		     <type>jar</type>  
 		     <scope>provided</scope>  
 		</dependency>  
+		<dependency>
+     		 <groupId>org.camunda.bpm</groupId>
+      		<artifactId>camunda-engine</artifactId>
+      		<scope>provided</scope>
+    	</dependency>
 	</dependencies>
 	
 </project>

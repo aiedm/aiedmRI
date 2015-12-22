@@ -2,7 +2,7 @@ package com.ai.crm.customerorder.domain.event.submitorder;
 
 import java.util.Set;
 
-import com.ai.common.rootentity.domain.model.BaseEvent;
+import com.ai.common.bpmn.model.BaseEvent;
 import com.ai.crm.customerorder.domain.model.CustomerOrder;
 import com.ai.crm.customerorder.domain.model.OfferOrderItem;
 import com.ai.crm.customerorder.domain.model.ToBeOfferInstance;
