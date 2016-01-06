@@ -13,14 +13,23 @@ import com.ai.crm.customerorder.application.service.api.dto.ToBeProductDTO;
 import com.ai.crm.customerorder.application.service.api.util.CharacteristicDTOTransHelper;
 import com.ai.crm.customerorder.domain.model.CustomerOrder;
 import com.ai.crm.customerorder.domain.model.ProductOrderItem;
+import com.ai.crm.customerorder.domain.model.ToBeAccessProduct;
+import com.ai.crm.customerorder.domain.model.ToBeAuxiliaryProduct;
 import com.ai.crm.customerorder.domain.model.ToBeProduct;
 import com.ai.crm.customerorder.domain.model.ToBeProductCharacter;
+import com.ai.crm.customerorder.domain.model.ToBeSubscriber;
 import com.ai.crm.product.domain.model.AsIsProduct;
 import com.ai.crm.product.domain.repository.interfaces.IProductRepository;
+import com.ai.upc.productspecification.domian.model.AccessProductSpecification;
+import com.ai.upc.productspecification.domian.model.AuxiliaryProductSpecification;
+import com.ai.upc.productspecification.domian.model.ProductSpecification;
+import com.ai.upc.productspecification.domian.repository.interfaces.IProductSpecificationRepository;
 @Component
 public class ProductItemDTOToOrder implements IProductItemDTOToOrder{
 	@Autowired
 	private IProductRepository productRepository;
+	@Autowired
+	private IProductSpecificationRepository productSpecificationRepository;
 
 	public ProductItemDTOToOrder() {
 	}
@@ -40,9 +49,9 @@ public class ProductItemDTOToOrder implements IProductItemDTOToOrder{
 	@Override
 	public ToBeProduct transferToBeProduct(ToBeProductDTO toBeProductDTO) throws Exception{
 		ToBeProduct toBeProduct=new ToBeProduct();
+		
 		toBeProduct.setCustomerId(toBeProductDTO.getCustomerId());		
 		toBeProduct.setProductSpecificationId(toBeProductDTO.getProductSpecId());
-		toBeProduct.setSerialNumber(toBeProductDTO.getSerialNo());
 		toBeProduct.setValidPeriod(toBeProductDTO.getValidPeriod());
 		//toBeProductDTO.getAction()
 		long productId=toBeProductDTO.getProductId();

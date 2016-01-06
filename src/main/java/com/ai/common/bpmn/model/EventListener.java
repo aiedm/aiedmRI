@@ -10,8 +10,9 @@ public class EventListener {
 	private Activity onEventActivity;
 
 	
-	public EventListener() {
-		// TODO Auto-generated constructor stub
+	public EventListener(EventListenerSet eventListenerSet) {
+		this.setEventListenerSet(eventListenerSet);
+		eventListenerSet.addEventListener(this);
 	}
 	public BaseEvent getEvent() {
 		return event;
@@ -58,20 +59,14 @@ public class EventListener {
 	}
 	
 	public String toGroovyString(){
-		StringBuffer sb=new StringBuffer();
-		if (this.getOnEventActivity() instanceof ServiceTask){
-			ServiceTask service=(ServiceTask)this.getOnEventActivity();
-			sb.append("@Autowired\n")
-			.append(service.getPackageName()).append(".").append(service.getServiceType())
-			.append(" ").append(service.toLowerCaseServiceName()).append(";").append("\n");
-		}		
-		sb.append("@EventListener")
-		.append("public void on")
-		.append(this.getEvent().getCode())
-		.append("(").append(this.getEvent().getPackageName()).append(".").append(this.getEvent().getCode())
-		.append(" event").append("){\n")
-		.append(this.getOnEventActivity().toGroovyString())
-		.append("}\n");
+		StringBuffer sb=new StringBuffer();		
+		sb.append("    ").append("@EventListener\n")
+		.append("    ").append("public void on")
+		.append(this.getEvent().getClass().getSimpleName())
+		.append("(").append(this.getEvent().getClass().getName())
+		.append(" event)").append("){\n")
+		.append("    ").append(this.getOnEventActivity().toGroovyString())
+		.append("    ").append("}\n");
 		return sb.toString();
 	}
 

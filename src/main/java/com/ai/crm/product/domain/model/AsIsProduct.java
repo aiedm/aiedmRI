@@ -7,12 +7,14 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="PD_PRODUCT")
 public class AsIsProduct extends Product{
+
 	@OneToMany(mappedBy="product",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	private Set<AsIsProductBarReason> barReasons=new HashSet<AsIsProductBarReason>();
 	@OneToMany(mappedBy="product",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
@@ -57,4 +59,5 @@ public class AsIsProduct extends Product{
 	public Set<AsIsProductPriceRel> getAssignedPrices() {
 		return assignedPrices;
 	}
+	
 }

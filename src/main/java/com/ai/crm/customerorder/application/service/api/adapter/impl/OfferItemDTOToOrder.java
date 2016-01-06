@@ -11,6 +11,8 @@ import com.ai.crm.common.businessinteraction.domain.model.BIICharacter;
 import com.ai.crm.customerorder.application.service.api.adapter.interfaces.IOfferItemDTOToOrder;
 import com.ai.crm.customerorder.application.service.api.adapter.interfaces.IProductItemDTOToOrder;
 import com.ai.crm.customerorder.application.service.api.dto.CharacterInstanceDTO;
+import com.ai.crm.customerorder.application.service.api.dto.CustomerOrderDTO;
+import com.ai.crm.customerorder.application.service.api.dto.NewSubscriberDTO;
 import com.ai.crm.customerorder.application.service.api.dto.OfferOrderItemDTO;
 import com.ai.crm.customerorder.application.service.api.dto.ToBeOfferInstanceDTO;
 import com.ai.crm.customerorder.application.service.api.dto.ToBeOfferInstanceProductDTO;
@@ -20,20 +22,28 @@ import com.ai.crm.customerorder.application.service.api.dto.ToBeProductDTO;
 import com.ai.crm.customerorder.application.service.api.util.CharacteristicDTOTransHelper;
 import com.ai.crm.customerorder.domain.model.CustomerOrder;
 import com.ai.crm.customerorder.domain.model.OfferOrderItem;
+import com.ai.crm.customerorder.domain.model.ToBeNetworkProduct;
 import com.ai.crm.customerorder.domain.model.ToBeOfferInstance;
 import com.ai.crm.customerorder.domain.model.ToBeOfferInstanceCharacter;
 import com.ai.crm.customerorder.domain.model.ToBePricePlanInstance;
 import com.ai.crm.customerorder.domain.model.ToBePricePlanInstanceCharacter;
 import com.ai.crm.customerorder.domain.model.ToBeProduct;
+import com.ai.crm.customerorder.domain.model.ToBeSubscriber;
 import com.ai.crm.product.domain.model.AsIsOfferInstance;
 import com.ai.crm.product.domain.model.AsIsPricePlanInstance;
 import com.ai.crm.product.domain.repository.interfaces.IProductRepository;
+import com.ai.upc.productspecification.domian.model.AccessProductSpecification;
+import com.ai.upc.productspecification.domian.model.NetworkProductSpecification;
+import com.ai.upc.productspecification.domian.model.ProductSpecification;
+import com.ai.upc.productspecification.domian.repository.interfaces.IProductSpecificationRepository;
 @Component
 public class OfferItemDTOToOrder implements IOfferItemDTOToOrder{
 	@Autowired
 	private IProductRepository productRepository;
 	@Autowired
 	private IProductItemDTOToOrder productItemDTOToOrder;
+	@Autowired
+	private IProductSpecificationRepository productSpecificationRepository;
 
 	public OfferItemDTOToOrder() {
 	}
@@ -67,11 +77,33 @@ public class OfferItemDTOToOrder implements IOfferItemDTOToOrder{
 		this.addToBeOfferInstanceCharacter(toBeOfferInstanceDTO, toBeOfferInstance);
 		Set<ToBeOfferInstanceProductDTO> toBeOfferInstanceProductDTOs=toBeOfferInstanceDTO.getProducts();
 		Map<ToBeProductDTO,ToBeProduct> toBeProductMap=new HashMap<>();
+		Map<NewSubscriberDTO,ToBeSubscriber> toBeSubscriberMap=new HashMap<>();
 		if(toBeOfferInstanceProductDTOs.size()>0){
 			for (ToBeOfferInstanceProductDTO toBeOfferInstanceProductDTO : toBeOfferInstanceProductDTOs) {
-				ToBeProduct toBeProduct=productItemDTOToOrder.transferToBeProduct(toBeOfferInstanceProductDTO.getToBeProductDTO());
+				ToBeProductDTO toBeProductDTO=toBeOfferInstanceProductDTO.getToBeProductDTO();
+				long prodSepcificationId=toBeProductDTO.getProductSpecId();
+				ProductSpecification prodSpec=productSpecificationRepository.getProductSpecificationById(prodSepcificationId);
+				ToBeProduct toBeProduct=productItemDTOToOrder.transferToBeProduct(toBeProductDTO);
 				toBeOfferInstance.addProduct(toBeProduct, toBeOfferInstanceProductDTO.getValidPeriod());
 				toBeProductMap.put(toBeOfferInstanceProductDTO.getToBeProductDTO(), toBeProduct);
+				if (null!=toBeProductDTO.getNewSubscriberDTO()){
+					NewSubscriberDTO newSubscriberDTO=toBeProductDTO.getNewSubscriberDTO();
+					ToBeSubscriber subscriber=(ToBeSubscriber)toBeSubscriberMap.get(newSubscriberDTO);
+					if(null==subscriber){
+						subscriber=new ToBeSubscriber();
+						subscriber.setProductLineId(newSubscriberDTO.getProductLineId());
+						subscriber.setAccessNumber(newSubscriberDTO.getAccessNumber());
+						
+					}
+					if(prodSpec instanceof AccessProductSpecification){
+						//same as access product
+						subscriber.setValidPeriod(toBeProduct.getValidPeriod());
+					}
+					//set subscriber
+					((ToBeNetworkProduct)toBeProduct).setSubscriber(subscriber);
+					toBeSubscriberMap.put(newSubscriberDTO, subscriber);
+				}
+				
 			}
 		}
 		Set<ToBePricePlanInstanceDTO> toBePricePlanInstanceDTOs = toBeOfferInstanceDTO.getPricePlanInstances();

@@ -29,7 +29,7 @@ public class ToBeProductCharacter extends ProductCharacter {
 	public void setProduct(ToBeProduct product) {
 		this.product = product;
 	}
-	public Set<ToBeProductCharacterValue> getproductCharacterValues() {
+	public Set<ToBeProductCharacterValue> getProductCharacterValues() {
 		return this.productCharacterValues;
 	}
 

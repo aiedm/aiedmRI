@@ -8,10 +8,10 @@ import javax.persistence.MappedSuperclass;
 import com.ai.common.rootentity.domain.model.SpecInstanceEntity;
 
 @MappedSuperclass
-public abstract class Product extends SpecInstanceEntity{
+public abstract class Subscriber extends SpecInstanceEntity{
 	private long customerId;
-	private long userId;
-	private long productSpecificationId;
+	private long productLineId;
+	private String accessNumber;
 		
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +25,7 @@ public abstract class Product extends SpecInstanceEntity{
 	}	
 
 
-	public Product() {
+	public Subscriber() {
 	}
 	
 	public long getCustomerId() {
@@ -38,23 +38,22 @@ public abstract class Product extends SpecInstanceEntity{
 	}
 
 	
-	public long getUserId() {
-		return userId;
+	public long getProductLineId() {
+		return productLineId;
 	}
 
 	
-	public void setUserId(long userId) {
-		this.userId=userId;
+	public void setProductLineId(long productLineId) {
+		this.productLineId=productLineId;
 	}
 
 	
-	public long getProductSpecificationId() {
-		return productSpecificationId;
+	public String getAccessNumber() {
+		return this.accessNumber;
 	}
 
 	
-	public void setProductSpecificationId(long productSpecificationId) {
-		this.productSpecificationId=productSpecificationId;
+	public void setAccessNumber(String serialNumber) {
+		this.accessNumber=serialNumber;
 	}
-
 }

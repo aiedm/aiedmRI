@@ -7,11 +7,13 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.ai.crm.product.domain.model.AsIsProduct;
+import com.ai.crm.product.domain.model.AsIsSubscriber;
 import com.ai.crm.product.domain.model.Product;
 @Entity
 @Table(name="ORD_TOBE_PRODUCT")

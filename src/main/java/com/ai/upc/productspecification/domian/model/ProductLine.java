@@ -29,19 +29,19 @@ public class ProductLine extends SpecificationEntity{
 	}
 
 	
-	public void setAccessProduct(AttachingProductSpecification accessProductSpec) {
+	public void setAccessProduct(AuxiliaryProductSpecification accessProductSpec) {
 		// TODO Auto-generated method stub
 
 	}
 
 	
-	public Set<AttachingProductSpecification> getAttachingProducts() {
+	public Set<AuxiliaryProductSpecification> getAttachingProducts() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	
-	public void addAttachingProductSpec(AttachingProductSpecification AttachingProductSpec) {
+	public void addAttachingProductSpec(AuxiliaryProductSpecification AttachingProductSpec) {
 		// TODO Auto-generated method stub
 
 	}

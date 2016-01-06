@@ -35,6 +35,7 @@ import com.ai.crm.customerorder.application.service.api.dto.ToBeProductDTO;
 import com.ai.crm.customerorder.domain.event.createorder.CreateOrderRequested;
 import com.ai.crm.customerorder.domain.model.CustomerOrder;
 import com.ai.crm.customerorder.repository.interfaces.ICustomerOrderRepository;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -63,6 +64,7 @@ public class CustomerOrderTests {
 	@Test
 	@Transactional(propagation=Propagation.REQUIRES_NEW)
 	@Rollback(false)
+	@Ignore
 	public void createCustomerOrder() throws Exception{
 		CharacteristicSpec characterSpec1=new CharacteristicSpec();
 		//characterSpec1.setId(1);
@@ -140,10 +142,15 @@ public class CustomerOrderTests {
 	}
 	
 	@Test
-	@Ignore
+	//@Ignore
 	public void getCustomerFromJson() throws Exception{
-		CustomerOrderDTO object=mapper.readValue(new File("D:\\workspace\\springTest\\aiedmRI\\src\\test\\resource\\order.json"), CustomerOrderDTO.class);
-		System.out.println(object.getCustomerOrderCode());
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+		CustomerOrderDTO customerOrderDTO=mapper.readValue(new File("D:\\workspace\\springTest\\aiedmRI\\src\\test\\resource\\order.json"), CustomerOrderDTO.class);
+		CreateOrderRequested eventCreateOrderRequested=new CreateOrderRequested(this);
+		eventCreateOrderRequested.setCustomerOrderDTO(customerOrderDTO);
+		eventPublisher.publishEvent(eventCreateOrderRequested);
+		assertEquals(0,customerOrderDTO.getCustomerId());
 	}
 	
 }

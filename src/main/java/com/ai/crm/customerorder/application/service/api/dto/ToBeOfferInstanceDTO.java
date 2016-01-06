@@ -24,6 +24,7 @@ public class ToBeOfferInstanceDTO {
 	private Set<CharacterInstanceDTO> offerInstanceCharacteristics = new LinkedHashSet<CharacterInstanceDTO>();	
 	private Set<ToBePricePlanInstanceDTO> pricePlanInstances = new LinkedHashSet<ToBePricePlanInstanceDTO>();
 	
+	private Set<NewSubscriberDTO> newSubscribers = new LinkedHashSet<NewSubscriberDTO>();	
 	private Set<ToBeOfferInstanceProductDTO> products = new LinkedHashSet<ToBeOfferInstanceProductDTO>();
 
 	public ToBeOfferInstanceDTO() {
@@ -84,6 +85,16 @@ public class ToBeOfferInstanceDTO {
 			this.products.add(rel);
 		}		
 	}
+	
+	public Set<NewSubscriberDTO> getNewSubscribers() {
+		return newSubscribers;
+	}
+
+	public void addNewSubscriber(NewSubscriberDTO product) {
+		if(null!=product){
+			newSubscribers.add(product);
+		}		
+	}	
 
 	public Set<ToBePricePlanInstanceDTO> getPricePlanInstances() {
 		return pricePlanInstances;

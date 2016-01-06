@@ -14,6 +14,21 @@ import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 			@Type(value = CustomerOrderDTO.class, name = "CustomerOrderDTO")
 })
 public class CustomerOrderDTO {
+	public enum OrderAction {
+		NEW(1),
+		UPDATE(2),
+		DELETE(3),
+		OLD(4);
+		private int value;  
+
+	    private OrderAction(int value){ 
+	        this.value=value; 
+	    } 
+ 
+	    public int getValue(){ 
+	        return value; 
+	    } 
+	}
 	private long customerId;
 	private long customerOrderId;
 	private String customerOrderCode;

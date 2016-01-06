@@ -22,6 +22,7 @@ public class ToBeProductDTO {
 	private long subscriberId;
 	private String serialNo;
 	private int roleId;
+	private NewSubscriberDTO newSubscriberDTO;
 	private Set<CharacterInstanceDTO> productCharacteristics = new LinkedHashSet<CharacterInstanceDTO>();
 	private int action;
 	private TimePeriod validPeriod;
@@ -113,5 +114,17 @@ public class ToBeProductDTO {
 	public void setValidPeriod(TimePeriod validPeriod) {
 		this.validPeriod = validPeriod;
 	}
+
+
+	public NewSubscriberDTO getNewSubscriberDTO() {
+		return newSubscriberDTO;
+	}
+	
+
+
+	public void setNewSubscriberDTO(NewSubscriberDTO toBeSubscriberDTO) {
+		this.newSubscriberDTO = toBeSubscriberDTO;
+	}
+	
 
 }

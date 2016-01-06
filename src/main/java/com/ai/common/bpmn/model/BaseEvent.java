@@ -39,7 +39,6 @@ public abstract class BaseEvent extends ApplicationEvent {
 
 	public BaseEvent(Object source) {
 		super(source);
-		System.out.println("EVENT triggered:"+this);
 	}
 
 	public Set<EventListener> getListeners(){

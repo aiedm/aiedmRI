@@ -18,6 +18,7 @@ public class SpringEventPublisher implements IEventPublisher, ApplicationEventPu
 	}
 
 	public void publishEvent(BaseEvent event) {
+		System.out.println("Event published:"+event.getClass().getName());
 		publisher.publishEvent(event);		
 	}
 	

@@ -2,8 +2,9 @@ package com.ai.common.bpmn.model;
 
 public class ServiceTaskParameter {
 
-	public ServiceTaskParameter(ServiceTask task,BaseEvent fromEvent) {
+	public ServiceTaskParameter(ServiceTask task) {
 		this.setServiceTask(task);
+		task.addParameter(this);
 	}
 	
 	private long id;

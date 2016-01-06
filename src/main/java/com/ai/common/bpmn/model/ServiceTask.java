@@ -18,7 +18,7 @@ public class ServiceTask extends Activity {
 	@Override
 	public String toGroovyString() {
 		StringBuffer sb=new StringBuffer();
-		sb.append(this.toLowerCaseServiceName())
+		sb.append("    ").append(this.toLowerCaseServiceName())
 		.append(".")
 		.append(this.getServiceName())
 		.append("(");
@@ -26,7 +26,7 @@ public class ServiceTask extends Activity {
 		for (ServiceTaskParameter serviceTaskParameter : parameters) {
 			sb.append(" ").append(serviceTaskParameter.getParameter());
 			if (i==parameters.size()-1){
-				sb.append(")");
+				sb.append(");\n");
 			}else{
 				sb.append(",");
 			}
