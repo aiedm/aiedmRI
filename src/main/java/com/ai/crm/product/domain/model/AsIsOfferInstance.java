@@ -33,7 +33,6 @@ public class AsIsOfferInstance extends OfferInstance{
 	public Set<AsIsOfferInstanceProductRel> getProducts() {
 		return includedProducts;
 	}
-
 	
 	public void addProduct(AsIsProduct product,TimePeriod validPeriod) {
 		if (null!=product){

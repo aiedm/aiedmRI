@@ -30,10 +30,10 @@ import com.ai.crm.customerorder.domain.event.createorder.CheckNewOfferOrderReque
 import com.ai.crm.customerorder.domain.event.createorder.CheckNewOfferOrderPassed;
 import com.ai.crm.customerorder.domain.event.createorder.CheckOrderCustomerAvalibityPassed;
 import com.ai.crm.customerorder.domain.event.createorder.CustomerOrderCreated;
-import com.ai.crm.customerorder.domain.event.createorder.NewOfferOrderRequested;
-import com.ai.crm.customerorder.domain.event.createorder.NewOfferOrderCreated;
-import com.ai.crm.customerorder.domain.event.createorder.NewOfferOrderRequested;
-import com.ai.crm.customerorder.domain.event.createorder.NewOfferOrderCreated;
+import com.ai.crm.customerorder.domain.event.createorder.SubscribeOfferOrderRequested;
+import com.ai.crm.customerorder.domain.event.createorder.SubscribeOfferOrderCreated;
+import com.ai.crm.customerorder.domain.event.createorder.SubscribeOfferOrderRequested;
+import com.ai.crm.customerorder.domain.event.createorder.SubscribeOfferOrderCreated;
 import com.ai.crm.customerorder.domain.event.createorder.CreateCustomerOrderFinished;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.databind.DeserializationFeature;

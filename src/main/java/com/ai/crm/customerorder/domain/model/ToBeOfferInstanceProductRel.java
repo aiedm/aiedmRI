@@ -24,6 +24,7 @@ public class ToBeOfferInstanceProductRel extends OfferInstanceProductRel {
 	@JoinColumn(name="PRODUCT_ID")
 	private ToBeProduct product;
 	
+	private int action;
 
 	public ToBeProduct getProduct() {
 		return product;
@@ -48,4 +49,14 @@ public class ToBeOfferInstanceProductRel extends OfferInstanceProductRel {
 	public void setAsIsOfferInstanceProductRel(AsIsOfferInstanceProductRel asIsOfferInstanceProductRel) {
 		this.asIsOfferInstanceProductRel = asIsOfferInstanceProductRel;
 	}
+
+	public int getAction() {
+		return action;
+	}
+	
+
+	public void setAction(int action) {
+		this.action = action;
+	}
+	
 }

@@ -18,6 +18,21 @@ import com.ai.crm.common.businessinteraction.domain.model.BusinessInteractionRel
 //@DiscriminatorValue("1000")
 @Access(AccessType.FIELD) 
 public class CustomerOrder extends BusinessInteraction {
+	public enum OrderAction {
+		NEW(1),
+		UPDATE(2),
+		DELETE(3),
+		OLD(4);
+		private int value;  
+
+	    private OrderAction(int value){ 
+	        this.value=value; 
+	    } 
+ 
+	    public int getValue(){ 
+	        return value; 
+	    } 
+	}	
 	public enum CustomerOrderState {
 		INITIATED(0),
 		CREATED(1),

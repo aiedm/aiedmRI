@@ -12,6 +12,8 @@ public abstract class OfferInstanceProductRel extends InstanceEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
+	private String relType;//CREATE,REFRENCE
+	
 
 	public OfferInstanceProductRel() {
 	}
@@ -23,5 +25,15 @@ public abstract class OfferInstanceProductRel extends InstanceEntity {
 	public void setId(long id) {
 		this.id = id;
 	}
+
+	public String getRelType() {
+		return relType;
+	}
+	
+
+	public void setRelType(String relType) {
+		this.relType = relType;
+	}
+	
 
 }

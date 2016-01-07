@@ -8,9 +8,11 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.ai.common.rootentity.domain.model.SpecInstanceEntityCharacterValue;
+import com.ai.crm.product.domain.model.AsIsOfferInstanceCharacter;
 import com.ai.crm.product.domain.model.OfferInstance;
 import com.ai.crm.product.domain.model.OfferInstanceCharacter;
 @Entity
@@ -20,7 +22,9 @@ public class ToBeOfferInstanceCharacter extends OfferInstanceCharacter {
 	private ToBeOfferInstance offerInstance;
 	@OneToMany(mappedBy="offerInstanceCharacter",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	private Set<ToBeOfferInstanceCharacterValue> offerInstanceCharacterValues=new LinkedHashSet<ToBeOfferInstanceCharacterValue>();
-
+	@OneToOne
+	private AsIsOfferInstanceCharacter asIsOfferInstanceCharacter;
+	
 	public OfferInstance getOfferInstance() {
 		return offerInstance;
 	}
@@ -48,5 +52,13 @@ public class ToBeOfferInstanceCharacter extends OfferInstanceCharacter {
 	@Override
 	public void addInstanceEntityCharacterValue(SpecInstanceEntityCharacterValue characteristicInstanceValue) {
 		this.addOfferInstanceCharacteristicValue((ToBeOfferInstanceCharacterValue)characteristicInstanceValue);		
-	}	
+	}
+	public AsIsOfferInstanceCharacter getAsIsOfferInstanceCharacter() {
+		return asIsOfferInstanceCharacter;
+	}
+	
+	public void setAsIsOfferInstanceCharacter(AsIsOfferInstanceCharacter asIsOfferInstanceCharacter) {
+		this.asIsOfferInstanceCharacter = asIsOfferInstanceCharacter;
+	}
+		
 }

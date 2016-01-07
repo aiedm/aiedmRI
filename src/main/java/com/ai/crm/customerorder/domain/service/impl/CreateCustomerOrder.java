@@ -12,10 +12,10 @@ import com.ai.crm.customerorder.application.service.api.dto.CustomerOrderDTO;
 import com.ai.crm.customerorder.domain.event.createorder.CheckOrderCustomerAvalibityPassed;
 import com.ai.crm.customerorder.domain.event.createorder.CreateCustomerOrderFinished;
 import com.ai.crm.customerorder.domain.event.createorder.CustomerOrderCreated;
-import com.ai.crm.customerorder.domain.event.createorder.NewOfferOrderCreated;
-import com.ai.crm.customerorder.domain.event.createorder.NewOfferOrderRequested;
-import com.ai.crm.customerorder.domain.event.createorder.NewProductOrderCreated;
-import com.ai.crm.customerorder.domain.event.createorder.NewProductOrderRequested;
+import com.ai.crm.customerorder.domain.event.createorder.SubscribeOfferOrderRequested;
+import com.ai.crm.customerorder.domain.event.createorder.SubscribeProductOrderRequested;
+import com.ai.crm.customerorder.domain.event.createorder.UnSubscribeOfferOrderRequested;
+import com.ai.crm.customerorder.domain.event.createorder.UnSubscribeProductOrderRequested;
 import com.ai.crm.customerorder.domain.model.CustomerOrder;
 import com.ai.crm.customerorder.domain.model.OfferOrderItem;
 import com.ai.crm.customerorder.domain.model.ProductOrderItem;
@@ -36,6 +36,7 @@ public class CreateCustomerOrder implements ICreateCustomerOrder {
 	@Autowired
 	private ICustomerOrderRepository customerOrderRepository;
 	
+	@Override
 	public void createCustomerOrder(CheckOrderCustomerAvalibityPassed event)  throws Exception{
 		CustomerOrderDTO customerOrderDTO=event.getCustomerOrderDTO();
 		CustomerOrder customerOrder=orderDTOTransfer.transformNewDTO2Order(customerOrderDTO);
@@ -49,24 +50,8 @@ public class CreateCustomerOrder implements ICreateCustomerOrder {
 		customerOrderDTO.setCustomerOrderId(customerOrder.getCustomerOrderId());
 		customerOrderDTO.setCustomerOrderCode(customerOrder.getCustomerOrderCode());		
 	}
-
-	public void createNewOfferOrder(OfferOrderItem offerOrder)  throws Exception{
-		offerOrder.setOfferOrderState(OfferOrderItem.OfferOrderState.CREATED.getValue());
-		NewOfferOrderCreated event=new NewOfferOrderCreated(this);
-		event.setOfferOrder(offerOrder);
-		eventPublisher.publishEvent(event);
-	}
 	
-
-	public void createNewProductOrder(ProductOrderItem productOrder)  throws Exception{
-		productOrder.setProductOrderState(ProductOrderItem.ProductOrderState.CREATED.getValue());
-		//deal with subscriber
-		
-		NewProductOrderCreated event=new NewProductOrderCreated(this);
-		event.setProductOrder(productOrder);
-		eventPublisher.publishEvent(event);
-	}
-	
+	@Override
 	public void distributeOrderItemCreate(CustomerOrder customerOrder)  throws Exception{
 		//OfferOrderItem
 		Set<OfferOrderItem> offerOrders=customerOrder.getOfferOrders();
@@ -75,13 +60,17 @@ public class CreateCustomerOrder implements ICreateCustomerOrder {
 				offerOrder.setCustomerOrder(customerOrder);
 			}
 			long biiSpecId=offerOrder.getBusinessInteractionItemSpecId();
-			//TODO replace with real newConnectionID
+			//BusinessInteractionItemSpec biiSpec=
+			//TODO replace with real newConnectionCode
 			if(biiSpecId==1001){
-				NewOfferOrderRequested event=new NewOfferOrderRequested(this);
+				SubscribeOfferOrderRequested event=new SubscribeOfferOrderRequested(this);
 				event.setOfferOrder(offerOrder);
 				eventPublisher.publishEvent(event);
 			}else if (biiSpecId==1002){
 				//unsubscriber
+				UnSubscribeOfferOrderRequested event=new UnSubscribeOfferOrderRequested(this);
+				event.setOfferOrder(offerOrder);
+				eventPublisher.publishEvent(event);
 			}else if (biiSpecId==1003){
 				//modify 
 			}else if (biiSpecId==1004){
@@ -96,17 +85,21 @@ public class CreateCustomerOrder implements ICreateCustomerOrder {
 			long biiSpecId=productOrder.getBusinessInteractionItemSpecId();
 			//TODO replace with real newConnectionID
 			if(biiSpecId==2001){
-				NewProductOrderRequested event=new NewProductOrderRequested(this);
+				SubscribeProductOrderRequested event=new SubscribeProductOrderRequested(this);
 				event.setProductOrder(productOrder);
 				eventPublisher.publishEvent(event);
 			}else if (biiSpecId==2002){
 				//unsubscriber
+				UnSubscribeProductOrderRequested event=new UnSubscribeProductOrderRequested(this);
+				event.setProductOrder(productOrder);
+				eventPublisher.publishEvent(event);
 			}else if (biiSpecId==2003){
 				//modify
 			}
 		}		
 	}
 	
+	@Override
 	public boolean isCustomerOrderCreateFinishedOfLastOfferOrder(OfferOrderItem offerOrder)  throws Exception{
 		boolean isCustomerOrderCreateFinished=true;
 		//if this offerOrder is the Last OrderLine of Finished
@@ -136,6 +129,7 @@ public class CreateCustomerOrder implements ICreateCustomerOrder {
 		return isCustomerOrderCreateFinished;
 	}
 	
+	@Override
 	public boolean isCustomerOrderCreateFinishedOfLastProductOrder(ProductOrderItem productOrder)  throws Exception{
 		boolean isCustomerOrderCreateFinished=true;
 		//if this productOrder is the Last OrderLine of Finished

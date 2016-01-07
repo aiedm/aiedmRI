@@ -9,8 +9,6 @@ import com.ai.crm.customerorder.domain.model.ProductOrderItem;
 public interface ICreateCustomerOrder {
 	void createCustomerOrder(CheckOrderCustomerAvalibityPassed event) throws Exception;
 	void createCustomerOrder(CustomerOrder customerOrder,long shoppingCartId) throws Exception;
-	void createNewOfferOrder(OfferOrderItem offerOrder) throws Exception;
-	void createNewProductOrder(ProductOrderItem productOrder) throws Exception;
 	void distributeOrderItemCreate(CustomerOrder customerOrder) throws Exception;
 	boolean isCustomerOrderCreateFinishedOfLastOfferOrder(OfferOrderItem offerOrder) throws Exception;
 	boolean isCustomerOrderCreateFinishedOfLastProductOrder(ProductOrderItem productOrder) throws Exception;

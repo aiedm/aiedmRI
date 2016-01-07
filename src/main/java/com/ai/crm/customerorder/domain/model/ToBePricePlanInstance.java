@@ -23,6 +23,8 @@ public class ToBePricePlanInstance extends PricePlanInstance{
 	@ManyToOne
 	private ToBeOfferInstance offerInstance;
 	
+	private int action;
+	
 	@OneToMany(mappedBy="price",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	private Set<ToBeProductPriceRel> assignedTo=new LinkedHashSet<ToBeProductPriceRel>();
 	
@@ -56,6 +58,16 @@ public class ToBePricePlanInstance extends PricePlanInstance{
 	public Set<ToBeProductPriceRel> getAssignedTo() {
 		return assignedTo;
 	}
+	
+	public void addProductPriceRel(ToBeProductPriceRel productPriceRel){
+		if (null!=productPriceRel){
+			assignedTo.add(productPriceRel);
+			if (null==productPriceRel.getPricePlanInstance()){
+				productPriceRel.setPricePlanInstance(this);
+			}
+		}
+	}
+	
 	
 	public void assignTo(ToBeProduct product,TimePeriod validPeriod) {
 		if(null!=product){
@@ -96,4 +108,14 @@ public class ToBePricePlanInstance extends PricePlanInstance{
 	public void setAsIsPricePlanInstance(AsIsPricePlanInstance asIsPricePlanInstance) {
 		this.asIsPricePlanInstance = asIsPricePlanInstance;
 	}
+
+	public int getAction() {
+		return action;
+	}
+	
+
+	public void setAction(int action) {
+		this.action = action;
+	}
+	
 }

@@ -17,17 +17,17 @@ public class CheckCreateCustomerOrderListener{
 	@Autowired
 	private ICheckCustomerOrder checkCustomerOrder;
 
-	//@EventListener
+	@EventListener
 	public void onCreateOrderRequestedEvent(CreateOrderRequested event)  throws Exception{
 		checkCustomerOrder.checkCreateOrderRequest(event);		
 	}
 
-	//@EventListener
+	@EventListener
 	public void onCreateNewOfferOrderRequestedEvent(CheckNewOfferOrderRequested event)  throws Exception{
 		checkCustomerOrder.checkCreateNewOfferOrderRequest(event);
 	}
 
-	//@EventListener
+	@EventListener
 	public void onCreateNewProductOrderRequestedEvent(CheckNewProductOrderRequested event)  throws Exception{
 		checkCustomerOrder.checkCreateNewProductOrderRequest(event);
 	}

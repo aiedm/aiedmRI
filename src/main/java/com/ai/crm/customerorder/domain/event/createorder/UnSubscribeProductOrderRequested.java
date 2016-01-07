@@ -3,7 +3,7 @@ package com.ai.crm.customerorder.domain.event.createorder;
 import com.ai.common.bpmn.model.BaseEvent;
 import com.ai.crm.customerorder.domain.model.ProductOrderItem;
 
-public class NewProductOrderRequested extends BaseEvent {
+public class UnSubscribeProductOrderRequested extends BaseEvent {
 	private ProductOrderItem productOrder;
 	public ProductOrderItem getProductOrder() {
 		return productOrder;
@@ -11,7 +11,7 @@ public class NewProductOrderRequested extends BaseEvent {
 	public void setProductOrder(ProductOrderItem productOrder) {
 		this.productOrder = productOrder;
 	}
-	public NewProductOrderRequested(Object source) {
+	public UnSubscribeProductOrderRequested(Object source) {
 		super(source);
 		// TODO Auto-generated constructor stub
 	}

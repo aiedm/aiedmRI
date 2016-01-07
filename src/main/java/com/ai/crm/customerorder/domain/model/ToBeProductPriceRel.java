@@ -22,6 +22,8 @@ public class ToBeProductPriceRel extends ProductPriceRel{
 	
 	@ManyToOne
 	private ToBePricePlanInstance price;
+	
+	private int action;
 	public ToBeProduct getProduct() {
 		return this.product;
 	}
@@ -51,6 +53,18 @@ public class ToBeProductPriceRel extends ProductPriceRel{
 	public void setAsIsProductPriceRel(AsIsProductPriceRel productPriceRel) {
 		this.asIsProductPriceRel=productPriceRel;
 	}
+
+
+	public int getAction() {
+		return action;
+	}
+	
+
+
+	public void setAction(int action) {
+		this.action = action;
+	}
+	
 
 
 }

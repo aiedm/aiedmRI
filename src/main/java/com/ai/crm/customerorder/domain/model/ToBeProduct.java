@@ -30,6 +30,8 @@ public class ToBeProduct extends Product{
 	@OneToMany(mappedBy="product",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	private Set<ToBeProductCharacter> characterInstances=new LinkedHashSet<ToBeProductCharacter>();
 	
+	private int action;
+	
 	public  Set<ToBeProductCharacter> getProductCharacters(){
 		return this.characterInstances;
 	}
@@ -78,5 +80,15 @@ public class ToBeProduct extends Product{
 	public void setAsIsProduct(AsIsProduct product) {
 		this.asIsProduct=product;
 	}
+
+	public int getAction() {
+		return action;
+	}
+	
+
+	public void setAction(int action) {
+		this.action = action;
+	}
+	
 
 }

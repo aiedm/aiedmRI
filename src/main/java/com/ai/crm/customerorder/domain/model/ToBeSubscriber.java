@@ -17,7 +17,7 @@ public class ToBeSubscriber extends Subscriber{
 	@OneToMany(mappedBy="subscriber",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	private Set<ToBeNetworkProduct> products=new HashSet<ToBeNetworkProduct>();
 
-	
+	private int action;
 	public Set<ToBeNetworkProduct> getProducts() {
 		return products;
 	}
@@ -32,4 +32,16 @@ public class ToBeSubscriber extends Subscriber{
 		}
 
 	}
+
+
+	public int getAction() {
+		return action;
+	}
+	
+
+
+	public void setAction(int action) {
+		this.action = action;
+	}
+	
 }

@@ -12,12 +12,15 @@ import javax.persistence.Table;
 
 import com.ai.common.basetype.TimePeriod;
 import com.ai.crm.product.domain.model.AsIsOfferInstance;
+import com.ai.crm.product.domain.model.AsIsOfferInstanceProductRel;
 import com.ai.crm.product.domain.model.OfferInstance;
 @Entity
 @Table(name="ORD_TOBE_OFFER_INS")
 public class ToBeOfferInstance extends OfferInstance{
 	@OneToOne
 	private AsIsOfferInstance asIsOfferInstance;
+	
+	private int action;
 	
 	@OneToMany(mappedBy="offerInstance",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	private Set<ToBeOfferInstanceProductRel> includedProducts=new LinkedHashSet<ToBeOfferInstanceProductRel>();
@@ -42,6 +45,16 @@ public class ToBeOfferInstance extends OfferInstance{
 		return includedProducts;
 	}
 
+	
+	public void addProductRel(ToBeOfferInstanceProductRel productRel){
+		if (null!=productRel){
+			includedProducts.add(productRel);
+			if (null==productRel.getOfferInstance()){
+				productRel.setOfferInstance(this);
+			}
+		}
+		
+	}
 	
 	public void addProduct(ToBeProduct product,TimePeriod validPeriod) {
 		if (null!=product){
@@ -97,5 +110,15 @@ public class ToBeOfferInstance extends OfferInstance{
 	public void setAsIsOfferInstance(AsIsOfferInstance offerInstance) {
 		this.asIsOfferInstance=offerInstance;
 	}
+
+	public int getAction() {
+		return action;
+	}
+	
+
+	public void setAction(int action) {
+		this.action = action;
+	}
+	
 
 }

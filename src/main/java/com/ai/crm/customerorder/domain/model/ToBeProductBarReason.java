@@ -10,6 +10,8 @@ import com.ai.crm.product.domain.model.ProductBarReason;
 public class ToBeProductBarReason extends ProductBarReason {
 	@ManyToOne
 	private ToBeProduct product;
+	
+	private int action;
 	public ToBeProduct getProduct() {
 		return this.product;
 	}
@@ -18,4 +20,16 @@ public class ToBeProductBarReason extends ProductBarReason {
 	public void setProduct(ToBeProduct product) {
 		this.product=product;
 	}
+
+
+	public int getAction() {
+		return action;
+	}
+	
+
+
+	public void setAction(int action) {
+		this.action = action;
+	}
+	
 }
